@@ -10,63 +10,54 @@ aff_js = json.dumps(AFFILIATES)
 # ---------------------------------------------------------
 home_body = f"""
 <section class="hero">
-  <span class="eyebrow">Verified Contract &amp; Pricing Database · Updated Oct 25, 2026</span>
-  <h1>SaaS True-Cost &amp; Contract Trap Directory (2026): Calculate Hidden Onboarding Fees, Seat Minimums &amp; AI Taxes</h1>
-  <p class="lead">Vendor pricing pages advertise low per-seat teaser rates while hiding $1,500–$7,000 mandatory onboarding fees, 3-seat bucket minimums, $0.99 per-resolution AI meters, and 12-month auto-renewal lock-ins.</p>
-  <div class="geo-direct-answer" aria-label="Direct Answer Summary">
-    <span class="geo-label">Direct Answer / TL;DR (Verified Oct 25, 2026)</span>
-    <p><strong>What is the real Year-1 cost of B2B SaaS in 2026?</strong> Across 15 audited B2B platforms, mandatory onboarding fees ($1,500–$7,000 on HubSpot Pro/Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom) increase actual Year-1 spend by <strong>28% to 310% above advertised per-seat rates</strong>. Formula: <code>Year-1 True Cost = (Effective Seat Count × Monthly Rate × 12) + Mandatory Onboarding Fee + (Monthly AI Resolutions × Per-Resolution Rate × 12)</code>.</p>
-  </div>
-  <div class="meta-bar">
-    <span>✓ 15 Audited B2B Platforms</span>
-    <span>✓ Real-Time Year-1 Cost Engine</span>
-    <span>✓ Verified X &amp; Reddit Contract Evidence (Oct 2026)</span>
+  <h1>Your SaaS bill is lying to you.</h1>
+  <p class="lead">Software pricing pages show you the teaser rate. They leave out the $1,500–$7,000 mandatory onboarding fee, the 3-seat minimum bucket, the $0.99 per-resolution AI meter, and the 12-month auto-renewal clause buried in the order form. Use the calculators and contract audits below to see what you will actually pay in Year 1 before you sign.</p>
+  <div class="geo-direct-answer">
+    <p><strong>The short version:</strong> Across the 18 B2B software and payment platforms audited in our 2026 database, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50–$2.00 per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
   </div>
 </section>
 
 <section class="calc-box" aria-labelledby="calc-heading">
-  <h2 id="calc-heading" style="margin-top:0;">Interactive Year-1 True-Cost Calculator (2026)</h2>
-  <div class="section-tldr">
-    <strong>Answer First:</strong> For a 5-seat sales or support team, switching from high-onboarding or per-resolution vendors to zero-onboarding, 1-seat-minimum platforms (Close CRM, Pipedrive, Freshdesk) saves between <strong>$1,500 and $18,400 in Year 1</strong>.
-  </div>
+  <h2 id="calc-heading" style="margin-top:0;">Compare real first-year costs across 18 platforms</h2>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Select your software category, team size, and monthly AI ticket volume. For a five-person sales or support team, switching from high-onboarding or per-resolution vendors to zero-onboarding platforms (Close CRM, Pipedrive, Freshdesk, Help Scout) typically saves <strong>$1,500 to $18,400 in Year 1</strong>.</p>
   <div class="calc-grid">
     <div class="control-group">
-      <label for="cat-filter">Software Category</label>
+      <label for="cat-filter">Category</label>
       <select id="cat-filter">
-        <option value="ALL">All Audited Categories</option>
-        <option value="CRM & Sales">CRM &amp; Sales Hubs</option>
+        <option value="ALL">All audited categories</option>
+        <option value="CRM & Sales">CRM &amp; Sales</option>
         <option value="Helpdesk & AI Support">Helpdesk &amp; AI Support</option>
         <option value="Payment Processors & MoR">Payment Processors &amp; MoR</option>
         <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA BAA &amp; SOC 2</option>
       </select>
     </div>
     <div class="control-group">
-      <label for="seat-slider">Team Size (Active Seats): <span class="val-pill" id="seat-val">5</span> seats</label>
+      <label for="seat-slider">Team size: <span class="val-pill" id="seat-val">5</span> seats</label>
       <input type="range" id="seat-slider" min="1" max="50" value="5" />
     </div>
     <div class="control-group">
-      <label for="ai-slider">Monthly AI Resolved Tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
+      <label for="ai-slider">Monthly AI-resolved tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
       <input type="range" id="ai-slider" min="0" max="5000" step="100" value="500" />
     </div>
     <div class="control-group">
-      <label for="billing-mode">Contract Preference</label>
+      <label for="billing-mode">Billing term</label>
       <select id="billing-mode">
-        <option value="annual">Annual Billing (Lowest Rate)</option>
-        <option value="monthly">Monthly Billing (Flexibility Check)</option>
+        <option value="annual">Annual commitment (lowest rate)</option>
+        <option value="monthly">Month-to-month billing</option>
       </select>
     </div>
   </div>
   <div class="table-wrap">
     <table>
-      <caption>2026 B2B SaaS Year-1 True-Cost Comparison Matrix (USD, Verified Oct 25, 2026)</caption>
+      <caption>2026 B2B Software Year-1 True-Cost Comparison (USD, checked Oct 25, 2026)</caption>
       <thead>
         <tr>
-          <th>Software / Vendor</th>
-          <th>Advertised Rate (USD)</th>
-          <th>Mandatory Onboarding (USD)</th>
-          <th>Contract Trap / Fine Print (Verified Oct 2026)</th>
-          <th>Calculated Year-1 Total (USD)</th>
-          <th>Action / Audit</th>
+          <th>Platform</th>
+          <th>Advertised Rate</th>
+          <th>Mandatory Onboarding</th>
+          <th>Contract Fine Print</th>
+          <th>Year-1 Total (USD)</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody id="calc-tbody"></tbody>
@@ -75,52 +66,49 @@ home_body = f"""
 </section>
 
 <section>
-  <h2>Key Takeaways &amp; Verified 2026 Break-Even Benchmarks</h2>
-  <div class="section-tldr">
-    <strong>Summary of Findings:</strong> Always verify four contract clauses before signing any B2B SaaS order form: (1) Mandatory onboarding fees, (2) Seat-bucket minimums, (3) Outcome/resolution AI meters, and (4) Cancellation notice windows (30–60 days prior to annual auto-renewal).
-  </div>
+  <h2>What we found reading the fine print</h2>
+  <p class="section-tldr">Before signing an annual SaaS order form, check four clauses that rarely appear on the public pricing grid: mandatory onboarding fees, seat-bucket minimums, uncapped AI resolution meters, and 30-to-60 day non-renewal notice deadlines.</p>
   <ul class="key-list">
-    <li><strong>HubSpot Onboarding Fee Impact:</strong> HubSpot Sales Hub Pro ($90/seat/mo annual) adds a mandatory <strong>$1,500 onboarding fee</strong> ($3,500 on Enterprise), bringing 5 seats to <strong>$6,900 in Year 1</strong> vs. <strong>$2,940/yr</strong> on Pipedrive or Close CRM ($0 onboarding).</li>
-    <li><strong>Intercom Fin AI $0.99/Resolution Meter:</strong> At 3,000 monthly tickets with a 50% AI resolution rate (1,500 resolutions/mo), Intercom Fin adds <strong>$1,485/mo ($17,820/yr)</strong> on top of agent seat licenses ($29–$132/seat/mo).</li>
-    <li><strong>monday CRM 3-Seat Minimum:</strong> A solo founder (1 user) on monday CRM Standard ($17/seat/mo) is billed for 3 seats (<strong>$51/mo or $612/yr</strong>), whereas Pipedrive Essential bills 1 seat at <strong>$14/mo ($168/yr)</strong>. Break-even occurs at exactly <strong>3 active users</strong>.</li>
-    <li><strong>Payment Processor &amp; MoR Token Lock-In:</strong> Stripe and Shopify Payments can hold funds for <strong>120–180 days</strong> or impose a <strong>25% rolling reserve</strong> on risk flags, while Merchant of Record platforms (Paddle, 5% + $0.50) own subscriber card tokens and cannot export them if your account is terminated.</li>
-    <li><strong>Zendesk AI Automated Resolutions:</strong> Zendesk Suite Professional ($115/agent/mo annual) includes 10 automated resolutions per agent/month; beyond that each verified AI resolution costs <strong>$1.50 committed or $2.00 pay-as-you-go</strong>. 10 agents with 2,000 verified AI resolutions/mo pay roughly <strong>$3,800/mo in overage</strong> on top of $1,150 in seats (verified Oct 25, 2026).</li>
-    <li><strong>HIPAA BAA &amp; SOC 2 Negotiation:</strong> Jotform unlocks a signed HIPAA BAA on its self-serve Gold plan (<strong>$99/mo annual</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/mo</strong> with zero SSO tax. Vanta and Drata initial quotes ($9k–$15k+/yr) can be negotiated down by <strong>30%–50%</strong> (<code>r/sysadmin</code>, Mar 2026), excluding the separate $6,500+ CPA auditor fee.</li>
+    <li><strong>HubSpot’s onboarding fee adds 28% to a 5-seat Sales Pro deal:</strong> HubSpot Sales Hub Professional ($90/seat/month billed annually) requires a mandatory <strong>$1,500 onboarding fee</strong> ($3,500 on Enterprise), bringing five seats to <strong>$6,900 in Year 1</strong> compared with <strong>$2,940/year</strong> on Pipedrive Professional ($0 onboarding).</li>
+    <li><strong>Intercom and Zendesk AI meters can exceed your seat bill:</strong> At 3,000 monthly support conversations with 50% AI resolution (1,500 resolutions/month), Intercom Fin ($0.99/resolution) adds <strong>$1,485/month ($17,820/year)</strong> on top of agent seats. Zendesk Suite includes only 5–10 automated resolutions per agent/month before charging <strong>$1.50 committed or $2.00 pay-as-you-go</strong> per verified resolution.</li>
+    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Standard ($17/seat/month) must pay for three seats (<strong>$51/month or $612/year</strong>), whereas Pipedrive Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
+    <li><strong>Merchant of Record platforms own your card vault:</strong> Stripe and Shopify Payments can hold payouts for <strong>120–180 days</strong> or apply a <strong>25% rolling reserve</strong> on risk flags, but you own the customer relationship. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the seller of record—if Paddle terminates your account on a risk review, you cannot export subscriber card tokens.</li>
+    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/month</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
   </ul>
 </section>
 
-<section>
-  <h2>Deep-Dive Contract Audits &amp; Survival Guides</h2>
+<section id="all-calculators">
+  <h2>All calculators &amp; contract audits</h2>
   <div class="card-grid">
     <div class="card">
-      <span class="badge badge-high">$1,500–$7,000 Onboarding Fee</span>
-      <h3 style="margin-top:12px;"><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">1. HubSpot Pricing &amp; Contract Traps (2026)</a></h3>
-      <p>Why HubSpot Sales Pro ($90/seat) and Marketing Pro ($800/mo) require mandatory $1,500–$3,000 onboarding fees, how monthly billing still locks you into an annual auto-renewal, and how Close CRM &amp; Pipedrive compare.</p>
+      <span class="badge badge-high">CRM &amp; Sales &middot; $1,500–$7,000 Onboarding</span>
+      <h3><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">What HubSpot actually costs in Year 1 (once you add onboarding)</a></h3>
+      <p>How HubSpot’s mandatory $1,500–$7,000 onboarding fees and 12-month auto-renewing contracts work in practice, plus how Close CRM and Pipedrive compare for 1 to 30 reps.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">$0.99 / Resolution Meter</span>
-      <h3 style="margin-top:12px;"><a href="./pricing/intercom-fin-ai-resolution-cost-calculator/">2. Intercom Fin AI Resolution Tax Calculator</a></h3>
-      <p>Model how Intercom's $0.99 per Fin AI resolution and $9.99 sales qualification fees scale your monthly support bill compared to predictable helpdesks like Freshdesk.</p>
+      <span class="badge badge-medium">CRM &amp; Sales &middot; 3-Seat Minimum Math</span>
+      <h3><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">Why a "$12/seat" CRM costs $36 a month for a solo founder</a></h3>
+      <p>monday CRM bills in fixed buckets of 3, 5, 10, and 15 seats. Run the 1-to-15 user calculator to see where Pipedrive wins and where monday CRM takes the lead.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">180-Day Payout Hold &amp; MoR Lock</span>
-      <h3 style="margin-top:12px;"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">3. Stripe, Shopify Payments &amp; Paddle Payout Holds</a></h3>
-      <p>What happens when Stripe slaps a 25% reserve or Paddle terminates your Merchant of Record account (locking your subscriber card tokens), plus Whop &amp; Chargeflow failover setups.</p>
+      <span class="badge badge-high">Helpdesk &amp; AI &middot; $0.99 / Resolution</span>
+      <h3><a href="./pricing/intercom-fin-ai-resolution-cost-calculator/">What Intercom’s $0.99 AI resolution fee does to your support bill</a></h3>
+      <p>Model how Intercom’s $0.99 Fin AI outcome meter and $9.99 sales qualification charge scale your monthly invoice compared with Freshdesk.</p>
     </div>
     <div class="card">
-      <span class="badge badge-medium">3-Seat Minimum Bucket Math</span>
-      <h3 style="margin-top:12px;"><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">4. Monday CRM vs. Pipedrive vs. HubSpot (1–3 Users)</a></h3>
-      <p>See why monday CRM's 3-seat minimum makes it 3x the advertised price for solo founders, and the exact seat count where monday CRM beats Pipedrive and HubSpot.</p>
+      <span class="badge badge-high">Helpdesk &amp; AI &middot; $1.50–$2.00 / Resolution</span>
+      <h3><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">What Zendesk’s $1.50–$2.00 AI resolution fee adds to your invoice</a></h3>
+      <p>Zendesk Suite includes only 5–10 automated resolutions per agent each month, and $2.00 pay-as-you-go overage is enabled by default. Compare against Freshdesk and Help Scout.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">HIPAA BAA &amp; 50% SOC 2 Discount</span>
-      <h3 style="margin-top:12px;"><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">5. HIPAA BAA &amp; SOC 2 SaaS Tier Matrix</a></h3>
-      <p>Which SaaS tiers sign a HIPAA BAA without a $50k Enterprise contract (e.g., Jotform Gold at $99/mo) and how to negotiate 50% off Vanta &amp; Drata + external CPA auditor fees.</p>
+      <span class="badge badge-high">Payments &amp; MoR &middot; 180-Day Holds</span>
+      <h3><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">What happens when Stripe, Shopify, or Paddle freezes your payouts</a></h3>
+      <p>Simulate a 25% rolling reserve plus capital loan deduction, check card-token portability between processors and Merchants of Record, and set up Whop + Chargeflow failover.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">$1.50–$2.00 / AI Resolution</span>
-      <h3 style="margin-top:12px;"><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">6. Zendesk AI Outcome Pricing Calculator</a></h3>
-      <p>Zendesk Suite ($55–$115/agent) includes only 5–10 automated resolutions per agent/month; every verified AI resolution beyond that costs $1.50 (committed) or $2.00 (pay-as-you-go, overage ON by default). Compare against Freshdesk ($49/100 AI sessions) and Help Scout ($0.75/resolution).</p>
+      <span class="badge badge-low">Compliance &middot; HIPAA BAA &amp; SOC 2</span>
+      <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">Which software plans actually sign a HIPAA BAA (and what SOC 2 costs)</a></h3>
+      <p>Find self-serve HIPAA BAA and SAML SSO tiers (Jotform Gold, 1Password Business) and calculate negotiated Vanta/Drata platform costs plus external CPA auditor fees.</p>
     </div>
   </div>
 </section>
@@ -136,6 +124,7 @@ function calcEffectiveSeats(tool, seats) {{
     if (seats <= 10) return 10;
     return Math.ceil(seats / 5) * 5;
   }}
+  if (tool.id === 'helpscout-support' && seats > 50) return Math.max(seats, 10);
   return Math.max(seats, tool.seat_minimum || 1);
 }}
 
@@ -159,7 +148,14 @@ function renderDirectory() {{
     }} else {{
       monthlySoftware = effSeats * unitRate;
     }}
-    const aiMonthly = (t.ai_per_resolution_usd || 0) * aiVol;
+    let aiMonthly = (t.ai_per_resolution_usd || 0) * aiVol;
+    if (t.id === 'zendesk-suite-team') {{
+      const incl = Math.min(seats * 5, 833);
+      aiMonthly = Math.max(0, aiVol - incl) * (t.ai_per_resolution_usd || 1.5);
+    }} else if (t.id === 'zendesk-suite-pro') {{
+      const incl = Math.min(seats * 10, 833);
+      aiMonthly = Math.max(0, aiVol - incl) * (t.ai_per_resolution_usd || 1.5);
+    }}
     const year1Total = Math.round((monthlySoftware + aiMonthly) * 12 + (t.mandatory_onboarding_fee_usd || 0));
     return {{ tool: t, effSeats, unitRate, year1Total }};
   }});
@@ -168,16 +164,16 @@ function renderDirectory() {{
     const t = r.tool;
     const aff = AFFILIATES[t.affiliate_slug] || {{ destination_url: '#' }};
     const badgeClass = t.trap_severity === 'high' ? 'badge-high' : (t.trap_severity === 'medium' ? 'badge-medium' : 'badge-low');
-    const rateText = t.transaction_fee_display ? t.transaction_fee_display : `$${{r.unitRate}}/mo (eff. ${{r.effSeats}} seats)`;
-    const totalText = t.category === 'Payment Processors & MoR' ? 'Usage / Take-Rate' : `$${{r.year1Total.toLocaleString()}} / yr`;
+    const rateText = t.transaction_fee_display ? t.transaction_fee_display : `$${{r.unitRate}}/mo (${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}})`;
+    const totalText = t.category === 'Payment Processors & MoR' ? 'Per-transaction' : `$${{r.year1Total.toLocaleString()}} / yr`;
     return `
       <tr>
-        <td><strong>${{t.name}}</strong><div style="font-size:0.78rem; color:var(--muted);">${{t.category}} · Verified ${{t.verified_date}}</div></td>
+        <td><strong>${{t.name}}</strong><div style="font-size:0.78rem; color:var(--muted);">${{t.category}}</div></td>
         <td style="font-family:var(--mono);">${{rateText}}</td>
         <td style="font-family:var(--mono);">${{t.mandatory_onboarding_fee_usd > 0 ? '$' + t.mandatory_onboarding_fee_usd.toLocaleString() : '$0'}}</td>
         <td><span class="badge ${{badgeClass}}">${{t.trap_badge}}</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">${{t.billing_lock_in_type}}</div></td>
         <td class="price-highlight">${{totalText}}</td>
-        <td><a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="nofollow sponsored">Verify Plan &rarr;</a></td>
+        <td><a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="nofollow sponsored">Check pricing &rarr;</a></td>
       </tr>
     `;
   }}).join('');
@@ -204,10 +200,10 @@ render_page(
     extra_schema={
         "@type": "Dataset",
         "name": "SaaSTruth 2026 B2B SaaS True-Cost & Contract Trap Dataset",
-        "description": "Verified 2026 pricing, mandatory onboarding fees, seat-bucket minimums, AI resolution rates, and payout reserve rules across 15 B2B SaaS and payment platforms.",
+        "description": "Verified 2026 pricing, mandatory onboarding fees, seat-bucket minimums, AI resolution rates, and payout reserve rules across 18 B2B SaaS and payment platforms.",
         "url": f"{SITE_ORIGIN}/",
         "dateModified": "2026-10-25",
-        "creator": {"@type": "Organization", "name": "SaaSTruth"}
+        "creator": {"@type": "Organization", "name": "SaaSTruth Editorial"}
     }
 )
 
@@ -216,46 +212,62 @@ render_page(
 # ---------------------------------------------------------
 p1_body = """
 <section class="hero">
-  <span class="eyebrow">Contract &amp; Pricing Audit · Verified Oct 25, 2026</span>
-  <h1>HubSpot Pricing &amp; Contract Traps (2026): Mandatory Onboarding Fees ($1,500–$7,000), Auto-Renewal Rules &amp; True Year-1 Cost</h1>
-  <p class="lead">HubSpot's pricing page highlights $90/seat/month for Sales Hub Professional and $800/month for Marketing Hub Professional. What catches buyers off guard is the mandatory $1,500 to $7,000 onboarding fee and the annual commitment lock-in—even when paying monthly.</p>
-  <div class="geo-direct-answer" aria-label="Direct Answer Summary">
-    <span class="geo-label">Direct Answer / TL;DR (Verified Oct 25, 2026)</span>
-    <p><strong>How much does HubSpot really cost in Year 1?</strong> In 2026, <strong>HubSpot Sales Hub Professional</strong> costs $90/seat/month billed annually ($100/seat paid monthly) plus a mandatory <strong>$1,500 onboarding fee</strong>—totaling <strong>$6,900 in Year 1 for 5 reps</strong>. <strong>Marketing Hub Professional</strong> costs $800/month (includes 3 core seats; $45/mo per extra seat) plus a mandatory <strong>$3,000 onboarding fee</strong>—totaling <strong>$12,600 in Year 1</strong>. All Professional and Enterprise plans require a binding 12-month commitment that auto-renews even if you select monthly payment installments.</p>
+  <h1>What HubSpot actually costs in Year 1 (once you add onboarding).</h1>
+  <p class="lead">HubSpot’s pricing page says $90/seat. The first-year invoice for five sales reps is $6,900. Here is where the extra $1,500–$7,000 comes from—and how to waive it before you sign.</p>
+  <div class="geo-direct-answer">
+    <p><strong>The short version:</strong> In 2026, <strong>HubSpot Sales Hub Professional</strong> costs $90/seat/month billed annually ($100/seat paid monthly) plus a mandatory <strong>$1,500 onboarding fee</strong>—totaling <strong>$6,900 in Year 1 for five reps</strong>. <strong>Marketing Hub Professional</strong> costs $800/month (includes 3 core seats; $45/mo per extra seat) plus a mandatory <strong>$3,000 onboarding fee</strong>—totaling <strong>$12,600 in Year 1</strong>. Every Professional and Enterprise agreement is a binding 12-month commitment that auto-renews even if you select monthly payment installments.</p>
+  </div>
+
+  <div class="invoice-box" aria-label="Sample Year-1 Order Form Breakdown">
+    <div class="invoice-title">Sample Year-1 Order Form &middot; HubSpot Sales Hub Professional (5 Reps)</div>
+    <div class="invoice-row">
+      <span>5 &times; Core Sales Hub Pro Seats ($90/seat/mo &times; 12 mos)</span>
+      <span>$5,400.00</span>
+    </div>
+    <div class="invoice-row">
+      <span>Mandatory Sales Hub Pro Onboarding Fee (one-time)</span>
+      <span style="color:var(--rose); font-weight:700;">+$1,500.00</span>
+    </div>
+    <div class="invoice-row">
+      <span>Mid-term seat reduction allowance (Months 1–12)</span>
+      <span>Not permitted</span>
+    </div>
+    <div class="invoice-total">
+      <span>Year-1 Contract Total (excl. tax)</span>
+      <span>$6,900.00</span>
+    </div>
   </div>
 </section>
 
 <section class="calc-box">
-  <h2 style="margin-top:0;">HubSpot vs. Close CRM vs. Pipedrive: Year-1 Total Cost Calculator</h2>
-  <div class="section-tldr">
-    <strong>Break-Even Math:</strong> For a 5-rep sales team, choosing <strong>Close CRM</strong> ($0 onboarding) or <strong>Pipedrive Professional</strong> ($49/seat/mo, $0 onboarding) saves between <strong>$960 and $3,960 in Year 1</strong> compared to HubSpot Sales Hub Professional ($6,900 Year 1), while avoiding 12-month auto-renewal lock-in.
-  </div>
+  <h2 style="margin-top:0;">Calculate your Year-1 cost: HubSpot vs. Close vs. Pipedrive</h2>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">For a five-rep sales team, choosing <strong>Close CRM</strong> ($0 onboarding) or <strong>Pipedrive Professional</strong> ($49/seat/month, $0 onboarding) saves between <strong>$960 and $3,960 in Year 1</strong> compared with HubSpot Sales Hub Professional, with no 12-month lock-in required.</p>
   <div class="calc-grid">
     <div class="control-group">
-      <label for="hs-seats">Sales Team Size (Core Seats): <span class="val-pill" id="hs-seats-val">5</span> reps</label>
+      <label for="hs-seats">Sales team size (core seats): <span class="val-pill" id="hs-seats-val">5</span> reps</label>
       <input type="range" id="hs-seats" min="1" max="30" value="5" />
     </div>
     <div class="control-group">
-      <label for="hs-tier">HubSpot Tier Selection</label>
+      <label for="hs-tier">HubSpot hub &amp; edition</label>
       <select id="hs-tier">
-        <option value="sales_pro">Sales Hub Professional ($90/seat + $1,500 Onboarding)</option>
-        <option value="sales_ent">Sales Hub Enterprise ($150/seat + $3,500 Onboarding)</option>
-        <option value="mkt_pro">Marketing Hub Pro ($800/mo [3 seats] + $3,000 Onboarding)</option>
-        <option value="mkt_ent">Marketing Hub Enterprise ($3,600/mo [5 seats] + $7,000 Onboarding)</option>
+        <option value="sales_pro">Sales Hub Professional ($90/seat + $1,500 onboarding)</option>
+        <option value="sales_ent">Sales Hub Enterprise ($150/seat + $3,500 onboarding)</option>
+        <option value="mkt_pro">Marketing Hub Pro ($800/mo [3 seats] + $3,000 onboarding)</option>
+        <option value="mkt_ent">Marketing Hub Enterprise ($3,600/mo [5 seats] + $7,000 onboarding)</option>
       </select>
     </div>
   </div>
   <div class="table-wrap">
     <table>
-      <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (Verified Oct 2026)</caption>
+      <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (USD, checked Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>CRM Platform</th>
-          <th>Monthly Seat Cost (USD)</th>
-          <th>Mandatory Onboarding Fee (USD)</th>
-          <th>Contract Lock-In &amp; Notice</th>
-          <th>Year-1 Total Out-of-Pocket (USD)</th>
-          <th>Partner / Trial Link</th>
+          <th>Monthly Seat Cost</th>
+          <th>Mandatory Onboarding</th>
+          <th>Contract Terms</th>
+          <th>Year-1 Total (USD)</th>
+          <th>Compare</th>
         </tr>
       </thead>
       <tbody id="hs-tbody"></tbody>
@@ -264,20 +276,18 @@ p1_body = """
 </section>
 
 <section>
-  <h2>Complete 2026 HubSpot Onboarding &amp; Seat Pricing Schedule</h2>
-  <div class="section-tldr">
-    <strong>Official Schedule:</strong> HubSpot enforces mandatory onboarding across all Professional and Enterprise hubs purchased directly. Onboarding fees can only be waived by signing through an accredited HubSpot Solutions Partner who performs the onboarding instead.
-  </div>
+  <h2>The 2026 HubSpot onboarding fee schedule</h2>
+  <p class="section-tldr">HubSpot requires paid onboarding across all Professional and Enterprise hubs purchased directly. The only way to waive HubSpot’s direct onboarding fee is to sign through an accredited HubSpot Solutions Partner who handles the implementation instead.</p>
   <div class="table-wrap">
     <table>
-      <caption>HubSpot 2026 Seat Rates &amp; Mandatory Onboarding Fees (USD, Verified Oct 25, 2026)</caption>
+      <caption>HubSpot 2026 Seat Rates &amp; Mandatory Onboarding Fees (USD, checked Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>HubSpot Hub &amp; Edition</th>
-          <th>Annual Billing Rate (USD)</th>
-          <th>Monthly Payment Rate (12-Mo Term)</th>
-          <th>Mandatory Onboarding Fee (USD)</th>
-          <th>Year-1 Minimum Spend (Base Seats)</th>
+          <th>Annual Billing Rate</th>
+          <th>Monthly Installment Rate (12-Mo Term)</th>
+          <th>Mandatory Onboarding Fee</th>
+          <th>Year-1 Minimum Spend</th>
         </tr>
       </thead>
       <tbody>
@@ -286,14 +296,14 @@ p1_body = """
           <td>$90 / seat / mo</td>
           <td>$100 / seat / mo</td>
           <td><span class="badge badge-high">$1,500 one-time</span></td>
-          <td>$2,580 (1 seat) · $6,900 (5 seats)</td>
+          <td>$2,580 (1 seat) &middot; $6,900 (5 seats)</td>
         </tr>
         <tr>
           <td><strong>Sales Hub Enterprise</strong></td>
           <td>$150 / seat / mo</td>
           <td>$150 / seat / mo (Annual only)</td>
           <td><span class="badge badge-high">$3,500 one-time</span></td>
-          <td>$5,300 (1 seat) · $12,500 (5 seats)</td>
+          <td>$5,300 (1 seat) &middot; $12,500 (5 seats)</td>
         </tr>
         <tr>
           <td><strong>Marketing Hub Professional</strong></td>
@@ -313,21 +323,21 @@ p1_body = """
     </table>
   </div>
 
-  <h2>3 Verified HubSpot Contract Traps to Check Before Signing</h2>
+  <h2>Three contract clauses to check before you sign</h2>
   <div class="evidence-box">
-    <strong>1. "Monthly Payment" Is Still a Binding 12-Month Contract With Auto-Renewal</strong>
-    <p style="margin-top:6px;">All HubSpot Professional and Enterprise agreements are annual commitments that auto-renew by default, even when paid in monthly installments. On day 1 of the auto-renewal window, you are legally liable for the full 12-month renewal balance.</p>
-    <cite>Verified Source: <a href="https://www.reddit.com/r/sales/comments/pyqpjq/hubspot_a_psa_contracts_and_review/" target="_blank" rel="noopener">r/sales – "Hubspot - a PSA (contracts!) and review"</a></cite>
+    <strong>1. "Monthly payment" is still a binding 12-month contract with auto-renewal</strong>
+    <p style="margin-top:6px;">All HubSpot Professional and Enterprise agreements are annual commitments that auto-renew by default, even when paid in monthly installments. On day 1 of the auto-renewal window, you are liable for the full 12-month renewal balance unless you submitted non-renewal notice in advance.</p>
+    <cite>Source: <a href="https://www.reddit.com/r/sales/comments/pyqpjq/hubspot_a_psa_contracts_and_review/" target="_blank" rel="noopener">r/sales &ndash; "Hubspot - a PSA (contracts!) and review"</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>2. Mandatory Onboarding Fees ($1,500 to $7,000)</strong>
-    <p style="margin-top:6px;">Sales Hub Pro requires a $1,500 onboarding fee ($3,500 on Enterprise), while Marketing Hub Pro requires $3,000 ($7,000 on Enterprise). SaaS reps on r/sales confirm onboarding fees are frequently used as negotiation chips or waived via accredited partners.</p>
-    <cite>Verified Source: <a href="https://www.reddit.com/r/sales/comments/1htoulv/onboarding_fee/" target="_blank" rel="noopener">r/sales – "Onboarding Fee" (Jan 2025)</a></cite>
+    <strong>2. Onboarding fees are often negotiable via partners</strong>
+    <p style="margin-top:6px;">Sales Hub Pro requires a $1,500 onboarding fee ($3,500 on Enterprise), while Marketing Hub Pro requires $3,000 ($7,000 on Enterprise). SaaS account executives on <code>r/sales</code> note that onboarding fees are routinely used as a closing lever or waived when onboarding is scoped through a partner agency.</p>
+    <cite>Source: <a href="https://www.reddit.com/r/sales/comments/1htoulv/onboarding_fee/" target="_blank" rel="noopener">r/sales &ndash; "Onboarding Fee" (Jan 2025)</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>3. Inactive Seat Bloat at Renewal ($14,220 for 43 Unused Seats)</strong>
-    <p style="margin-top:6px;">You cannot downgrade paid core seat counts mid-term during an annual commitment. Recent GTM software audits on X found companies paying $14,220+ per year for 43 seats nobody had opened in 90 days.</p>
-    <cite>Verified Source: <a href="https://x.com/zandemha/status/2111438550247862312" target="_blank" rel="noopener">@zandemha on X (Oct 17, 2026)</a></cite>
+    <strong>3. You cannot remove unused seats mid-contract ($14,220 for 43 idle seats)</strong>
+    <p style="margin-top:6px;">If reps leave mid-year, you cannot downgrade your committed seat count until renewal. A recent GTM software audit shared on X found $14,220/year spent on 43 seats that nobody had opened in 90 days.</p>
+    <cite>Source: <a href="https://x.com/zandemha/status/2111438550247862312" target="_blank" rel="noopener">@zandemha on X (Oct 17, 2026)</a></cite>
   </div>
 </section>
 
@@ -351,25 +361,25 @@ function updateHsCalc() {
       <td><strong>${hsName}</strong></td>
       <td style="font-family:var(--mono);">$${hsMonthly.toLocaleString()} / mo</td>
       <td><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
-      <td>12-Month Auto-Renewing Contract</td>
+      <td>12-month auto-renewing contract</td>
       <td class="price-highlight">$${hsYear1.toLocaleString()}</td>
-      <td><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">Check HubSpot &rarr;</a></td>
+      <td><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a></td>
     </tr>
     <tr>
-      <td><strong>Close CRM (Growth / Pro)</strong><div style="font-size:0.78rem; color:var(--emerald);">Recommended Zero-Onboarding Alternative</div></td>
+      <td><strong>Close CRM (Growth / Pro)</strong><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; built-in calling &amp; SMS</div></td>
       <td style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$0 Onboarding</span></td>
-      <td>True Monthly or Annual (Built-in Calling/SMS)</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (Save $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})</td>
-      <td><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow sponsored">Try Close Free &rarr;</a></td>
+      <td><span class="badge badge-low">$0 onboarding</span></td>
+      <td>Month-to-month or annual</td>
+      <td class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})</td>
+      <td><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow sponsored">Try Close free &rarr;</a></td>
     </tr>
     <tr>
-      <td><strong>Pipedrive CRM (Professional)</strong><div style="font-size:0.78rem; color:var(--emerald);">Best Lean Pipeline Alternative</div></td>
+      <td><strong>Pipedrive CRM (Professional)</strong><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
       <td style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$0 Onboarding</span></td>
-      <td>Cancel Anytime (No Seat Minimum)</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (Save $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})</td>
-      <td><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">Try Pipedrive Free &rarr;</a></td>
+      <td><span class="badge badge-low">$0 onboarding</span></td>
+      <td>Cancel anytime on monthly plan</td>
+      <td class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})</td>
+      <td><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">Try Pipedrive free &rarr;</a></td>
     </tr>
   `;
 }
@@ -400,53 +410,49 @@ render_page(
 # ---------------------------------------------------------
 p2_body = """
 <section class="hero">
-  <span class="eyebrow">AI Helpdesk Pricing Audit · Verified Oct 25, 2026</span>
-  <h1>Intercom Pricing &amp; Fin AI Resolution Tax Calculator (2026): How $0.99/Resolution Impacts Your Bill vs. Freshdesk &amp; Zendesk</h1>
-  <p class="lead">Intercom pairs per-seat subscriptions ($29 to $132/seat/month billed annually) with an outcome-based meter of <strong>$0.99 per Fin AI resolution</strong> (and $9.99 per sales qualification). As your documentation improves and AI resolves more tickets, your monthly bill scales automatically.</p>
-  <div class="geo-direct-answer" aria-label="Direct Answer Summary">
-    <span class="geo-label">Direct Answer / TL;DR (Verified Oct 25, 2026)</span>
-    <p><strong>How much does Intercom Fin AI cost in 2026?</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong> vs. <strong>$420/mo ($5,040/yr)</strong> on Freshdesk Pro ($55) + Freddy AI Copilot ($29).</p>
+  <h1>What Intercom’s $0.99 AI resolution fee actually does to your support bill.</h1>
+  <p class="lead">Seat licenses start at $29 to $132 a month, but Fin AI adds $0.99 every time it resolves a ticket. Here is how fast the variable meter outgrows your seat bill—and how fixed-fee helpdesks compare.</p>
+  <div class="geo-direct-answer">
+    <p><strong>The short version:</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong> vs. <strong>$390/mo ($4,680/yr)</strong> on Freshdesk Pro + Freddy AI Copilot.</p>
   </div>
 </section>
 
 <section class="calc-box">
-  <h2 style="margin-top:0;">Interactive Intercom Fin AI "Resolution Tax" Calculator</h2>
-  <div class="section-tldr">
-    <strong>Cost Formula:</strong> <code>Monthly Intercom Bill = (Full Seats × Seat Rate) + (Total Conversations × AI Resolution % × $0.99)</code>. Even 1,000 AI resolutions/month adds $990/mo ($11,880/yr) to your base subscription.
-  </div>
+  <h2 style="margin-top:0;">Calculate your monthly Intercom + Fin AI invoice</h2>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Every 1,000 tickets resolved by Fin AI adds $990/month ($11,880/year) on top of your agent seat subscriptions. Drag the sliders to see your monthly and annual total.</p>
   <div class="calc-grid">
     <div class="control-group">
-      <label for="ic-seats">Support Agents (Full Seats): <span class="val-pill" id="ic-seats-val">5</span> seats</label>
+      <label for="ic-seats">Support agents (full seats): <span class="val-pill" id="ic-seats-val">5</span> seats</label>
       <input type="range" id="ic-seats" min="1" max="40" value="5" />
     </div>
     <div class="control-group">
-      <label for="ic-plan">Intercom Plan Tier (Annual Billing)</label>
+      <label for="ic-plan">Intercom plan tier (annual billing)</label>
       <select id="ic-plan">
-        <option value="29">Essential ($29/seat/mo annual · $39 monthly)</option>
-        <option value="85" selected>Advanced ($85/seat/mo annual · includes 20 Lite seats)</option>
-        <option value="132">Expert ($132/seat/mo annual · includes 50 Lite seats)</option>
+        <option value="29">Essential ($29/seat/mo annual &middot; $39 monthly)</option>
+        <option value="85" selected>Advanced ($85/seat/mo annual &middot; includes 20 Lite seats)</option>
+        <option value="132">Expert ($132/seat/mo annual &middot; includes 50 Lite seats)</option>
       </select>
     </div>
     <div class="control-group">
-      <label for="ic-tickets">Total Monthly Support Conversations: <span class="val-pill" id="ic-tickets-val">3,000</span> /mo</label>
+      <label for="ic-tickets">Total monthly support conversations: <span class="val-pill" id="ic-tickets-val">3,000</span> /mo</label>
       <input type="range" id="ic-tickets" min="200" max="20000" step="200" value="3000" />
     </div>
     <div class="control-group">
-      <label for="ic-rate">Fin AI Resolution Rate: <span class="val-pill" id="ic-rate-val">50</span>%</label>
+      <label for="ic-rate">Fin AI resolution rate: <span class="val-pill" id="ic-rate-val">50</span>%</label>
       <input type="range" id="ic-rate" min="10" max="85" step="5" value="50" />
     </div>
   </div>
   <div class="table-wrap">
     <table>
-      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Cost Breakdown (Verified Oct 2026)</caption>
+      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Cost Breakdown (USD, checked Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Helpdesk Solution</th>
-          <th>Monthly Agent Seat Cost (USD)</th>
-          <th>Monthly AI Resolution Cost (USD)</th>
-          <th>Total Monthly Bill (USD)</th>
-          <th>Annualized Cost (USD)</th>
-          <th>Action</th>
+          <th>Monthly Agent Seats</th>
+          <th>Monthly AI Usage Charge</th>
+          <th>Total Monthly Bill</th>
+          <th>Annualized Cost</th>
+          <th>Compare</th>
         </tr>
       </thead>
       <tbody id="ic-tbody"></tbody>
@@ -455,19 +461,17 @@ p2_body = """
 </section>
 
 <section>
-  <h2>Verified Market Evidence: Why Founders Call $0.99/Resolution the "AI Tax"</h2>
-  <div class="section-tldr">
-    <strong>User Audit Summary:</strong> Across 215 Capterra/Reddit reviews analyzed in <code>r/SaaS</code>, founders praise Fin AI's accuracy but cite unpredictable variable billing ($0.99/resolution) and painful ticket history migration as the top reasons for switching.
+  <h2>Why support teams call $0.99/resolution an "AI tax"</h2>
+  <p class="section-tldr">Across 215 Capterra and Reddit reviews analyzed in <code>r/SaaS</code>, customers praise Fin AI’s accuracy but point out a structural catch: the more time you spend improving your help center articles, the higher Fin’s resolution rate climbs—and the more Intercom charges you each month.</p>
+  <div class="evidence-box">
+    <strong>r/SaaS analysis of 215 Intercom reviews: "You can't predict your bill anymore"</strong>
+    <p style="margin-top:6px;">Founders and support leads report that $0.99 per resolution turns seasonal ticket spikes and improved documentation into surprise monthly invoices, while migrating conversation history out of Intercom remains difficult.</p>
+    <cite>Source: <a href="https://www.reddit.com/r/SaaS/comments/1p8c4cx/the_ai_tax_is_real_i_analyzed_215_recent_intercom/" target="_blank" rel="noopener">r/SaaS &ndash; "The 'AI Tax' is real. I analyzed 215 recent Intercom reviews and the data is brutal"</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>r/SaaS Analysis of 215 Intercom Reviews: "You Can't Predict Your Bill Anymore"</strong>
-    <p style="margin-top:6px;">An analysis of 215 recent Intercom customer reviews on r/SaaS highlighted that the $0.99 per-resolution charge makes monthly SaaS support bills unpredictable and penalizes teams as their help docs improve.</p>
-    <cite>Verified Source: <a href="https://www.reddit.com/r/SaaS/comments/1p8c4cx/the_ai_tax_is_real_i_analyzed_215_recent_intercom/" target="_blank" rel="noopener">r/SaaS – "The 'AI Tax' is real. I analyzed 215 recent Intercom reviews and the data is brutal"</a></cite>
-  </div>
-  <div class="evidence-box">
-    <strong>Pre-Renewal Outcome Bill Audits on X</strong>
-    <p style="margin-top:6px;">Analysts on X note that Salesforce, Intercom, and Zendesk shifting to per-resolution pricing has created an entire consulting niche ($990 scoped audits) just to verify outcome bills before annual renewal.</p>
-    <cite>Verified Sources: <a href="https://x.com/david_logger/status/2104329987549528429" target="_blank" rel="noopener">@david_logger on X (Sep 27, 2026)</a> &amp; <a href="https://x.com/elliwoodtong/status/2106554628124852415" target="_blank" rel="noopener">@elliwoodtong on X (Oct 4, 2026)</a></cite>
+    <strong>Pre-renewal outcome bill audits are now a paid consulting service</strong>
+    <p style="margin-top:6px;">As Intercom, Zendesk, and Salesforce shift toward outcome-based AI billing, independent analysts on X now offer $990 pre-renewal contract audits just to verify what counts as a billable resolution or procedure handoff.</p>
+    <cite>Sources: <a href="https://x.com/david_logger/status/2104329987549528429" target="_blank" rel="noopener">@david_logger on X (Sep 27, 2026)</a> &amp; <a href="https://x.com/elliwoodtong/status/2106554628124852415" target="_blank" rel="noopener">@elliwoodtong on X (Oct 4, 2026)</a></cite>
   </div>
 </section>
 
@@ -485,7 +489,7 @@ function updateIcCalc() {
   const icAiCost = Math.round(resolvedTickets * 0.99);
   const icTotalMo = icSeatCost + icAiCost;
   const icYear = icTotalMo * 12;
-  const fdSeatCost = seats * 55; // Freshdesk Pro $55/agent/mo annual (verified 2026-10-25)
+  const fdSeatCost = seats * 49;
   const fdAiCost = seats * 29;
   const fdTotalMo = fdSeatCost + fdAiCost;
   const fdYear = fdTotalMo * 12;
@@ -496,15 +500,15 @@ function updateIcCalc() {
       <td><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
       <td class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
       <td class="price-highlight">$${icYear.toLocaleString()} / yr</td>
-      <td><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow">Intercom Pricing &rarr;</a></td>
+      <td><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow">Intercom pricing &rarr;</a></td>
     </tr>
     <tr>
-      <td><strong>Freshdesk Pro + Freddy AI (Freshworks)</strong><div style="font-size:0.78rem; color:var(--emerald);">Top Predictable-Bill Helpdesk Alternative</div></td>
+      <td><strong>Freshdesk Pro + Freddy AI (Freshworks)</strong><div style="font-size:0.78rem; color:var(--emerald);">Predictable per-agent alternative</div></td>
       <td style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$${fdAiCost.toLocaleString()} / mo (Capped Agent Add-on)</span></td>
+      <td><span class="badge badge-low">$${fdAiCost.toLocaleString()} / mo ($29/agent add-on)</span></td>
       <td class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr (Save $${Math.max(0, icYear - fdYear).toLocaleString()}/yr)</td>
-      <td><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk Free &rarr;</a></td>
+      <td class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr (saves $${Math.max(0, icYear - fdYear).toLocaleString()}/yr)</td>
+      <td><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk free &rarr;</a></td>
     </tr>
   `;
 }
@@ -516,7 +520,7 @@ updateIcCalc();
 p2_faqs = [
     ("How much does Intercom Fin AI charge per resolution in 2026?", "Intercom charges $0.99 per Fin AI outcome/resolution (and $9.99 per sales qualification outcome), billed at most once per conversation, on top of your monthly per-seat plan ($29 Essential, $85 Advanced, or $132 Expert billed annually)."),
     ("What counts as a billable Fin AI resolution in Intercom?", "A billable $0.99 Fin outcome occurs when the customer confirms their question was answered, exits the conversation without requesting a human agent after Fin's answer, or triggers a configured procedure handoff/disqualification outcome."),
-    ("What is the most predictable alternative to Intercom's $0.99 per-resolution pricing?", "Freshdesk (by Freshworks) offers predictable per-agent pricing ($19–$89/agent/month billed annually, verified Oct 25, 2026) with optional Freddy AI Copilot at $29/agent/month, avoiding uncapped $0.99 per-ticket outcome spikes.")
+    ("What is the most predictable alternative to Intercom's $0.99 per-resolution pricing?", "Freshdesk (by Freshworks) offers predictable per-agent pricing ($15–$79/seat/month) with optional Freddy AI Copilot at $29/agent/month, avoiding uncapped $0.99 per-ticket outcome spikes.")
 ]
 
 render_page(

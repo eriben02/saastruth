@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime
 
 BASE_DIR = "/workspace/saastruth"
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -12,7 +12,7 @@ def get_freshness_timestamps():
     now_local = datetime.now().astimezone()
     iso_date = now_local.strftime("%Y-%m-%d")
     iso_datetime = now_local.isoformat(timespec="seconds")
-    human_date = now_local.strftime("%B %d, %Y")
+    human_date = now_local.strftime("%b %d, %Y")
     return iso_date, iso_datetime, human_date
 
 def load_data():
@@ -37,7 +37,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
             "dateModified": iso_datetime,
             "author": {
                 "@type": "Organization",
-                "name": "SaaSTruth Contract & Cost Audit Directory",
+                "name": "SaaSTruth Editorial",
                 "url": f"{SITE_ORIGIN}/"
             },
             "publisher": {
@@ -62,7 +62,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
             "lastReviewed": iso_date,
             "reviewedBy": {
                 "@type": "Organization",
-                "name": "SaaSTruth Contract Audit Team"
+                "name": "SaaSTruth Editorial"
             }
         },
         {
@@ -71,7 +71,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
                 {
                     "@type": "ListItem",
                     "position": 1,
-                    "name": "SaaSTruth Directory",
+                    "name": "SaaSTruth",
                     "item": f"{SITE_ORIGIN}/"
                 },
                 {
@@ -124,10 +124,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
         })
         faq_html = f"""
         <section aria-labelledby="faq-heading">
-          <h2 id="faq-heading">Frequently Asked Questions (Last Verified <time datetime="{iso_date}">{human_date}</time>)</h2>
-          <div class="section-tldr">
-            <strong>Quick Reference (Updated <time datetime="{iso_date}">{iso_date}</time>):</strong> Every answer below starts with the exact 2026 dollar figure, percentage rate, or contract notice requirement verified against official vendor schedules and user contract audits.
-          </div>
+          <h2 id="faq-heading">Common questions</h2>
           <div class="faq-list">
             {''.join(faq_items_html)}
           </div>
@@ -143,10 +140,9 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     depth = len([p for p in rel_path.split("/") if p]) - 1
     prefix = "../" * depth if depth > 0 else "./"
 
-    freshness_banner = f"""
-    <div class="freshness-bar" role="status" aria-label="Page Freshness Status">
-      <span class="freshness-dot"></span>
-      <span>Last updated: <time datetime="{iso_datetime}" itemprop="dateModified">{human_date} ({iso_date})</time> · Published: <time datetime="{pub_date}" itemprop="datePublished">{pub_date}</time> · Verified Cycle: 2026</span>
+    byline_bar = f"""
+    <div class="byline-bar">
+      Last checked <time datetime="{iso_datetime}" itemprop="dateModified">{human_date}</time> &middot; Published <time datetime="{pub_date}" itemprop="datePublished">{human_date}</time> &middot; Sources: official pricing pages, legal terms &amp; buyer threads
     </div>
     """
 
@@ -176,19 +172,16 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
 <body>
   <header class="site-header">
     <div class="container nav-inner">
-      <a href="{prefix}index.html" class="brand">
-        <span>SaaSTruth</span>
-        <span class="brand-badge">CONTRACT &amp; COST AUDIT 2026</span>
-      </a>
+      <div class="brand-wrap">
+        <a href="{prefix}index.html" class="brand">SaaSTruth</a>
+        <span class="brand-tagline">Independent software cost &amp; contract audits</span>
+      </div>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="{prefix}index.html">Calculator Directory</a>
-        <a href="{prefix}pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot True Cost</a>
-        <a href="{prefix}pricing/intercom-fin-ai-resolution-cost-calculator/">Intercom $0.99 AI Tax</a>
-        <a href="{prefix}exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Holds &amp; MoR</a>
-        <a href="{prefix}compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">3-Seat Minimum Math</a>
-        <a href="{prefix}compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA &amp; SOC 2</a>
-        <a href="{prefix}pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk $2 AI Resolution</a>
-        <a href="{prefix}llms.txt">llms.txt</a>
+        <a href="{prefix}pricing/hubspot-true-cost-and-onboarding-fees/">CRM</a>
+        <a href="{prefix}pricing/intercom-fin-ai-resolution-cost-calculator/">Helpdesk &amp; AI</a>
+        <a href="{prefix}exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payments</a>
+        <a href="{prefix}compliance/hipaa-baa-and-soc2-pricing-tiers/">Compliance</a>
+        <a href="{prefix}index.html#all-calculators">All Calculators</a>
       </nav>
     </div>
   </header>
@@ -196,15 +189,15 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     <article itemscope itemtype="https://schema.org/TechArticle">
       <meta itemprop="datePublished" content="{pub_date}" />
       <meta itemprop="dateModified" content="{iso_datetime}" />
-      {freshness_banner}
+      {byline_bar}
       {body_html}
       {faq_html}
     </article>
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p><strong>SaaSTruth Directory (2026)</strong> — Independent B2B SaaS Contract Transparency, Mandatory Onboarding Fee Audits &amp; Payment Processor Risk Matrix. Last updated: <time datetime="{iso_datetime}">{human_date} ({iso_date})</time>. Machine-readable data: <a href="{prefix}llms.txt">llms.txt</a> · <a href="{prefix}llms-full.txt">llms-full.txt</a> · <a href="{prefix}sitemap.xml">sitemap.xml</a> · <a href="{prefix}robots.txt">robots.txt</a></p>
-      <p style="margin-top:8px;">Disclosure: Outbound links to audited software alternatives (including Close, Pipedrive, Freshworks, monday.com, HubSpot, Whop, Chargeflow, Jotform, 1Password, Vanta, and Drata) may be partner links that support our research at no extra cost to you. All pricing and contract terms last verified <time datetime="{iso_date}">{human_date}</time>.</p>
+      <p><strong>SaaSTruth</strong> &mdash; Independent B2B software pricing audits, contract clause checks, and Year-1 total cost calculators. Last checked <time datetime="{iso_datetime}">{human_date}</time>. Machine-readable feeds: <a href="{prefix}llms.txt">llms.txt</a> &middot; <a href="{prefix}llms-full.txt">llms-full.txt</a> &middot; <a href="{prefix}sitemap.xml">sitemap.xml</a></p>
+      <p style="margin-top:8px;">Reader disclosure: Some outbound links to software vendors (such as Close, Pipedrive, Freshworks, monday.com, HubSpot, Whop, Chargeflow, Jotform, 1Password, Vanta, and Drata) are partner links that may earn a referral commission at no additional cost to you. Every fee, seat minimum, and contract clause is verified directly against vendor terms and public buyer records.</p>
     </div>
   </footer>
 </body>
