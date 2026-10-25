@@ -74,10 +74,10 @@ home_body = f"""
             </select>
           </div>
           <div class="wb-quiet-field" id="sort-control-group">
-            <label for="sort-mode">Table order:</label>
+            <label for="sort-mode">Sort:</label>
             <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
               <option value="lowest" selected>Lowest cost</option>
-              <option value="hidden_fees">Highest hidden gap</option>
+              <option value="hidden_fees">Hidden gap</option>
               <option value="highest">Highest cost</option>
               <option value="name">A&ndash;Z</option>
             </select>
@@ -493,10 +493,33 @@ function renderDirectory() {{
     // Update options without resetting focus if only labels changed
     const existingIds = Array.from(toolSelect.options).map(o => o.value).join(',');
     const newIds = rows.map(r => r.tool.id).join(',');
+    const SHORT_TOOL_LABELS = {{
+      'hubspot-sales-pro': 'HubSpot Sales Pro',
+      'hubspot-marketing-pro': 'HubSpot Marketing Pro',
+      'close-crm': 'Close CRM (Essentials)',
+      'pipedrive-crm': 'Pipedrive CRM',
+      'monday-crm': 'monday CRM (Basic)',
+      'intercom-fin-ai': 'Intercom + Fin AI',
+      'freshdesk-support': 'Freshdesk Pro + Freddy AI',
+      'zendesk-suite-team': 'Zendesk Suite Team + AI',
+      'zendesk-suite-professional': 'Zendesk Suite Pro + AI',
+      'help-scout-plus': 'Help Scout Plus + AI',
+      'hubspot-service-hub': 'HubSpot Service Hub',
+      'stripe-payments': 'Stripe Payments',
+      'paddle-mor': 'Paddle (MoR)',
+      'whop-payments': 'Whop Payments',
+      'lemon-squeezy': 'Lemon Squeezy (MoR)',
+      'chargeflow': 'Chargeflow Defense',
+      'jotform-hipaa': 'Jotform Gold (HIPAA)',
+      '1password-business': '1Password Business',
+      'vanta-soc2': 'Vanta (SOC 2)',
+      'drata-soc2': 'Drata (SOC 2)'
+    }};
     if (existingIds !== newIds) {{
       toolSelect.innerHTML = rows.map(r => {{
         const sel = r.tool.id === currentSpotlightId ? 'selected' : '';
-        return `<option value="${{r.tool.id}}" ${{sel}}>${{r.tool.name}}</option>`;
+        const shortName = SHORT_TOOL_LABELS[r.tool.id] || r.tool.name;
+        return `<option value="${{r.tool.id}}" ${{sel}}>${{shortName}}</option>`;
       }}).join('');
     }} else {{
       toolSelect.value = currentSpotlightId;
