@@ -341,11 +341,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
         ]:
             self.assertIn(expected_cta, index_html, f"Missing specific CTA '{expected_cta}' in index.html")
 
-        # Verify UX Finishing Pass: pre-filled example banner, custom scenario state, and Sage Green palette
-        self.assertIn('class="prefill-banner"', index_html)
-        self.assertIn('id="calc-mode-badge"', index_html)
-        self.assertIn("Pre-filled example", index_html)
-        self.assertIn("Custom scenario active", index_html)
+        # Verify Editorial Layout v2: no prefill-banner clutter, 3-column workbench, and Sage Green palette
+        self.assertNotIn('id="calc-prefill-banner"', index_html)
+        self.assertIn('id="wb-vbar-mount"', index_html)
+        self.assertIn('id="wb-big-amount"', index_html)
 
         with open(os.path.join(PUBLIC_DIR, "assets/styles.css")) as f:
             css = f.read()
