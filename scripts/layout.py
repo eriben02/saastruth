@@ -141,11 +141,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     depth = len([p for p in rel_path.split("/") if p]) - 1
     prefix = "../" * depth if depth > 0 else "./"
 
-    byline_bar = f"""
-    <div class="byline-bar">
-      Updated <time datetime="{iso_date}" itemprop="dateModified">{human_date}</time>
-    </div>
-    """
+    byline_bar = f'<span class="byline-bar">Updated <time datetime="{iso_date}" itemprop="dateModified">{human_date}</time></span>'
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -180,6 +176,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
       <div class="brand-wrap">
         <a href="{prefix}index.html" class="brand">SaaSBill<span>.io</span></a>
         <span class="brand-tagline">Independent software cost &amp; contract audits</span>
+        {byline_bar}
       </div>
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="{prefix}pricing/hubspot-true-cost-and-onboarding-fees/">CRM</a>
@@ -194,7 +191,6 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     <article itemscope itemtype="https://schema.org/TechArticle">
       <meta itemprop="datePublished" content="{pub_date}" />
       <meta itemprop="dateModified" content="{iso_datetime}" />
-      {byline_bar}
       {body_html}
       {faq_html}
     </article>
