@@ -1,0 +1,119 @@
+{
+  "hubspot": {
+    "program_name": "HubSpot Affiliate Program",
+    "network": "Impact",
+    "commission": "30% monthly recurring for up to 12 months (up to $1,000+ per sale)",
+    "cookie_days": 180,
+    "official_program_url": "https://www.hubspot.com/partners/affiliates",
+    "tracking_url": "/go/hubspot",
+    "destination_url": "https://www.hubspot.com/pricing"
+  },
+  "close-crm": {
+    "program_name": "Close CRM Partner Program",
+    "network": "Direct / PartnerStack",
+    "commission": "30% of first-year subscription revenue (Lifetime tiers available)",
+    "cookie_days": 90,
+    "official_program_url": "https://close.com/partners",
+    "tracking_url": "/go/close-crm",
+    "destination_url": "https://close.com/pricing"
+  },
+  "pipedrive": {
+    "program_name": "Pipedrive Affiliate Partnership",
+    "network": "PartnerStack",
+    "commission": "20% to 30% revenue share for first 12 months (includes add-ons)",
+    "cookie_days": 90,
+    "official_program_url": "https://www.pipedrive.com/en/affiliate-partnership",
+    "tracking_url": "/go/pipedrive",
+    "destination_url": "https://www.pipedrive.com/en/pricing"
+  },
+  "monday": {
+    "program_name": "monday.com Affiliate Program",
+    "network": "PartnerStack",
+    "commission": "Tiered up to 100% of first year's sales per customer",
+    "cookie_days": 90,
+    "official_program_url": "https://monday.com/affiliate-program",
+    "tracking_url": "/go/monday-crm",
+    "destination_url": "https://monday.com/pricing"
+  },
+  "freshworks": {
+    "program_name": "Freshworks (Freshdesk / Freshsales) Affiliate Program",
+    "network": "PartnerStack",
+    "commission": "20% to 25% recurring commission for the first year",
+    "cookie_days": 90,
+    "official_program_url": "https://market.partnerstack.com/page/freshworks4391",
+    "tracking_url": "/go/freshdesk",
+    "destination_url": "https://www.freshworks.com/freshdesk/pricing/"
+  },
+  "whop": {
+    "program_name": "Whop Business Affiliate & Startup Partner Program",
+    "network": "Direct (Whop Credits / Bank / PayPal)",
+    "commission": "$50 to $3,000 cash bonus per referred business OR 30% of Whop fee revenue",
+    "cookie_days": 60,
+    "official_program_url": "https://whop.com/network/referrals/",
+    "tracking_url": "/go/whop",
+    "destination_url": "https://whop.com/sell"
+  },
+  "chargeflow": {
+    "program_name": "Chargeflow Partner Program",
+    "network": "Direct Partner Portal",
+    "commission": "25% revenue share (6 mos) to 30% commission for publishers/agencies",
+    "cookie_days": 90,
+    "official_program_url": "https://www.chargeflow.io/partners",
+    "tracking_url": "/go/chargeflow",
+    "destination_url": "https://www.chargeflow.io/"
+  },
+  "lemon-squeezy": {
+    "program_name": "Lemon Squeezy Affiliate Program",
+    "network": "Direct",
+    "commission": "25% recurring commission for 12 months",
+    "cookie_days": 60,
+    "official_program_url": "https://www.lemonsqueezy.com/affiliates",
+    "tracking_url": "/go/lemon-squeezy",
+    "destination_url": "https://www.lemonsqueezy.com/pricing"
+  },
+  "paddle": {
+    "program_name": "Paddle Affiliate Program",
+    "network": "Direct",
+    "commission": "15% recurring commission for 12 months",
+    "cookie_days": 60,
+    "official_program_url": "https://www.paddle.com/",
+    "tracking_url": "/go/paddle",
+    "destination_url": "https://www.paddle.com/pricing"
+  },
+  "jotform": {
+    "program_name": "Jotform Affiliate Partner Program",
+    "network": "Direct",
+    "commission": "30% recurring commission for 12 months",
+    "cookie_days": 60,
+    "official_program_url": "https://www.jotform.com/partnership/affiliate/",
+    "tracking_url": "/go/jotform-hipaa",
+    "destination_url": "https://www.jotform.com/hipaa/"
+  },
+  "1password": {
+    "program_name": "1Password Affiliate Program",
+    "network": "PartnerStack",
+    "commission": "25% of first-year subscription revenue",
+    "cookie_days": 90,
+    "official_program_url": "https://market.partnerstack.com/program/1password",
+    "tracking_url": "/go/1password",
+    "destination_url": "https://1password.com/business-pricing"
+  },
+  "vanta": {
+    "program_name": "Vanta Referral Program",
+    "network": "PartnerStack",
+    "commission": "Link-based PartnerStack referral commission",
+    "cookie_days": 90,
+    "official_program_url": "https://market.partnerstack.com/program/vanta",
+    "tracking_url": "/go/vanta",
+    "destination_url": "https://www.vanta.com/"
+  },
+  "drata": {
+    "program_name": "Drata Referral Program",
+    "network": "PartnerStack",
+    "commission": "Link-based PartnerStack referral commission",
+    "cookie_days": 90,
+    "official_program_url": "https://market.partnerstack.com/program/drata",
+    "tracking_url": "/go/drata",
+    "destination_url": "https://drata.com/"
+  }
+}
