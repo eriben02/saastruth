@@ -90,7 +90,7 @@ home_body = f"""
     <div class="wb-col-chart">
       <div class="wb-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
-        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 33;">
+        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 18;">
           <div class="wb-vbar-block block-base">
             <span class="wb-block-title" id="wb-title-base">Base subscriptions</span>
             <span class="wb-block-amount" id="wb-amt-base">$660</span>
@@ -104,7 +104,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 33;">
+        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 27;">
           <div class="wb-vbar-block block-seats">
             <span class="wb-block-title" id="wb-title-seats">Seats &amp; usage</span>
             <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
@@ -118,7 +118,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 34;">
+        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 55;">
           <div class="wb-vbar-block block-hidden">
             <span class="wb-block-title" id="wb-title-hidden">Overages &amp; add-ons</span>
             <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
@@ -412,12 +412,13 @@ function formatHiddenReason(r) {{
   return `Adds ${{parts.join(' + ')}} on top of $${{r.annualSeatsCost.toLocaleString()}} base licenses`;
 }}
 
-// Compute smooth, bounded flex shares (sum = 100, each in [27, 46]) so the 3 vertical blocks never jump or clip at 0 or max slider extremes
+// Compute proportional flex shares (sum = 100, each in [15, 70] -> 38px to 176px inside the 252px container)
+// Each block gets a 15% floor (38px) so its label + dollar value always fit cleanly on 1 or 2 lines, while the remaining 55% scales directly with the true dollar amounts!
 function computeSmoothBarShares(v1, v2, v3) {{
   const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 27 + Math.round((v1 / total) * 19);
-  const s2 = 27 + Math.round((v2 / total) * 19);
-  const s3 = Math.max(27, 100 - s1 - s2);
+  const s1 = 15 + Math.round((v1 / total) * 55);
+  const s2 = 15 + Math.round((v2 / total) * 55);
+  const s3 = Math.max(15, 100 - s1 - s2);
   return [s1, s2, s3];
 }}
 
