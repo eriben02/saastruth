@@ -92,7 +92,6 @@ home_body = f"""
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
         <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 15;">
           <div class="wb-vbar-block block-base">
-            <span class="wb-block-title" id="wb-title-base">Base subscriptions</span>
             <span class="wb-block-amount" id="wb-amt-base">$660</span>
           </div>
           <div class="wb-callout-item">
@@ -106,7 +105,6 @@ home_body = f"""
 
         <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 26;">
           <div class="wb-vbar-block block-seats">
-            <span class="wb-block-title" id="wb-title-seats">Seats &amp; usage</span>
             <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
           </div>
           <div class="wb-callout-item">
@@ -120,7 +118,6 @@ home_body = f"""
 
         <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 59;">
           <div class="wb-vbar-block block-hidden">
-            <span class="wb-block-title" id="wb-title-hidden">Overages &amp; add-ons</span>
             <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
           </div>
           <div class="wb-callout-item">
@@ -417,9 +414,9 @@ function formatHiddenReason(r) {{
 // A 9% floor (23px) keeps the leader line and a compact 1-line label aligned at $0 or small values, while 73% of the height scales 1:1 with the true dollar amounts!
 function computeSmoothBarShares(v1, v2, v3) {{
   const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 12 + Math.round((v1 / total) * 64);
-  const s2 = 12 + Math.round((v2 / total) * 64);
-  const s3 = Math.max(12, 100 - s1 - s2);
+  const s1 = 11 + Math.round((v1 / total) * 67);
+  const s2 = 11 + Math.round((v2 / total) * 67);
+  const s3 = Math.max(11, 100 - s1 - s2);
   return [s1, s2, s3];
 }}
 
@@ -559,17 +556,14 @@ function renderDirectory() {{
       applyBarRowState(rowBase, s1, prof.b);
       applyBarRowState(rowSeats, s2, prof.s);
       applyBarRowState(rowHidden, s3, prof.h);
-      document.getElementById('wb-title-base').textContent = 'Base processing';
       document.getElementById('wb-amt-base').textContent = `$${{prof.b.toLocaleString()}}`;
       document.getElementById('wb-call-title-base').textContent = 'Base processing';
       document.getElementById('wb-call-sub-base').textContent = 'Standard card rate on $50k/mo';
 
-      document.getElementById('wb-title-seats').textContent = 'FX & vault rules';
       document.getElementById('wb-amt-seats').textContent = `$${{prof.s.toLocaleString()}}`;
       document.getElementById('wb-call-title-seats').textContent = 'FX, payouts & vault';
       document.getElementById('wb-call-sub-seats').textContent = 'Surcharges & token portability';
 
-      document.getElementById('wb-title-hidden').textContent = 'Reserve holdback';
       document.getElementById('wb-amt-hidden').textContent = `$${{prof.h.toLocaleString()}}`;
       document.getElementById('wb-call-title-hidden').textContent = 'Rolling reserves';
       document.getElementById('wb-call-sub-hidden').textContent = '90–180 day cashflow freeze risk';
@@ -654,17 +648,14 @@ function renderDirectory() {{
       applyBarRowState(rowSeats, s2, seatsUsageYr);
       applyBarRowState(rowHidden, s3, overagesAddonsYr);
 
-      document.getElementById('wb-title-base').textContent = 'Base subscriptions';
       document.getElementById('wb-amt-base').textContent = `$${{baseSubYr.toLocaleString()}}`;
       document.getElementById('wb-call-title-base').textContent = 'Base subscriptions';
       document.getElementById('wb-call-sub-base').textContent = 'Sticker price of your tools';
 
-      document.getElementById('wb-title-seats').textContent = 'Seats & usage';
       document.getElementById('wb-amt-seats').textContent = `$${{seatsUsageYr.toLocaleString()}}`;
       document.getElementById('wb-call-title-seats').textContent = 'Seats & usage';
       document.getElementById('wb-call-sub-seats').textContent = 'Real headcount and consumption';
 
-      document.getElementById('wb-title-hidden').textContent = 'Overages & add-ons';
       document.getElementById('wb-amt-hidden').textContent = `$${{overagesAddonsYr.toLocaleString()}}`;
       document.getElementById('wb-call-title-hidden').textContent = 'Overages & add-ons';
       document.getElementById('wb-call-sub-hidden').textContent = 'Fees you can’t always see';
