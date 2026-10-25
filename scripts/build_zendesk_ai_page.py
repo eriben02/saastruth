@@ -77,8 +77,8 @@ body = f"""
     <div class="control-group">
       <label for="zd-plan">Zendesk plan</label>
       <select id="zd-plan">
-        <option value="team">Suite Team ($55 annual / $69 monthly &middot; 5 ARs/agent)</option>
-        <option value="pro" selected>Suite Professional ($115 annual / $149 monthly &middot; 10 ARs/agent)</option>
+        <option value="team">Suite Team ($55/seat annual &middot; 5 ARs/agent)</option>
+        <option value="pro" selected>Suite Pro ($115/seat annual &middot; 10 ARs/agent)</option>
       </select>
     </div>
     <div class="control-group">
@@ -110,15 +110,15 @@ body = f"""
     <div class="control-group">
       <label for="zd-model">Zendesk allowance model</label>
       <select id="zd-model">
-        <option value="count" selected>Resolution count (5 or 10/agent, max 10,000/yr)</option>
-        <option value="usd">Dollar pool ($2 or $5/agent, max $5,000/yr)</option>
+        <option value="count" selected>Resolution count (5–10/agent/mo)</option>
+        <option value="usd">Dollar pool ($2–$5/agent/mo)</option>
       </select>
     </div>
     <div class="control-group">
       <label for="zd-copilot">Agent copilot add-on</label>
       <select id="zd-copilot">
         <option value="0" selected>No</option>
-        <option value="1">Yes (Zendesk Copilot $50 &middot; Freddy Copilot $29 &middot; Help Scout included)</option>
+        <option value="1">Yes (+$50 Zendesk / +$29 Freshdesk)</option>
       </select>
     </div>
   </div>

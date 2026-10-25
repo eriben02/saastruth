@@ -223,8 +223,8 @@ p4_body = """
     <div class="control-group">
       <label for="sm-tier">Plan tier comparison</label>
       <select id="sm-tier">
-        <option value="entry">Entry / Basic tier ($12/seat annual · $18/seat monthly on monday CRM)</option>
-        <option value="standard" selected>Standard / Growth tier ($17/seat annual · $25/seat monthly on monday CRM)</option>
+        <option value="entry">Entry / Basic ($12/seat annual · $18 monthly)</option>
+        <option value="standard" selected>Standard / Pro ($17/seat annual · $25 monthly)</option>
       </select>
     </div>
   </div>

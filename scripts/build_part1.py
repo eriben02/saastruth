@@ -28,9 +28,9 @@ home_body = f"""
     </div>
   </div>
   <div class="calc-grid">
-    <div class="control-group">
-      <label for="cat-filter">1. Software category</label>
-      <select id="cat-filter">
+    <div class="control-group sr-only-control">
+      <label for="cat-filter">Software category</label>
+      <select id="cat-filter" data-track="calculator-control" data-control="category">
         <option value="Helpdesk & AI Support" selected>Helpdesk &amp; AI Support (6 tools)</option>
         <option value="CRM & Sales">CRM &amp; Sales (5 tools)</option>
         <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA &amp; SOC 2 (4 tools)</option>
@@ -39,26 +39,26 @@ home_body = f"""
       </select>
     </div>
     <div class="control-group" id="seat-control-group">
-      <label for="seat-slider">2. Team size: <span class="val-pill" id="seat-val">5</span> seats</label>
-      <input type="range" id="seat-slider" min="1" max="50" value="5" />
+      <label for="seat-slider">1. Team size: <span class="val-pill" id="seat-val">5</span> seats</label>
+      <input type="range" id="seat-slider" min="1" max="50" value="5" data-track="calculator-control" data-control="seats" />
     </div>
     <div class="control-group" id="ai-control-group">
-      <label for="ai-slider">3. Monthly AI-resolved tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
-      <input type="range" id="ai-slider" min="0" max="5000" step="100" value="500" />
+      <label for="ai-slider">2. AI-resolved tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
+      <input type="range" id="ai-slider" min="0" max="5000" step="100" value="500" data-track="calculator-control" data-control="ai-tickets" />
     </div>
     <div class="control-group" id="billing-control-group">
-      <label for="billing-mode">4. Billing term</label>
-      <select id="billing-mode">
-        <option value="annual">Annual commitment (lowest rate)</option>
-        <option value="monthly">Month-to-month billing</option>
+      <label for="billing-mode">3. Billing term</label>
+      <select id="billing-mode" data-track="calculator-control" data-control="billing-mode">
+        <option value="annual">Annual billing (lowest rate)</option>
+        <option value="monthly">Monthly billing</option>
       </select>
     </div>
     <div class="control-group" id="sort-control-group">
-      <label for="sort-mode">5. Sort comparison by</label>
-      <select id="sort-mode">
-        <option value="lowest">Lowest Year-1 Total first</option>
-        <option value="highest">Highest Year-1 Total first</option>
-        <option value="hidden_fees">Highest hidden / non-seat fees</option>
+      <label for="sort-mode">4. Sort by</label>
+      <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
+        <option value="lowest">Lowest Year-1 cost</option>
+        <option value="highest">Highest Year-1 cost</option>
+        <option value="hidden_fees">Highest hidden fees</option>
         <option value="name">Platform name (A&ndash;Z)</option>
       </select>
     </div>
@@ -119,7 +119,7 @@ home_body = f"""
     </div>
     <div class="methodology-item">
       <strong>3. Editorial Independence &amp; Direct Pricing Links</strong>
-      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical.
+      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical. Spot a pricing change? Email <a href="mailto:editorial@saasbill.io">editorial@saasbill.io</a>.
     </div>
   </div>
 </section>
@@ -635,10 +635,10 @@ p1_body = """
     <div class="control-group">
       <label for="hs-tier">HubSpot hub &amp; edition</label>
       <select id="hs-tier">
-        <option value="sales_pro">Sales Hub Professional ($90/seat + $1,500 onboarding)</option>
-        <option value="sales_ent">Sales Hub Enterprise ($150/seat + $3,500 onboarding)</option>
-        <option value="mkt_pro">Marketing Hub Pro ($800/mo [3 seats] + $3,000 onboarding)</option>
-        <option value="mkt_ent">Marketing Hub Enterprise ($3,600/mo [5 seats] + $7,000 onboarding)</option>
+        <option value="sales_pro">Sales Hub Pro ($90/seat + $1,500 onboarding)</option>
+        <option value="sales_ent">Sales Hub Ent ($150/seat + $3,500 onboarding)</option>
+        <option value="mkt_pro">Marketing Pro ($800/mo + $3,000 onboarding)</option>
+        <option value="mkt_ent">Marketing Ent ($3,600/mo + $7,000 onboarding)</option>
       </select>
     </div>
   </div>
@@ -856,9 +856,9 @@ p2_body = """
     <div class="control-group">
       <label for="ic-plan">Intercom plan tier (annual billing)</label>
       <select id="ic-plan">
-        <option value="29">Essential ($29/seat/mo annual &middot; $39 monthly)</option>
-        <option value="85" selected>Advanced ($85/seat/mo annual &middot; includes 20 Lite seats)</option>
-        <option value="132">Expert ($132/seat/mo annual &middot; includes 50 Lite seats)</option>
+        <option value="29">Essential ($29/seat annual &middot; $39 monthly)</option>
+        <option value="85" selected>Advanced ($85/seat annual &middot; 20 Lite seats)</option>
+        <option value="132">Expert ($132/seat annual &middot; 50 Lite seats)</option>
       </select>
     </div>
     <div class="control-group">
