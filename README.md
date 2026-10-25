@@ -18,3 +18,11 @@
 - [`/llms-full.txt`](https://saasbill.io/llms-full.txt)
 - [`/robots.txt`](https://saasbill.io/robots.txt)
 - [`/sitemap.xml`](https://saasbill.io/sitemap.xml)
+
+## Click & Interaction Tracking Architecture (Prepared — No External Analytics Installed)
+No third-party analytics script (GA4, Plausible, PostHog) is loaded in `<head>` or `<body>`. All interactive elements emit structured `data-track` attributes and push events to the local in-memory queue `window.__saasbillEvents` so an analytics collector can be attached later without modifying templates:
+
+1. `calculator_interaction` — Fired on `input` across calculator controls (`[data-track="calculator-control"]`, range sliders, and dropdowns). Captures `control` (`seats`, `ai-tickets`, `billing-mode`, `sort-mode`, or subpage control ID), `value`, and timestamp `ts`.
+2. `category_select` — Fired when a user clicks a category pill tab (`[data-track="category-select"]`) or switches category. Captures `category` and `ts`.
+3. `result_rendered` — Fired whenever the calculator renders or updates a scenario (`renderDirectory()`). Captures active `category`, `seats`, `aiTickets`, `billingMode`, `sortMode`, and `ts`.
+4. `vendor_cta_click` — Fired when a visitor clicks a direct vendor link (`[data-track="vendor-cta"]`). Captures `vendor` (tool slug), `location` (`summary-card`, `chart-row`, `table-row`, or `subpage-result`), destination `href`, and `ts`.
