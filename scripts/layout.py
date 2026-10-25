@@ -176,7 +176,6 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
       <div class="brand-wrap">
         <a href="{prefix}index.html" class="brand">SaaSBill<span>.io</span></a>
         <span class="brand-tagline">Independent software cost &amp; contract audits</span>
-        {byline_bar}
       </div>
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="{prefix}pricing/hubspot-true-cost-and-onboarding-fees/">CRM</a>
@@ -184,6 +183,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
         <a href="{prefix}exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payments</a>
         <a href="{prefix}compliance/hipaa-baa-and-soc2-pricing-tiers/">Compliance</a>
         <a href="{prefix}index.html#all-calculators">All Calculators</a>
+        {byline_bar}
       </nav>
     </div>
   </header>
