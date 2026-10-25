@@ -7,7 +7,10 @@
     "official_program_url": "https://www.hubspot.com/partners/affiliates",
     "tracking_url": "/go/hubspot",
     "destination_url": "https://www.hubspot.com/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (Impact In Review, submitted 2026-10-26)",
+    "applied_date": "2026-10-26",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "close-crm": {
     "program_name": "Close CRM Partner Program",
