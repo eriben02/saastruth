@@ -64,14 +64,14 @@ p3_body = """
           <td style="font-family:var(--mono);">Performance-based ($0 setup)</td>
           <td><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
           <td>Prevents 25% reserves &amp; 180-day freezes by intercepting pre-disputes to keep your chargeback rate under 0.5%</td>
-          <td><a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow sponsored">Install Chargeflow &rarr;</a></td>
+          <td><a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow sponsored">Install Chargeflow &rarr;</a></td>
         </tr>
         <tr>
           <td><strong>Paddle (Merchant of Record)</strong></td>
           <td style="font-family:var(--mono);">5.0% + $0.50</td>
           <td><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
           <td>Can terminate accounts on internal risk review and hold unreleased payouts without appeal</td>
-          <td><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow sponsored">Paddle terms &rarr;</a></td>
+          <td><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow sponsored">Paddle pricing &rarr;</a></td>
         </tr>
         <tr>
           <td><strong>Lemon Squeezy (MoR by Stripe)</strong></td>
@@ -279,7 +279,7 @@ p5_body = """
   <h1>Which software plans actually sign a HIPAA BAA (and what SOC 2 really costs).</h1>
   <p class="lead">Most vendors lock HIPAA Business Associate Agreements and SAML SSO behind $20,000+ Enterprise contracts. A handful include them on self-serve plans—and Vanta or Drata quotes rarely include your CPA auditor bill.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually)</strong> and <strong>1Password Business ($7.99/user/mo, which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> list quotes start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong> per <code>r/sysadmin</code>, Mar 2026), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
+    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($7.99/user/mo, which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> list quotes start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong> per <code>r/sysadmin</code>, Mar 2026), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
   </div>
 </section>
 
@@ -340,10 +340,10 @@ p5_body = """
       <tbody>
         <tr>
           <td><strong>Jotform (Forms &amp; Intake)</strong></td>
-          <td><span class="badge badge-low">Gold ($99/mo annual)</span></td>
+          <td><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
           <td>Enterprise (Multi-user SAML)</td>
           <td>SOC 2 Type II &amp; HIPAA</td>
-          <td><a class="btn-cta" href="https://www.jotform.com/hipaa/" target="_blank" rel="nofollow sponsored">Jotform HIPAA &rarr;</a></td>
+          <td><a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow sponsored">Jotform HIPAA &rarr;</a></td>
         </tr>
         <tr>
           <td><strong>1Password (Access &amp; Secrets)</strong></td>
@@ -406,7 +406,7 @@ function updateSocCalc() {
       <td style="font-family:var(--mono); color:var(--emerald);">$${vantaNeg.toLocaleString()}/yr</td>
       <td style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
       <td class="price-highlight">$${(vantaNeg + auditorFee).toLocaleString()} / yr</td>
-      <td><a class="btn-cta" href="https://www.vanta.com/" target="_blank" rel="nofollow sponsored">Request Vanta quote &rarr;</a></td>
+      <td><a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow sponsored">Request Vanta quote &rarr;</a></td>
     </tr>
     <tr>
       <td><strong>Drata</strong></td>
@@ -422,7 +422,7 @@ function updateSocCalc() {
       <td style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
       <td style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
       <td class="price-highlight">$${(compAiCost + auditorFee).toLocaleString()} / yr</td>
-      <td><a class="btn-secondary" href="https://www.vanta.com/" target="_blank" rel="nofollow">Compare benchmarks &rarr;</a></td>
+      <td><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow">Compare Comp AI &rarr;</a></td>
     </tr>
   `;
 }
@@ -432,7 +432,7 @@ updateSocCalc();
 """
 
 p5_faqs = [
-    ("Which Jotform plan includes a signed HIPAA Business Associate Agreement (BAA)?", "Jotform includes HIPAA compliance and an automated Business Associate Agreement (BAA) starting on its self-serve Gold plan ($99/month billed annually) and Enterprise plan, avoiding the $20,000+ custom Enterprise contract required by many form builders."),
+    ("Which Jotform plan includes a signed HIPAA Business Associate Agreement (BAA)?", "Jotform includes HIPAA compliance and an automated Business Associate Agreement (BAA) starting on its self-serve Gold plan ($99/month billed annually, $129/month billed monthly, 1-user account) and Enterprise plan (multi-user), avoiding the $20,000+ custom Enterprise contract required by many form builders."),
     ("Does Vanta or Drata pricing include the SOC 2 CPA auditor fee?", "No. Vanta and Drata are compliance automation platforms that collect evidence and monitor controls, but an independent AICPA-licensed CPA firm must still perform the audit and issue the SOC 2 Type I or Type II report, which typically costs an additional $6,500 to $15,000+ per year."),
     ("How much discount can you negotiate on Vanta or Drata in 2026?", "According to verified buyer benchmarks on r/sysadmin (March 2026), initial list quotes from Vanta and Drata ($9,000–$15,000+/year for startups) can routinely be negotiated down by 30% to 50%, especially when comparing against lower-cost alternatives like Comp AI ($2.4k–$12k) or Openlane (~$5.4k).")
 ]

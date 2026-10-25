@@ -13,22 +13,22 @@ home_body = f"""
   <h1>Your SaaS bill is lying to you.</h1>
   <p class="lead">Software pricing pages show you the teaser rate. They leave out the $1,500–$7,000 mandatory onboarding fee, the 3-seat minimum bucket, the $0.99 per-resolution AI meter, and the 12-month auto-renewal clause buried in the order form. Use the calculators and contract audits below to see what you will actually pay in Year 1 before you sign.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Across the 18 B2B software and payment platforms audited in our 2026 database, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50–$2.00 per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
+    <p><strong>The short version:</strong> Across the 20 B2B software and payment platforms audited in our 2026 database, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50–$2.00 per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
   </div>
 </section>
 
 <section class="calc-box" aria-labelledby="calc-heading">
-  <h2 id="calc-heading" style="margin-top:0;">Compare real first-year costs across 18 platforms</h2>
+  <h2 id="calc-heading" style="margin-top:0;">Compare real first-year costs across 20 platforms</h2>
   <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Select your software category, team size, and monthly AI ticket volume. For a five-person sales or support team, switching from high-onboarding or per-resolution vendors to zero-onboarding platforms (Close CRM, Pipedrive, Freshdesk, Help Scout) typically saves <strong>$1,500 to $18,400 in Year 1</strong>.</p>
   <div class="calc-grid">
     <div class="control-group">
       <label for="cat-filter">Category</label>
       <select id="cat-filter">
-        <option value="ALL">All audited categories</option>
+        <option value="ALL">All Seat-Based &amp; Subscription SaaS (15 tools)</option>
         <option value="CRM & Sales">CRM &amp; Sales</option>
         <option value="Helpdesk & AI Support">Helpdesk &amp; AI Support</option>
-        <option value="Payment Processors & MoR">Payment Processors &amp; MoR</option>
         <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA BAA &amp; SOC 2</option>
+        <option value="Payment Processors & MoR">Payment Processors &amp; MoR (Per-Transaction)</option>
       </select>
     </div>
     <div class="control-group">
@@ -63,6 +63,9 @@ home_body = f"""
       <tbody id="calc-tbody"></tbody>
     </table>
   </div>
+  <p id="calc-payment-note" style="font-size:0.84rem; color:var(--muted); margin-top:12px;">
+    <strong>Note on Payment Processors &amp; MoR:</strong> Transaction-based payment rails (Stripe, Paddle, Whop, Lemon Squeezy, Chargeflow) charge a % of GMV rather than per-seat subscriptions, so they are excluded from the default seat-based ranking above. Select <em>Payment Processors &amp; MoR</em> in the Category dropdown or open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Hold &amp; Reserve Simulator &rarr;</a>
+  </p>
 </section>
 
 <section>
@@ -71,9 +74,9 @@ home_body = f"""
   <ul class="key-list">
     <li><strong>HubSpot’s onboarding fee adds 28% to a 5-seat Sales Pro deal:</strong> HubSpot Sales Hub Professional ($90/seat/month billed annually) requires a mandatory <strong>$1,500 onboarding fee</strong> ($3,500 on Enterprise), bringing five seats to <strong>$6,900 in Year 1</strong> compared with <strong>$2,940/year</strong> on Pipedrive Professional ($0 onboarding).</li>
     <li><strong>Intercom and Zendesk AI meters can exceed your seat bill:</strong> At 3,000 monthly support conversations with 50% AI resolution (1,500 resolutions/month), Intercom Fin ($0.99/resolution) adds <strong>$1,485/month ($17,820/year)</strong> on top of agent seats. Zendesk Suite includes only 5–10 automated resolutions per agent/month before charging <strong>$1.50 committed or $2.00 pay-as-you-go</strong> per verified resolution.</li>
-    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Standard ($17/seat/month) must pay for three seats (<strong>$51/month or $612/year</strong>), whereas Pipedrive Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
+    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Basic ($12/seat/month) or Standard ($17/seat/month) must pay for three seats (<strong>$36–$51/month or $432–$612/year</strong>), whereas Pipedrive Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
     <li><strong>Merchant of Record platforms own your card vault:</strong> Stripe and Shopify Payments can hold payouts for <strong>120–180 days</strong> or apply a <strong>25% rolling reserve</strong> on risk flags, but you own the customer relationship. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the seller of record—if Paddle terminates your account on a risk review, you cannot export subscriber card tokens.</li>
-    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/month</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
+    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually, $129/month monthly, 1-user account</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/month</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
   </ul>
 </section>
 
@@ -124,8 +127,47 @@ function calcEffectiveSeats(tool, seats) {{
     if (seats <= 10) return 10;
     return Math.ceil(seats / 5) * 5;
   }}
-  if (tool.id === 'helpscout-support' && seats > 50) return Math.max(seats, 10);
+  if (tool.id === 'help-scout-plus' && seats > 50) return Math.max(seats, 10);
   return Math.max(seats, tool.seat_minimum || 1);
+}}
+
+function calcToolYear1(t, seats, aiVol, mode) {{
+  const effSeats = calcEffectiveSeats(t, seats);
+  const unitRate = mode === 'annual' ? t.advertised_monthly_price_usd : t.monthly_billing_price_usd;
+  let monthlySoftware = 0;
+  if (t.id === 'hubspot-marketing-pro') {{
+    monthlySoftware = unitRate + Math.max(0, seats - 3) * 45;
+  }} else if (t.id === 'vanta-soc2' || t.id === 'drata-soc2' || t.id === 'jotform-hipaa') {{
+    monthlySoftware = unitRate;
+  }} else {{
+    monthlySoftware = effSeats * unitRate;
+  }}
+  let aiAnnual = 0;
+  let aiNote = '';
+  if (t.id === 'zendesk-suite-team') {{
+    const incl = Math.min(seats * 5, 833);
+    const overageRate = mode === 'annual' ? 1.50 : 2.00;
+    const aiMonthly = Math.max(0, aiVol - incl) * overageRate;
+    aiAnnual = aiMonthly * 12;
+    aiNote = `${{incl}} AR/mo incl., then $${{overageRate.toFixed(2)}}/${{mode === 'annual' ? 'committed' : 'PAYG'}}`;
+  }} else if (t.id === 'zendesk-suite-professional') {{
+    const incl = Math.min(seats * 10, 833);
+    const overageRate = mode === 'annual' ? 1.50 : 2.00;
+    const aiMonthly = Math.max(0, aiVol - incl) * overageRate;
+    aiAnnual = aiMonthly * 12;
+    aiNote = `${{incl}} AR/mo incl., then $${{overageRate.toFixed(2)}}/${{mode === 'annual' ? 'committed' : 'PAYG'}}`;
+  }} else if (t.id === 'freshdesk-support') {{
+    const annualSessions = aiVol * 12;
+    const billableSessions = Math.max(0, annualSessions - 500);
+    const packs = Math.ceil(billableSessions / 100);
+    aiAnnual = packs * 49;
+    aiNote = `500 1x free sessions, then $49/100 sessions (${{packs}} packs/yr)`;
+  }} else {{
+    const aiMonthly = (t.ai_per_resolution_usd || 0) * aiVol;
+    aiAnnual = aiMonthly * 12;
+  }}
+  const year1Total = Math.round(monthlySoftware * 12 + aiAnnual + (t.mandatory_onboarding_fee_usd || 0));
+  return {{ tool: t, effSeats, unitRate, monthlySoftware, aiAnnual, aiNote, year1Total }};
 }}
 
 function renderDirectory() {{
@@ -136,40 +178,36 @@ function renderDirectory() {{
   document.getElementById('seat-val').textContent = seats;
   document.getElementById('ai-val').textContent = aiVol;
 
-  const filtered = TOOLS.filter(t => cat === 'ALL' || t.category === cat);
-  const rows = filtered.map(t => {{
-    const effSeats = calcEffectiveSeats(t, seats);
-    const unitRate = mode === 'annual' ? t.advertised_monthly_price_usd : t.monthly_billing_price_usd;
-    let monthlySoftware = 0;
-    if (t.id === 'hubspot-marketing-pro') {{
-      monthlySoftware = unitRate + Math.max(0, seats - 3) * 45;
-    }} else if (t.id === 'vanta-soc2' || t.id === 'drata-soc2' || t.id === 'jotform-hipaa') {{
-      monthlySoftware = unitRate;
-    }} else {{
-      monthlySoftware = effSeats * unitRate;
-    }}
-    let aiMonthly = (t.ai_per_resolution_usd || 0) * aiVol;
-    if (t.id === 'zendesk-suite-team') {{
-      const incl = Math.min(seats * 5, 833);
-      aiMonthly = Math.max(0, aiVol - incl) * (t.ai_per_resolution_usd || 1.5);
-    }} else if (t.id === 'zendesk-suite-pro') {{
-      const incl = Math.min(seats * 10, 833);
-      aiMonthly = Math.max(0, aiVol - incl) * (t.ai_per_resolution_usd || 1.5);
-    }}
-    const year1Total = Math.round((monthlySoftware + aiMonthly) * 12 + (t.mandatory_onboarding_fee_usd || 0));
-    return {{ tool: t, effSeats, unitRate, year1Total }};
+  const filtered = TOOLS.filter(t => {{
+    if (cat === 'ALL') return t.category !== 'Payment Processors & MoR';
+    return t.category === cat;
   }});
+  const rows = filtered.map(t => calcToolYear1(t, seats, aiVol, mode));
   rows.sort((a, b) => a.year1Total - b.year1Total);
   document.getElementById('calc-tbody').innerHTML = rows.map(r => {{
     const t = r.tool;
     const aff = AFFILIATES[t.affiliate_slug] || {{ destination_url: '#' }};
     const badgeClass = t.trap_severity === 'high' ? 'badge-high' : (t.trap_severity === 'medium' ? 'badge-medium' : 'badge-low');
-    const rateText = t.transaction_fee_display ? t.transaction_fee_display : `$${{r.unitRate}}/mo (${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}})`;
-    const totalText = t.category === 'Payment Processors & MoR' ? 'Per-transaction' : `$${{r.year1Total.toLocaleString()}} / yr`;
+    let rateText = '';
+    if (t.transaction_fee_display) {{
+      rateText = t.transaction_fee_display;
+    }} else if (t.id === 'jotform-hipaa') {{
+      rateText = `$${{r.unitRate}}/mo (1-user Gold HIPAA plan)`;
+    }} else if (t.id === 'vanta-soc2' || t.id === 'drata-soc2') {{
+      rateText = `$${{r.unitRate}}/mo (flat annual platform fee)`;
+    }} else if (t.id === 'hubspot-marketing-pro') {{
+      rateText = `$${{r.unitRate}}/mo base (3 seats incl.) + $45/extra seat ($${{r.monthlySoftware}}/mo for ${{r.effSeats}} seats)`;
+    }} else {{
+      rateText = `$${{r.unitRate}}/mo (${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}})`;
+    }}
+    const totalText = t.category === 'Payment Processors & MoR'
+      ? `Per-transaction <div style="font-size:0.75rem; font-weight:400;"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Simulate holds &rarr;</a></div>`
+      : `$${{r.year1Total.toLocaleString()}} / yr`;
+    const extraAiLine = r.aiNote ? `<div style="font-size:0.75rem; color:var(--muted); margin-top:2px;">AI math: ${{r.aiNote}}</div>` : '';
     return `
       <tr>
         <td><strong>${{t.name}}</strong><div style="font-size:0.78rem; color:var(--muted);">${{t.category}}</div></td>
-        <td style="font-family:var(--mono);">${{rateText}}</td>
+        <td style="font-family:var(--mono);">${{rateText}}${{extraAiLine}}</td>
         <td style="font-family:var(--mono);">${{t.mandatory_onboarding_fee_usd > 0 ? '$' + t.mandatory_onboarding_fee_usd.toLocaleString() : '$0'}}</td>
         <td><span class="badge ${{badgeClass}}">${{t.trap_badge}}</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">${{t.billing_lock_in_type}}</div></td>
         <td class="price-highlight">${{totalText}}</td>
@@ -186,7 +224,7 @@ renderDirectory();
 home_faqs = [
     ("Which B2B SaaS tools charge mandatory onboarding fees in 2026?", "HubSpot charges mandatory one-time onboarding fees on its Professional and Enterprise tiers: $1,500 for Sales Hub Professional, $3,500 for Sales Hub Enterprise, $3,000 for Marketing Hub Professional, and $7,000 for Marketing Hub Enterprise (verified Oct 2026). Alternatives like Close CRM, Pipedrive, and Freshdesk charge $0 for onboarding."),
     ("How does Intercom's $0.99 per Fin AI resolution pricing work?", "Intercom charges a per-seat monthly fee ($29 Essential, $85 Advanced, or $132 Expert billed annually) plus $0.99 for every customer conversation resolved by its Fin AI agent (and $9.99 for sales qualification). If Fin AI resolves 2,000 tickets a month, it adds $1,980/month ($23,760/year) to your seat invoice."),
-    ("Why does monday CRM cost more than advertised for 1 or 2 users?", "monday CRM enforces a 3-seat minimum and bills in fixed seat buckets (3, 5, 10, 15 seats). A solo user on the $17/seat/month Standard plan must pay for 3 seats ($51/month or $612/year). For 1–2 users, Pipedrive ($14–$34/seat) or Close CRM ($49/seat) is cheaper because they bill per exact seat."),
+    ("Why does monday CRM cost more than advertised for 1 or 2 users?", "monday CRM enforces a 3-seat minimum and bills in fixed seat buckets (3, 5, 10, 15 seats). A solo user on the $12/seat Basic or $17/seat Standard plan must pay for 3 seats ($36/month or $51/month). For 1–2 users, Pipedrive ($14–$34/seat) or Close CRM ($49/seat) is cheaper because they bill per exact seat."),
     ("What happens to subscriber card tokens if Paddle or Stripe terminates my account?", "With Stripe (2.9% + $0.30), you are the merchant and own the customer relationship, allowing PGP-encrypted card token exports unless terminated for fraud. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, you cannot export card tokens and every subscriber must re-enter their payment details.")
 ]
 
@@ -200,7 +238,7 @@ render_page(
     extra_schema={
         "@type": "Dataset",
         "name": "SaaSBill 2026 B2B SaaS True-Cost & Contract Trap Dataset",
-        "description": "Verified 2026 pricing, mandatory onboarding fees, seat-bucket minimums, AI resolution rates, and payout reserve rules across 18 B2B SaaS and payment platforms.",
+        "description": "Verified 2026 pricing, mandatory onboarding fees, seat-bucket minimums, AI resolution rates, and payout reserve rules across 20 B2B SaaS and payment platforms.",
         "url": f"{SITE_ORIGIN}/",
         "dateModified": "2026-10-25",
         "creator": {"@type": "Organization", "name": "SaaSBill Editorial"}
@@ -411,15 +449,15 @@ render_page(
 p2_body = """
 <section class="hero">
   <h1>What Intercom’s $0.99 AI resolution fee actually does to your support bill.</h1>
-  <p class="lead">Seat licenses start at $29 to $132 a month, but Fin AI adds $0.99 every time it resolves a ticket. Here is how fast the variable meter outgrows your seat bill—and how fixed-fee helpdesks compare.</p>
+  <p class="lead">Seat licenses start at $29 to $132 a month, but Fin AI adds $0.99 every time it resolves a ticket. Here is how fast the variable meter outgrows your seat bill—and how session-pack helpdesks compare.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong> vs. <strong>$390/mo ($4,680/yr)</strong> on Freshdesk Pro + Freddy AI Copilot.</p>
+    <p><strong>The short version:</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong>. By comparison, <strong>Freshdesk Pro ($55/agent/mo annual)</strong> includes <strong>500 one-time Freddy AI Agent sessions</strong> and then bills <strong>$49 per 100-session pack</strong> (charged per AI session handled, whether resolved or not; Freddy AI Copilot is an optional $29/agent/mo add-on).</p>
   </div>
 </section>
 
 <section class="calc-box">
   <h2 style="margin-top:0;">Calculate your monthly Intercom + Fin AI invoice</h2>
-  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Every 1,000 tickets resolved by Fin AI adds $990/month ($11,880/year) on top of your agent seat subscriptions. Drag the sliders to see your monthly and annual total.</p>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Every 1,000 tickets resolved by Fin AI adds $990/month ($11,880/year) on top of your agent seat subscriptions. Drag the sliders to compare Intercom’s $0.99/resolution meter against Freshdesk Pro + Freddy AI Agent session packs ($49 per 100 sessions after 500 one-time free sessions).</p>
   <div class="calc-grid">
     <div class="control-group">
       <label for="ic-seats">Support agents (full seats): <span class="val-pill" id="ic-seats-val">5</span> seats</label>
@@ -444,14 +482,14 @@ p2_body = """
   </div>
   <div class="table-wrap">
     <table>
-      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Cost Breakdown (USD, checked Oct 25, 2026)</caption>
+      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Agent ($49/100 Sessions) Breakdown (USD, checked Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Helpdesk Solution</th>
           <th>Monthly Agent Seats</th>
           <th>Monthly AI Usage Charge</th>
           <th>Total Monthly Bill</th>
-          <th>Annualized Cost</th>
+          <th>Year-1 Total (USD)</th>
           <th>Compare</th>
         </tr>
       </thead>
@@ -489,10 +527,18 @@ function updateIcCalc() {
   const icAiCost = Math.round(resolvedTickets * 0.99);
   const icTotalMo = icSeatCost + icAiCost;
   const icYear = icTotalMo * 12;
-  const fdSeatCost = seats * 49;
-  const fdAiCost = seats * 29;
-  const fdTotalMo = fdSeatCost + fdAiCost;
-  const fdYear = fdTotalMo * 12;
+
+  // Freshdesk Pro ($55/seat/mo annual) + Freddy AI Agent session packs ($49 per 100 sessions; 500 1x free in Year 1)
+  const fdSeatCost = seats * 55;
+  const fdMonthlyPacks = Math.ceil(tickets / 100);
+  const fdAiCostMo = fdMonthlyPacks * 49;
+  const fdTotalMo = fdSeatCost + fdAiCostMo;
+  const fdAnnualBillableSessions = Math.max(0, tickets * 12 - 500);
+  const fdAnnualAiCost = Math.ceil(fdAnnualBillableSessions / 100) * 49;
+  const fdYear = fdSeatCost * 12 + fdAnnualAiCost;
+  const diff = icYear - fdYear;
+  const diffLabel = diff > 0 ? `(saves $${diff.toLocaleString()}/yr)` : `(+$${Math.abs(diff).toLocaleString()}/yr vs Intercom)`;
+
   document.getElementById('ic-tbody').innerHTML = `
     <tr>
       <td><strong>Intercom + Fin AI (${resolvedTickets.toLocaleString()} resolutions/mo)</strong></td>
@@ -503,11 +549,11 @@ function updateIcCalc() {
       <td><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow">Intercom pricing &rarr;</a></td>
     </tr>
     <tr>
-      <td><strong>Freshdesk Pro + Freddy AI (Freshworks)</strong><div style="font-size:0.78rem; color:var(--emerald);">Predictable per-agent alternative</div></td>
+      <td><strong>Freshdesk Pro + Freddy AI Agent (Freshworks)</strong><div style="font-size:0.78rem; color:var(--emerald);">$55/agent/mo + $49/100 AI sessions (500 one-time free sessions deducted in Yr 1; optional Copilot $29/agent/mo)</div></td>
       <td style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$${fdAiCost.toLocaleString()} / mo ($29/agent add-on)</span></td>
+      <td><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
       <td class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr (saves $${Math.max(0, icYear - fdYear).toLocaleString()}/yr)</td>
+      <td class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</td>
       <td><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk free &rarr;</a></td>
     </tr>
   `;
@@ -520,7 +566,7 @@ updateIcCalc();
 p2_faqs = [
     ("How much does Intercom Fin AI charge per resolution in 2026?", "Intercom charges $0.99 per Fin AI outcome/resolution (and $9.99 per sales qualification outcome), billed at most once per conversation, on top of your monthly per-seat plan ($29 Essential, $85 Advanced, or $132 Expert billed annually)."),
     ("What counts as a billable Fin AI resolution in Intercom?", "A billable $0.99 Fin outcome occurs when the customer confirms their question was answered, exits the conversation without requesting a human agent after Fin's answer, or triggers a configured procedure handoff/disqualification outcome."),
-    ("What is the most predictable alternative to Intercom's $0.99 per-resolution pricing?", "Freshdesk (by Freshworks) offers predictable per-agent pricing ($15–$79/seat/month) with optional Freddy AI Copilot at $29/agent/month, avoiding uncapped $0.99 per-ticket outcome spikes.")
+    ("How does Freshdesk Freddy AI pricing compare to Intercom's $0.99 per-resolution meter?", "Freshdesk (by Freshworks) charges $19 (Growth), $55 (Pro), or $89 (Enterprise) per agent/month billed annually ($23/$66/$107 monthly). For autonomous AI support, Freddy AI Agent includes 500 one-time complimentary sessions per account and then bills $49 per 100-session pack (charged per session, resolved or not), while Freddy AI Copilot for human agents is an optional $29/agent/month add-on.")
 ]
 
 render_page(

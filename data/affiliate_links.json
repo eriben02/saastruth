@@ -35,6 +35,15 @@
     "tracking_url": "/go/monday-crm",
     "destination_url": "https://monday.com/pricing"
   },
+  "intercom": {
+    "program_name": "Intercom Partner Program",
+    "network": "Direct",
+    "commission": "Partner referral program",
+    "cookie_days": 90,
+    "official_program_url": "https://www.intercom.com/partners",
+    "tracking_url": "/go/intercom",
+    "destination_url": "https://www.intercom.com/pricing"
+  },
   "freshworks": {
     "program_name": "Freshworks Affiliate Program (Freshdesk & Freshservice)",
     "network": "PartnerStack",
@@ -49,6 +58,15 @@
     "restrictions": "No PPC bidding on Freshworks brand keywords without permission; no coupon/spam traffic",
     "status": "not applied",
     "verified_date": "2026-10-25"
+  },
+  "stripe": {
+    "program_name": "Stripe Partner Ecosystem",
+    "network": "Direct",
+    "commission": "None (Editorial reference link)",
+    "cookie_days": 0,
+    "official_program_url": "https://stripe.com/partners",
+    "tracking_url": "/go/stripe",
+    "destination_url": "https://stripe.com/pricing"
   },
   "whop": {
     "program_name": "Whop Business Affiliate & Startup Partner Program",
@@ -66,7 +84,7 @@
     "cookie_days": 90,
     "official_program_url": "https://www.chargeflow.io/partners",
     "tracking_url": "/go/chargeflow",
-    "destination_url": "https://www.chargeflow.io/"
+    "destination_url": "https://www.chargeflow.io/pricing"
   },
   "lemon-squeezy": {
     "program_name": "Lemon Squeezy Affiliate Program",
@@ -93,7 +111,7 @@
     "cookie_days": 60,
     "official_program_url": "https://www.jotform.com/partnership/affiliate/",
     "tracking_url": "/go/jotform-hipaa",
-    "destination_url": "https://www.jotform.com/hipaa/"
+    "destination_url": "https://www.jotform.com/hipaa/pricing/"
   },
   "1password": {
     "program_name": "1Password Affiliate Program",
@@ -111,7 +129,7 @@
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/program/vanta",
     "tracking_url": "/go/vanta",
-    "destination_url": "https://www.vanta.com/"
+    "destination_url": "https://www.vanta.com/pricing"
   },
   "drata": {
     "program_name": "Drata Referral Program",
