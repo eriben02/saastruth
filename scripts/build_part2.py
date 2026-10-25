@@ -12,7 +12,7 @@ p3_body = """
   <h1>What happens when Stripe, Shopify, or Paddle freezes your payouts.</h1>
   <p class="lead">A 25% rolling reserve or 180-day hold can starve a healthy business overnight—and if a Merchant of Record drops you, you cannot take your subscribers’ card tokens with you. Here is how to protect your cashflow.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong> (<code>r/SaaS</code>, Sep 2026). To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30)</strong>.</p>
+    <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30)</strong>.</p>
   </div>
 </section>
 
@@ -39,9 +39,9 @@ p3_body = """
 <section>
   <h2>Token portability &amp; reserve comparison: Processor vs. Merchant of Record</h2>
   <p class="section-tldr">Never rely on a single Merchant of Record without keeping your own entitlement database. Pairing a multi-processor orchestration layer (Whop) with automated pre-dispute alerts (Chargeflow) prevents single-point-of-failure shutdowns.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>2026 Payment Processor &amp; Merchant of Record (MoR) Reserve &amp; Token Ownership Matrix (checked Oct 25, 2026)</caption>
+      <caption>2026 Payment Processor &amp; Merchant of Record (MoR) Reserve &amp; Token Ownership Matrix (verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Provider</th>
@@ -53,47 +53,63 @@ p3_body = """
       </thead>
       <tbody>
         <tr>
-          <td><strong>Whop Payments &amp; Orchestration</strong></td>
-          <td style="font-family:var(--mono);">2.7% + $0.30 domestic</td>
-          <td><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
-          <td>Multi-processor waterfall routes around single-acquirer declines (~6% revenue lift); KYB deferred to $5k volume</td>
-          <td><a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow sponsored">Add Whop failover &rarr;</a></td>
+          <td data-label="Provider">
+            <strong>Whop Payments &amp; Orchestration</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://whop.com/sell" target="_blank" rel="noopener">Whop Payments &nearr;</a></div>
+          </td>
+          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">2.7% + $0.30 domestic</td>
+          <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
+          <td data-label="Hold / Reserve Policy">Multi-processor waterfall routes around single-acquirer declines (~6% revenue lift); KYB deferred to $5k volume</td>
+          <td data-label="Action"><a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow sponsored">Add Whop failover &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
-          <td><strong>Chargeflow (Dispute Shield)</strong></td>
-          <td style="font-family:var(--mono);">Performance-based ($0 setup)</td>
-          <td><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
-          <td>Prevents 25% reserves &amp; 180-day freezes by intercepting pre-disputes to keep your chargeback rate under 0.5%</td>
-          <td><a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow sponsored">Install Chargeflow &rarr;</a></td>
+          <td data-label="Provider">
+            <strong>Chargeflow (Dispute Shield)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.chargeflow.io/pricing" target="_blank" rel="noopener">Chargeflow pricing &nearr;</a></div>
+          </td>
+          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">Performance-based ($0 setup)</td>
+          <td data-label="Token Ownership"><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
+          <td data-label="Hold / Reserve Policy">Prevents 25% reserves &amp; 180-day freezes by intercepting pre-disputes to keep your chargeback rate under 0.5%</td>
+          <td data-label="Action"><a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow sponsored">Install Chargeflow &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
-          <td><strong>Paddle (Merchant of Record)</strong></td>
-          <td style="font-family:var(--mono);">5.0% + $0.50</td>
-          <td><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
-          <td>Can terminate accounts on internal risk review and hold unreleased payouts without appeal</td>
-          <td><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow sponsored">Paddle pricing &rarr;</a></td>
+          <td data-label="Provider">
+            <strong>Paddle (Merchant of Record)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.paddle.com/pricing" target="_blank" rel="noopener">Paddle pricing &amp; terms &nearr;</a></div>
+          </td>
+          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50</td>
+          <td data-label="Token Ownership"><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
+          <td data-label="Hold / Reserve Policy">Can terminate accounts on internal risk review and hold unreleased payouts without appeal</td>
+          <td data-label="Action"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener">Paddle pricing &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
         </tr>
         <tr>
-          <td><strong>Lemon Squeezy (MoR by Stripe)</strong></td>
-          <td style="font-family:var(--mono);">5.0% + $0.50 (+0.5% subs)</td>
-          <td><span class="badge badge-medium">MoR vault (Stripe-backed)</span></td>
-          <td>Subject to Stripe's prohibited business list and automated risk triggers</td>
-          <td><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow sponsored">Lemon Squeezy &rarr;</a></td>
+          <td data-label="Provider">
+            <strong>Lemon Squeezy (MoR by Stripe)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="noopener">Lemon Squeezy pricing &nearr;</a></div>
+          </td>
+          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50 (+0.5% subs)</td>
+          <td data-label="Token Ownership"><span class="badge badge-medium">MoR vault (Stripe-backed)</span></td>
+          <td data-label="Hold / Reserve Policy">Subject to Stripe's prohibited business list and automated risk triggers</td>
+          <td data-label="Action"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow sponsored">Lemon Squeezy &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>What founders report when an account is frozen</h2>
+  <h2>What contract terms &amp; reserve docs say when an account is frozen</h2>
   <div class="evidence-box">
-    <strong>Why a Paddle termination is harder to recover from than Stripe</strong>
-    <p style="margin-top:6px;">"With a merchant of record, the MoR is the seller. Their name is on the invoice, their entity holds the tax registrations, and the card credentials belong to them. When they terminate you, there is no re-tokenising, because the tokens were never yours."</p>
-    <cite>Source: <a href="https://www.reddit.com/r/SaaS/comments/1wd86p7/i_want_to_share_my_experience_with_paddle_as_a/" target="_blank" rel="noopener">r/SaaS &ndash; "I want to share my experience with Paddle as a warning to other SaaS founders" (Sep 11, 2026)</a></cite>
+    <strong>Why a Merchant of Record termination locks card tokens</strong>
+    <p style="margin-top:6px;">With a Merchant of Record (Paddle or Lemon Squeezy), the MoR is the legal seller of record. Their entity appears on the customer’s bank statement, holds the tax registrations, and owns the payment vault—meaning card tokens cannot be exported to your own Stripe account if the MoR terminates your agreement.</p>
+    <cite>Source: <a href="https://www.paddle.com/legal/terms" target="_blank" rel="noopener">Paddle Legal Terms &amp; Merchant of Record Structure</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>Shopify &amp; Stripe 179–180 day payout holds</strong>
-    <p style="margin-top:6px;">E-commerce founders and risk analysts on X documented $2M/month brands hit with 179-day payout holds and newly launched stores moving checkout to Whop within hours of a Shopify Payments freeze.</p>
-    <cite>Sources: <a href="https://x.com/AlexTamano/status/2111182665533809112" target="_blank" rel="noopener">@AlexTamano on X (Oct 16, 2026)</a>, <a href="https://x.com/BlendKabash/status/2113770391617278063" target="_blank" rel="noopener">@BlendKabash on X (Oct 24, 2026)</a> &amp; <a href="https://x.com/MerchantRiskDsk/status/2113450082162950368" target="_blank" rel="noopener">@MerchantRiskDsk on X (Oct 23, 2026)</a></cite>
+    <strong>Stripe rolling reserves &amp; card-network dispute thresholds</strong>
+    <p style="margin-top:6px;">Stripe’s underwriting engine can apply a rolling reserve (holding a percentage of each charge for 30–180 days) or a fixed reserve when dispute rates approach Visa/Mastercard monitoring thresholds (~0.5%–0.75%) or when delivery windows are extended.</p>
+    <cite>Source: <a href="https://docs.stripe.com/reserves" target="_blank" rel="noopener">Stripe Documentation &ndash; How Rolling and Fixed Reserves Work</a></cite>
   </div>
 </section>
 
@@ -176,9 +192,9 @@ p4_body = """
       </select>
     </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>Effective Per-User CRM Cost After Seat Minimums &amp; Seat Buckets (USD, checked Oct 25, 2026)</caption>
+      <caption>Effective Per-User CRM Cost After Seat Minimums &amp; Seat Buckets (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>CRM Platform</th>
@@ -198,9 +214,9 @@ p4_body = """
   <h2>When to pick Pipedrive vs. monday CRM</h2>
   <p class="section-tldr">Choose <strong>Pipedrive</strong> or <strong>Close CRM</strong> when you have 1, 2, 4, 6, 7, 8, or 11–12 users—sizes where monday CRM forces you to pay for unused seats. Choose <strong>monday CRM</strong> when your headcount lands cleanly on 3, 5, 10, or 15 users.</p>
   <div class="evidence-box">
-    <strong>Buyer note on X: "The 3-seat minimum bumps up the actual starting cost"</strong>
-    <p style="margin-top:6px;">"monday CRM looks affordable at first, but the 3-seat minimum bumps up the actual starting cost."</p>
-    <cite>Source: <a href="https://x.com/wriviewer/status/2106774117718352055" target="_blank" rel="noopener">@wriviewer on X (Oct 4, 2026)</a></cite>
+    <strong>Why monday CRM’s 3-seat minimum and 5-seat increments matter</strong>
+    <p style="margin-top:6px;">monday.com’s pricing selector starts at 3 seats and steps in fixed increments (3, 5, 10, 15, 20, 25...). Teams with 1, 2, 4, or 6–9 users pay for unallocated seats in their bucket.</p>
+    <cite>Source: <a href="https://monday.com/pricing" target="_blank" rel="noopener">monday.com Official Pricing Page &amp; Seat Selector</a></cite>
   </div>
 </section>
 
@@ -225,28 +241,28 @@ function updateSmCalc() {
   const hsMo = u * hsRate;
   document.getElementById('sm-tbody').innerHTML = `
     <tr>
-      <td><strong>Pipedrive CRM</strong></td>
-      <td style="font-family:var(--mono);">$${pipeRate}/seat/mo</td>
-      <td><span class="badge badge-low">${u} seat(s) (exact 1:1)</span></td>
-      <td style="font-family:var(--mono);">$${pipeRate.toFixed(2)} / user / mo</td>
-      <td class="price-highlight">$${(pipeMo * 12).toLocaleString()} / yr</td>
-      <td><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">${u <= 2 ? 'Best for 1–2 users &rarr;' : 'Try Pipedrive &rarr;'}</a></td>
+      <td data-label="CRM Platform"><strong>Pipedrive CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
+      <td data-label="Advertised Price" style="font-family:var(--mono);">$${pipeRate}/seat/mo</td>
+      <td data-label="Billed Seats"><span class="badge badge-low">${u} seat(s) (exact 1:1)</span></td>
+      <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${pipeRate.toFixed(2)} / user / mo</td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${(pipeMo * 12).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">${u <= 2 ? 'Best for 1–2 users &rarr;' : 'Try Pipedrive &rarr;'}</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>monday CRM</strong></td>
-      <td style="font-family:var(--mono);">$${monRate}/seat/mo</td>
-      <td><span class="badge ${monSeats > u ? 'badge-medium' : 'badge-low'}">${monSeats} seats (${monSeats - u} unused)</span></td>
-      <td style="font-family:var(--mono);">$${(monMo / u).toFixed(2)} / user / mo</td>
-      <td class="price-highlight">$${(monMo * 12).toLocaleString()} / yr</td>
-      <td><a class="btn-cta" href="https://monday.com/pricing" target="_blank" rel="nofollow sponsored">${u >= 3 ? 'Best value at 3+ users &rarr;' : 'See monday CRM &rarr;'}</a></td>
+      <td data-label="CRM Platform"><strong>monday CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://monday.com/pricing" target="_blank" rel="noopener">monday.com pricing &nearr;</a></div></td>
+      <td data-label="Advertised Price" style="font-family:var(--mono);">$${monRate}/seat/mo</td>
+      <td data-label="Billed Seats"><span class="badge ${monSeats > u ? 'badge-medium' : 'badge-low'}">${monSeats} seats (${monSeats - u} unused)</span></td>
+      <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${(monMo / u).toFixed(2)} / user / mo</td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${(monMo * 12).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://monday.com/pricing" target="_blank" rel="nofollow sponsored">${u >= 3 ? 'Best value at 3+ users &rarr;' : 'See monday CRM &rarr;'}</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>HubSpot Sales Hub (${tier === 'entry' ? 'Starter' : 'Professional'})</strong></td>
-      <td style="font-family:var(--mono);">$${hsRate}/seat/mo</td>
-      <td><span class="badge ${hsOnboard > 0 ? 'badge-high' : 'badge-low'}">${u} seat(s) ${hsOnboard > 0 ? '+ $1,500 onboarding' : ''}</span></td>
-      <td style="font-family:var(--mono);">$${((hsMo + hsOnboard / 12) / u).toFixed(2)} / user / mo</td>
-      <td class="price-highlight">$${(hsMo * 12 + hsOnboard).toLocaleString()} / yr</td>
-      <td><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a></td>
+      <td data-label="CRM Platform"><strong>HubSpot Sales Hub (${tier === 'entry' ? 'Starter' : 'Professional'})</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
+      <td data-label="Advertised Price" style="font-family:var(--mono);">$${hsRate}/seat/mo</td>
+      <td data-label="Billed Seats"><span class="badge ${hsOnboard > 0 ? 'badge-high' : 'badge-low'}">${u} seat(s) ${hsOnboard > 0 ? '+ $1,500 onboarding' : ''}</span></td>
+      <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${((hsMo + hsOnboard / 12) / u).toFixed(2)} / user / mo</td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${(hsMo * 12 + hsOnboard).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
   `;
 }
@@ -279,13 +295,13 @@ p5_body = """
   <h1>Which software plans actually sign a HIPAA BAA (and what SOC 2 really costs).</h1>
   <p class="lead">Most vendors lock HIPAA Business Associate Agreements and SAML SSO behind $20,000+ Enterprise contracts. A handful include them on self-serve plans—and Vanta or Drata quotes rarely include your CPA auditor bill.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($7.99/user/mo, which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> list quotes start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong> per <code>r/sysadmin</code>, Mar 2026), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
+    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($7.99/user/mo, which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> do not publish public self-serve prices—custom list quotes typically start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong>), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
   </div>
 </section>
 
 <section class="calc-box">
   <h2 style="margin-top:0;">Estimate your real Year-1 SOC 2 budget (platform + CPA auditor)</h2>
-  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Compliance platforms automate evidence collection, but an independent CPA firm still has to issue your SOC 2 report. Adjust headcount, frameworks, and your negotiated discount below.</p>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Because Vanta, Drata, and CPA audit firms use custom quotes rather than public price sheets, all figures in this estimator are labeled <span class="status-pill status-estimated">Estimated (Benchmark)</span> based on buyer contract ranges. Adjust headcount, frameworks, and your negotiated discount below.</p>
   <div class="calc-grid">
     <div class="control-group">
       <label for="soc-emp">Company headcount: <span class="val-pill" id="soc-emp-val">20</span> employees</label>
@@ -304,13 +320,13 @@ p5_body = """
       <input type="range" id="soc-disc" min="0" max="50" step="5" value="35" />
     </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>2026 SOC 2 Type II &amp; HIPAA Automation Total Cost Estimator: Vanta vs. Drata vs. Comp AI (USD, checked Oct 25, 2026)</caption>
+      <caption>2026 SOC 2 Type II &amp; HIPAA Automation Total Cost Estimator: Vanta vs. Drata vs. Comp AI (USD, benchmarked Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Compliance Platform</th>
-          <th>List Platform Quote</th>
+          <th>Est. List Platform Quote</th>
           <th>Negotiated Platform Cost</th>
           <th>Est. External CPA Auditor Fee</th>
           <th>Total Year-1 SOC 2 Cost</th>
@@ -325,9 +341,9 @@ p5_body = """
 <section>
   <h2>Which SaaS tiers sign a HIPAA BAA or include SAML SSO</h2>
   <p class="section-tldr">Before signing a $25,000+ Enterprise contract solely to unlock a HIPAA BAA or Okta SAML Single Sign-On, check the minimum qualifying edition for each vendor below.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>Minimum Pricing Tier Required for Signed HIPAA BAA &amp; SAML SSO (checked Oct 25, 2026)</caption>
+      <caption>Minimum Pricing Tier Required for Signed HIPAA BAA &amp; SAML SSO (verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Vendor &amp; Category</th>
@@ -339,49 +355,69 @@ p5_body = """
       </thead>
       <tbody>
         <tr>
-          <td><strong>Jotform (Forms &amp; Intake)</strong></td>
-          <td><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
-          <td>Enterprise (Multi-user SAML)</td>
-          <td>SOC 2 Type II &amp; HIPAA</td>
-          <td><a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow sponsored">Jotform HIPAA &rarr;</a></td>
+          <td data-label="Vendor">
+            <strong>Jotform (Forms &amp; Intake)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="noopener">Jotform HIPAA pricing &nearr;</a></div>
+          </td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
+          <td data-label="Min SAML SSO Tier">Enterprise (Multi-user SAML)</td>
+          <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
+          <td data-label="Details"><a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow sponsored">Jotform HIPAA &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
-          <td><strong>1Password (Access &amp; Secrets)</strong></td>
-          <td><span class="badge badge-low">Business ($7.99/user/mo)</span></td>
-          <td><span class="badge badge-low">Business ($7.99/user/mo &middot; no SSO tax)</span></td>
-          <td>SOC 2 Type II &amp; ISO 27001</td>
-          <td><a class="btn-cta" href="https://1password.com/business-pricing" target="_blank" rel="nofollow sponsored">1Password Business &rarr;</a></td>
+          <td data-label="Vendor">
+            <strong>1Password (Access &amp; Secrets)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://1password.com/business-pricing" target="_blank" rel="noopener">1Password Business pricing &nearr;</a></div>
+          </td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Business ($7.99/user/mo)</span></td>
+          <td data-label="Min SAML SSO Tier"><span class="badge badge-low">Business ($7.99/user/mo &middot; no SSO tax)</span></td>
+          <td data-label="SOC 2 Status">SOC 2 Type II &amp; ISO 27001</td>
+          <td data-label="Details"><a class="btn-cta" href="https://1password.com/business-pricing" target="_blank" rel="nofollow sponsored">1Password Business &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
-          <td><strong>Zendesk (Customer Support)</strong></td>
-          <td><span class="badge badge-medium">Suite Professional ($115/agent/mo)</span></td>
-          <td>Listed across Suite plans</td>
-          <td>SOC 2 Type II</td>
-          <td><a class="btn-secondary" href="../pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk audit &rarr;</a></td>
+          <td data-label="Vendor">
+            <strong>Zendesk (Customer Support)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.zendesk.com/pricing/" target="_blank" rel="noopener">Zendesk pricing &nearr;</a></div>
+          </td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-medium">Suite Professional ($115/agent/mo)</span></td>
+          <td data-label="Min SAML SSO Tier">Listed across Suite plans</td>
+          <td data-label="SOC 2 Status">SOC 2 Type II</td>
+          <td data-label="Details"><a class="btn-secondary" href="../pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk audit &rarr;</a></td>
         </tr>
         <tr>
-          <td><strong>Help Scout (Customer Support)</strong></td>
-          <td><span class="badge badge-medium">Pro ($75/user/mo, 10-user min)</span></td>
-          <td>Pro or Plus add-on</td>
-          <td>SOC 2 Type II &amp; HIPAA</td>
-          <td><a class="btn-cta" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow sponsored">Help Scout &rarr;</a></td>
+          <td data-label="Vendor">
+            <strong>Help Scout (Customer Support)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.helpscout.com/pricing/" target="_blank" rel="noopener">Help Scout pricing &nearr;</a></div>
+          </td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-medium">Pro ($75/user/mo, 10-user min)</span></td>
+          <td data-label="Min SAML SSO Tier">Pro or Plus add-on</td>
+          <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
+          <td data-label="Details"><a class="btn-cta" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow sponsored">Help Scout &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
-          <td><strong>HubSpot (CRM &amp; Marketing)</strong></td>
-          <td><span class="badge badge-high">Enterprise ($150/seat + $3,500 onboarding)</span></td>
-          <td>Enterprise tier only</td>
-          <td>SOC 2 Type II</td>
-          <td><a class="btn-secondary" href="../pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot audit &rarr;</a></td>
+          <td data-label="Vendor">
+            <strong>HubSpot (CRM &amp; Marketing)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div>
+          </td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-high">Enterprise ($150/seat + $3,500 onboarding)</span></td>
+          <td data-label="Min SAML SSO Tier">Enterprise tier only</td>
+          <td data-label="SOC 2 Status">SOC 2 Type II</td>
+          <td data-label="Details"><a class="btn-secondary" href="../pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot audit &rarr;</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>What IT buyers report on Vanta &amp; Drata renewals</h2>
+  <h2>What IT buyers need to know about compliance quotes</h2>
   <div class="evidence-box">
-    <strong>r/sysadmin negotiation benchmark: "You can get the initial offer down to 50%"</strong>
-    <p style="margin-top:6px;">"We use Drata. Vanta and Drata are the market leaders afaik. Just make sure to negotiate hard, those tools are expensive and you can get the initial offer down to 50%."</p>
-    <cite>Source: <a href="https://www.reddit.com/r/sysadmin/comments/1rvyrr1/we_need_a_cloud_compliance_tool_that_handles_gdpr/" target="_blank" rel="noopener">r/sysadmin &ndash; "We need a cloud compliance tool that handles GDPR, HIPAA and SOC 2 simultaneously" (Mar 18, 2026)</a></cite>
+    <strong>Why SOC 2 automation requires two separate budgets</strong>
+    <p style="margin-top:6px;">Compliance automation software (Vanta, Drata, Comp AI) continuously monitors your cloud controls and collects evidence, but AICPA rules require an independent licensed CPA firm to perform the audit and issue the official SOC 2 Type I or Type II report ($6,500–$15,000+ billed separately).</p>
+    <cite>Sources: <a href="https://www.vanta.com/pricing" target="_blank" rel="noopener">Vanta Plans &amp; Audit Partner Model</a> &amp; <a href="https://drata.com/" target="_blank" rel="noopener">Drata Compliance Automation</a></cite>
   </div>
 </section>
 
@@ -401,28 +437,28 @@ function updateSocCalc() {
   const compAiCost = Math.round(3600 * sizeMult * (fwMult > 1 ? 1.2 : 1.0));
   document.getElementById('soc-tbody').innerHTML = `
     <tr>
-      <td><strong>Vanta</strong></td>
-      <td style="font-family:var(--mono);">$${vantaList.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono); color:var(--emerald);">$${vantaNeg.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td class="price-highlight">$${(vantaNeg + auditorFee).toLocaleString()} / yr</td>
-      <td><a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow sponsored">Request Vanta quote &rarr;</a></td>
+      <td data-label="Compliance Platform"><strong>Vanta</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span><div class="source-inline">Source: <a href="https://www.vanta.com/pricing" target="_blank" rel="noopener">Vanta packages &nearr;</a></div></td>
+      <td data-label="Est. List Quote" style="font-family:var(--mono);">$${vantaList.toLocaleString()}/yr</td>
+      <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${vantaNeg.toLocaleString()}/yr</td>
+      <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(vantaNeg + auditorFee).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow sponsored">Request Vanta quote &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>Drata</strong></td>
-      <td style="font-family:var(--mono);">$${drataList.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono); color:var(--emerald);">$${drataNeg.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td class="price-highlight">$${(drataNeg + auditorFee).toLocaleString()} / yr</td>
-      <td><a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow sponsored">Request Drata quote &rarr;</a></td>
+      <td data-label="Compliance Platform"><strong>Drata</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span><div class="source-inline">Source: <a href="https://drata.com/" target="_blank" rel="noopener">Drata plans &nearr;</a></div></td>
+      <td data-label="Est. List Quote" style="font-family:var(--mono);">$${drataList.toLocaleString()}/yr</td>
+      <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${drataNeg.toLocaleString()}/yr</td>
+      <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(drataNeg + auditorFee).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow sponsored">Request Drata quote &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>Comp AI / Openlane (Startup benchmark)</strong></td>
-      <td style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
-      <td style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td class="price-highlight">$${(compAiCost + auditorFee).toLocaleString()} / yr</td>
-      <td><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow">Compare Comp AI &rarr;</a></td>
+      <td data-label="Compliance Platform"><strong>Comp AI / Openlane (Startup benchmark)</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span></td>
+      <td data-label="Est. List Quote" style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
+      <td data-label="Negotiated Platform Cost" style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
+      <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(compAiCost + auditorFee).toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow noopener">Compare Comp AI &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
     </tr>
   `;
 }
@@ -434,7 +470,7 @@ updateSocCalc();
 p5_faqs = [
     ("Which Jotform plan includes a signed HIPAA Business Associate Agreement (BAA)?", "Jotform includes HIPAA compliance and an automated Business Associate Agreement (BAA) starting on its self-serve Gold plan ($99/month billed annually, $129/month billed monthly, 1-user account) and Enterprise plan (multi-user), avoiding the $20,000+ custom Enterprise contract required by many form builders."),
     ("Does Vanta or Drata pricing include the SOC 2 CPA auditor fee?", "No. Vanta and Drata are compliance automation platforms that collect evidence and monitor controls, but an independent AICPA-licensed CPA firm must still perform the audit and issue the SOC 2 Type I or Type II report, which typically costs an additional $6,500 to $15,000+ per year."),
-    ("How much discount can you negotiate on Vanta or Drata in 2026?", "According to verified buyer benchmarks on r/sysadmin (March 2026), initial list quotes from Vanta and Drata ($9,000–$15,000+/year for startups) can routinely be negotiated down by 30% to 50%, especially when comparing against lower-cost alternatives like Comp AI ($2.4k–$12k) or Openlane (~$5.4k).")
+    ("How much discount can you negotiate on Vanta or Drata in 2026?", "Initial custom quotes from Vanta and Drata ($9,000–$15,000+/year for startups) are frequently negotiated down by 30% to 50%, especially when comparing against lower-cost alternatives like Comp AI ($2.4k–$12k) or Openlane (~$5.4k).")
 ]
 
 render_page(

@@ -6,7 +6,8 @@
     "cookie_days": 180,
     "official_program_url": "https://www.hubspot.com/partners/affiliates",
     "tracking_url": "/go/hubspot",
-    "destination_url": "https://www.hubspot.com/pricing"
+    "destination_url": "https://www.hubspot.com/pricing",
+    "is_affiliate": true
   },
   "close-crm": {
     "program_name": "Close CRM Partner Program",
@@ -15,7 +16,8 @@
     "cookie_days": 90,
     "official_program_url": "https://close.com/partners",
     "tracking_url": "/go/close-crm",
-    "destination_url": "https://close.com/pricing"
+    "destination_url": "https://close.com/pricing",
+    "is_affiliate": true
   },
   "pipedrive": {
     "program_name": "Pipedrive Affiliate Partnership",
@@ -24,7 +26,8 @@
     "cookie_days": 90,
     "official_program_url": "https://www.pipedrive.com/en/affiliate-partnership",
     "tracking_url": "/go/pipedrive",
-    "destination_url": "https://www.pipedrive.com/en/pricing"
+    "destination_url": "https://www.pipedrive.com/en/pricing",
+    "is_affiliate": true
   },
   "monday": {
     "program_name": "monday.com Affiliate Program",
@@ -33,7 +36,8 @@
     "cookie_days": 90,
     "official_program_url": "https://monday.com/affiliate-program",
     "tracking_url": "/go/monday-crm",
-    "destination_url": "https://monday.com/pricing"
+    "destination_url": "https://monday.com/pricing",
+    "is_affiliate": true
   },
   "intercom": {
     "program_name": "Intercom Partner Program",
@@ -42,7 +46,8 @@
     "cookie_days": 90,
     "official_program_url": "https://www.intercom.com/partners",
     "tracking_url": "/go/intercom",
-    "destination_url": "https://www.intercom.com/pricing"
+    "destination_url": "https://www.intercom.com/pricing",
+    "is_affiliate": false
   },
   "freshworks": {
     "program_name": "Freshworks Affiliate Program (Freshdesk & Freshservice)",
@@ -57,7 +62,8 @@
     "terms_url": "https://www.freshworks.com/company/affiliate-partner/terms-and-conditions/",
     "restrictions": "No PPC bidding on Freshworks brand keywords without permission; no coupon/spam traffic",
     "status": "not applied",
-    "verified_date": "2026-10-25"
+    "verified_date": "2026-10-25",
+    "is_affiliate": true
   },
   "stripe": {
     "program_name": "Stripe Partner Ecosystem",
@@ -66,7 +72,8 @@
     "cookie_days": 0,
     "official_program_url": "https://stripe.com/partners",
     "tracking_url": "/go/stripe",
-    "destination_url": "https://stripe.com/pricing"
+    "destination_url": "https://stripe.com/pricing",
+    "is_affiliate": false
   },
   "whop": {
     "program_name": "Whop Business Affiliate & Startup Partner Program",
@@ -75,7 +82,8 @@
     "cookie_days": 60,
     "official_program_url": "https://whop.com/network/referrals/",
     "tracking_url": "/go/whop",
-    "destination_url": "https://whop.com/sell"
+    "destination_url": "https://whop.com/sell",
+    "is_affiliate": true
   },
   "chargeflow": {
     "program_name": "Chargeflow Partner Program",
@@ -84,7 +92,8 @@
     "cookie_days": 90,
     "official_program_url": "https://www.chargeflow.io/partners",
     "tracking_url": "/go/chargeflow",
-    "destination_url": "https://www.chargeflow.io/pricing"
+    "destination_url": "https://www.chargeflow.io/pricing",
+    "is_affiliate": true
   },
   "lemon-squeezy": {
     "program_name": "Lemon Squeezy Affiliate Program",
@@ -93,7 +102,8 @@
     "cookie_days": 60,
     "official_program_url": "https://www.lemonsqueezy.com/affiliates",
     "tracking_url": "/go/lemon-squeezy",
-    "destination_url": "https://www.lemonsqueezy.com/pricing"
+    "destination_url": "https://www.lemonsqueezy.com/pricing",
+    "is_affiliate": true
   },
   "paddle": {
     "program_name": "Paddle Affiliate Program",
@@ -102,7 +112,8 @@
     "cookie_days": 60,
     "official_program_url": "https://www.paddle.com/",
     "tracking_url": "/go/paddle",
-    "destination_url": "https://www.paddle.com/pricing"
+    "destination_url": "https://www.paddle.com/pricing",
+    "is_affiliate": false
   },
   "jotform": {
     "program_name": "Jotform Affiliate Partner Program",
@@ -111,7 +122,8 @@
     "cookie_days": 60,
     "official_program_url": "https://www.jotform.com/partnership/affiliate/",
     "tracking_url": "/go/jotform-hipaa",
-    "destination_url": "https://www.jotform.com/hipaa/pricing/"
+    "destination_url": "https://www.jotform.com/hipaa/pricing/",
+    "is_affiliate": true
   },
   "1password": {
     "program_name": "1Password Affiliate Program",
@@ -120,7 +132,8 @@
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/program/1password",
     "tracking_url": "/go/1password",
-    "destination_url": "https://1password.com/business-pricing"
+    "destination_url": "https://1password.com/business-pricing",
+    "is_affiliate": true
   },
   "vanta": {
     "program_name": "Vanta Referral Program",
@@ -129,7 +142,8 @@
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/program/vanta",
     "tracking_url": "/go/vanta",
-    "destination_url": "https://www.vanta.com/pricing"
+    "destination_url": "https://www.vanta.com/pricing",
+    "is_affiliate": true
   },
   "drata": {
     "program_name": "Drata Referral Program",
@@ -138,7 +152,8 @@
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/program/drata",
     "tracking_url": "/go/drata",
-    "destination_url": "https://drata.com/"
+    "destination_url": "https://drata.com/",
+    "is_affiliate": true
   },
   "help-scout": {
     "program_name": "Help Scout Affiliate Program",
@@ -151,7 +166,8 @@
     "tracking_url": "/go/help-scout",
     "destination_url": "https://www.helpscout.com/pricing/",
     "status": "not applied",
-    "verified_date": "2026-10-25"
+    "verified_date": "2026-10-25",
+    "is_affiliate": true
   },
   "zendesk": {
     "program_name": "Zendesk Marketing Affiliates",
@@ -166,6 +182,7 @@
     "destination_url": "https://www.zendesk.com/pricing/",
     "status": "not applied",
     "verified_date": "2026-10-25",
-    "editorial_note": "Optional: page is critical of Zendesk AI pricing; joining is compatible but disclose clearly."
+    "editorial_note": "Optional: page is critical of Zendesk AI pricing; joining is compatible but disclose clearly.",
+    "is_affiliate": false
   }
 }

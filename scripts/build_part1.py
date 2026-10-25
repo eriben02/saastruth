@@ -11,61 +11,106 @@ aff_js = json.dumps(AFFILIATES)
 home_body = f"""
 <section class="hero">
   <h1>Your SaaS bill is lying to you.</h1>
-  <p class="lead">Software pricing pages show you the teaser rate. They leave out the $1,500–$7,000 mandatory onboarding fee, the 3-seat minimum bucket, the $0.99 per-resolution AI meter, and the 12-month auto-renewal clause buried in the order form. Use the calculators and contract audits below to see what you will actually pay in Year 1 before you sign.</p>
-  <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Across the 20 B2B software and payment platforms audited in our 2026 database, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50–$2.00 per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
-  </div>
+  <p class="lead">Software pricing pages show the teaser per-seat rate and leave out the $1,500–$7,000 mandatory onboarding fee, the 3-seat minimum bucket, and the $0.99–$2.00 per-resolution AI meter. Adjust your team size and workload below to see what you will actually pay in Year 1.</p>
 </section>
 
 <section class="calc-box" aria-labelledby="calc-heading">
-  <h2 id="calc-heading" style="margin-top:0;">Compare real first-year costs across 20 platforms</h2>
-  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Select your software category, team size, and monthly AI ticket volume. For a five-person sales or support team, switching from high-onboarding or per-resolution vendors to zero-onboarding platforms (Close CRM, Pipedrive, Freshdesk, Help Scout) typically saves <strong>$1,500 to $18,400 in Year 1</strong>.</p>
+  <h2 id="calc-heading" style="margin-top:0;">Interactive Year-1 True-Cost Calculator (2026)</h2>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Select your software category, team size, and billing term. The summary cards, cost-composition chart, and contract table update live.</p>
   <div class="calc-grid">
     <div class="control-group">
-      <label for="cat-filter">Category</label>
+      <label for="cat-filter">1. Software category</label>
       <select id="cat-filter">
-        <option value="ALL">All Seat-Based &amp; Subscription SaaS (15 tools)</option>
-        <option value="CRM & Sales">CRM &amp; Sales</option>
-        <option value="Helpdesk & AI Support">Helpdesk &amp; AI Support</option>
-        <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA BAA &amp; SOC 2</option>
-        <option value="Payment Processors & MoR">Payment Processors &amp; MoR (Per-Transaction)</option>
+        <option value="ALL">All Subscription SaaS (15 tools)</option>
+        <option value="CRM & Sales">CRM &amp; Sales (5 tools)</option>
+        <option value="Helpdesk & AI Support">Helpdesk &amp; AI Support (6 tools)</option>
+        <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA BAA &amp; SOC 2 (4 tools)</option>
+        <option value="Payment Processors & MoR">Payment Processors &amp; MoR (5 rails)</option>
       </select>
     </div>
-    <div class="control-group">
-      <label for="seat-slider">Team size: <span class="val-pill" id="seat-val">5</span> seats</label>
+    <div class="control-group" id="seat-control-group">
+      <label for="seat-slider">2. Team size: <span class="val-pill" id="seat-val">5</span> seats</label>
       <input type="range" id="seat-slider" min="1" max="50" value="5" />
     </div>
-    <div class="control-group">
-      <label for="ai-slider">Monthly AI-resolved tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
+    <div class="control-group" id="ai-control-group">
+      <label for="ai-slider">3. Monthly AI-resolved tickets: <span class="val-pill" id="ai-val">500</span> /mo</label>
       <input type="range" id="ai-slider" min="0" max="5000" step="100" value="500" />
     </div>
-    <div class="control-group">
-      <label for="billing-mode">Billing term</label>
+    <div class="control-group" id="billing-control-group">
+      <label for="billing-mode">4. Billing term</label>
       <select id="billing-mode">
         <option value="annual">Annual commitment (lowest rate)</option>
         <option value="monthly">Month-to-month billing</option>
       </select>
     </div>
+    <div class="control-group" id="sort-control-group">
+      <label for="sort-mode">5. Sort comparison by</label>
+      <select id="sort-mode">
+        <option value="lowest">Lowest Year-1 Total first</option>
+        <option value="highest">Highest Year-1 Total first</option>
+        <option value="hidden_fees">Highest hidden / non-seat fees</option>
+        <option value="name">Platform name (A&ndash;Z)</option>
+      </select>
+    </div>
   </div>
-  <div class="table-wrap">
+
+  <div id="calc-summary-strip" class="summary-strip" aria-live="polite"></div>
+
+  <div id="calc-viz-panel" class="viz-panel" aria-label="Year-1 Cost Composition Stacked Bar Chart">
+    <div class="viz-header">
+      <div class="viz-title">Year-1 Cost Composition Breakdown (USD)</div>
+      <div class="viz-legend">
+        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-seats);"></span>Base licenses / seats</span>
+        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-onboarding);"></span>Mandatory onboarding fee</span>
+        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-ai);"></span>Metered AI overages</span>
+      </div>
+    </div>
+    <div id="calc-viz-rows" class="viz-rows"></div>
+  </div>
+
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>2026 B2B Software Year-1 True-Cost Comparison (USD, checked Oct 25, 2026)</caption>
+      <caption>2026 B2B Software Year-1 True-Cost Comparison &amp; Contract Audit (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
-          <th>Platform</th>
-          <th>Advertised Rate</th>
+          <th>Platform &amp; Verification</th>
+          <th>Effective Monthly Rate</th>
           <th>Mandatory Onboarding</th>
-          <th>Contract Fine Print</th>
+          <th>Contract Fine Print &amp; Source</th>
           <th>Year-1 Total (USD)</th>
-          <th>Details</th>
+          <th>Pricing Link</th>
         </tr>
       </thead>
       <tbody id="calc-tbody"></tbody>
     </table>
   </div>
-  <p id="calc-payment-note" style="font-size:0.84rem; color:var(--muted); margin-top:12px;">
-    <strong>Note on Payment Processors &amp; MoR:</strong> Transaction-based payment rails (Stripe, Paddle, Whop, Lemon Squeezy, Chargeflow) charge a % of GMV rather than per-seat subscriptions, so they are excluded from the default seat-based ranking above. Select <em>Payment Processors &amp; MoR</em> in the Category dropdown or open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Hold &amp; Reserve Simulator &rarr;</a>
+  <p id="calc-payment-note" style="font-size:0.84rem; color:var(--muted); margin-top:10px;">
+    <strong>Note on Payment Processors &amp; MoR:</strong> Transaction-based payment rails (Stripe, Paddle, Whop, Lemon Squeezy, Chargeflow) charge a percentage of processing volume rather than per-seat subscriptions, so they are separated from the seat-based ranking by default. Select <em>Payment Processors &amp; MoR</em> in the Category dropdown or open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Hold &amp; Rolling Reserve Simulator &rarr;</a>
   </p>
+</section>
+
+<div class="geo-direct-answer">
+  <p><strong>Key audit takeaway:</strong> Across the 20 B2B software and payment platforms in our 2026 dataset, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50 committed or $2.00 pay-as-you-go per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
+</div>
+
+<section id="methodology" class="methodology-box" aria-labelledby="methodology-heading">
+  <h2 id="methodology-heading" style="margin-top:0;">How we calculate &amp; verify Year-1 costs</h2>
+  <p style="color:var(--muted); font-size:0.94rem;">Every figure on SaaSBill is computed from deterministic formulas and linked directly to the vendor’s published pricing page, help-center billing documentation, or Master Subscription Agreement (MSA).</p>
+  <div class="methodology-grid">
+    <div class="methodology-item">
+      <strong>1. Year-1 Total Formula</strong>
+      <code>Year-1 Total = (12 &times; Billed Monthly Seats) + Mandatory Onboarding + (12 &times; Net AI Overage)</code>. Seat minimums (such as monday CRM’s 3/5/10/15 buckets) and included AI allowances (such as Zendesk’s 5–10 AR/agent/mo and Freshdesk’s 500 one-time sessions) are applied automatically.
+    </div>
+    <div class="methodology-item">
+      <strong>2. Verification Status Badges</strong>
+      <span class="status-pill status-verified">Verified</span> indicates published self-serve pricing and contract terms checked directly against official vendor docs on Oct 25, 2026.<br/>
+      <span class="status-pill status-estimated">Estimated (Benchmark)</span> indicates non-public, sales-quoted pricing (such as Vanta and Drata) modeled from verified buyer contract benchmarks.
+    </div>
+    <div class="methodology-item">
+      <strong>3. Affiliate &amp; Editorial Independence</strong>
+      Buttons labeled <em>Partner link</em> (`rel="nofollow sponsored"`) belong to vendor affiliate programs we track or apply to; buttons labeled <em>Direct vendor link</em> (`rel="nofollow noopener"`) have no affiliate relationship. Calculations and sort order are strictly mathematical and never influenced by partner status.
+    </div>
+  </div>
 </section>
 
 <section>
@@ -135,12 +180,14 @@ function calcToolYear1(t, seats, aiVol, mode) {{
   const effSeats = calcEffectiveSeats(t, seats);
   const unitRate = mode === 'annual' ? t.advertised_monthly_price_usd : t.monthly_billing_price_usd;
   let monthlySoftware = 0;
+  let seatPaddingAnnual = 0;
   if (t.id === 'hubspot-marketing-pro') {{
     monthlySoftware = unitRate + Math.max(0, seats - 3) * 45;
   }} else if (t.id === 'vanta-soc2' || t.id === 'drata-soc2' || t.id === 'jotform-hipaa') {{
     monthlySoftware = unitRate;
   }} else {{
     monthlySoftware = effSeats * unitRate;
+    seatPaddingAnnual = Math.max(0, effSeats - seats) * unitRate * 12;
   }}
   let aiAnnual = 0;
   let aiNote = '';
@@ -148,13 +195,13 @@ function calcToolYear1(t, seats, aiVol, mode) {{
     const incl = Math.min(seats * 5, 833);
     const overageRate = mode === 'annual' ? 1.50 : 2.00;
     const aiMonthly = Math.max(0, aiVol - incl) * overageRate;
-    aiAnnual = aiMonthly * 12;
+    aiAnnual = Math.round(aiMonthly * 12);
     aiNote = `${{incl}} AR/mo incl., then $${{overageRate.toFixed(2)}}/${{mode === 'annual' ? 'committed' : 'PAYG'}}`;
   }} else if (t.id === 'zendesk-suite-professional') {{
     const incl = Math.min(seats * 10, 833);
     const overageRate = mode === 'annual' ? 1.50 : 2.00;
     const aiMonthly = Math.max(0, aiVol - incl) * overageRate;
-    aiAnnual = aiMonthly * 12;
+    aiAnnual = Math.round(aiMonthly * 12);
     aiNote = `${{incl}} AR/mo incl., then $${{overageRate.toFixed(2)}}/${{mode === 'annual' ? 'committed' : 'PAYG'}}`;
   }} else if (t.id === 'freshdesk-support') {{
     const annualSessions = aiVol * 12;
@@ -164,10 +211,28 @@ function calcToolYear1(t, seats, aiVol, mode) {{
     aiNote = `500 1x free sessions, then $49/100 sessions (${{packs}} packs/yr)`;
   }} else {{
     const aiMonthly = (t.ai_per_resolution_usd || 0) * aiVol;
-    aiAnnual = aiMonthly * 12;
+    aiAnnual = Math.round(aiMonthly * 12);
+    if (t.ai_per_resolution_usd > 0) {{
+      aiNote = `$${{t.ai_per_resolution_usd.toFixed(2)}}/resolution (${{aiVol.toLocaleString()}}/mo)`;
+    }}
   }}
-  const year1Total = Math.round(monthlySoftware * 12 + aiAnnual + (t.mandatory_onboarding_fee_usd || 0));
-  return {{ tool: t, effSeats, unitRate, monthlySoftware, aiAnnual, aiNote, year1Total }};
+  const annualSeatsCost = Math.round(monthlySoftware * 12);
+  const onboarding = Math.round(t.mandatory_onboarding_fee_usd || 0);
+  const year1Total = annualSeatsCost + onboarding + aiAnnual;
+  const hiddenFees = onboarding + aiAnnual + seatPaddingAnnual;
+  return {{
+    tool: t,
+    effSeats,
+    unitRate,
+    monthlySoftware,
+    annualSeatsCost,
+    onboarding,
+    aiAnnual,
+    seatPaddingAnnual,
+    hiddenFees,
+    aiNote,
+    year1Total
+  }};
 }}
 
 function renderDirectory() {{
@@ -175,19 +240,141 @@ function renderDirectory() {{
   const seats = parseInt(document.getElementById('seat-slider').value, 10);
   const aiVol = parseInt(document.getElementById('ai-slider').value, 10);
   const mode = document.getElementById('billing-mode').value;
+  const sortEl = document.getElementById('sort-mode');
+  const sortMode = sortEl ? sortEl.value : 'lowest';
   document.getElementById('seat-val').textContent = seats;
   document.getElementById('ai-val').textContent = aiVol;
+
+  // Show AI slider ONLY when relevant (Helpdesk & AI Support or ALL)
+  const aiControl = document.getElementById('ai-control-group');
+  const seatControl = document.getElementById('seat-control-group');
+  const billingControl = document.getElementById('billing-control-group');
+  const sortControl = document.getElementById('sort-control-group');
+  if (aiControl) {{
+    if (cat === 'Helpdesk & AI Support' || cat === 'ALL') {{
+      aiControl.classList.remove('is-hidden');
+    }} else {{
+      aiControl.classList.add('is-hidden');
+    }}
+  }}
+  if (seatControl && billingControl && sortControl) {{
+    if (cat === 'Payment Processors & MoR') {{
+      seatControl.classList.add('is-hidden');
+      billingControl.classList.add('is-hidden');
+      sortControl.classList.add('is-hidden');
+    }} else {{
+      seatControl.classList.remove('is-hidden');
+      billingControl.classList.remove('is-hidden');
+      sortControl.classList.remove('is-hidden');
+    }}
+  }}
 
   const filtered = TOOLS.filter(t => {{
     if (cat === 'ALL') return t.category !== 'Payment Processors & MoR';
     return t.category === cat;
   }});
   const rows = filtered.map(t => calcToolYear1(t, seats, aiVol, mode));
-  rows.sort((a, b) => a.year1Total - b.year1Total);
+
+  if (sortMode === 'highest') {{
+    rows.sort((a, b) => b.year1Total - a.year1Total);
+  }} else if (sortMode === 'hidden_fees') {{
+    rows.sort((a, b) => b.hiddenFees - a.hiddenFees || b.year1Total - a.year1Total);
+  }} else if (sortMode === 'name') {{
+    rows.sort((a, b) => a.tool.name.localeCompare(b.tool.name));
+  }} else {{
+    rows.sort((a, b) => a.year1Total - b.year1Total);
+  }}
+
+  // Render Summary Strip & Stacked Bar Cost Visualization
+  const summaryEl = document.getElementById('calc-summary-strip');
+  const vizPanel = document.getElementById('calc-viz-panel');
+  const vizRowsEl = document.getElementById('calc-viz-rows');
+
+  if (cat === 'Payment Processors & MoR') {{
+    if (summaryEl) {{
+      summaryEl.innerHTML = `
+        <div class="summary-card">
+          <div class="summary-label">Lowest Domestic Card Take Rate</div>
+          <div class="summary-metric">Whop Payments (2.7% + $0.30)</div>
+          <div class="summary-sub">Multi-processor waterfall orchestration with failover routing.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Highest Lock-In Risk</div>
+          <div class="summary-metric">Paddle MoR (5.0% + $0.50)</div>
+          <div class="summary-sub">Seller of record owns card vault; zero token portability if terminated.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Reserve &amp; Hold Protection</div>
+          <div class="summary-metric">Chargeflow (&lt;0.5% Disputes)</div>
+          <div class="summary-sub"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Open 25% Rolling Reserve Simulator &rarr;</a></div>
+        </div>
+      `;
+    }}
+    if (vizPanel) vizPanel.style.display = 'none';
+  }} else if (rows.length > 0) {{
+    const byLowest = [...rows].sort((a, b) => a.year1Total - b.year1Total);
+    const minR = byLowest[0];
+    const maxR = byLowest[byLowest.length - 1];
+    const byHidden = [...rows].sort((a, b) => b.hiddenFees - a.hiddenFees);
+    const topHidden = byHidden[0];
+    const maxTotal = Math.max(...rows.map(r => r.year1Total), 1);
+
+    if (summaryEl) {{
+      const hiddenPct = topHidden.year1Total > 0 ? Math.round((topHidden.hiddenFees / topHidden.year1Total) * 100) : 0;
+      summaryEl.innerHTML = `
+        <div class="summary-card">
+          <div class="summary-label">Lowest Year-1 Total (${{seats}} seat${{seats === 1 ? '' : 's'}})</div>
+          <div class="summary-metric" style="color:var(--emerald);">$${{minR.year1Total.toLocaleString()}} / yr &middot; ${{minR.tool.name}}</div>
+          <div class="summary-sub">$${{minR.annualSeatsCost.toLocaleString()}} licenses + $${{minR.onboarding.toLocaleString()}} onboarding + $${{minR.aiAnnual.toLocaleString()}} AI</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Highest Year-1 Total (${{seats}} seat${{seats === 1 ? '' : 's'}})</div>
+          <div class="summary-metric">$${{maxR.year1Total.toLocaleString()}} / yr &middot; ${{maxR.tool.name}}</div>
+          <div class="summary-sub">$${{maxR.annualSeatsCost.toLocaleString()}} licenses + $${{maxR.onboarding.toLocaleString()}} onboarding + $${{maxR.aiAnnual.toLocaleString()}} AI</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Largest Non-Seat Fee Add-On</div>
+          <div class="summary-metric" style="color:var(--rose);">+$${{topHidden.hiddenFees.toLocaleString()}} / yr (${{hiddenPct}}% of bill)</div>
+          <div class="summary-sub">On <strong>${{topHidden.tool.name}}</strong> (onboarding, AI meter, or seat minimum padding)</div>
+        </div>
+      `;
+    }}
+
+    if (vizPanel && vizRowsEl) {{
+      vizPanel.style.display = 'block';
+      vizRowsEl.innerHTML = rows.map(r => {{
+        const seatPct = Math.max(0, (r.annualSeatsCost / maxTotal) * 100);
+        const onbPct = Math.max(0, (r.onboarding / maxTotal) * 100);
+        const aiPct = Math.max(0, (r.aiAnnual / maxTotal) * 100);
+        const parts = [`$${{r.annualSeatsCost.toLocaleString()}} licenses`];
+        if (r.onboarding > 0) parts.push(`$${{r.onboarding.toLocaleString()}} onboarding`);
+        if (r.aiAnnual > 0) parts.push(`$${{r.aiAnnual.toLocaleString()}} AI overage`);
+        return `
+          <div class="viz-row">
+            <div class="viz-label" title="${{r.tool.name}}">${{r.tool.name}}</div>
+            <div class="viz-bar-wrap">
+              <div class="viz-bar-track" title="${{parts.join(' + ')}} = $${{r.year1Total.toLocaleString()}}/yr">
+                <div class="viz-seg-seats" style="width:${{seatPct.toFixed(2)}}%"></div>
+                ${{r.onboarding > 0 ? `<div class="viz-seg-onboarding" style="width:${{onbPct.toFixed(2)}}%"></div>` : ''}}
+                ${{r.aiAnnual > 0 ? `<div class="viz-seg-ai" style="width:${{aiPct.toFixed(2)}}%"></div>` : ''}}
+              </div>
+              <div class="viz-breakdown-text">${{parts.join(' + ')}}</div>
+            </div>
+            <div class="viz-total-label">$${{r.year1Total.toLocaleString()}} / yr</div>
+          </div>
+        `;
+      }}).join('');
+    }}
+  }}
+
   document.getElementById('calc-tbody').innerHTML = rows.map(r => {{
     const t = r.tool;
-    const aff = AFFILIATES[t.affiliate_slug] || {{ destination_url: '#' }};
+    const aff = AFFILIATES[t.affiliate_slug] || {{ destination_url: '#', is_affiliate: false }};
     const badgeClass = t.trap_severity === 'high' ? 'badge-high' : (t.trap_severity === 'medium' ? 'badge-medium' : 'badge-low');
+    const verStatus = t.verification_status || 'Verified';
+    const verClass = verStatus.startsWith('Verified') ? 'status-verified' : 'status-estimated';
+    const srcUrl = (t.source_urls && t.source_urls[0]) ? t.source_urls[0] : aff.destination_url;
+    const srcLabel = t.source_label || 'Official pricing & terms';
     let rateText = '';
     if (t.transaction_fee_display) {{
       rateText = t.transaction_fee_display;
@@ -204,19 +391,35 @@ function renderDirectory() {{
       ? `Per-transaction <div style="font-size:0.75rem; font-weight:400;"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Simulate holds &rarr;</a></div>`
       : `$${{r.year1Total.toLocaleString()}} / yr`;
     const extraAiLine = r.aiNote ? `<div style="font-size:0.75rem; color:var(--muted); margin-top:2px;">AI math: ${{r.aiNote}}</div>` : '';
+    const relAttr = aff.is_affiliate ? 'nofollow sponsored noopener' : 'nofollow noopener';
+    const partnerNote = aff.is_affiliate ? 'Partner link' : 'Direct vendor link';
     return `
       <tr>
-        <td><strong>${{t.name}}</strong><div style="font-size:0.78rem; color:var(--muted);">${{t.category}}</div></td>
-        <td style="font-family:var(--mono);">${{rateText}}${{extraAiLine}}</td>
-        <td style="font-family:var(--mono);">${{t.mandatory_onboarding_fee_usd > 0 ? '$' + t.mandatory_onboarding_fee_usd.toLocaleString() : '$0'}}</td>
-        <td><span class="badge ${{badgeClass}}">${{t.trap_badge}}</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">${{t.billing_lock_in_type}}</div></td>
-        <td class="price-highlight">${{totalText}}</td>
-        <td><a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="nofollow sponsored">Check pricing &rarr;</a></td>
+        <td data-label="Platform">
+          <strong>${{t.name}}</strong>
+          <div style="font-size:0.78rem; color:var(--muted);">${{t.category}}</div>
+          <span class="status-pill ${{verClass}}">${{verStatus}}</span>
+        </td>
+        <td data-label="Effective Rate" style="font-family:var(--mono);">${{rateText}}${{extraAiLine}}</td>
+        <td data-label="Mandatory Onboarding" style="font-family:var(--mono);">${{t.mandatory_onboarding_fee_usd > 0 ? '$' + t.mandatory_onboarding_fee_usd.toLocaleString() : '$0'}}</td>
+        <td data-label="Contract Fine Print &amp; Source">
+          <span class="badge ${{badgeClass}}">${{t.trap_badge}}</span>
+          <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">${{t.billing_lock_in_type}}</div>
+          <div class="source-inline">Source: <a href="${{srcUrl}}" target="_blank" rel="noopener">${{srcLabel}} &nearr;</a></div>
+        </td>
+        <td data-label="Year-1 Total" class="price-highlight">${{totalText}}</td>
+        <td data-label="Action">
+          <a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="${{relAttr}}">Check pricing &rarr;</a>
+          <span class="partner-tag">${{partnerNote}}</span>
+        </td>
       </tr>
     `;
   }}).join('');
 }}
-['cat-filter', 'seat-slider', 'ai-slider', 'billing-mode'].forEach(id => document.getElementById(id).addEventListener('input', renderDirectory));
+['cat-filter', 'seat-slider', 'ai-slider', 'billing-mode', 'sort-mode'].forEach(id => {{
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', renderDirectory);
+}});
 renderDirectory();
 </script>
 """
@@ -295,15 +498,15 @@ p1_body = """
       </select>
     </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (USD, checked Oct 25, 2026)</caption>
+      <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>CRM Platform</th>
           <th>Monthly Seat Cost</th>
           <th>Mandatory Onboarding</th>
-          <th>Contract Terms</th>
+          <th>Contract Terms &amp; Source</th>
           <th>Year-1 Total (USD)</th>
           <th>Compare</th>
         </tr>
@@ -316,9 +519,9 @@ p1_body = """
 <section>
   <h2>The 2026 HubSpot onboarding fee schedule</h2>
   <p class="section-tldr">HubSpot requires paid onboarding across all Professional and Enterprise hubs purchased directly. The only way to waive HubSpot’s direct onboarding fee is to sign through an accredited HubSpot Solutions Partner who handles the implementation instead.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>HubSpot 2026 Seat Rates &amp; Mandatory Onboarding Fees (USD, checked Oct 25, 2026)</caption>
+      <caption>HubSpot 2026 Seat Rates &amp; Mandatory Onboarding Fees (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>HubSpot Hub &amp; Edition</th>
@@ -330,32 +533,32 @@ p1_body = """
       </thead>
       <tbody>
         <tr>
-          <td><strong>Sales Hub Professional</strong></td>
-          <td>$90 / seat / mo</td>
-          <td>$100 / seat / mo</td>
-          <td><span class="badge badge-high">$1,500 one-time</span></td>
-          <td>$2,580 (1 seat) &middot; $6,900 (5 seats)</td>
+          <td data-label="Edition"><strong>Sales Hub Professional</strong> <span class="status-pill status-verified">Verified</span></td>
+          <td data-label="Annual Rate">$90 / seat / mo</td>
+          <td data-label="Monthly Installment">$100 / seat / mo</td>
+          <td data-label="Onboarding"><span class="badge badge-high">$1,500 one-time</span></td>
+          <td data-label="Year-1 Min Spend">$2,580 (1 seat) &middot; $6,900 (5 seats)</td>
         </tr>
         <tr>
-          <td><strong>Sales Hub Enterprise</strong></td>
-          <td>$150 / seat / mo</td>
-          <td>$150 / seat / mo (Annual only)</td>
-          <td><span class="badge badge-high">$3,500 one-time</span></td>
-          <td>$5,300 (1 seat) &middot; $12,500 (5 seats)</td>
+          <td data-label="Edition"><strong>Sales Hub Enterprise</strong> <span class="status-pill status-verified">Verified</span></td>
+          <td data-label="Annual Rate">$150 / seat / mo</td>
+          <td data-label="Monthly Installment">$150 / seat / mo (Annual only)</td>
+          <td data-label="Onboarding"><span class="badge badge-high">$3,500 one-time</span></td>
+          <td data-label="Year-1 Min Spend">$5,300 (1 seat) &middot; $12,500 (5 seats)</td>
         </tr>
         <tr>
-          <td><strong>Marketing Hub Professional</strong></td>
-          <td>$800 / mo (3 core seats incl.)</td>
-          <td>$890 / mo (12-mo commitment)</td>
-          <td><span class="badge badge-high">$3,000 one-time</span></td>
-          <td>$12,600 / yr (+$45/mo per extra seat)</td>
+          <td data-label="Edition"><strong>Marketing Hub Professional</strong> <span class="status-pill status-verified">Verified</span></td>
+          <td data-label="Annual Rate">$800 / mo (3 core seats incl.)</td>
+          <td data-label="Monthly Installment">$890 / mo (12-mo commitment)</td>
+          <td data-label="Onboarding"><span class="badge badge-high">$3,000 one-time</span></td>
+          <td data-label="Year-1 Min Spend">$12,600 / yr (+$45/mo per extra seat)</td>
         </tr>
         <tr>
-          <td><strong>Marketing Hub Enterprise</strong></td>
-          <td>$3,600 / mo (5 core seats incl.)</td>
-          <td>$3,600 / mo (Annual only)</td>
-          <td><span class="badge badge-high">$7,000 one-time</span></td>
-          <td>$50,200 / yr (+$75/mo per extra seat)</td>
+          <td data-label="Edition"><strong>Marketing Hub Enterprise</strong> <span class="status-pill status-verified">Verified</span></td>
+          <td data-label="Annual Rate">$3,600 / mo (5 core seats incl.)</td>
+          <td data-label="Monthly Installment">$3,600 / mo (Annual only)</td>
+          <td data-label="Onboarding"><span class="badge badge-high">$7,000 one-time</span></td>
+          <td data-label="Year-1 Min Spend">$50,200 / yr (+$75/mo per extra seat)</td>
         </tr>
       </tbody>
     </table>
@@ -365,17 +568,17 @@ p1_body = """
   <div class="evidence-box">
     <strong>1. "Monthly payment" is still a binding 12-month contract with auto-renewal</strong>
     <p style="margin-top:6px;">All HubSpot Professional and Enterprise agreements are annual commitments that auto-renew by default, even when paid in monthly installments. On day 1 of the auto-renewal window, you are liable for the full 12-month renewal balance unless you submitted non-renewal notice in advance.</p>
-    <cite>Source: <a href="https://www.reddit.com/r/sales/comments/pyqpjq/hubspot_a_psa_contracts_and_review/" target="_blank" rel="noopener">r/sales &ndash; "Hubspot - a PSA (contracts!) and review"</a></cite>
+    <cite>Sources: <a href="https://legal.hubspot.com/terms-of-service" target="_blank" rel="noopener">HubSpot Customer Terms of Service (Renewal &amp; Subscription Term)</a> &amp; <a href="https://www.reddit.com/r/sales/comments/pyqpjq/hubspot_a_psa_contracts_and_review/" target="_blank" rel="noopener">r/sales contract review</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>2. Onboarding fees are often negotiable via partners</strong>
-    <p style="margin-top:6px;">Sales Hub Pro requires a $1,500 onboarding fee ($3,500 on Enterprise), while Marketing Hub Pro requires $3,000 ($7,000 on Enterprise). SaaS account executives on <code>r/sales</code> note that onboarding fees are routinely used as a closing lever or waived when onboarding is scoped through a partner agency.</p>
-    <cite>Source: <a href="https://www.reddit.com/r/sales/comments/1htoulv/onboarding_fee/" target="_blank" rel="noopener">r/sales &ndash; "Onboarding Fee" (Jan 2025)</a></cite>
+    <strong>2. Onboarding fees are mandatory on direct orders (waivable via Solutions Partners)</strong>
+    <p style="margin-top:6px;">Sales Hub Pro requires a $1,500 onboarding fee ($3,500 on Enterprise), while Marketing Hub Pro requires $3,000 ($7,000 on Enterprise). HubSpot waives its direct onboarding fee when you purchase through an accredited HubSpot Solutions Partner with a signed implementation scope.</p>
+    <cite>Sources: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot Sales Hub Pricing Schedule</a> &amp; <a href="https://www.reddit.com/r/sales/comments/1htoulv/onboarding_fee/" target="_blank" rel="noopener">r/sales &ndash; "Onboarding Fee"</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>3. You cannot remove unused seats mid-contract ($14,220 for 43 idle seats)</strong>
-    <p style="margin-top:6px;">If reps leave mid-year, you cannot downgrade your committed seat count until renewal. A recent GTM software audit shared on X found $14,220/year spent on 43 seats that nobody had opened in 90 days.</p>
-    <cite>Source: <a href="https://x.com/zandemha/status/2111438550247862312" target="_blank" rel="noopener">@zandemha on X (Oct 17, 2026)</a></cite>
+    <strong>3. You cannot downgrade committed seats mid-term</strong>
+    <p style="margin-top:6px;">Under HubSpot’s Customer Terms of Service, seat upgrades take effect immediately and prorate for the remainder of the subscription term, whereas seat reductions or edition downgrades are only permitted at the end of the 12-month commitment window.</p>
+    <cite>Source: <a href="https://legal.hubspot.com/terms-of-service" target="_blank" rel="noopener">HubSpot Customer Terms of Service &ndash; No Early Cancellation or Downgrades</a></cite>
   </div>
 </section>
 
@@ -396,28 +599,28 @@ function updateHsCalc() {
   const pipeYear1 = pipeMonthly * 12;
   document.getElementById('hs-tbody').innerHTML = `
     <tr>
-      <td><strong>${hsName}</strong></td>
-      <td style="font-family:var(--mono);">$${hsMonthly.toLocaleString()} / mo</td>
-      <td><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
-      <td>12-month auto-renewing contract</td>
-      <td class="price-highlight">$${hsYear1.toLocaleString()}</td>
-      <td><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a></td>
+      <td data-label="CRM Platform"><strong>${hsName}</strong> <span class="status-pill status-verified">Verified</span></td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${hsMonthly.toLocaleString()} / mo</td>
+      <td data-label="Mandatory Onboarding"><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
+      <td data-label="Contract Terms &amp; Source">12-month auto-renewing contract<div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
+      <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}</td>
+      <td data-label="Compare"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>Close CRM (Growth / Pro)</strong><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; built-in calling &amp; SMS</div></td>
-      <td style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$0 onboarding</span></td>
-      <td>Month-to-month or annual</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})</td>
-      <td><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow sponsored">Try Close free &rarr;</a></td>
+      <td data-label="CRM Platform"><strong>Close CRM (Growth / Pro)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; built-in calling &amp; SMS</div></td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
+      <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
+      <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow sponsored">Try Close free &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td><strong>Pipedrive CRM (Professional)</strong><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
-      <td style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$0 onboarding</span></td>
-      <td>Cancel anytime on monthly plan</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})</td>
-      <td><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">Try Pipedrive free &rarr;</a></td>
+      <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
+      <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
+      <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">Try Pipedrive free &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
   `;
 }
@@ -480,9 +683,9 @@ p2_body = """
       <input type="range" id="ic-rate" min="10" max="85" step="5" value="50" />
     </div>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
-      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Agent ($49/100 Sessions) Breakdown (USD, checked Oct 25, 2026)</caption>
+      <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Agent ($49/100 Sessions) Breakdown (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
           <th>Helpdesk Solution</th>
@@ -500,16 +703,16 @@ p2_body = """
 
 <section>
   <h2>Why support teams call $0.99/resolution an "AI tax"</h2>
-  <p class="section-tldr">Across 215 Capterra and Reddit reviews analyzed in <code>r/SaaS</code>, customers praise Fin AI’s accuracy but point out a structural catch: the more time you spend improving your help center articles, the higher Fin’s resolution rate climbs—and the more Intercom charges you each month.</p>
+  <p class="section-tldr">When outcome-based AI meters have no hard cap by default, seasonal support spikes or better help-center articles immediately increase your monthly software invoice.</p>
   <div class="evidence-box">
-    <strong>r/SaaS analysis of 215 Intercom reviews: "You can't predict your bill anymore"</strong>
-    <p style="margin-top:6px;">Founders and support leads report that $0.99 per resolution turns seasonal ticket spikes and improved documentation into surprise monthly invoices, while migrating conversation history out of Intercom remains difficult.</p>
-    <cite>Source: <a href="https://www.reddit.com/r/SaaS/comments/1p8c4cx/the_ai_tax_is_real_i_analyzed_215_recent_intercom/" target="_blank" rel="noopener">r/SaaS &ndash; "The 'AI Tax' is real. I analyzed 215 recent Intercom reviews and the data is brutal"</a></cite>
+    <strong>1. Billable resolution definition includes silent exits after Fin replies</strong>
+    <p style="margin-top:6px;">Under Intercom’s Fin AI pricing rules, a billable $0.99 resolution is counted whenever a customer confirms Fin’s answer helped OR leaves the conversation without requesting a human agent after Fin’s response, at most once per conversation.</p>
+    <cite>Source: <a href="https://www.intercom.com/pricing" target="_blank" rel="noopener">Intercom Official Pricing &amp; Fin AI Agent Billing FAQ</a></cite>
   </div>
   <div class="evidence-box">
-    <strong>Pre-renewal outcome bill audits are now a paid consulting service</strong>
-    <p style="margin-top:6px;">As Intercom, Zendesk, and Salesforce shift toward outcome-based AI billing, independent analysts on X now offer $990 pre-renewal contract audits just to verify what counts as a billable resolution or procedure handoff.</p>
-    <cite>Sources: <a href="https://x.com/david_logger/status/2104329987549528429" target="_blank" rel="noopener">@david_logger on X (Sep 27, 2026)</a> &amp; <a href="https://x.com/elliwoodtong/status/2106554628124852415" target="_blank" rel="noopener">@elliwoodtong on X (Oct 4, 2026)</a></cite>
+    <strong>2. Session-pack pricing vs. per-resolution pricing</strong>
+    <p style="margin-top:6px;">Freshdesk’s Freddy AI Agent includes 500 complimentary one-time sessions and then charges $49 per 100-session pack (spanning 72 hours for email or 24 hours for chat), giving admins fixed session-pack budgets that expire at cycle end unless auto-recharge is enabled.</p>
+    <cite>Source: <a href="https://support.freshdesk.com/support/solutions/articles/50000011515-manage-freddy-ai-add-ons" target="_blank" rel="noopener">Freshdesk Support &ndash; Purchase and Manage Freddy AI Add-ons</a></cite>
   </div>
 </section>
 
@@ -541,20 +744,29 @@ function updateIcCalc() {
 
   document.getElementById('ic-tbody').innerHTML = `
     <tr>
-      <td><strong>Intercom + Fin AI (${resolvedTickets.toLocaleString()} resolutions/mo)</strong></td>
-      <td style="font-family:var(--mono);">$${icSeatCost.toLocaleString()} / mo</td>
-      <td><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
-      <td class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
-      <td class="price-highlight">$${icYear.toLocaleString()} / yr</td>
-      <td><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow">Intercom pricing &rarr;</a></td>
+      <td data-label="Helpdesk Solution">
+        <strong>Intercom + Fin AI (${resolvedTickets.toLocaleString()} resolutions/mo)</strong>
+        <span class="status-pill status-verified">Verified</span>
+        <div class="source-inline">Source: <a href="https://www.intercom.com/pricing" target="_blank" rel="noopener">Intercom pricing &nearr;</a></div>
+      </td>
+      <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${icSeatCost.toLocaleString()} / mo</td>
+      <td data-label="Monthly AI Usage"><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
+      <td data-label="Total Monthly Bill" class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
+      <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr</td>
+      <td data-label="Compare"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener">Intercom pricing &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
     </tr>
     <tr>
-      <td><strong>Freshdesk Pro + Freddy AI Agent (Freshworks)</strong><div style="font-size:0.78rem; color:var(--emerald);">$55/agent/mo + $49/100 AI sessions (500 one-time free sessions deducted in Yr 1; optional Copilot $29/agent/mo)</div></td>
-      <td style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
-      <td><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
-      <td class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
-      <td class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</td>
-      <td><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk free &rarr;</a></td>
+      <td data-label="Helpdesk Solution">
+        <strong>Freshdesk Pro + Freddy AI Agent (Freshworks)</strong>
+        <span class="status-pill status-verified">Verified</span>
+        <div style="font-size:0.78rem; color:var(--emerald);">$55/agent/mo + $49/100 AI sessions (500 one-time free sessions deducted in Yr 1; optional Copilot $29/agent/mo)</div>
+        <div class="source-inline">Source: <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="noopener">Freshdesk pricing &nearr;</a></div>
+      </td>
+      <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
+      <td data-label="Monthly AI Usage"><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
+      <td data-label="Total Monthly Bill" class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</td>
+      <td data-label="Compare"><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk free &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
   `;
 }
