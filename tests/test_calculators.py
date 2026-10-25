@@ -1,5 +1,4 @@
 import json
-import math
 import os
 import re
 import subprocess
@@ -56,7 +55,6 @@ class TestSaaSBillCalculators(unittest.TestCase):
         rows_4 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=4, ai_vol=0, mode="annual")}
         rows_5 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="annual")}
 
-        # monday-crm: 1 user -> 3 billed seats ($36/mo = $432/yr); 4 users -> 5 billed seats ($60/mo = $720/yr); 5 users -> 5 billed seats
         self.assertEqual(rows_1["monday-crm"]["effSeats"], 3)
         self.assertEqual(rows_1["monday-crm"]["year1Total"], 3 * 12 * 12)
         self.assertEqual(rows_4["monday-crm"]["effSeats"], 5)
@@ -64,13 +62,11 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(rows_5["monday-crm"]["effSeats"], 5)
         self.assertEqual(rows_5["monday-crm"]["year1Total"], 5 * 12 * 12)
 
-        # pipedrive-crm: exact 1:1 seat billing ($14/mo = $168/yr for 1 user; $70/mo = $840/yr for 5 users)
         self.assertEqual(rows_1["pipedrive-crm"]["effSeats"], 1)
         self.assertEqual(rows_1["pipedrive-crm"]["year1Total"], 1 * 14 * 12)
         self.assertEqual(rows_5["pipedrive-crm"]["effSeats"], 5)
         self.assertEqual(rows_5["pipedrive-crm"]["year1Total"], 5 * 14 * 12)
 
-        # hubspot-marketing-pro: $800/mo includes 3 seats (+$3,000 onboarding = $12,600/yr at 1-3 seats); at 5 seats adds 2 * $45 = $890/mo ($13,680/yr)
         self.assertEqual(rows_1["hubspot-marketing-pro"]["monthlySoftware"], 800)
         self.assertEqual(rows_1["hubspot-marketing-pro"]["year1Total"], 800 * 12 + 3000)
         self.assertEqual(rows_5["hubspot-marketing-pro"]["monthlySoftware"], 890)
@@ -81,11 +77,9 @@ class TestSaaSBillCalculators(unittest.TestCase):
         rows_ann = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="annual")}
         rows_mo = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="monthly")}
 
-        # HubSpot Sales Pro (5 seats): $90*5*12 + $1500 = $6,900 annual; $100*5*12 + $1500 = $7,500 monthly
         self.assertEqual(rows_ann["hubspot-sales-pro"]["year1Total"], 6900)
         self.assertEqual(rows_mo["hubspot-sales-pro"]["year1Total"], 7500)
 
-        # Jotform HIPAA Gold (1-user flat plan): $99*12 = $1,188 annual; $129*12 = $1,548 monthly
         self.assertEqual(self.tools_by_id["jotform-hipaa"]["advertised_monthly_price_usd"], 99)
         self.assertEqual(self.tools_by_id["jotform-hipaa"]["monthly_billing_price_usd"], 129)
         self.assertEqual(rows_ann["jotform-hipaa"]["year1Total"], 1188)
@@ -97,31 +91,20 @@ class TestSaaSBillCalculators(unittest.TestCase):
         rows_1k_ann = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=1000, mode="annual")}
         rows_1k_mo = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=1000, mode="monthly")}
 
-        # Intercom Fin AI: $0.99/res -> at 0 AI = 5*29*12 = $1,740; at 1,000 AI/mo = $1,740 + $990*12 ($11,880) = $13,620
         self.assertEqual(rows_0["intercom-fin-ai"]["year1Total"], 1740)
         self.assertEqual(rows_1k_ann["intercom-fin-ai"]["year1Total"], 1740 + 11880)
 
-        # Help Scout Plus: $0.75/res -> at 0 AI = 5*45*12 = $2,700; at 1,000 AI/mo = $2,700 + $750*12 ($9,000) = $11,700
         self.assertEqual(rows_0["help-scout-plus"]["year1Total"], 2700)
         self.assertEqual(rows_1k_ann["help-scout-plus"]["year1Total"], 2700 + 9000)
 
-        # Zendesk Suite Team (5 seats): includes 5*5 = 25 AR/mo.
-        # At 1,000 AR/mo: 975 overage AR/mo. Annual ($1.50 committed): 5*55*12 ($3,300) + 975*1.50*12 ($17,550) = $20,850.
-        # Monthly ($2.00 PAYG): 5*69*12 ($4,140) + 975*2.00*12 ($23,400) = $27,540.
         self.assertEqual(rows_0["zendesk-suite-team"]["year1Total"], 3300)
         self.assertEqual(rows_1k_ann["zendesk-suite-team"]["year1Total"], 3300 + 17550)
         self.assertEqual(rows_1k_mo["zendesk-suite-team"]["year1Total"], 4140 + 23400)
 
-        # Zendesk Suite Professional (5 seats): ID 'zendesk-suite-professional' must deduct 5*10 = 50 AR/mo!
-        # At 1,000 AR/mo: 950 overage AR/mo. Annual ($1.50 committed): 5*115*12 ($6,900) + 950*1.50*12 ($17,100) = $24,000.
-        # Monthly ($2.00 PAYG): 5*149*12 ($8,940) + 950*2.00*12 ($22,800) = $31,740.
         self.assertEqual(rows_0["zendesk-suite-professional"]["year1Total"], 6900)
         self.assertEqual(rows_1k_ann["zendesk-suite-professional"]["year1Total"], 6900 + 17100)
         self.assertEqual(rows_1k_mo["zendesk-suite-professional"]["year1Total"], 8940 + 22800)
 
-        # Freshdesk Growth on homepage (5 seats): $19*5*12 = $1,140 seats.
-        # At 0 AI: 0 sessions -> $1,140.
-        # At 1,000 sessions/mo: 12,000 sessions/yr - 500 one-time free = 11,500 billable sessions = 115 packs * $49 = $5,635 -> total $6,775.
         self.assertEqual(rows_0["freshdesk-support"]["year1Total"], 1140)
         self.assertEqual(rows_1k_ann["freshdesk-support"]["year1Total"], 1140 + 115 * 49)
 
@@ -149,6 +132,46 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(rows_10["drata-soc2"]["year1Total"], 625 * 12)
         self.assertEqual(rows_1["1password-business"]["year1Total"], 1 * 8 * 12)
         self.assertEqual(rows_10["1password-business"]["year1Total"], 10 * 8 * 12)
+
+    def test_stacked_bar_cost_composition_identity(self):
+        """Stacked bar segments (annualSeatsCost + onboarding + aiAnnual) must sum identically to year1Total."""
+        for seats in (1, 5, 12):
+            for ai_vol in (0, 500, 2000):
+                for mode in ("annual", "monthly"):
+                    rows = run_homepage_js_calc(seats=seats, ai_vol=ai_vol, mode=mode, cat="ALL")
+                    for r in rows:
+                        comp_sum = r["annualSeatsCost"] + r["onboarding"] + r["aiAnnual"]
+                        self.assertEqual(
+                            comp_sum,
+                            r["year1Total"],
+                            f"Component sum mismatch for {r['tool']['id']} at seats={seats}, ai={ai_vol}, mode={mode}",
+                        )
+                        self.assertGreaterEqual(r["annualSeatsCost"], 0)
+                        self.assertGreaterEqual(r["onboarding"], 0)
+                        self.assertGreaterEqual(r["aiAnnual"], 0)
+
+    def test_verification_status_and_inline_sources(self):
+        """Every tool must have a valid verification_status ('Verified' or 'Estimated (Benchmark)') and valid https source_urls."""
+        valid_statuses = {"Verified", "Estimated (Benchmark)"}
+        for t in self.tools_list:
+            self.assertIn(t.get("verification_status"), valid_statuses, f"Invalid status on {t['id']}")
+            urls = t.get("source_urls") or []
+            self.assertGreater(len(urls), 0, f"Missing source_urls on {t['id']}")
+            for u in urls:
+                self.assertTrue(u.startswith("https://"), f"Non-https source URL {u} on {t['id']}")
+
+        # Vanta and Drata must be marked as Estimated (Benchmark)
+        self.assertEqual(self.tools_by_id["vanta-soc2"]["verification_status"], "Estimated (Benchmark)")
+        self.assertEqual(self.tools_by_id["drata-soc2"]["verification_status"], "Estimated (Benchmark)")
+
+        # Check index.html includes stacked bar chart, methodology section, and mobile-cards
+        with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
+            index_html = f.read()
+        self.assertIn('id="calc-viz-panel"', index_html)
+        self.assertIn('class="viz-seg-seats"', index_html)
+        self.assertIn('id="methodology"', index_html)
+        self.assertIn("mobile-cards", index_html)
+        self.assertIn('data-label="Platform"', index_html)
 
     def test_outbound_vendor_links_match_vendors(self):
         """Every tool in tools.json and every CTA link across all 7 HTML pages must point to the right vendor."""
@@ -185,13 +208,11 @@ class TestSaaSBillCalculators(unittest.TestCase):
                 f"Tool {tool_id} links to {dest_url} (expected {expected_domain})",
             )
 
-        # Verify Comp AI benchmark on compliance page links to trycomp.ai and not vanta.com
         comp_page = os.path.join(PUBLIC_DIR, "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html")
         with open(comp_page) as f:
             comp_html = f.read()
         self.assertIn("https://trycomp.ai/", comp_html)
 
-        # Verify Intercom page uses Freshdesk Pro $55/seat and $49 session packs
         ic_page = os.path.join(PUBLIC_DIR, "pricing/intercom-fin-ai-resolution-cost-calculator/index.html")
         with open(ic_page) as f:
             ic_html = f.read()
