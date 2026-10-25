@@ -50,11 +50,12 @@ class TestSaaSBillCalculators(unittest.TestCase):
         cls.tools_by_id, cls.tools_list, cls.affiliates = load_tools_and_affiliates()
 
     def test_1_user_vs_5_users_seat_minimums(self):
-        """1 user vs 5 users: monday CRM 3-seat minimum & buckets, Pipedrive 1:1, HubSpot Marketing Pro 3-seat base."""
+        """1 user vs 5 users: monday CRM 3-seat minimum & buckets, Close CRM 1:1, Pipedrive 1:1, HubSpot Marketing Pro 3-seat base."""
         rows_1 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=1, ai_vol=0, mode="annual")}
         rows_4 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=4, ai_vol=0, mode="annual")}
         rows_5 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="annual")}
 
+        # monday-crm (Basic: $12/seat annual): 1 user -> 3 billed seats ($36/mo = $432/yr); 4 users -> 5 billed seats ($60/mo = $720/yr)
         self.assertEqual(rows_1["monday-crm"]["effSeats"], 3)
         self.assertEqual(rows_1["monday-crm"]["year1Total"], 3 * 12 * 12)
         self.assertEqual(rows_4["monday-crm"]["effSeats"], 5)
@@ -62,28 +63,64 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(rows_5["monday-crm"]["effSeats"], 5)
         self.assertEqual(rows_5["monday-crm"]["year1Total"], 5 * 12 * 12)
 
+        # close-crm (Essentials: $35/user annual): 1 user -> $35*12 = $420/yr; 5 users -> 5*$35*12 = $2,100/yr
+        self.assertEqual(rows_1["close-crm"]["effSeats"], 1)
+        self.assertEqual(rows_1["close-crm"]["year1Total"], 1 * 35 * 12)
+        self.assertEqual(rows_5["close-crm"]["effSeats"], 5)
+        self.assertEqual(rows_5["close-crm"]["year1Total"], 5 * 35 * 12)
+
+        # pipedrive-crm: 1:1 seat billing ($14/mo = $168/yr for 1 user; $70/mo = $840/yr for 5 users)
         self.assertEqual(rows_1["pipedrive-crm"]["effSeats"], 1)
         self.assertEqual(rows_1["pipedrive-crm"]["year1Total"], 1 * 14 * 12)
         self.assertEqual(rows_5["pipedrive-crm"]["effSeats"], 5)
         self.assertEqual(rows_5["pipedrive-crm"]["year1Total"], 5 * 14 * 12)
 
+        # hubspot-marketing-pro: $800/mo includes 3 seats (+$3,000 onboarding = $12,600/yr at 1-3 seats); at 5 seats adds 2 * $45 = $890/mo ($13,680/yr)
         self.assertEqual(rows_1["hubspot-marketing-pro"]["monthlySoftware"], 800)
         self.assertEqual(rows_1["hubspot-marketing-pro"]["year1Total"], 800 * 12 + 3000)
         self.assertEqual(rows_5["hubspot-marketing-pro"]["monthlySoftware"], 890)
         self.assertEqual(rows_5["hubspot-marketing-pro"]["year1Total"], 890 * 12 + 3000)
 
     def test_annual_vs_monthly_billing(self):
-        """Annual vs Monthly billing: HubSpot Sales Pro ($90 vs $100 + $1,500 onboarding) and Jotform HIPAA Gold ($99 vs $129)."""
+        """Annual vs Monthly billing for HubSpot, Jotform HIPAA, Close CRM, monday CRM, and 1Password Business."""
+        rows_ann_1 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=1, ai_vol=0, mode="annual")}
+        rows_mo_1 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=1, ai_vol=0, mode="monthly")}
         rows_ann = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="annual")}
         rows_mo = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=5, ai_vol=0, mode="monthly")}
 
+        # HubSpot Sales Pro (5 seats): $90*5*12 + $1500 = $6,900 annual; $100*5*12 + $1500 = $7,500 monthly
         self.assertEqual(rows_ann["hubspot-sales-pro"]["year1Total"], 6900)
         self.assertEqual(rows_mo["hubspot-sales-pro"]["year1Total"], 7500)
 
+        # Jotform HIPAA Gold (1-user flat plan): $99*12 = $1,188 annual; $129*12 = $1,548 monthly
         self.assertEqual(self.tools_by_id["jotform-hipaa"]["advertised_monthly_price_usd"], 99)
         self.assertEqual(self.tools_by_id["jotform-hipaa"]["monthly_billing_price_usd"], 129)
         self.assertEqual(rows_ann["jotform-hipaa"]["year1Total"], 1188)
         self.assertEqual(rows_mo["jotform-hipaa"]["year1Total"], 1548)
+
+        # Close CRM (Essentials): $35/user/mo annual vs $49/user/mo monthly
+        self.assertEqual(self.tools_by_id["close-crm"]["name"], "Close CRM (Essentials)")
+        self.assertEqual(self.tools_by_id["close-crm"]["advertised_monthly_price_usd"], 35)
+        self.assertEqual(self.tools_by_id["close-crm"]["monthly_billing_price_usd"], 49)
+        self.assertEqual(rows_ann["close-crm"]["year1Total"], 5 * 35 * 12)  # $2,100
+        self.assertEqual(rows_mo["close-crm"]["year1Total"], 5 * 49 * 12)   # $2,940
+
+        # monday CRM (Basic): $12/seat/mo annual vs $18/seat/mo monthly (with 3-seat minimum)
+        self.assertEqual(self.tools_by_id["monday-crm"]["name"], "monday CRM (Basic)")
+        self.assertEqual(self.tools_by_id["monday-crm"]["advertised_monthly_price_usd"], 12)
+        self.assertEqual(self.tools_by_id["monday-crm"]["monthly_billing_price_usd"], 18)
+        self.assertEqual(rows_ann_1["monday-crm"]["year1Total"], 3 * 12 * 12)  # $432
+        self.assertEqual(rows_mo_1["monday-crm"]["year1Total"], 3 * 18 * 12)   # $648
+        self.assertEqual(rows_ann["monday-crm"]["year1Total"], 5 * 12 * 12)    # $720
+        self.assertEqual(rows_mo["monday-crm"]["year1Total"], 5 * 18 * 12)     # $1,080
+
+        # 1Password Business: $8.99/user/mo annual vs $10.99/user/mo monthly
+        self.assertEqual(self.tools_by_id["1password-business"]["advertised_monthly_price_usd"], 8.99)
+        self.assertEqual(self.tools_by_id["1password-business"]["monthly_billing_price_usd"], 10.99)
+        self.assertEqual(rows_ann_1["1password-business"]["year1Total"], round(1 * 8.99 * 12))  # $108
+        self.assertEqual(rows_mo_1["1password-business"]["year1Total"], round(1 * 10.99 * 12))  # $132
+        self.assertEqual(rows_ann["1password-business"]["year1Total"], round(5 * 8.99 * 12))    # $539
+        self.assertEqual(rows_mo["1password-business"]["year1Total"], round(5 * 10.99 * 12))    # $659
 
     def test_zero_vs_high_ai_volume_and_included_allowances(self):
         """0 AI vs 1,000 AI tickets/month across Intercom, Help Scout, Zendesk Team & Pro, and Freshdesk."""
@@ -120,7 +157,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(len(payment_rows), 5)
 
     def test_hipaa_and_soc2_flat_vs_per_seat_rules(self):
-        """Jotform Gold ($99/mo), Vanta ($833/mo), and Drata ($625/mo) are flat fees; 1Password ($8/mo) scales per seat."""
+        """Jotform Gold ($99/mo), Vanta ($833/mo), and Drata ($625/mo) are flat fees; 1Password ($8.99/mo) scales per seat."""
         rows_1 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=1, ai_vol=0, mode="annual")}
         rows_10 = {r["tool"]["id"]: r for r in run_homepage_js_calc(seats=10, ai_vol=0, mode="annual")}
 
@@ -130,8 +167,8 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(rows_10["vanta-soc2"]["year1Total"], 833 * 12)
         self.assertEqual(rows_1["drata-soc2"]["year1Total"], 625 * 12)
         self.assertEqual(rows_10["drata-soc2"]["year1Total"], 625 * 12)
-        self.assertEqual(rows_1["1password-business"]["year1Total"], 1 * 8 * 12)
-        self.assertEqual(rows_10["1password-business"]["year1Total"], 10 * 8 * 12)
+        self.assertEqual(rows_1["1password-business"]["year1Total"], round(1 * 8.99 * 12))
+        self.assertEqual(rows_10["1password-business"]["year1Total"], round(10 * 8.99 * 12))
 
     def test_stacked_bar_cost_composition_identity(self):
         """Stacked bar segments (annualSeatsCost + onboarding + aiAnnual) must sum identically to year1Total."""
@@ -160,11 +197,9 @@ class TestSaaSBillCalculators(unittest.TestCase):
             for u in urls:
                 self.assertTrue(u.startswith("https://"), f"Non-https source URL {u} on {t['id']}")
 
-        # Vanta and Drata must be marked as Estimated (Benchmark)
         self.assertEqual(self.tools_by_id["vanta-soc2"]["verification_status"], "Estimated (Benchmark)")
         self.assertEqual(self.tools_by_id["drata-soc2"]["verification_status"], "Estimated (Benchmark)")
 
-        # Check index.html includes stacked bar chart, methodology section, and mobile-cards
         with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
             index_html = f.read()
         self.assertIn('id="calc-viz-panel"', index_html)
@@ -172,6 +207,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn('id="methodology"', index_html)
         self.assertIn("mobile-cards", index_html)
         self.assertIn('data-label="Platform"', index_html)
+        self.assertNotIn("$7.99", index_html)
 
     def test_outbound_vendor_links_match_vendors(self):
         """Every tool in tools.json and every CTA link across all 7 HTML pages must point to the right vendor."""
@@ -212,6 +248,15 @@ class TestSaaSBillCalculators(unittest.TestCase):
         with open(comp_page) as f:
             comp_html = f.read()
         self.assertIn("https://trycomp.ai/", comp_html)
+        self.assertIn("https://1password.com/pricing/business", comp_html)
+        self.assertIn("$8.99/user/mo", comp_html)
+        self.assertNotIn("$7.99", comp_html)
+
+        hs_page = os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html")
+        with open(hs_page) as f:
+            hs_html = f.read()
+        self.assertIn("seats * 35", hs_html)
+        self.assertIn("Close CRM (Essentials)", hs_html)
 
         ic_page = os.path.join(PUBLIC_DIR, "pricing/intercom-fin-ai-resolution-cost-calculator/index.html")
         with open(ic_page) as f:
