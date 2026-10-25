@@ -16,7 +16,10 @@ home_body = f"""
 
 <section class="calc-box" aria-labelledby="calc-heading">
   <h2 id="calc-heading" style="margin-top:0;">Interactive Year-1 True-Cost Calculator (2026)</h2>
-  <p style="color:var(--muted); margin-bottom:16px; font-size:0.95rem;">Pre-filled example loaded below: <strong>5 seats, annual billing, and 500 AI-resolved tickets/month</strong>. Switch category or adjust sliders to model your exact team.</p>
+  <div class="prefill-banner" id="calc-prefill-banner" role="status" aria-live="polite">
+    <span class="prefill-badge" id="calc-mode-badge">Pre-filled example</span>
+    <span id="calc-mode-text">Showing a sample scenario (Helpdesk &amp; AI Support &middot; 5 seats &middot; 500 AI tickets/month &middot; annual billing). Change category, team size, or ticket volume below to calculate your own result.</span>
+  </div>
   <div class="cat-tabs-wrap">
     <span class="cat-tabs-label">Quick Category Select</span>
     <div class="cat-tabs" role="tablist" aria-label="Software Categories">
@@ -324,6 +327,24 @@ function renderDirectory() {{
   document.getElementById('seat-val').textContent = seats;
   document.getElementById('ai-val').textContent = aiVol;
 
+  const isDefaultScenario = (cat === 'Helpdesk & AI Support' && seats === 5 && aiVol === 500 && mode === 'annual');
+  const badgeEl = document.getElementById('calc-mode-badge');
+  const textEl = document.getElementById('calc-mode-text');
+  if (badgeEl && textEl) {{
+    if (isDefaultScenario) {{
+      badgeEl.textContent = 'Pre-filled example';
+      badgeEl.className = 'prefill-badge';
+      textEl.textContent = 'Showing a sample scenario (Helpdesk & AI Support · 5 seats · 500 AI tickets/month · annual billing). Change category, team size, or ticket volume below to calculate your own result.';
+    }} else {{
+      badgeEl.textContent = 'Custom scenario active';
+      badgeEl.className = 'prefill-badge is-custom';
+      const customDesc = formatScenarioText(cat, seats, aiVol, mode).replace('Based on ', '');
+      textEl.textContent = `Showing your custom scenario (${{cat}} · ${{customDesc}}). Adjust category, team size, or volume below to recalculate.`;
+    }}
+  }}
+  window.__saasbillEvents = window.__saasbillEvents || [];
+  window.__saasbillEvents.push({{ event: 'result_rendered', category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode, ts: Date.now() }});
+
   // Sync visual category tabs with select dropdown
   document.querySelectorAll('.cat-tab').forEach(btn => {{
     if (btn.getAttribute('data-cat') === cat) {{
@@ -388,7 +409,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">2.7% + $0.30 domestic &middot; multi-acquirer waterfall routing</div>
           <div class="summary-caveat"><strong>Caveat:</strong> Total cost depends on monthly GMV, average order value, and international card mix.</div>
           <div class="summary-actions">
-            <a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">Explore Whop Payments &rarr;</a>
+            <div class="cta-stack">
+              <a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">Explore Whop Payments &rarr;</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Open reserve simulator &rarr;</a>
           </div>
         </div>
@@ -399,7 +423,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">5.0% + $0.50 per transaction (includes global VAT/sales tax)</div>
           <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Paddle is the legal seller of record and owns the card vault&mdash;if terminated on a risk review, subscriber card tokens cannot be exported.</div>
           <div class="summary-actions">
-            <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
+            <div class="cta-stack">
+              <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Read token lock-in audit &rarr;</a>
           </div>
         </div>
@@ -410,7 +437,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">$0 setup fee &middot; pay-on-recovery + pre-dispute alerts</div>
           <div class="summary-caveat"><strong>Contract note:</strong> Prevents Stripe and Shopify 25% rolling reserves by keeping dispute ratios below card-network monitoring thresholds.</div>
           <div class="summary-actions">
-            <a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Check Chargeflow pricing &rarr;</a>
+            <div class="cta-stack">
+              <a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Check Chargeflow pricing &rarr;</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Simulate 25% reserve hold &rarr;</a>
           </div>
         </div>
@@ -444,7 +474,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">$${{minR.annualSeatsCost.toLocaleString()}} licenses + $${{minR.onboarding.toLocaleString()}} onboarding + $${{minR.aiAnnual.toLocaleString()}} AI</div>
           <div class="summary-caveat"><strong>Contract note:</strong> ${{minR.tool.trap_badge}} (${{minR.tool.billing_lock_in_type}})</div>
           <div class="summary-actions">
-            <a class="btn-cta" href="${{minAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{minR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(minR.tool)}}</a>
+            <div class="cta-stack">
+              <a class="btn-cta" href="${{minAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{minR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(minR.tool)}}</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             ${{minAudit ? `<a class="summary-audit-link" href="${{minAudit.url}}" data-track="internal-audit">${{minAudit.label}}</a>` : ''}}
           </div>
         </div>
@@ -455,7 +488,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">$${{topHidden.annualSeatsCost.toLocaleString()}} licenses + $${{topHidden.onboarding.toLocaleString()}} onboarding + $${{topHidden.aiAnnual.toLocaleString()}} AI</div>
           <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${{hiddenReasonText}}.</div>
           <div class="summary-actions">
-            <a class="btn-secondary" href="${{hidAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{topHidden.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(topHidden.tool)}}</a>
+            <div class="cta-stack">
+              <a class="btn-secondary" href="${{hidAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{topHidden.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(topHidden.tool)}}</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             ${{hidAudit ? `<a class="summary-audit-link" href="${{hidAudit.url}}" data-track="internal-audit">${{hidAudit.label}}</a>` : ''}}
           </div>
         </div>
@@ -466,7 +502,10 @@ function renderDirectory() {{
           <div class="summary-breakdown">$${{maxR.annualSeatsCost.toLocaleString()}} licenses + $${{maxR.onboarding.toLocaleString()}} onboarding + $${{maxR.aiAnnual.toLocaleString()}} AI</div>
           <div class="summary-caveat"><strong>Contract note:</strong> ${{maxR.tool.trap_badge}}</div>
           <div class="summary-actions">
-            <a class="btn-secondary" href="${{maxAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{maxR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(maxR.tool)}}</a>
+            <div class="cta-stack">
+              <a class="btn-secondary" href="${{maxAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{maxR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(maxR.tool)}}</a>
+              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+            </div>
             ${{maxAudit ? `<a class="summary-audit-link" href="${{maxAudit.url}}" data-track="internal-audit">${{maxAudit.label}}</a>` : ''}}
           </div>
         </div>
@@ -541,11 +580,14 @@ function renderDirectory() {{
         <td data-label="Contract Fine Print &amp; Source">
           <span class="badge ${{badgeClass}}">${{t.trap_badge}}</span>
           <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">${{t.billing_lock_in_type}}</div>
-          <div class="source-inline">Source: <a href="${{srcUrl}}" target="_blank" rel="noopener">${{srcLabel}} &nearr;</a></div>
+          <div class="source-inline">Verified source: <a href="${{srcUrl}}" target="_blank" rel="noopener">${{srcLabel}} &nearr;</a></div>
         </td>
         <td data-label="Year-1 Total" class="price-highlight">${{totalText}}</td>
         <td data-label="Next Step">
-          <a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{t.id}}" data-cta-location="table-row">${{getVendorCtaLabel(t)}}</a>
+          <div class="cta-stack">
+            <a class="btn-secondary" href="${{aff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{t.id}}" data-cta-location="table-row">${{getVendorCtaLabel(t)}}</a>
+            <span class="direct-link-tag">Direct vendor link</span>
+          </div>
         </td>
       </tr>
     `;
@@ -757,7 +799,10 @@ function updateHsCalc() {
         <div class="summary-breakdown">$${hsSeatsYr.toLocaleString()} licenses + $${hsOnboard.toLocaleString()} mandatory onboarding + $0 AI</div>
         <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Mandatory $${hsOnboard.toLocaleString()} onboarding adds ${onbPct}% to the Year-1 invoice, with a 12-month auto-renewing contract lock-in.</div>
         <div class="summary-actions">
-          <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
         </div>
       </div>
       <div class="summary-card card-lowest">
@@ -767,7 +812,10 @@ function updateHsCalc() {
         <div class="summary-breakdown">$${closeYear1.toLocaleString()} licenses + $0 onboarding + $0 AI</div>
         <div class="summary-caveat"><strong>Contract note:</strong> $35/user/mo annual ($49 monthly); Growth tier with workflows is $99/user/mo.</div>
         <div class="summary-actions">
-          <a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
         </div>
       </div>
       <div class="summary-card card-highest">
@@ -777,7 +825,10 @@ function updateHsCalc() {
         <div class="summary-breakdown">$${pipeYear1.toLocaleString()} licenses + $0 onboarding + $0 AI</div>
         <div class="summary-caveat"><strong>Contract note:</strong> 1-seat minimum ($14/mo Lite up to $49/mo Pro); cancel anytime on monthly billing.</div>
         <div class="summary-actions">
-          <a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="summary-card">Explore Pipedrive plans &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="summary-card">Explore Pipedrive plans &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
           <a class="summary-audit-link" href="../../compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/" data-track="internal-audit">1&ndash;15 seat comparison &rarr;</a>
         </div>
       </div>
@@ -791,23 +842,23 @@ function updateHsCalc() {
       <td data-label="Mandatory Onboarding"><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
       <td data-label="Contract Terms &amp; Source">12-month auto-renewing contract<div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Close CRM (Essentials)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">$35/user/mo annual ($49 monthly) &middot; $0 onboarding &middot; Growth w/ workflows is $99/user/mo</div></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
-      <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
+      <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Verified source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
-      <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
+      <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Verified source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>
   `;
 }
@@ -947,7 +998,10 @@ function updateIcCalc() {
         <div class="summary-breakdown">$${icSeatsYr.toLocaleString()} licenses + $0 onboarding + $${icAiYr.toLocaleString()} Fin AI</div>
         <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Metered Fin AI resolution fees ($0.99 &times; ${resolvedTickets.toLocaleString()}/mo) add $${icAiYr.toLocaleString()}/yr (${aiSharePct}% of your total Year-1 bill).</div>
         <div class="summary-actions">
-          <a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="summary-card">Check Intercom pricing &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="summary-card">Check Intercom pricing &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
         </div>
       </div>
       <div class="summary-card card-lowest">
@@ -957,7 +1011,10 @@ function updateIcCalc() {
         <div class="summary-breakdown">$${fdSeatsYr.toLocaleString()} licenses + $0 onboarding + $${fdAnnualAiCost.toLocaleString()} AI session packs</div>
         <div class="summary-caveat"><strong>Contract note:</strong> Includes 500 one-time free sessions, then $49 per 100 sessions (billed per session handled, resolved or not).</div>
         <div class="summary-actions">
-          <a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="summary-card">View Freshdesk plans &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="summary-card">View Freshdesk plans &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
           <a class="summary-audit-link" href="../zendesk-ai-resolution-and-automated-outcome-cost/" data-track="internal-audit">Compare Zendesk AI ($1.50&ndash;$2.00) &rarr;</a>
         </div>
       </div>
@@ -975,20 +1032,20 @@ function updateIcCalc() {
       <td data-label="Monthly AI Usage"><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="table-row">Check Intercom pricing &rarr;</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="table-row">Check Intercom pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>
     <tr>
       <td data-label="Helpdesk Solution">
         <strong>Freshdesk Pro + Freddy AI Agent (Freshworks)</strong>
         <span class="status-pill status-verified">Verified</span>
         <div style="font-size:0.78rem; color:var(--emerald);">$55/agent/mo + $49/100 AI sessions (500 one-time free sessions deducted in Yr 1; optional Copilot $29/agent/mo)</div>
-        <div class="source-inline">Source: <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="noopener">Freshdesk pricing &nearr;</a></div>
+        <div class="source-inline">Verified source: <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="noopener">Freshdesk pricing &nearr;</a></div>
       </td>
       <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
       <td data-label="Monthly AI Usage"><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="table-row">View Freshdesk plans &rarr;</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="table-row">View Freshdesk plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>
   `;
 }

@@ -205,6 +205,43 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
       <p class="footer-note">Updated <time datetime="{iso_date}">{human_date}</time> &middot; Pricing corrections &amp; inquiries: <a href="mailto:editorial@saasbill.io">editorial@saasbill.io</a></p>
     </div>
   </footer>
+  <script>
+  /* Local event buffer only (no external analytics scripts loaded).
+     Prepared events: calculator_interaction, category_select, result_rendered, vendor_cta_click */
+  window.__saasbillEvents = window.__saasbillEvents || [];
+  document.addEventListener('click', function(e) {{
+    var cta = e.target.closest('[data-track="vendor-cta"]');
+    if (cta) {{
+      window.__saasbillEvents.push({{
+        event: 'vendor_cta_click',
+        vendor: cta.getAttribute('data-vendor') || '',
+        location: cta.getAttribute('data-cta-location') || 'subpage-result',
+        href: cta.getAttribute('href') || '',
+        ts: Date.now()
+      }});
+      return;
+    }}
+    var catBtn = e.target.closest('[data-track="category-select"]');
+    if (catBtn) {{
+      window.__saasbillEvents.push({{
+        event: 'category_select',
+        category: catBtn.getAttribute('data-cat') || '',
+        ts: Date.now()
+      }});
+    }}
+  }});
+  document.addEventListener('input', function(e) {{
+    var ctrl = e.target.closest('[data-track="calculator-control"], input[type="range"], select');
+    if (ctrl) {{
+      window.__saasbillEvents.push({{
+        event: 'calculator_interaction',
+        control: ctrl.getAttribute('data-control') || ctrl.id || '',
+        value: ctrl.value,
+        ts: Date.now()
+      }});
+    }}
+  }});
+  </script>
 </body>
 </html>"""
     full_path = os.path.join(PUBLIC_DIR, rel_path)

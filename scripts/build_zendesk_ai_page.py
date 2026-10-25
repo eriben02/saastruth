@@ -261,7 +261,10 @@ function updateZd() {{
         <div class="summary-breakdown">${{fmt(zdSeatsYr)}} licenses + $0 onboarding + ${{fmt(zdAiYr)}} AI overage</div>
         <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Zendesk AI resolution overages ($${{price.toFixed(2)}}/resolution above ${{inclText}}) add ${{fmt(zdAiYr)}}/yr (${{zdAiPct}}% of the Year-1 bill). &ldquo;Allow overage&rdquo; is enabled by default.</div>
         <div class="summary-actions">
-          <a class="btn-secondary" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite" data-cta-location="summary-card">View Zendesk pricing &rarr;</a>
+          <div class="cta-stack">
+            <a class="btn-secondary" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite" data-cta-location="summary-card">View Zendesk pricing &rarr;</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
         </div>
       </div>
       <div class="summary-card card-lowest">
@@ -271,7 +274,10 @@ function updateZd() {{
         <div class="summary-breakdown">${{fmt(lowR.seatYr)}} licenses + $0 onboarding + ${{fmt(lowR.aiYr)}} AI usage</div>
         <div class="summary-caveat"><strong>Contract note:</strong> Verify whether session-pack billing (Freshdesk) or capped $0.75 resolution billing (Help Scout) fits your ticket workflow.</div>
         <div class="summary-actions">
-          <a class="btn-cta" href="${{lowR.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{lowR.id}}" data-cta-location="summary-card">${{lowR.cta}}</a>
+          <div class="cta-stack">
+            <a class="btn-cta" href="${{lowR.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{lowR.id}}" data-cta-location="summary-card">${{lowR.cta}}</a>
+            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
+          </div>
           <a class="summary-audit-link" href="../intercom-fin-ai-resolution-cost-calculator/" data-track="internal-audit">Compare Intercom Fin ($0.99) &rarr;</a>
         </div>
       </div>
@@ -282,13 +288,13 @@ function updateZd() {{
       <td data-label="Helpdesk">
         <strong>${{r.name}}</strong> <span class="status-pill status-verified">Verified</span>
         <div style="font-size:0.78rem; color:var(--muted);">${{r.sub}}</div>
-        <div class="source-inline">Source: <a href="${{r.url}}" target="_blank" rel="noopener">Official pricing &nearr;</a></div>
+        <div class="source-inline">Verified source: <a href="${{r.url}}" target="_blank" rel="noopener">Official pricing &nearr;</a></div>
       </td>
       <td data-label="Seats / mo" style="font-family:var(--mono);">${{fmt(r.seat)}}</td>
       <td data-label="AI usage / mo"><span class="badge ${{r.badge}}">${{r.aiText}}</span></td>
       <td data-label="Total / mo" class="price-highlight">${{fmt(r.tot)}}</td>
       <td data-label="Year-1 Total" class="price-highlight">${{fmt(r.yrTot)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
-      <td data-label="Next Step"><a class="${{r.cls}}" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a><span class="direct-link-tag">Direct vendor link</span></div></td>
     </tr>`).join('');
   let note = 'Assumptions: list prices only (no negotiated discounts, taxes, voice minutes or other add-ons). Freshdesk Year-1 total deducts the 500 one-time free AI Agent sessions ($245 value); Help Scout 3-month AI trial excluded.';
   if (copilot && plan === 'team') note += ' Zendesk Copilot is not offered on Suite Team, so it is not added.';
