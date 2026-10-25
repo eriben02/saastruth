@@ -12,7 +12,7 @@ p3_body = """
   <h1>What happens when Stripe, Shopify, or Paddle freezes your payouts.</h1>
   <p class="lead">A 25% rolling reserve or 180-day hold can starve a healthy business overnight—and if a Merchant of Record drops you, you cannot take your subscribers’ card tokens with you. Here is how to protect your cashflow.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30)</strong>.</p>
+    <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30 base + 0.8% orchestration)</strong>.</p>
   </div>
 </section>
 
@@ -93,8 +93,8 @@ p3_body = """
             <span class="status-pill status-verified">Verified</span>
             <div class="source-inline">Source: <a href="https://whop.com/sell" target="_blank" rel="noopener">Whop Payments &nearr;</a></div>
           </td>
-          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$1,875 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,650 base (2.7% + $0.30) + $225 intl fee</div></td>
-          <td data-label="Potential Funds Temporarily Held"><strong>$0 single-PSP hold exposure</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Multi-acquirer waterfall routing mitigates single-processor freezes</div></td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$2,275 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,650 base (2.7% + $0.30) + $400 orchestration (0.8%) + $225 intl ($1,875/mo without orchestration)</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$0 single-PSP hold exposure</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Multi-acquirer waterfall routing (+0.8% / $400/mo included in fees) mitigates single-processor freezes</div></td>
           <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
           <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">View Whop Payments pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
         </tr>
@@ -161,7 +161,7 @@ function updateReserveSim() {
       <div class="summary-metric" style="color:var(--emerald);">$${netCash.toLocaleString()} / mo</div>
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${procFee.toLocaleString()} est. processing fees &minus; $${tempHeld.toLocaleString()} temporarily held = $${netCash.toLocaleString()} net</div>
-      <div class="summary-caveat"><strong>Why failover &amp; dispute defense matter:</strong> Pairing multi-acquirer routing (<strong>Whop Payments</strong>, 2.7% + $0.30) with automated pre-dispute alerts (<strong>Chargeflow</strong>, keeps dispute rate &lt;0.5%) prevents a single processor from freezing 100% of checkout cashflow.</div>
+      <div class="summary-caveat"><strong>Why failover &amp; dispute defense matter:</strong> Pairing multi-acquirer routing (<strong>Whop Payments</strong>, 2.7% + $0.30 base + 0.8% orchestration) with automated pre-dispute alerts (<strong>Chargeflow</strong>, keeps dispute rate &lt;0.5%) prevents a single processor from freezing 100% of checkout cashflow.</div>
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-secondary" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">View Whop Payments pricing &rarr;</a>
@@ -198,7 +198,7 @@ updateReserveSim();
 p3_faqs = [
     ("How long can Stripe, PayPal, or Shopify Payments hold funds after an account freeze?", "Stripe, PayPal, and Shopify Payments typically hold funds for 120 to 180 days following an account termination or permanent limitation to cover potential customer chargeback windows, or impose a 25% rolling reserve for 90 to 180 days."),
     ("Can you export subscriber credit card tokens if Paddle terminates your account?", "No. Because Paddle operates as a Merchant of Record (MoR), Paddle is the legal seller of record and owns the card vault. If Paddle terminates your account following a risk review, you cannot re-tokenize or export subscriber cards—every customer must manually re-enter their payment details on your new processor."),
-    ("How do you prevent Stripe or Shopify Payments from placing a 25% rolling reserve?", "Keep your dispute ratio strictly below 0.5% by installing an automated pre-dispute and chargeback prevention tool like Chargeflow, and maintain a secondary multi-processor orchestration checkout like Whop (2.7% + $0.30) for immediate failover.")
+    ("How do you prevent Stripe or Shopify Payments from placing a 25% rolling reserve?", "Keep your dispute ratio strictly below 0.5% by installing an automated pre-dispute and chargeback prevention tool like Chargeflow, and maintain a secondary multi-processor orchestration checkout like Whop (2.7% + $0.30 base + 0.8% multi-processor orchestration) for immediate failover.")
 ]
 
 render_page(

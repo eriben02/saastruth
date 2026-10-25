@@ -454,23 +454,24 @@ const PAY_PROFILES = {{
     tableHeldSub: 'If 25% payout hold triggers on review (not a fee) · Non-exportable MoR card vault'
   }},
   'whop-payments': {{
-    b: 1350,
-    s: 300,
+    b: 1650,
+    s: 400,
     h: 225,
-    total: 1875,
+    total: 2275,
     held: 0,
     unit: '/ mo est. fees',
-    callTitleBase: 'Base percentage fee (2.7%)',
-    callSubBase: '2.7% domestic card rate on $50,000/mo GMV',
-    callTitleSeats: 'Per-transaction fee ($0.30)',
-    callSubSeats: '$0.30 × 1,000 monthly transactions ($300/mo)',
+    callTitleBase: 'Base card processing (2.7% + $0.30)',
+    callSubBase: '2.7% ($1,350) + $0.30 × 1,000 tx ($300) on $50k/mo',
+    callTitleSeats: 'Multi-processor orchestration (0.8%)',
+    callSubSeats: '+0.8% waterfall failover routing on $50k/mo ($400)',
     callTitleHidden: 'International card surcharge',
     callSubHidden: '+1.5% on 30% cross-border card volume ($225)',
-    quote: '<strong>Estimated monthly processing fees:</strong> $1,875/mo<br/><strong>Potential funds temporarily held:</strong> $0/mo (multi-acquirer failover routing)',
-    sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $1,650 base fees (2.7% + $0.30) + $225 international card fees = $1,875/mo in processing fees. Multi-acquirer waterfall routing mitigates single-processor reserve freezes.',
-    tableFeeSub: '$1,650 base (2.7% + $0.30) + $225 intl card fee',
+    quote: '<strong>Estimated monthly processing fees:</strong> $2,275/mo ($1,875/mo without orchestration)<br/><strong>Potential funds temporarily held:</strong> $0/mo (multi-acquirer failover routing)',
+    sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $1,650 base fees (2.7% + $0.30) + $400 multi-processor orchestration (0.8%) + $225 international card fees = $2,275/mo with orchestration ($1,875/mo without orchestration).',
+    tableBaseAmt: 1650,
+    tableFeeSub: '$1,650 base + $400 orchestration (0.8%) + $225 intl ($1,875/mo without orchestration)',
     tableHeldPill: '$0 single-PSP hold exposure',
-    tableHeldSub: 'Multi-acquirer failover routing avoids single-processor freezes · Token migration support'
+    tableHeldSub: 'Multi-acquirer failover routing (+0.8% / $400/mo included in fees) avoids single-processor freezes'
   }},
   'lemon-squeezy': {{
     b: 2500,
@@ -846,7 +847,8 @@ function renderDirectory() {{
     const payProf = t.category === 'Payment Processors & MoR' ? PAY_PROFILES[t.id] : null;
     let stickerDisplay = '';
     if (payProf) {{
-      stickerDisplay = `<div class="gap-figure">$${{(payProf.b + payProf.s).toLocaleString()}} / mo</div><div class="gap-sub-detail">${{t.transaction_fee_display}}</div>`;
+      const baseMo = payProf.tableBaseAmt !== undefined ? payProf.tableBaseAmt : (payProf.b + payProf.s);
+      stickerDisplay = `<div class="gap-figure">$${{baseMo.toLocaleString()}} / mo</div><div class="gap-sub-detail">${{t.transaction_fee_display}}</div>`;
     }} else if (t.transaction_fee_display) {{
       stickerDisplay = `<div class="gap-figure">${{t.transaction_fee_display}}</div>`;
     }} else {{

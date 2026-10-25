@@ -368,7 +368,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         expected_totals_and_holds = {
             "stripe-payments": (2325, 12500),
             "paddle-mor": (3450, 12500),
-            "whop-payments": (1875, 0),
+            "whop-payments": (2275, 0),
             "lemon-squeezy": (3475, 12500),
             "chargeflow": (500, 0),
         }
