@@ -71,36 +71,37 @@
   },
   {
     "id": "close-crm",
-    "name": "Close CRM",
+    "name": "Close CRM (Essentials)",
     "vendor": "Close",
     "category": "CRM & Sales",
-    "advertised_monthly_price_usd": 49,
-    "monthly_billing_price_usd": 59,
+    "advertised_monthly_price_usd": 35,
+    "monthly_billing_price_usd": 49,
     "seat_minimum": 1,
-    "actual_minimum_monthly_spend_usd": 49,
+    "actual_minimum_monthly_spend_usd": 35,
     "mandatory_onboarding_fee_usd": 0,
     "enterprise_onboarding_fee_usd": 0,
     "enterprise_seat_price_usd": 139,
-    "ai_usage_tax_model": "Built-in AI features included; transparent usage telephony",
+    "ai_usage_tax_model": "1,000 Chloe AI credits/user/mo included on Essentials (1,500 on Growth, 2,000 on Scale); calling & SMS passed through at cost",
     "ai_per_resolution_usd": 0.0,
-    "billing_lock_in_type": "True Monthly Available (Cancel anytime on monthly plan)",
+    "billing_lock_in_type": "True Monthly ($49/user) or Annual ($35/user); cancel anytime on monthly plan",
     "cancellation_notice_days": 1,
     "data_and_token_portability": "1-Click Full JSON/CSV Export & Full REST API",
     "hipaa_baa_minimum_tier": "Not HIPAA BAA eligible by default",
     "soc2_report_tier": "SOC 2 Type II Available",
     "sso_minimum_tier": "Enterprise / Custom",
-    "trap_badge": "$0 Onboarding Fee · True 1-Seat Minimum",
+    "trap_badge": "$0 Onboarding Fee · $35/User Annual ($49 Monthly) · 1-Seat Minimum",
     "trap_severity": "low",
     "verified_date": "2026-10-25",
     "affiliate_slug": "close-crm",
     "verification_status": "Verified",
-    "source_label": "Close CRM Official Pricing",
+    "source_label": "Close CRM Official Pricing (Essentials Plan)",
     "source_urls": [
       "https://close.com/pricing"
     ],
     "sources": [
       "https://close.com/pricing"
-    ]
+    ],
+    "notes": "Plans verified 2026-10-25 on close.com/pricing: Solo $9/user/mo annual ($19 monthly, 1-user max, 10k leads); Essentials $35/user/mo annual ($49 monthly, multi-user team plan); Growth $99/user/mo annual ($109 monthly); Scale $139/user/mo annual ($149 monthly)."
   },
   {
     "id": "pipedrive-crm",
@@ -137,11 +138,11 @@
   },
   {
     "id": "monday-crm",
-    "name": "monday CRM",
+    "name": "monday CRM (Basic)",
     "vendor": "monday.com",
     "category": "CRM & Sales",
     "advertised_monthly_price_usd": 12,
-    "monthly_billing_price_usd": 15,
+    "monthly_billing_price_usd": 18,
     "seat_minimum": 3,
     "actual_minimum_monthly_spend_usd": 36,
     "mandatory_onboarding_fee_usd": 0,
@@ -149,24 +150,27 @@
     "enterprise_seat_price_usd": 28,
     "ai_usage_tax_model": "Base seats + AI credit blocks above allowance",
     "ai_per_resolution_usd": 0.0,
-    "billing_lock_in_type": "Bucket Seat Pricing (Must buy in 3, 5, 10, 15 seat increments)",
+    "billing_lock_in_type": "Bucket Seat Pricing (Must buy in 3, 5, 10, 15 seat increments; $12/seat annual or $18/seat monthly on Basic)",
     "cancellation_notice_days": 1,
     "data_and_token_portability": "Excel/CSV board export + GraphQL API",
-    "hipaa_baa_minimum_tier": "Enterprise Tier Only",
+    "hipaa_baa_minimum_tier": "Ultimate (Enterprise) Tier Only",
     "soc2_report_tier": "SOC 2 Type II across tiers",
-    "sso_minimum_tier": "Enterprise Tier Only",
-    "trap_badge": "3-Seat Minimum + Seat Bucket Increments (3, 5, 10)",
+    "sso_minimum_tier": "Ultimate (Enterprise) Tier Only",
+    "trap_badge": "3-Seat Minimum ($36/mo Annual, $54/mo Monthly) + 5-Seat Buckets",
     "trap_severity": "medium",
     "verified_date": "2026-10-25",
     "affiliate_slug": "monday",
     "verification_status": "Verified",
-    "source_label": "monday CRM Pricing & Seat Tiers",
+    "source_label": "monday CRM Pricing & Bucket Seat Rules",
     "source_urls": [
-      "https://monday.com/pricing"
+      "https://monday.com/pricing",
+      "https://support.monday.com/hc/en-us/articles/4405633151634-Plans-and-pricing-for-monday-com"
     ],
     "sources": [
-      "https://monday.com/pricing"
-    ]
+      "https://monday.com/pricing",
+      "https://support.monday.com/hc/en-us/articles/4405633151634-Plans-and-pricing-for-monday-com"
+    ],
+    "notes": "Verified 2026-10-25 on monday.com/pricing (monday CRM section): Basic $12/seat/mo annual ($18 monthly); Standard $17/seat/mo annual ($25 monthly); Pro $28/seat/mo annual ($41 monthly); Ultimate custom. 3-seat minimum and 5-seat increments."
   },
   {
     "id": "intercom-fin-ai",
@@ -593,33 +597,36 @@
     "name": "1Password Business",
     "vendor": "1Password",
     "category": "Compliance, HIPAA & SOC 2",
-    "advertised_monthly_price_usd": 8,
-    "monthly_billing_price_usd": 10,
+    "advertised_monthly_price_usd": 8.99,
+    "monthly_billing_price_usd": 10.99,
     "seat_minimum": 1,
-    "actual_minimum_monthly_spend_usd": 8,
+    "actual_minimum_monthly_spend_usd": 8.99,
     "mandatory_onboarding_fee_usd": 0,
     "enterprise_onboarding_fee_usd": 0,
-    "enterprise_seat_price_usd": 8,
+    "enterprise_seat_price_usd": 8.99,
     "ai_usage_tax_model": "Transparent per-user pricing",
     "ai_per_resolution_usd": 0.0,
-    "billing_lock_in_type": "Monthly or Annual (Teams Starter Pack $19.95/mo for up to 10 users)",
+    "billing_lock_in_type": "Annual ($8.99/user/mo, $107.88/yr) or Monthly ($10.99/user/mo); Teams Starter Pack $24.95/mo for up to 10 users",
     "cancellation_notice_days": 1,
     "data_and_token_portability": "Full 1PUX / CSV Vault Export",
     "hipaa_baa_minimum_tier": "Enterprise / Business on request",
     "soc2_report_tier": "SOC 2 Type II & ISO 27001 Included",
-    "sso_minimum_tier": "Business Tier ($7.99/user/mo – No SSO Tax!)",
-    "trap_badge": "Zero SSO Tax: Okta/Entra SSO & Audit Logs at $7.99/user",
+    "sso_minimum_tier": "Business Tier ($8.99/user/mo annual – No Enterprise SSO Tax!)",
+    "trap_badge": "Zero SSO Tax: Okta/Entra SSO & Audit Logs at $8.99/user/mo",
     "trap_severity": "low",
     "verified_date": "2026-10-25",
     "affiliate_slug": "1password",
     "verification_status": "Verified",
-    "source_label": "1Password Business Pricing",
+    "source_label": "1Password Business Official Pricing",
     "source_urls": [
-      "https://1password.com/business-pricing"
+      "https://1password.com/pricing/business",
+      "https://support.1password.com/membership-billing-policy/"
     ],
     "sources": [
-      "https://1password.com/business-pricing"
-    ]
+      "https://1password.com/pricing/business",
+      "https://support.1password.com/membership-billing-policy/"
+    ],
+    "notes": "Verified 2026-10-25 on 1password.com/pricing/business: Business is $8.99/user/month billed annually ($107.88/user/year); monthly billing is $10.99/user/month. Teams Starter Pack is $24.95/month billed annually ($2.49/user/mo for 10 users)."
   },
   {
     "id": "vanta-soc2",

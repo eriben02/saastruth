@@ -119,9 +119,9 @@ home_body = f"""
   <ul class="key-list">
     <li><strong>HubSpot’s onboarding fee adds 28% to a 5-seat Sales Pro deal:</strong> HubSpot Sales Hub Professional ($90/seat/month billed annually) requires a mandatory <strong>$1,500 onboarding fee</strong> ($3,500 on Enterprise), bringing five seats to <strong>$6,900 in Year 1</strong> compared with <strong>$2,940/year</strong> on Pipedrive Professional ($0 onboarding).</li>
     <li><strong>Intercom and Zendesk AI meters can exceed your seat bill:</strong> At 3,000 monthly support conversations with 50% AI resolution (1,500 resolutions/month), Intercom Fin ($0.99/resolution) adds <strong>$1,485/month ($17,820/year)</strong> on top of agent seats. Zendesk Suite includes only 5–10 automated resolutions per agent/month before charging <strong>$1.50 committed or $2.00 pay-as-you-go</strong> per verified resolution.</li>
-    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Basic ($12/seat/month) or Standard ($17/seat/month) must pay for three seats (<strong>$36–$51/month or $432–$612/year</strong>), whereas Pipedrive Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
+    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Basic ($12/seat/month billed annually, $18/seat/month billed monthly) or Standard ($17/seat/month annual, $25/seat/month monthly) must pay for three seats (<strong>$36–$51/month annual or $54–$75/month monthly</strong>), whereas Pipedrive Lite/Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
     <li><strong>Merchant of Record platforms own your card vault:</strong> Stripe and Shopify Payments can hold payouts for <strong>120–180 days</strong> or apply a <strong>25% rolling reserve</strong> on risk flags, but you own the customer relationship. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the seller of record—if Paddle terminates your account on a risk review, you cannot export subscriber card tokens.</li>
-    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually, $129/month monthly, 1-user account</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/month</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
+    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually, $129/month monthly, 1-user account</strong>), and 1Password Business includes SAML SSO at <strong>$8.99/user/month billed annually ($107.88/year; $10.99/user/month monthly)</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
   </ul>
 </section>
 
@@ -375,17 +375,18 @@ function renderDirectory() {{
     const verClass = verStatus.startsWith('Verified') ? 'status-verified' : 'status-estimated';
     const srcUrl = (t.source_urls && t.source_urls[0]) ? t.source_urls[0] : aff.destination_url;
     const srcLabel = t.source_label || 'Official pricing & terms';
+    const fmtRate = n => Number.isInteger(n) ? n.toLocaleString() : n.toFixed(2);
     let rateText = '';
     if (t.transaction_fee_display) {{
       rateText = t.transaction_fee_display;
     }} else if (t.id === 'jotform-hipaa') {{
-      rateText = `$${{r.unitRate}}/mo (1-user Gold HIPAA plan)`;
+      rateText = `$${{fmtRate(r.unitRate)}}/mo (1-user Gold HIPAA plan)`;
     }} else if (t.id === 'vanta-soc2' || t.id === 'drata-soc2') {{
-      rateText = `$${{r.unitRate}}/mo (flat annual platform fee)`;
+      rateText = `$${{fmtRate(r.unitRate)}}/mo (flat annual platform fee)`;
     }} else if (t.id === 'hubspot-marketing-pro') {{
-      rateText = `$${{r.unitRate}}/mo base (3 seats incl.) + $45/extra seat ($${{r.monthlySoftware}}/mo for ${{r.effSeats}} seats)`;
+      rateText = `$${{fmtRate(r.unitRate)}}/mo base (3 seats incl.) + $45/extra seat ($${{fmtRate(r.monthlySoftware)}}/mo for ${{r.effSeats}} seats)`;
     }} else {{
-      rateText = `$${{r.unitRate}}/mo (${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}})`;
+      rateText = `$${{fmtRate(r.unitRate)}}/mo (${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}})`;
     }}
     const totalText = t.category === 'Payment Processors & MoR'
       ? `Per-transaction <div style="font-size:0.75rem; font-weight:400;"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Simulate holds &rarr;</a></div>`
@@ -427,7 +428,7 @@ renderDirectory();
 home_faqs = [
     ("Which B2B SaaS tools charge mandatory onboarding fees in 2026?", "HubSpot charges mandatory one-time onboarding fees on its Professional and Enterprise tiers: $1,500 for Sales Hub Professional, $3,500 for Sales Hub Enterprise, $3,000 for Marketing Hub Professional, and $7,000 for Marketing Hub Enterprise (verified Oct 2026). Alternatives like Close CRM, Pipedrive, and Freshdesk charge $0 for onboarding."),
     ("How does Intercom's $0.99 per Fin AI resolution pricing work?", "Intercom charges a per-seat monthly fee ($29 Essential, $85 Advanced, or $132 Expert billed annually) plus $0.99 for every customer conversation resolved by its Fin AI agent (and $9.99 for sales qualification). If Fin AI resolves 2,000 tickets a month, it adds $1,980/month ($23,760/year) to your seat invoice."),
-    ("Why does monday CRM cost more than advertised for 1 or 2 users?", "monday CRM enforces a 3-seat minimum and bills in fixed seat buckets (3, 5, 10, 15 seats). A solo user on the $12/seat Basic or $17/seat Standard plan must pay for 3 seats ($36/month or $51/month). For 1–2 users, Pipedrive ($14–$34/seat) or Close CRM ($49/seat) is cheaper because they bill per exact seat."),
+    ("Why does monday CRM cost more than advertised for 1 or 2 users?", "monday CRM enforces a 3-seat minimum and bills in fixed seat buckets (3, 5, 10, 15 seats). A solo user on the $12/seat Basic ($18/seat monthly) or $17/seat Standard ($25/seat monthly) plan must pay for 3 seats ($36/month annual or $54/month monthly on Basic). For 1–2 users, Pipedrive ($14–$34/seat) or Close CRM Essentials ($35/user/month annual, $49/user/month monthly) is cheaper because they bill per exact seat."),
     ("What happens to subscriber card tokens if Paddle or Stripe terminates my account?", "With Stripe (2.9% + $0.30), you are the merchant and own the customer relationship, allowing PGP-encrypted card token exports unless terminated for fraud. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, you cannot export card tokens and every subscriber must re-enter their payment details.")
 ]
 
@@ -482,7 +483,7 @@ p1_body = """
 
 <section class="calc-box">
   <h2 style="margin-top:0;">Calculate your Year-1 cost: HubSpot vs. Close vs. Pipedrive</h2>
-  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">For a five-rep sales team, choosing <strong>Close CRM</strong> ($0 onboarding) or <strong>Pipedrive Professional</strong> ($49/seat/month, $0 onboarding) saves between <strong>$960 and $3,960 in Year 1</strong> compared with HubSpot Sales Hub Professional, with no 12-month lock-in required.</p>
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">For a five-rep sales team, choosing <strong>Close CRM Essentials</strong> ($35/user/month billed annually, $0 onboarding) or <strong>Pipedrive Professional</strong> ($49/seat/month, $0 onboarding) saves between <strong>$3,960 and $4,800 in Year 1</strong> compared with HubSpot Sales Hub Professional ($960 saved even on Close Growth at $99/user/month), with no 12-month lock-in required.</p>
   <div class="calc-grid">
     <div class="control-group">
       <label for="hs-seats">Sales team size (core seats): <span class="val-pill" id="hs-seats-val">5</span> reps</label>
@@ -593,7 +594,7 @@ function updateHsCalc() {
   else if (tier === 'mkt_pro') { hsName = 'HubSpot Marketing Hub Pro'; hsMonthly = 800 + Math.max(0, seats - 3) * 45; hsOnboard = 3000; }
   else { hsName = 'HubSpot Marketing Hub Enterprise'; hsMonthly = 3600 + Math.max(0, seats - 5) * 75; hsOnboard = 7000; }
   const hsYear1 = hsMonthly * 12 + hsOnboard;
-  const closeMonthly = seats * 99;
+  const closeMonthly = seats * 35;
   const closeYear1 = closeMonthly * 12;
   const pipeMonthly = seats * 49;
   const pipeYear1 = pipeMonthly * 12;
@@ -607,7 +608,7 @@ function updateHsCalc() {
       <td data-label="Compare"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a><span class="partner-tag">Partner link</span></td>
     </tr>
     <tr>
-      <td data-label="CRM Platform"><strong>Close CRM (Growth / Pro)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; built-in calling &amp; SMS</div></td>
+      <td data-label="CRM Platform"><strong>Close CRM (Essentials)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">$35/user/mo annual ($49 monthly) &middot; $0 onboarding &middot; Growth w/ workflows is $99/user/mo</div></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>

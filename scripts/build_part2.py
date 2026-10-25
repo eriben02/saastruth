@@ -172,7 +172,7 @@ p4_body = """
   <h1>Why a "$12/seat" CRM costs $36 a month for a solo founder.</h1>
   <p class="lead">monday CRM bills in fixed buckets starting at three seats, while Pipedrive and Close bill per actual user. Use the calculator below to see where the math flips.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> For <strong>1 user</strong>, <strong>Pipedrive</strong> ($14/mo Basic or $34/mo Growth) is up to <strong>60% cheaper</strong> than <strong>monday CRM</strong> because monday CRM enforces a <strong>3-seat minimum</strong> ($36/mo Basic or $51/mo Standard minimum). For <strong>2 users</strong>, monday CRM still bills for 3 seats ($25.50/user/mo effective rate on Standard). At <strong>exactly 3, 5, or 10 users</strong>, however, monday CRM becomes the lowest-cost full-featured CRM at $51/mo (3 users) vs. $102/mo on Pipedrive Growth and $270/mo (+ $1,500 onboarding) on HubSpot Sales Pro.</p>
+    <p><strong>The short version:</strong> For <strong>1 user</strong>, <strong>Pipedrive</strong> ($14/mo Basic or $34/mo Growth) is up to <strong>60% cheaper</strong> than <strong>monday CRM</strong> because monday CRM enforces a <strong>3-seat minimum</strong> ($36/mo Basic [$12/seat annual, $18/seat monthly] or $51/mo Standard [$17/seat annual, $25/seat monthly] minimum). For <strong>2 users</strong>, monday CRM still bills for 3 seats ($25.50/user/mo effective rate on Standard). At <strong>exactly 3, 5, or 10 users</strong>, however, monday CRM becomes the lowest-cost full-featured CRM at $51/mo (3 users) vs. $102/mo on Pipedrive Growth and $270/mo (+ $1,500 onboarding) on HubSpot Sales Pro.</p>
   </div>
 </section>
 
@@ -187,8 +187,8 @@ p4_body = """
     <div class="control-group">
       <label for="sm-tier">Plan tier comparison</label>
       <select id="sm-tier">
-        <option value="entry">Entry / Basic tier (annual billing)</option>
-        <option value="standard" selected>Standard / Growth tier (most popular)</option>
+        <option value="entry">Entry / Basic tier ($12/seat annual · $18/seat monthly on monday CRM)</option>
+        <option value="standard" selected>Standard / Growth tier ($17/seat annual · $25/seat monthly on monday CRM)</option>
       </select>
     </div>
   </div>
@@ -273,9 +273,9 @@ updateSmCalc();
 """
 
 p4_faqs = [
-    ("Can you buy 1 seat of monday CRM in 2026?", "No. monday CRM enforces a mandatory 3-seat minimum on all paid plans. If you are a solo user on the $12/seat Basic plan or $17/seat Standard plan (billed annually), you must pay for 3 seats ($36/month or $51/month)."),
+    ("Can you buy 1 seat of monday CRM in 2026?", "No. monday CRM enforces a mandatory 3-seat minimum on all paid plans. If you are a solo user on the $12/seat Basic plan ($18/seat billed monthly) or $17/seat Standard plan ($25/seat billed monthly), you must pay for 3 seats ($36/month annual or $54/month monthly on Basic; $51/month annual or $75/month monthly on Standard)."),
     ("How do monday CRM seat buckets work when adding a 4th or 6th user?", "monday CRM bills in fixed seat buckets of 3, 5, 10, and 15 seats. If you have 4 active users, you must pay for the 5-seat bucket; if you have 6 active users, you must pay for the 10-seat bucket."),
-    ("Which CRM is best for a 1-person or 2-person sales team?", "Pipedrive ($14–$34/user/month) and Close CRM ($49/user/month) bill strictly 1:1 per active user with $0 mandatory onboarding fees, making them significantly more cost-effective than monday CRM or HubSpot Professional for 1–2 users.")
+    ("Which CRM is best for a 1-person or 2-person sales team?", "Pipedrive ($14–$34/user/month) and Close CRM Essentials ($35/user/month billed annually, $49/user/month billed monthly; or Solo at $9/month for 1 user) bill strictly 1:1 per active user with $0 mandatory onboarding fees, making them significantly more cost-effective than monday CRM or HubSpot Professional for 1–2 users.")
 ]
 
 render_page(
@@ -295,7 +295,7 @@ p5_body = """
   <h1>Which software plans actually sign a HIPAA BAA (and what SOC 2 really costs).</h1>
   <p class="lead">Most vendors lock HIPAA Business Associate Agreements and SAML SSO behind $20,000+ Enterprise contracts. A handful include them on self-serve plans—and Vanta or Drata quotes rarely include your CPA auditor bill.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($7.99/user/mo, which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> do not publish public self-serve prices—custom list quotes typically start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong>), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
+    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($8.99/user/mo billed annually [$107.88/yr], which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> do not publish public self-serve prices—custom list quotes typically start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong>), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
   </div>
 </section>
 
@@ -369,12 +369,12 @@ p5_body = """
           <td data-label="Vendor">
             <strong>1Password (Access &amp; Secrets)</strong>
             <span class="status-pill status-verified">Verified</span>
-            <div class="source-inline">Source: <a href="https://1password.com/business-pricing" target="_blank" rel="noopener">1Password Business pricing &nearr;</a></div>
+            <div class="source-inline">Source: <a href="https://1password.com/pricing/business" target="_blank" rel="noopener">1Password Business pricing &nearr;</a></div>
           </td>
-          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Business ($7.99/user/mo)</span></td>
-          <td data-label="Min SAML SSO Tier"><span class="badge badge-low">Business ($7.99/user/mo &middot; no SSO tax)</span></td>
+          <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Business ($8.99/user/mo annual)</span></td>
+          <td data-label="Min SAML SSO Tier"><span class="badge badge-low">Business ($8.99/user/mo annual &middot; no SSO tax)</span></td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; ISO 27001</td>
-          <td data-label="Details"><a class="btn-cta" href="https://1password.com/business-pricing" target="_blank" rel="nofollow sponsored">1Password Business &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Details"><a class="btn-cta" href="https://1password.com/pricing/business" target="_blank" rel="nofollow sponsored">1Password Business &rarr;</a><span class="partner-tag">Partner link</span></td>
         </tr>
         <tr>
           <td data-label="Vendor">

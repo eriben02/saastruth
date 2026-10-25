@@ -132,7 +132,7 @@
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/program/1password",
     "tracking_url": "/go/1password",
-    "destination_url": "https://1password.com/business-pricing",
+    "destination_url": "https://1password.com/pricing/business",
     "is_affiliate": true
   },
   "vanta": {
