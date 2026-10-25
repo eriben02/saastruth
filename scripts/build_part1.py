@@ -192,7 +192,7 @@ home_faqs = [
 
 render_page(
     "index.html",
-    "SaaS True-Cost & Contract Trap Directory (2026): Calculate Hidden Onboarding Fees, Seat Minimums & AI Taxes",
+    "saasbill.io – Your SaaS bill is lying to you",
     "SaaSBill independent B2B SaaS pricing calculator and contract audit directory. Compare true Year-1 costs including HubSpot's $1,500-$7,000 onboarding fees, Intercom's $0.99 AI resolution tax, and Stripe/Paddle payout holds.",
     "/",
     home_body,
@@ -398,7 +398,7 @@ p1_faqs = [
 
 render_page(
     "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
-    "HubSpot Pricing & Contract Traps (2026): Mandatory Onboarding Fees ($1,500–$7,000), Auto-Renewal Rules & True Year-1 Cost",
+    "HubSpot True Year-1 Cost Calculator – saasbill.io",
     "Calculate your real Year-1 HubSpot Sales Hub and Marketing Hub cost including mandatory $1,500-$7,000 onboarding fees, and compare against Close CRM and Pipedrive.",
     "/pricing/hubspot-true-cost-and-onboarding-fees/",
     p1_body,
@@ -525,7 +525,7 @@ p2_faqs = [
 
 render_page(
     "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
-    "Intercom Pricing & Fin AI Resolution Tax Calculator (2026): How $0.99/Resolution Impacts Your Bill vs. Freshdesk & Zendesk",
+    "Intercom Fin AI Cost Calculator – saasbill.io",
     "Calculate your monthly and annual Intercom Fin AI bill at $0.99 per resolution across Essential ($29), Advanced ($85), and Expert ($132) tiers, and compare against Freshdesk.",
     "/pricing/intercom-fin-ai-resolution-cost-calculator/",
     p2_body,

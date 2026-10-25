@@ -25,7 +25,7 @@ def load_data():
 def render_page(rel_path, title, description, canonical_path, body_html, faqs=None, extra_schema=None, published_date=None):
     iso_date, iso_datetime, human_date = get_freshness_timestamps()
     pub_date = published_date or iso_date
-    full_title = title if "SaaSBill" in title else f"{title} | SaaSBill"
+    full_title = title if ("saasbill" in title.lower()) else f"{title} – saasbill.io"
 
     faq_html = ""
     graph = [

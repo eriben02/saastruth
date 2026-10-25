@@ -5,7 +5,7 @@ from layout import render_page
 
 SLUG = "/pricing/zendesk-ai-resolution-and-automated-outcome-cost/"
 REL = "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html"
-TITLE = "Zendesk AI Outcome Pricing Calculator (2026): Per-Resolution Fees vs. Freshdesk & Help Scout"
+TITLE = "Zendesk AI Resolution Cost Calculator – saasbill.io"
 DESC = ("Zendesk Suite includes only 5–10 automated resolutions per agent/month; each verified AI resolution beyond that costs $1.50 committed or $2.00 pay-as-you-go. "
         "Calculate your real bill vs. Freshdesk ($49/100 AI sessions) and Help Scout ($0.75/resolution). Verified Oct 25, 2026.")
 

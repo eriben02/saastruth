@@ -141,7 +141,7 @@ p3_faqs = [
 
 render_page(
     "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
-    "Stripe, Shopify Payments & Paddle Payout Holds (2026): 180-Day Reserve Rules, Token Portability & Backup Processors",
+    "Stripe, Shopify & Paddle Frozen Funds – saasbill.io",
     "Compare Stripe, Shopify Payments, and Paddle payout freeze policies, card token portability rules, and backup payment orchestration with Whop and Chargeflow.",
     "/exit/stripe-shopify-paddle-frozen-funds-alternatives/",
     p3_body,
@@ -264,7 +264,7 @@ p4_faqs = [
 
 render_page(
     "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
-    "Monday CRM vs. Pipedrive vs. HubSpot for 1–3 Users (2026): How Seat Minimums Change the Real Price",
+    "monday CRM vs Pipedrive vs HubSpot – saasbill.io",
     "Compare Monday CRM's 3-seat minimum and seat-bucket pricing against Pipedrive and HubSpot for 1, 2, 3, 5, and 10 users.",
     "/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/",
     p4_body,
@@ -439,7 +439,7 @@ p5_faqs = [
 
 render_page(
     "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
-    "Which SaaS Tiers Actually Sign a HIPAA BAA & Provide SOC 2 Reports? (2026 Pricing Matrix)",
+    "HIPAA BAA & SOC 2 True Cost Calculator – saasbill.io",
     "Find out which SaaS pricing tiers sign a HIPAA BAA without a $50k Enterprise contract, and calculate your true SOC 2 Type II platform + CPA auditor cost.",
     "/compliance/hipaa-baa-and-soc2-pricing-tiers/",
     p5_body,
