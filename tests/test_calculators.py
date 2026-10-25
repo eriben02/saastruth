@@ -286,7 +286,6 @@ class TestSaaSBillCalculators(unittest.TestCase):
         }
         forbidden_phrases = [
             "Partner link",
-            "Direct vendor link",
             "sponsored",
             "Check pricing",
             "Try Close free",
@@ -308,6 +307,12 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("Based on ", html, f"Missing scenario description ('Based on ...') in {rel}")
             self.assertIn("Hidden Cost Highlight:", html, f"Missing 'Hidden Cost Highlight:' in {rel}")
             self.assertIn('data-track="vendor-cta"', html, f"Missing data-track='vendor-cta' in {rel}")
+            self.assertIn("Direct vendor link", html, f"Missing 'Direct vendor link' label in {rel}")
+            self.assertIn("window.__saasbillEvents", html, f"Missing local __saasbillEvents instrumentation in {rel}")
+            # Ensure no external analytics tracker is loaded
+            self.assertNotIn("googletagmanager.com", html)
+            self.assertNotIn("plausible.io", html)
+            self.assertNotIn("posthog.com", html)
 
         # Verify homepage pre-filled category tabs and vendor-specific CTA dictionary
         with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
@@ -335,6 +340,17 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "View Lemon Squeezy pricing",
         ]:
             self.assertIn(expected_cta, index_html, f"Missing specific CTA '{expected_cta}' in index.html")
+
+        # Verify UX Finishing Pass: pre-filled example banner, custom scenario state, and Sage Green palette
+        self.assertIn('class="prefill-banner"', index_html)
+        self.assertIn('id="calc-mode-badge"', index_html)
+        self.assertIn("Pre-filled example", index_html)
+        self.assertIn("Custom scenario active", index_html)
+
+        with open(os.path.join(PUBLIC_DIR, "assets/styles.css")) as f:
+            css = f.read()
+        for token in ["#FAF9F5", "#536B56", "#E8EEE6", "#20231F", ".prefill-banner", ".direct-link-tag"]:
+            self.assertIn(token, css, f"Missing Sage Green / UX Finishing Pass token '{token}' in styles.css")
 
 
 if __name__ == "__main__":
