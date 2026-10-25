@@ -122,7 +122,7 @@ home_body = f"""
     </div>
     <div class="methodology-item">
       <strong>3. Editorial Independence &amp; Direct Pricing Links</strong>
-      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical. Spot a pricing change? Email <a href="mailto:editorial@saasbill.io">editorial@saasbill.io</a>.
+      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
     </div>
   </div>
 </section>
