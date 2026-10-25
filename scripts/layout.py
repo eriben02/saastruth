@@ -187,6 +187,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
         <a href="{prefix}exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Holds &amp; MoR</a>
         <a href="{prefix}compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">3-Seat Minimum Math</a>
         <a href="{prefix}compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA &amp; SOC 2</a>
+        <a href="{prefix}pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk $2 AI Resolution</a>
         <a href="{prefix}llms.txt">llms.txt</a>
       </nav>
     </div>

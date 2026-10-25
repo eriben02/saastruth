@@ -84,6 +84,7 @@ home_body = f"""
     <li><strong>Intercom Fin AI $0.99/Resolution Meter:</strong> At 3,000 monthly tickets with a 50% AI resolution rate (1,500 resolutions/mo), Intercom Fin adds <strong>$1,485/mo ($17,820/yr)</strong> on top of agent seat licenses ($29–$132/seat/mo).</li>
     <li><strong>monday CRM 3-Seat Minimum:</strong> A solo founder (1 user) on monday CRM Standard ($17/seat/mo) is billed for 3 seats (<strong>$51/mo or $612/yr</strong>), whereas Pipedrive Essential bills 1 seat at <strong>$14/mo ($168/yr)</strong>. Break-even occurs at exactly <strong>3 active users</strong>.</li>
     <li><strong>Payment Processor &amp; MoR Token Lock-In:</strong> Stripe and Shopify Payments can hold funds for <strong>120–180 days</strong> or impose a <strong>25% rolling reserve</strong> on risk flags, while Merchant of Record platforms (Paddle, 5% + $0.50) own subscriber card tokens and cannot export them if your account is terminated.</li>
+    <li><strong>Zendesk AI Automated Resolutions:</strong> Zendesk Suite Professional ($115/agent/mo annual) includes 10 automated resolutions per agent/month; beyond that each verified AI resolution costs <strong>$1.50 committed or $2.00 pay-as-you-go</strong>. 10 agents with 2,000 verified AI resolutions/mo pay roughly <strong>$3,800/mo in overage</strong> on top of $1,150 in seats (verified Oct 25, 2026).</li>
     <li><strong>HIPAA BAA &amp; SOC 2 Negotiation:</strong> Jotform unlocks a signed HIPAA BAA on its self-serve Gold plan (<strong>$99/mo annual</strong>), and 1Password Business includes SAML SSO at <strong>$7.99/user/mo</strong> with zero SSO tax. Vanta and Drata initial quotes ($9k–$15k+/yr) can be negotiated down by <strong>30%–50%</strong> (<code>r/sysadmin</code>, Mar 2026), excluding the separate $6,500+ CPA auditor fee.</li>
   </ul>
 </section>
@@ -115,6 +116,11 @@ home_body = f"""
       <span class="badge badge-low">HIPAA BAA &amp; 50% SOC 2 Discount</span>
       <h3 style="margin-top:12px;"><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">5. HIPAA BAA &amp; SOC 2 SaaS Tier Matrix</a></h3>
       <p>Which SaaS tiers sign a HIPAA BAA without a $50k Enterprise contract (e.g., Jotform Gold at $99/mo) and how to negotiate 50% off Vanta &amp; Drata + external CPA auditor fees.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">$1.50–$2.00 / AI Resolution</span>
+      <h3 style="margin-top:12px;"><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">6. Zendesk AI Outcome Pricing Calculator</a></h3>
+      <p>Zendesk Suite ($55–$115/agent) includes only 5–10 automated resolutions per agent/month; every verified AI resolution beyond that costs $1.50 (committed) or $2.00 (pay-as-you-go, overage ON by default). Compare against Freshdesk ($49/100 AI sessions) and Help Scout ($0.75/resolution).</p>
     </div>
   </div>
 </section>
@@ -399,7 +405,7 @@ p2_body = """
   <p class="lead">Intercom pairs per-seat subscriptions ($29 to $132/seat/month billed annually) with an outcome-based meter of <strong>$0.99 per Fin AI resolution</strong> (and $9.99 per sales qualification). As your documentation improves and AI resolves more tickets, your monthly bill scales automatically.</p>
   <div class="geo-direct-answer" aria-label="Direct Answer Summary">
     <span class="geo-label">Direct Answer / TL;DR (Verified Oct 25, 2026)</span>
-    <p><strong>How much does Intercom Fin AI cost in 2026?</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong> vs. <strong>$390/mo ($4,680/yr)</strong> on Freshdesk Pro + Freddy AI.</p>
+    <p><strong>How much does Intercom Fin AI cost in 2026?</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong> vs. <strong>$420/mo ($5,040/yr)</strong> on Freshdesk Pro ($55) + Freddy AI Copilot ($29).</p>
   </div>
 </section>
 
@@ -479,7 +485,7 @@ function updateIcCalc() {
   const icAiCost = Math.round(resolvedTickets * 0.99);
   const icTotalMo = icSeatCost + icAiCost;
   const icYear = icTotalMo * 12;
-  const fdSeatCost = seats * 49;
+  const fdSeatCost = seats * 55; // Freshdesk Pro $55/agent/mo annual (verified 2026-10-25)
   const fdAiCost = seats * 29;
   const fdTotalMo = fdSeatCost + fdAiCost;
   const fdYear = fdTotalMo * 12;
@@ -510,7 +516,7 @@ updateIcCalc();
 p2_faqs = [
     ("How much does Intercom Fin AI charge per resolution in 2026?", "Intercom charges $0.99 per Fin AI outcome/resolution (and $9.99 per sales qualification outcome), billed at most once per conversation, on top of your monthly per-seat plan ($29 Essential, $85 Advanced, or $132 Expert billed annually)."),
     ("What counts as a billable Fin AI resolution in Intercom?", "A billable $0.99 Fin outcome occurs when the customer confirms their question was answered, exits the conversation without requesting a human agent after Fin's answer, or triggers a configured procedure handoff/disqualification outcome."),
-    ("What is the most predictable alternative to Intercom's $0.99 per-resolution pricing?", "Freshdesk (by Freshworks) offers predictable per-agent pricing ($15–$79/seat/month) with optional Freddy AI Copilot at $29/agent/month, avoiding uncapped $0.99 per-ticket outcome spikes.")
+    ("What is the most predictable alternative to Intercom's $0.99 per-resolution pricing?", "Freshdesk (by Freshworks) offers predictable per-agent pricing ($19–$89/agent/month billed annually, verified Oct 25, 2026) with optional Freddy AI Copilot at $29/agent/month, avoiding uncapped $0.99 per-ticket outcome spikes.")
 ]
 
 render_page(

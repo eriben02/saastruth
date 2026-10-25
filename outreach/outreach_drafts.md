@@ -86,3 +86,80 @@ We'd love to connect with a dedicated partner manager to align on white-glove on
 Best regards,  
 Erik Bengtsson  
 Founder, SaaSTruth
+
+---
+
+> **Status update 2026-10-25:** None of the programs below has been applied to or contacted yet. Draft #2 above says "We are enrolled in the Freshworks PartnerStack program". That is **not true yet**, so remove or rephrase that sentence before sending. All drafts are UNSENT and need Erik's explicit approval of the text and recipient.
+
+## 5. Outreach Draft #4: Help Scout (PartnerStack): Zendesk AI per-resolution switchers — UNSENT
+
+**Target:** Help Scout Partner Program via PartnerStack (https://market.partnerstack.com/page/helpscout)
+**Verified terms (2026-10-25):** 15% recurring for 1–10 customers in 3 months, 20% for 11+; 90-day cookie; no PPC on brand terms, no coupon sites.
+**Subject:** SaaSTruth: Zendesk AI outcome-pricing calculator that shows Help Scout's $0.75/resolution
+
+Hi Help Scout Partnerships team,
+
+I run SaaSTruth (https://eriben02.github.io/saastruth/), an independent directory that audits real SaaS costs against official pricing pages. Every figure carries a source link and a verification date.
+
+Today we published a Zendesk AI outcome-pricing calculator: https://eriben02.github.io/saastruth/pricing/zendesk-ai-resolution-and-automated-outcome-cost/
+Example: 10 agents, 5,000 conversations/month and a 40% AI resolution rate cost about $4,950/mo on Zendesk Suite Professional ($2.00 pay-as-you-go overage) vs. about $1,950/mo on Help Scout Plus ($45 seats + $0.75 per AI Answers resolution).
+
+I'd like to join the Help Scout partner program and would appreciate:
+1. Confirmation that comparison/calculator content like this fits your partner guidelines.
+2. Any official "switch from Zendesk" landing page or migration offer we should link to.
+3. Confirmation of monthly-billing prices (Standard/Plus/Pro) so we can cite you instead of third-party sources.
+
+Best regards,
+Erik Bengtsson
+SaaSTruth
+
+## 6. Outreach Draft #5: Freshworks: Zendesk AI switcher angle (follow-up to Draft #2) — UNSENT
+
+**Target:** Freshworks Affiliate Program on PartnerStack (https://market.partnerstack.com/page/freshworks4391). Apply first via the portal; send this only after approval, to the assigned partner manager.
+**Verified terms (effective 2026-03-31, checked 2026-10-25):** 20% of first-year revenue (up to 12 months); 25% at 50–100 and 30% at 101+ referrals/month; 90-day cookie; 3-month conversion window; initial MRR only; no PPC on brand keywords.
+**Subject:** Zendesk $1.50–$2.00/resolution calculator: Freshdesk featured as the predictable-cost alternative
+
+Hi [Partner manager],
+
+SaaSTruth just published a sourced Zendesk AI cost calculator (https://eriben02.github.io/saastruth/pricing/zendesk-ai-resolution-and-automated-outcome-cost/). It compares Zendesk's per-verified-resolution meter with Freshdesk Pro ($55/agent annual + $49 per 100 Freddy AI Agent sessions). In our default scenario Freshdesk comes out at about $3,000/mo vs. about $4,950/mo for Zendesk Suite Professional.
+
+Two questions:
+1. Is there a Zendesk-switcher landing page or migration offer we may link to?
+2. Can you confirm which Freshdesk plan is required for a HIPAA BAA, and the monthly-billing price of Freddy AI Copilot? We currently mark both as "unverified".
+
+Best regards,
+Erik Bengtsson
+SaaSTruth
+
+## 7. Utkast #6 (svenska): Ansökan till Spiris affiliateprogram — EJ SKICKAT
+
+**Till:** partner@spiris.se
+**Villkor (verifierat 2026-10-25, https://www.spiris.se/partners-och-aterforsaljare/affiliate):** 15 % av ordervärdet på Bokföring & Fakturering; kräver F-skatt.
+**OBS innan sändning:** Erik behöver bekräfta vilket företag/organisationsnummer med F-skatt som ska stå som sökande.
+**Ämne:** Ansökan om Spiris affiliatesamarbete – Systemkalkyl.se
+
+Hej!
+
+Jag driver Systemkalkyl.se (https://eriben02.github.io/systemkalkyl/), en oberoende svensk jämförelsesajt som räknar ut verklig årskostnad för bokföringsprogram utifrån officiella prislistor, med källa och datum för varje siffra.
+
+Idag publicerade vi en kalkylator, Fortnox vs Spiris: https://eriben02.github.io/systemkalkyl/jamfor/fortnox-vs-spiris-totalkostnad/
+Där kommer Spiris Driva ut som billigast för ett typiskt litet aktiebolag (ca 5 010 kr/år exkl. moms). Vi förklarar också 152-verifikatsgränsen mellan Starta och Driva.
+
+Jag vill gärna ansöka om ert affiliateprogram och undrar:
+1. Vilka uppgifter behöver ni (företag, organisationsnummer, F-skatt)?
+2. Hur länge gäller spårningen (cookie) och hur sker utbetalning?
+3. Får vi länka direkt till nystartserbjudandet (6 månader utan kostnad)?
+
+Vänliga hälsningar
+Erik Bengtsson
+Systemkalkyl.se
+[Företagsnamn, org.nr – fylls i av Erik]
+
+## 8. Note: Zendesk Marketing Affiliates — NOT RECOMMENDED / UNSENT
+
+Zendesk's affiliate program (PartnerStack, https://www.zendesk.com/programs/affiliate-program/) pays 15% of first-year revenue; the cookie length is not published. Our Zendesk page is critical of Zendesk's per-resolution pricing, so the alternatives (Freshworks, Help Scout) are a better fit and pose no conflict of interest. No application drafted.
+
+## 9. Fortnox & Bokio (Systemkalkyl), checked 2026-10-25
+
+- **Fortnox:** no public affiliate program found, only a Partnerprogram for redovisningsbyråer (SNI 69201/69202): https://www.fortnox.se/byra/partnerprogram. No outreach.
+- **Bokio:** only Byråpartner (0% for 1–9 customers, 10% for 10–49, 30% for 50+, paid quarterly) for redovisningsbyråer: https://www.bokio.se/for-redovisningsbyraer/byrapartner/. Not applicable.
