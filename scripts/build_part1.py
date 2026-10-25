@@ -90,7 +90,7 @@ home_body = f"""
     <div class="wb-col-chart">
       <div class="wb-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
-        <div class="wb-vbar-row is-compact" id="wb-row-base" style="flex-grow: 13;">
+        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 15;">
           <div class="wb-vbar-block block-base">
             <span class="wb-block-title" id="wb-title-base">Base subscriptions</span>
             <span class="wb-block-amount" id="wb-amt-base">$660</span>
@@ -104,7 +104,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 25;">
+        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 26;">
           <div class="wb-vbar-block block-seats">
             <span class="wb-block-title" id="wb-title-seats">Seats &amp; usage</span>
             <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
@@ -118,7 +118,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 62;">
+        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 59;">
           <div class="wb-vbar-block block-hidden">
             <span class="wb-block-title" id="wb-title-hidden">Overages &amp; add-ons</span>
             <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
@@ -134,8 +134,9 @@ home_body = f"""
       </div>
     </div>
 
-    <!-- Right Column: Huge Editorial Serif Total + Fixed-Height Explanation + Primary CTA -->
+    <!-- Right Column: Selected Product Header + Huge Editorial Serif Total + Fixed-Height Explanation + Primary CTA -->
     <div class="wb-result-col" id="wb-result-mount" aria-live="polite">
+      <div class="wb-selected-product" id="wb-selected-product">Zendesk Suite Team + AI</div>
       <div class="wb-big-total" id="wb-big-total-wrap"><span id="wb-big-amount">$11,850</span> <span class="wb-per-year" id="wb-big-unit">/ year</span></div>
       <p class="wb-budget-quote" id="wb-budget-quote">That&rsquo;s the number to budget for.<br/>Not the number on the invoice.</p>
       <p class="wb-budget-subnote" id="wb-budget-subnote"></p>
@@ -348,23 +349,23 @@ const VENDOR_CTA_LABELS = {{
   'hubspot-sales-pro': 'View HubSpot pricing →',
   'hubspot-marketing-pro': 'View HubSpot pricing →',
   'hubspot-service-hub': 'View HubSpot pricing →',
-  'close-crm': 'Check Close pricing →',
-  'pipedrive-crm': 'Explore Pipedrive plans →',
+  'close-crm': 'View Close pricing →',
+  'pipedrive-crm': 'View Pipedrive pricing →',
   'monday-crm': 'View monday CRM pricing →',
-  'intercom-fin-ai': 'Check Intercom pricing →',
-  'freshdesk-support': 'View Freshdesk plans →',
+  'intercom-fin-ai': 'View Intercom pricing →',
+  'freshdesk-support': 'View Freshdesk pricing →',
   'zendesk-suite-team': 'View Zendesk pricing →',
   'zendesk-suite-professional': 'View Zendesk pricing →',
-  'help-scout-plus': 'Check Help Scout plans →',
+  'help-scout-plus': 'View Help Scout pricing →',
   'stripe-payments': 'View Stripe pricing →',
   'paddle-mor': 'View Paddle pricing →',
-  'whop-payments': 'Explore Whop Payments →',
+  'whop-payments': 'View Whop Payments pricing →',
   'lemon-squeezy': 'View Lemon Squeezy pricing →',
-  'chargeflow': 'Check Chargeflow pricing →',
-  'jotform-hipaa': 'Check Jotform HIPAA plans →',
+  'chargeflow': 'View Chargeflow pricing →',
+  'jotform-hipaa': 'View Jotform HIPAA pricing →',
   '1password-business': 'View 1Password pricing →',
   'vanta-soc2': 'View Vanta pricing →',
-  'drata-soc2': 'Explore Drata platform →'
+  'drata-soc2': 'View Drata pricing →'
 }};
 
 const INTERNAL_AUDIT_LINKS = {{
@@ -416,16 +417,16 @@ function formatHiddenReason(r) {{
 // A 9% floor (23px) keeps the leader line and a compact 1-line label aligned at $0 or small values, while 73% of the height scales 1:1 with the true dollar amounts!
 function computeSmoothBarShares(v1, v2, v3) {{
   const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 9 + Math.round((v1 / total) * 73);
-  const s2 = 9 + Math.round((v2 / total) * 73);
-  const s3 = Math.max(9, 100 - s1 - s2);
+  const s1 = 12 + Math.round((v1 / total) * 64);
+  const s2 = 12 + Math.round((v2 / total) * 64);
+  const s3 = Math.max(12, 100 - s1 - s2);
   return [s1, s2, s3];
 }}
 
 function applyBarRowState(rowEl, share, val) {{
   if (!rowEl) return;
   rowEl.style.flexGrow = share;
-  rowEl.classList.toggle('is-compact', share < 18);
+  rowEl.classList.remove('is-compact');
   rowEl.classList.toggle('is-zero', val === 0);
 }}
 
@@ -543,34 +544,46 @@ function renderDirectory() {{
   const scenarioLine = formatScenarioText(cat, seats, aiVol, mode);
 
   if (cat === 'Payment Processors & MoR') {{
-    const [s1, s2, s3] = computeSmoothBarShares(1450, 7500, 12500);
+    const spotPayR = rows.find(r => r.tool.id === currentSpotlightId) || rows[0];
+    const spotPayAff = AFFILIATES[spotPayR.tool.affiliate_slug] || {{ destination_url: '#' }};
+    const PAY_PROFILES = {{
+      'stripe-payments': {{ b: 1450, s: 7500, h: 12500, tot: '$21,450', unit: '/ mo impact', sub: 'Stripe Payments (2.9% + $0.30): $1,450/mo card fees + $20,000/mo cashflow exposure under a 25% rolling reserve & Capital hold.' }},
+      'paddle-mor': {{ b: 2500, s: 1250, h: 12500, tot: '$16,250', unit: '/ mo impact', sub: 'Paddle MoR (5.0% + $0.50): $2,500/mo MoR fee + non-exportable subscriber card vault lock-in and payout hold risk.' }},
+      'whop-payments': {{ b: 1350, s: 400, h: 0, tot: '$1,750', unit: '/ mo fees', sub: 'Whop Payments (2.7% + $0.30): $1,350/mo domestic card processing + multi-acquirer waterfall routing ($0 fixed fee).' }},
+      'lemon-squeezy': {{ b: 2500, s: 750, h: 10000, tot: '$13,250', unit: '/ mo impact', sub: 'Lemon Squeezy MoR (5.0% + $0.50): $2,500/mo MoR fee + +1.5% international/PayPal surcharges and Stripe-backed underwriting.' }},
+      'chargeflow': {{ b: 0, s: 1250, h: 0, tot: '$1,250', unit: '/ mo recovered', sub: 'Chargeflow (25% success fee on won disputes only): $0 monthly fixed cost; keeps dispute ratio below 0.75% card-network threshold.' }}
+    }};
+    const prof = PAY_PROFILES[spotPayR.tool.id] || PAY_PROFILES['stripe-payments'];
+    const [s1, s2, s3] = computeSmoothBarShares(prof.b, prof.s, prof.h);
     if (rowBase && rowSeats && rowHidden) {{
-      applyBarRowState(rowBase, s1, 1450);
-      applyBarRowState(rowSeats, s2, 7500);
-      applyBarRowState(rowHidden, s3, 12500);
+      applyBarRowState(rowBase, s1, prof.b);
+      applyBarRowState(rowSeats, s2, prof.s);
+      applyBarRowState(rowHidden, s3, prof.h);
       document.getElementById('wb-title-base').textContent = 'Base processing';
-      document.getElementById('wb-amt-base').textContent = '$1,450';
+      document.getElementById('wb-amt-base').textContent = `$${{prof.b.toLocaleString()}}`;
       document.getElementById('wb-call-title-base').textContent = 'Base processing';
-      document.getElementById('wb-call-sub-base').textContent = 'Standard 2.7%–5.0% card rate';
+      document.getElementById('wb-call-sub-base').textContent = 'Standard card rate on $50k/mo';
 
-      document.getElementById('wb-title-seats').textContent = 'Capital loan hold';
-      document.getElementById('wb-amt-seats').textContent = '$7,500';
-      document.getElementById('wb-call-title-seats').textContent = 'Capital & vault rules';
-      document.getElementById('wb-call-sub-seats').textContent = 'MoR locks card token exports';
+      document.getElementById('wb-title-seats').textContent = 'FX & vault rules';
+      document.getElementById('wb-amt-seats').textContent = `$${{prof.s.toLocaleString()}}`;
+      document.getElementById('wb-call-title-seats').textContent = 'FX, payouts & vault';
+      document.getElementById('wb-call-sub-seats').textContent = 'Surcharges & token portability';
 
-      document.getElementById('wb-title-hidden').textContent = '25% reserve freeze';
-      document.getElementById('wb-amt-hidden').textContent = '$12,500';
+      document.getElementById('wb-title-hidden').textContent = 'Reserve holdback';
+      document.getElementById('wb-amt-hidden').textContent = `$${{prof.h.toLocaleString()}}`;
       document.getElementById('wb-call-title-hidden').textContent = 'Rolling reserves';
-      document.getElementById('wb-call-sub-hidden').textContent = '90–180 day cashflow holdback';
+      document.getElementById('wb-call-sub-hidden').textContent = '90–180 day cashflow freeze risk';
     }}
-    document.getElementById('wb-big-amount').textContent = '$21,450';
-    document.getElementById('wb-big-unit').textContent = '/ mo held';
-    document.getElementById('wb-budget-subnote').textContent = 'Sample $50k/mo volume with 25% reserve hold. Pair Chargeflow with Whop Payments (2.7% + $0.30) for multi-acquirer failover.';
+    const selProdEl = document.getElementById('wb-selected-product');
+    if (selProdEl) selProdEl.textContent = spotPayR.tool.name;
+    document.getElementById('wb-big-amount').textContent = prof.tot;
+    document.getElementById('wb-big-unit').textContent = prof.unit;
+    document.getElementById('wb-budget-subnote').textContent = prof.sub;
     const ctaEl = document.getElementById('wb-primary-cta');
     if (ctaEl) {{
-      ctaEl.href = 'https://whop.com/sell';
-      ctaEl.setAttribute('data-vendor', 'whop-payments');
-      ctaEl.textContent = 'Explore Whop Payments →';
+      ctaEl.href = spotPayAff.destination_url;
+      ctaEl.setAttribute('data-vendor', spotPayR.tool.id);
+      ctaEl.textContent = getVendorCtaLabel(spotPayR.tool);
     }}
     if (summaryEl) {{
       summaryEl.innerHTML = `
@@ -657,15 +670,19 @@ function renderDirectory() {{
       document.getElementById('wb-call-sub-hidden').textContent = 'Fees you can’t always see';
     }}
 
+    const selProdEl = document.getElementById('wb-selected-product');
+    if (selProdEl) selProdEl.textContent = spotR.tool.name;
     document.getElementById('wb-big-amount').textContent = `$${{spotR.year1Total.toLocaleString()}}`;
     document.getElementById('wb-big-unit').textContent = '/ year';
-    const savingsVsLowest = Math.max(0, spotR.year1Total - minR.year1Total);
     const subNoteEl = document.getElementById('wb-budget-subnote');
     if (subNoteEl) {{
-      if (savingsVsLowest > 0) {{
-        subNoteEl.textContent = `${{spotR.tool.name}} (${{seats}} seats). Switching to ${{minR.tool.name}} ($${{minR.year1Total.toLocaleString()}}/yr) saves $${{savingsVsLowest.toLocaleString()}}/yr.`;
+      const stickerYr = Math.max(0, spotR.annualSeatsCost - spotR.seatPaddingAnnual);
+      const extraYr = spotR.year1Total - stickerYr;
+      const billWord = mode === 'annual' ? 'annual' : 'monthly';
+      if (extraYr > 0) {{
+        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr base seats + $${{extraYr.toLocaleString()}}/yr in onboarding, seat minimums, or AI usage.`;
       }} else {{
-        subNoteEl.textContent = `${{spotR.tool.name}} has the lowest estimated Year-1 cost in this scenario ($${{spotR.year1Total.toLocaleString()}}/yr).`;
+        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr in seat licenses with $0 mandatory onboarding or AI overages.`;
       }}
     }}
     const ctaEl = document.getElementById('wb-primary-cta');
