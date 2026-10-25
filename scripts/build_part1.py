@@ -158,11 +158,11 @@ home_body = f"""
       <caption>2026 B2B Software Year-1 True-Cost Comparison &amp; Contract Audit (USD, verified Oct 25, 2026)</caption>
       <thead>
         <tr>
-          <th>Scenario</th>
-          <th>Sticker Price / Year</th>
-          <th>True Cost / Year (Est.)</th>
-          <th>Hidden Cost Gap</th>
-          <th>Official Pricing</th>
+          <th id="th-col-1">Scenario</th>
+          <th id="th-col-2">Sticker Price / Year</th>
+          <th id="th-col-3">True Cost / Year (Est.)</th>
+          <th id="th-col-4">Hidden Cost Gap</th>
+          <th id="th-col-5">Official Pricing</th>
         </tr>
       </thead>
       <tbody id="calc-tbody"></tbody>
@@ -174,7 +174,7 @@ home_body = f"""
     <span>Results will vary based on team size, usage patterns, and tool complexity. Use this as a guide, not a guarantee.</span>
   </div>
   <p id="calc-payment-note" style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
-    <strong>Payment Processors &amp; MoR:</strong> Transaction-based rails (Stripe, Paddle, Whop, Lemon Squeezy, Chargeflow) bill as a % of volume. Select <em>Payment Processors</em> above or open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payout Hold &amp; Rolling Reserve Simulator &rarr;</a>
+    <strong>Payment Processors &amp; MoR (Illustrative Scenario):</strong> Because payment rails charge per transaction rather than per seat, selecting <em>Payment Processors</em> models a standardized benchmark of <strong>$50,000/month GMV across 1,000 transactions ($50 AOV, 30% international cards, and a 25% rolling reserve risk scenario)</strong>. To model your exact monthly volume, open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Interactive Payout Hold &amp; Reserve Simulator &rarr;</a>
   </p>
 </section>
 
@@ -414,6 +414,89 @@ function applyBarRowState(rowEl, share, val) {{
   rowEl.classList.toggle('is-zero', val === 0);
 }}
 
+const PAY_PROFILES = {{
+  'stripe-payments': {{
+    b: 1750,
+    s: 575,
+    h: 12500,
+    total: 14825,
+    unit: '/ mo scenario',
+    callTitleBase: 'Base card processing',
+    callSubBase: '2.9% + $0.30 on $50k/mo (1,000 tx)',
+    callTitleSeats: 'Billing & FX surcharges',
+    callSubSeats: '+0.7% Billing ($350) + 1.5% intl ($225)',
+    callTitleHidden: '25% reserve holdback',
+    callSubHidden: 'Cashflow held 90–180 days on risk flag',
+    quote: 'Illustrative monthly scenario ($50,000 GMV, 1,000 transactions at $50 AOV, 30% intl cards).',
+    sub: 'Assumptions ($50k/mo GMV, 1,000 tx): $1,750 base fees (2.9% + $0.30) + $575 Billing/intl surcharges ($2,325/mo net fees) + $12,500/mo held if a 25% rolling reserve triggers.',
+    tableGapSub: '+$575 Billing/FX surcharges · +$12,500 25% rolling reserve hold'
+  }},
+  'paddle-mor': {{
+    b: 3000,
+    s: 450,
+    h: 12500,
+    total: 15950,
+    unit: '/ mo scenario',
+    callTitleBase: 'Base MoR processing',
+    callSubBase: '5.0% + $0.50 on $50k/mo (1,000 tx)',
+    callTitleSeats: 'FX conversion spread',
+    callSubSeats: 'Est. currency spread on 30% intl volume',
+    callTitleHidden: '25% payout hold risk',
+    callSubHidden: 'Unreleased payout hold + locked card vault',
+    quote: 'Illustrative monthly scenario ($50,000 GMV, 1,000 transactions at $50 AOV, 30% intl cards).',
+    sub: 'Assumptions ($50k/mo GMV, 1,000 tx): $3,000 MoR fee (5.0% + $0.50) + $450 est. FX spread ($3,450/mo net fees) + $12,500/mo payout hold exposure (card tokens locked).',
+    tableGapSub: '+$450 FX spread · +$12,500 payout hold risk (non-exportable vault)'
+  }},
+  'whop-payments': {{
+    b: 1650,
+    s: 225,
+    h: 0,
+    total: 1875,
+    unit: '/ mo scenario',
+    callTitleBase: 'Base card processing',
+    callSubBase: '2.7% + $0.30 on $50k/mo (1,000 tx)',
+    callTitleSeats: 'International card mix',
+    callSubSeats: '+1.5% on 30% cross-border volume',
+    callTitleHidden: 'Single-PSP freeze risk',
+    callSubHidden: '$0 — multi-acquirer failover routing',
+    quote: 'Illustrative monthly scenario ($50,000 GMV, 1,000 transactions at $50 AOV, 30% intl cards).',
+    sub: 'Assumptions ($50k/mo GMV, 1,000 tx): $1,650 base fees (2.7% + $0.30) + $225 intl card fees ($1,875/mo total fees), with multi-acquirer routing to avoid single-PSP freezes.',
+    tableGapSub: '+$225 intl card fees · $0 single-PSP reserve freeze (waterfall routing)'
+  }},
+  'lemon-squeezy': {{
+    b: 3000,
+    s: 475,
+    h: 12500,
+    total: 15975,
+    unit: '/ mo scenario',
+    callTitleBase: 'Base MoR processing',
+    callSubBase: '5.0% + $0.50 on $50k/mo (1,000 tx)',
+    callTitleSeats: 'Subscription & intl fees',
+    callSubSeats: '+0.5% subscriptions ($250) + 1.5% intl ($225)',
+    callTitleHidden: '25% reserve holdback',
+    callSubHidden: 'Underlying Stripe risk & reserve rules',
+    quote: 'Illustrative monthly scenario ($50,000 GMV, 1,000 transactions at $50 AOV, 30% intl cards).',
+    sub: 'Assumptions ($50k/mo GMV, 1,000 tx): $3,000 base MoR fee (5.0% + $0.50) + $475 subscription/intl surcharges ($3,475/mo net fees) + $12,500/mo reserve exposure.',
+    tableGapSub: '+$475 subscription/intl fees · +$12,500 reserve exposure'
+  }},
+  'chargeflow': {{
+    b: 0,
+    s: 350,
+    h: 150,
+    total: 500,
+    unit: '/ mo scenario',
+    callTitleBase: 'Monthly platform fee',
+    callSubBase: '$0 fixed fee — performance-only model',
+    callTitleSeats: 'Success & alert fees',
+    callSubSeats: '25% fee on $1,400/mo won disputes ($50k GMV)',
+    callTitleHidden: 'Residual dispute fees',
+    callSubHidden: 'Est. network dispute fees ($15/case)',
+    quote: 'Illustrative monthly scenario ($50,000 GMV, 0.8% dispute rate = $400–$1,400/mo at risk).',
+    sub: 'Assumptions ($50k/mo GMV, 0.8% dispute rate): $0 base fee + $350 performance fee (25% on $1,400 recovered disputes) + $150 residual network fees ($500/mo total).',
+    tableGapSub: '$0 fixed fee · $350 recovery fee (25%) + $150 network fees'
+  }}
+}};
+
 let currentSpotlightId = '';
 let lastCategory = '';
 
@@ -465,14 +548,16 @@ function renderDirectory() {{
   }});
   const rows = filtered.map(t => calcToolYear1(t, seats, aiVol, mode));
 
+  const getRowTotal = r => (cat === 'Payment Processors & MoR' && PAY_PROFILES[r.tool.id]) ? PAY_PROFILES[r.tool.id].total : r.year1Total;
+  const getRowHidden = r => (cat === 'Payment Processors & MoR' && PAY_PROFILES[r.tool.id]) ? (PAY_PROFILES[r.tool.id].s + PAY_PROFILES[r.tool.id].h) : r.hiddenFees;
   if (sortMode === 'highest') {{
-    rows.sort((a, b) => b.year1Total - a.year1Total);
+    rows.sort((a, b) => getRowTotal(b) - getRowTotal(a));
   }} else if (sortMode === 'hidden_fees') {{
-    rows.sort((a, b) => b.hiddenFees - a.hiddenFees || b.year1Total - a.year1Total);
+    rows.sort((a, b) => getRowHidden(b) - getRowHidden(a) || getRowTotal(b) - getRowTotal(a));
   }} else if (sortMode === 'name') {{
     rows.sort((a, b) => a.tool.name.localeCompare(b.tool.name));
   }} else {{
-    rows.sort((a, b) => a.year1Total - b.year1Total);
+    rows.sort((a, b) => getRowTotal(a) - getRowTotal(b));
   }}
 
   const toolSelect = document.getElementById('spotlight-tool-select');
@@ -527,16 +612,25 @@ function renderDirectory() {{
   const vizRowsEl = document.getElementById('calc-viz-rows');
   const scenarioLine = formatScenarioText(cat, seats, aiVol, mode);
 
+
+  const th2 = document.getElementById('th-col-2');
+  const th3 = document.getElementById('th-col-3');
+  const th4 = document.getElementById('th-col-4');
+  if (th2 && th3 && th4) {{
+    if (cat === 'Payment Processors & MoR') {{
+      th2.textContent = 'Base Fees ($50k/mo Example)';
+      th3.textContent = 'Scenario Total ($50k/mo Ex.)';
+      th4.textContent = 'Surcharges & Reserve Exposure';
+    }} else {{
+      th2.textContent = 'Sticker Price / Year';
+      th3.textContent = 'True Cost / Year (Est.)';
+      th4.textContent = 'Hidden Cost Gap';
+    }}
+  }}
+
   if (cat === 'Payment Processors & MoR') {{
     const spotPayR = rows.find(r => r.tool.id === currentSpotlightId) || rows[0];
     const spotPayAff = AFFILIATES[spotPayR.tool.affiliate_slug] || {{ destination_url: '#' }};
-    const PAY_PROFILES = {{
-      'stripe-payments': {{ b: 1450, s: 7500, h: 12500, tot: '$21,450', unit: '/ mo impact', sub: 'Stripe Payments (2.9% + $0.30): $1,450/mo card fees + $20,000/mo cashflow exposure under a 25% rolling reserve & Capital hold.' }},
-      'paddle-mor': {{ b: 2500, s: 1250, h: 12500, tot: '$16,250', unit: '/ mo impact', sub: 'Paddle MoR (5.0% + $0.50): $2,500/mo MoR fee + non-exportable subscriber card vault lock-in and payout hold risk.' }},
-      'whop-payments': {{ b: 1350, s: 400, h: 0, tot: '$1,750', unit: '/ mo fees', sub: 'Whop Payments (2.7% + $0.30): $1,350/mo domestic card processing + multi-acquirer waterfall routing ($0 fixed fee).' }},
-      'lemon-squeezy': {{ b: 2500, s: 750, h: 10000, tot: '$13,250', unit: '/ mo impact', sub: 'Lemon Squeezy MoR (5.0% + $0.50): $2,500/mo MoR fee + +1.5% international/PayPal surcharges and Stripe-backed underwriting.' }},
-      'chargeflow': {{ b: 0, s: 1250, h: 0, tot: '$1,250', unit: '/ mo recovered', sub: 'Chargeflow (25% success fee on won disputes only): $0 monthly fixed cost; keeps dispute ratio below 0.75% card-network threshold.' }}
-    }};
     const prof = PAY_PROFILES[spotPayR.tool.id] || PAY_PROFILES['stripe-payments'];
     const [s1, s2, s3] = computeSmoothBarShares(prof.b, prof.s, prof.h);
     if (rowBase && rowSeats && rowHidden) {{
@@ -544,21 +638,23 @@ function renderDirectory() {{
       applyBarRowState(rowSeats, s2, prof.s);
       applyBarRowState(rowHidden, s3, prof.h);
       document.getElementById('wb-amt-base').textContent = `$${{prof.b.toLocaleString()}}`;
-      document.getElementById('wb-call-title-base').textContent = 'Base processing';
-      document.getElementById('wb-call-sub-base').textContent = 'Standard card rate on $50k/mo';
+      document.getElementById('wb-call-title-base').textContent = prof.callTitleBase;
+      document.getElementById('wb-call-sub-base').textContent = prof.callSubBase;
 
       document.getElementById('wb-amt-seats').textContent = `$${{prof.s.toLocaleString()}}`;
-      document.getElementById('wb-call-title-seats').textContent = 'FX, payouts & vault';
-      document.getElementById('wb-call-sub-seats').textContent = 'Surcharges & token portability';
+      document.getElementById('wb-call-title-seats').textContent = prof.callTitleSeats;
+      document.getElementById('wb-call-sub-seats').textContent = prof.callSubSeats;
 
       document.getElementById('wb-amt-hidden').textContent = `$${{prof.h.toLocaleString()}}`;
-      document.getElementById('wb-call-title-hidden').textContent = 'Rolling reserves';
-      document.getElementById('wb-call-sub-hidden').textContent = '90–180 day cashflow freeze risk';
+      document.getElementById('wb-call-title-hidden').textContent = prof.callTitleHidden;
+      document.getElementById('wb-call-sub-hidden').textContent = prof.callSubHidden;
     }}
     const selProdEl = document.getElementById('wb-selected-product');
-    if (selProdEl) selProdEl.textContent = spotPayR.tool.name;
-    document.getElementById('wb-big-amount').textContent = prof.tot;
+    if (selProdEl) selProdEl.textContent = `${{spotPayR.tool.name}} · $50k/mo Example`;
+    document.getElementById('wb-big-amount').textContent = `$${{prof.total.toLocaleString()}}`;
     document.getElementById('wb-big-unit').textContent = prof.unit;
+    const quoteEl = document.getElementById('wb-budget-quote');
+    if (quoteEl) quoteEl.innerHTML = prof.quote;
     document.getElementById('wb-budget-subnote').textContent = prof.sub;
     const ctaEl = document.getElementById('wb-primary-cta');
     if (ctaEl) {{
@@ -652,6 +748,8 @@ function renderDirectory() {{
     if (selProdEl) selProdEl.textContent = spotR.tool.name;
     document.getElementById('wb-big-amount').textContent = `$${{spotR.year1Total.toLocaleString()}}`;
     document.getElementById('wb-big-unit').textContent = '/ year';
+    const quoteEl = document.getElementById('wb-budget-quote');
+    if (quoteEl) quoteEl.innerHTML = 'That&rsquo;s the number to budget for.<br/>Not the number on the invoice.';
     const subNoteEl = document.getElementById('wb-budget-subnote');
     if (subNoteEl) {{
       const stickerYr = Math.max(0, spotR.annualSeatsCost - spotR.seatPaddingAnnual);
@@ -770,22 +868,26 @@ function renderDirectory() {{
     const gapDollars = r.year1Total - stickerAnnual;
     const gapPct = stickerAnnual > 0 ? Math.round((gapDollars / stickerAnnual) * 100) : 0;
 
+    const payProf = t.category === 'Payment Processors & MoR' ? PAY_PROFILES[t.id] : null;
     let stickerDisplay = '';
-    if (t.transaction_fee_display) {{
+    if (payProf) {{
+      stickerDisplay = `<div class="gap-figure">$${{payProf.b.toLocaleString()}} / mo</div><div class="gap-sub-detail">${{t.transaction_fee_display}}</div>`;
+    }} else if (t.transaction_fee_display) {{
       stickerDisplay = `<div class="gap-figure">${{t.transaction_fee_display}}</div>`;
     }} else {{
       stickerDisplay = `<div class="gap-figure">$${{stickerAnnual.toLocaleString()}}</div><div class="gap-sub-detail">$${{fmtRate(r.unitRate)}}/seat/mo</div>`;
     }}
 
-    const totalText = t.category === 'Payment Processors & MoR'
-      ? `<div class="gap-figure">Per-transaction</div><div class="gap-sub-detail"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Simulate holds &rarr;</a></div>`
+    const totalText = payProf
+      ? `<div class="gap-figure">$${{payProf.total.toLocaleString()}} / mo</div><div class="gap-sub-detail">$${{(payProf.b + payProf.s).toLocaleString()}} fees + $${{payProf.h.toLocaleString()}} hold</div>`
       : `<div class="gap-figure">$${{r.year1Total.toLocaleString()}}</div><div class="gap-sub-detail">${{r.effSeats}} billed seat${{r.effSeats === 1 ? '' : 's'}}</div>`;
 
     let gapCellHtml = '';
-    if (t.category === 'Payment Processors & MoR') {{
+    if (payProf) {{
+      const extraPay = payProf.s + payProf.h;
       gapCellHtml = `
-        <div class="gap-orange-pill">${{t.trap_badge}}</div>
-        <div class="gap-sub-detail">${{t.billing_lock_in_type}} &middot; <a href="${{srcUrl}}" target="_blank" rel="noopener">Source &nearr;</a></div>
+        <div class="gap-orange-pill">+$${{extraPay.toLocaleString()}} / mo scenario exposure</div>
+        <div class="gap-sub-detail">${{payProf.tableGapSub}} &middot; <a href="${{srcUrl}}" target="_blank" rel="noopener">Verified source &nearr;</a></div>
       `;
     }} else if (gapDollars > 0) {{
       const breakdownParts = [];

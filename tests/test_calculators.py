@@ -352,5 +352,26 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn(token, css, f"Missing Sage Green / UX Finishing Pass token '{token}' in styles.css")
 
 
+    def test_payment_processor_scenario_transparency_and_math_identity(self):
+        """Verify Payment Processors & MoR scenario profiles sum identically (b + s + h == total) and state assumptions."""
+        with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
+            html = f.read()
+        m = re.search(r"const PAY_PROFILES = (\{.*?\n\});", html, re.S)
+        self.assertIsNotNone(m, "Could not find PAY_PROFILES in public/index.html")
+        runner = f"const PAY_PROFILES = {m.group(1)}; console.log(JSON.stringify(PAY_PROFILES));"
+        res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+        profiles = json.loads(res.stdout)
+        expected_ids = {"stripe-payments", "paddle-mor", "whop-payments", "lemon-squeezy", "chargeflow"}
+        self.assertEqual(set(profiles.keys()), expected_ids)
+        for pid, p in profiles.items():
+            self.assertEqual(
+                p["b"] + p["s"] + p["h"],
+                p["total"],
+                f"Payment profile {pid} segments ({p['b']} + {p['s']} + {p['h']}) != total ({p['total']})",
+            )
+            self.assertIn("Illustrative monthly scenario", p["quote"])
+            self.assertIn("Assumptions ($50k/mo GMV", p["sub"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
