@@ -90,7 +90,7 @@ home_body = f"""
     <div class="wb-col-chart">
       <div class="wb-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
-        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 15;">
+        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 18;">
           <div class="wb-vbar-block block-base">
             <span class="wb-block-amount" id="wb-amt-base">$660</span>
           </div>
@@ -103,7 +103,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 26;">
+        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 27;">
           <div class="wb-vbar-block block-seats">
             <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
           </div>
@@ -116,7 +116,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 59;">
+        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 55;">
           <div class="wb-vbar-block block-hidden">
             <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
           </div>
@@ -414,9 +414,9 @@ function formatHiddenReason(r) {{
 // A 9% floor (23px) keeps the leader line and a compact 1-line label aligned at $0 or small values, while 73% of the height scales 1:1 with the true dollar amounts!
 function computeSmoothBarShares(v1, v2, v3) {{
   const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 11 + Math.round((v1 / total) * 67);
-  const s2 = 11 + Math.round((v2 / total) * 67);
-  const s3 = Math.max(11, 100 - s1 - s2);
+  const s1 = 15 + Math.round((v1 / total) * 55);
+  const s2 = 15 + Math.round((v2 / total) * 55);
+  const s3 = Math.max(15, 100 - s1 - s2);
   return [s1, s2, s3];
 }}
 
