@@ -90,7 +90,7 @@ home_body = f"""
     <div class="wb-col-chart">
       <div class="wb-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
-        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 18;">
+        <div class="wb-vbar-row is-compact" id="wb-row-base" style="flex-grow: 13;">
           <div class="wb-vbar-block block-base">
             <span class="wb-block-title" id="wb-title-base">Base subscriptions</span>
             <span class="wb-block-amount" id="wb-amt-base">$660</span>
@@ -104,7 +104,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 27;">
+        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 25;">
           <div class="wb-vbar-block block-seats">
             <span class="wb-block-title" id="wb-title-seats">Seats &amp; usage</span>
             <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
@@ -118,7 +118,7 @@ home_body = f"""
           </div>
         </div>
 
-        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 55;">
+        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 62;">
           <div class="wb-vbar-block block-hidden">
             <span class="wb-block-title" id="wb-title-hidden">Overages &amp; add-ons</span>
             <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
@@ -412,14 +412,21 @@ function formatHiddenReason(r) {{
   return `Adds ${{parts.join(' + ')}} on top of $${{r.annualSeatsCost.toLocaleString()}} base licenses`;
 }}
 
-// Compute proportional flex shares (sum = 100, each in [15, 70] -> 38px to 176px inside the 252px container)
-// Each block gets a 15% floor (38px) so its label + dollar value always fit cleanly on 1 or 2 lines, while the remaining 55% scales directly with the true dollar amounts!
+// Compute high-fidelity proportional flex shares (sum = 100, each in [9, 82] -> 23px to 207px inside the 252px container)
+// A 9% floor (23px) keeps the leader line and a compact 1-line label aligned at $0 or small values, while 73% of the height scales 1:1 with the true dollar amounts!
 function computeSmoothBarShares(v1, v2, v3) {{
   const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 15 + Math.round((v1 / total) * 55);
-  const s2 = 15 + Math.round((v2 / total) * 55);
-  const s3 = Math.max(15, 100 - s1 - s2);
+  const s1 = 9 + Math.round((v1 / total) * 73);
+  const s2 = 9 + Math.round((v2 / total) * 73);
+  const s3 = Math.max(9, 100 - s1 - s2);
   return [s1, s2, s3];
+}}
+
+function applyBarRowState(rowEl, share, val) {{
+  if (!rowEl) return;
+  rowEl.style.flexGrow = share;
+  rowEl.classList.toggle('is-compact', share < 18);
+  rowEl.classList.toggle('is-zero', val === 0);
 }}
 
 let currentSpotlightId = '';
@@ -538,9 +545,9 @@ function renderDirectory() {{
   if (cat === 'Payment Processors & MoR') {{
     const [s1, s2, s3] = computeSmoothBarShares(1450, 7500, 12500);
     if (rowBase && rowSeats && rowHidden) {{
-      rowBase.style.flexGrow = s1;
-      rowSeats.style.flexGrow = s2;
-      rowHidden.style.flexGrow = s3;
+      applyBarRowState(rowBase, s1, 1450);
+      applyBarRowState(rowSeats, s2, 7500);
+      applyBarRowState(rowHidden, s3, 12500);
       document.getElementById('wb-title-base').textContent = 'Base processing';
       document.getElementById('wb-amt-base').textContent = '$1,450';
       document.getElementById('wb-call-title-base').textContent = 'Base processing';
@@ -630,9 +637,9 @@ function renderDirectory() {{
     const [s1, s2, s3] = computeSmoothBarShares(baseSubYr, seatsUsageYr, overagesAddonsYr);
 
     if (rowBase && rowSeats && rowHidden) {{
-      rowBase.style.flexGrow = s1;
-      rowSeats.style.flexGrow = s2;
-      rowHidden.style.flexGrow = s3;
+      applyBarRowState(rowBase, s1, baseSubYr);
+      applyBarRowState(rowSeats, s2, seatsUsageYr);
+      applyBarRowState(rowHidden, s3, overagesAddonsYr);
 
       document.getElementById('wb-title-base').textContent = 'Base subscriptions';
       document.getElementById('wb-amt-base').textContent = `$${{baseSubYr.toLocaleString()}}`;
