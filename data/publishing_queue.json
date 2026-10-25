@@ -5,7 +5,9 @@
     "title": "Zendesk AI Outcome Pricing Calculator (2026): Per-Resolution Fees vs. Freshdesk & Help Scout",
     "category": "Helpdesk & AI Support",
     "primary_affiliate": "freshworks",
-    "status": "queued"
+    "status": "published",
+    "published_at": "2026-10-25",
+    "url": "https://eriben02.github.io/saastruth/pricing/zendesk-ai-resolution-and-automated-outcome-cost/"
   },
   {
     "priority": 2,
@@ -18,7 +20,7 @@
   {
     "priority": 3,
     "slug": "/pricing/gong-io-platform-fee-and-seat-minimum-calculator/",
-    "title": "Gong.io Pricing & Hidden $5,000 Platform Fee Calculator (2026): Real Cost for 5\u201325 Reps",
+    "title": "Gong.io Pricing & Hidden $5,000 Platform Fee Calculator (2026): Real Cost for 5–25 Reps",
     "category": "CRM & Sales",
     "primary_affiliate": "close-crm",
     "status": "queued"
@@ -106,7 +108,7 @@
   {
     "priority": 14,
     "slug": "/compliance/okta-vs-workos-vs-1password-sso-tax-calculator/",
-    "title": "The B2B SaaS SSO Tax Calculator (2026): Vendors Charging 2x\u20134x for SAML Single Sign-On",
+    "title": "The B2B SaaS SSO Tax Calculator (2026): Vendors Charging 2x–4x for SAML Single Sign-On",
     "category": "Compliance, HIPAA & SOC 2",
     "primary_affiliate": "1password",
     "status": "queued"
@@ -202,7 +204,7 @@
   {
     "priority": 26,
     "slug": "/compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/",
-    "title": "Close CRM vs. HubSpot Sales Hub for 5\u201320 Sales Reps (2026): Built-In Calling vs. Paid Add-Ons",
+    "title": "Close CRM vs. HubSpot Sales Hub for 5–20 Sales Reps (2026): Built-In Calling vs. Paid Add-Ons",
     "category": "CRM & Sales",
     "primary_affiliate": "close-crm",
     "status": "queued"
@@ -234,7 +236,7 @@
   {
     "priority": 30,
     "slug": "/pricing/stripe-radar-and-dispute-fee-calculator-2026/",
-    "title": "Stripe Dispute Fee ($15\u2013$30) & Radar Cost Calculator (2026): True Cost of a 0.6% Chargeback Rate",
+    "title": "Stripe Dispute Fee ($15–$30) & Radar Cost Calculator (2026): True Cost of a 0.6% Chargeback Rate",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "chargeflow",
     "status": "queued"

@@ -36,13 +36,19 @@
     "destination_url": "https://monday.com/pricing"
   },
   "freshworks": {
-    "program_name": "Freshworks (Freshdesk / Freshsales) Affiliate Program",
+    "program_name": "Freshworks Affiliate Program (Freshdesk & Freshservice)",
     "network": "PartnerStack",
-    "commission": "20% to 25% recurring commission for the first year",
+    "commission": "20% of first-year subscription revenue (paid monthly up to 12 months); 25% at 50–100 and 30% at 101+ converted referrals/month (terms effective Mar 31, 2026); commissions only on initial MRR, not upgrades",
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/page/freshworks4391",
     "tracking_url": "/go/freshdesk",
-    "destination_url": "https://www.freshworks.com/freshdesk/pricing/"
+    "destination_url": "https://www.freshworks.com/freshdesk/pricing/",
+    "conversion_window": "Referral must become paying within 3 months",
+    "signup_url": "https://market.partnerstack.com/page/freshworks4391",
+    "terms_url": "https://www.freshworks.com/company/affiliate-partner/terms-and-conditions/",
+    "restrictions": "No PPC bidding on Freshworks brand keywords without permission; no coupon/spam traffic",
+    "status": "not applied",
+    "verified_date": "2026-10-25"
   },
   "whop": {
     "program_name": "Whop Business Affiliate & Startup Partner Program",
@@ -115,5 +121,33 @@
     "official_program_url": "https://market.partnerstack.com/program/drata",
     "tracking_url": "/go/drata",
     "destination_url": "https://drata.com/"
+  },
+  "help-scout": {
+    "program_name": "Help Scout Affiliate Program",
+    "network": "PartnerStack",
+    "commission": "15% of every deal closed (1–10 referred customers in last 3 months); 20% (11+)",
+    "cookie_days": 90,
+    "official_program_url": "https://market.partnerstack.com/page/helpscout",
+    "signup_url": "https://market.partnerstack.com/page/helpscout",
+    "restrictions": "No pay-per-click ads; no coupon/discount sites",
+    "tracking_url": "/go/help-scout",
+    "destination_url": "https://www.helpscout.com/pricing/",
+    "status": "not applied",
+    "verified_date": "2026-10-25"
+  },
+  "zendesk": {
+    "program_name": "Zendesk Marketing Affiliates",
+    "network": "PartnerStack",
+    "commission": "15% rate for the first year of sales; 'Top Affiliates can earn more'; monthly payouts",
+    "cookie_days": null,
+    "cookie_note": "Cookie length not published on official page (unverified)",
+    "official_program_url": "https://www.zendesk.com/programs/affiliate-program/",
+    "signup_url": "https://www.zendesk.com/programs/affiliate-program/",
+    "restrictions": "Existing Zendesk partners/resellers/consultants not accepted",
+    "tracking_url": "/go/zendesk",
+    "destination_url": "https://www.zendesk.com/pricing/",
+    "status": "not applied",
+    "verified_date": "2026-10-25",
+    "editorial_note": "Optional: page is critical of Zendesk AI pricing; joining is compatible but disclose clearly."
   }
 }
