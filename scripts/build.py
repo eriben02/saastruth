@@ -5,4 +5,4 @@ subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_part1.py"], 
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_part2.py"], check=True)
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_zendesk_ai_page.py"], check=True, cwd="/workspace/saastruth/scripts")
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/update_meta_files.py"], check=True)
-print("Full SaaSTruth build + dynamic freshness metadata completed.")
+print("Full SaaSBill build + dynamic freshness metadata completed.")

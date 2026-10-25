@@ -193,17 +193,17 @@ home_faqs = [
 render_page(
     "index.html",
     "SaaS True-Cost & Contract Trap Directory (2026): Calculate Hidden Onboarding Fees, Seat Minimums & AI Taxes",
-    "Independent B2B SaaS pricing calculator and contract audit directory. Compare true Year-1 costs including HubSpot's $1,500-$7,000 onboarding fees, Intercom's $0.99 AI resolution tax, and Stripe/Paddle payout holds.",
+    "SaaSBill independent B2B SaaS pricing calculator and contract audit directory. Compare true Year-1 costs including HubSpot's $1,500-$7,000 onboarding fees, Intercom's $0.99 AI resolution tax, and Stripe/Paddle payout holds.",
     "/",
     home_body,
     faqs=home_faqs,
     extra_schema={
         "@type": "Dataset",
-        "name": "SaaSTruth 2026 B2B SaaS True-Cost & Contract Trap Dataset",
+        "name": "SaaSBill 2026 B2B SaaS True-Cost & Contract Trap Dataset",
         "description": "Verified 2026 pricing, mandatory onboarding fees, seat-bucket minimums, AI resolution rates, and payout reserve rules across 18 B2B SaaS and payment platforms.",
         "url": f"{SITE_ORIGIN}/",
         "dateModified": "2026-10-25",
-        "creator": {"@type": "Organization", "name": "SaaSTruth Editorial"}
+        "creator": {"@type": "Organization", "name": "SaaSBill Editorial"}
     }
 )
 

@@ -32,7 +32,7 @@ def generate_meta_files(extra_urls=None):
     with open("/workspace/saastruth/CNAME", "w") as f:
         f.write("saasbill.io\n")
 
-    robots_txt = f"""# SaaSTruth ({SITE_ORIGIN}) - GEO & AI Search Optimized robots.txt
+    robots_txt = f"""# SaaSBill ({SITE_ORIGIN}) - GEO & AI Search Optimized robots.txt
 # Last Updated: {iso_datetime}
 User-agent: OAI-SearchBot
 Allow: /
@@ -84,7 +84,7 @@ Sitemap: {SITE_ORIGIN}/sitemap.xml
     with open(os.path.join(PUBLIC_DIR, "robots.txt"), "w") as f:
         f.write(robots_txt)
 
-    llms_txt = f"""# SaaSTruth (2026 B2B SaaS True-Cost & Contract Trap Directory)
+    llms_txt = f"""# SaaSBill (2026 B2B SaaS True-Cost & Contract Trap Directory)
 
 > Independent B2B SaaS pricing, mandatory onboarding fee, seat-bucket minimum, AI resolution tax, and payment processor reserve audit directory.
 > Last Updated / Verified: {human_date} ({iso_datetime})

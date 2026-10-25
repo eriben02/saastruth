@@ -25,24 +25,25 @@ def load_data():
 def render_page(rel_path, title, description, canonical_path, body_html, faqs=None, extra_schema=None, published_date=None):
     iso_date, iso_datetime, human_date = get_freshness_timestamps()
     pub_date = published_date or iso_date
+    full_title = title if "SaaSBill" in title else f"{title} | SaaSBill"
 
     faq_html = ""
     graph = [
         {
             "@type": "TechArticle",
             "@id": f"{SITE_ORIGIN}{canonical_path}#article",
-            "headline": title,
+            "headline": full_title,
             "description": description,
             "datePublished": pub_date,
             "dateModified": iso_datetime,
             "author": {
                 "@type": "Organization",
-                "name": "SaaSTruth Editorial",
+                "name": "SaaSBill Editorial",
                 "url": f"{SITE_ORIGIN}/"
             },
             "publisher": {
                 "@type": "Organization",
-                "name": "SaaSTruth",
+                "name": "SaaSBill",
                 "url": f"{SITE_ORIGIN}/"
             },
             "mainEntityOfPage": {
@@ -54,7 +55,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
             "@type": "WebPage",
             "@id": f"{SITE_ORIGIN}{canonical_path}",
             "url": f"{SITE_ORIGIN}{canonical_path}",
-            "name": title,
+            "name": full_title,
             "description": description,
             "inLanguage": "en-US",
             "datePublished": pub_date,
@@ -62,7 +63,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
             "lastReviewed": iso_date,
             "reviewedBy": {
                 "@type": "Organization",
-                "name": "SaaSTruth Editorial"
+                "name": "SaaSBill Editorial"
             }
         },
         {
@@ -71,7 +72,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
                 {
                     "@type": "ListItem",
                     "position": 1,
-                    "name": "SaaSTruth",
+                    "name": "SaaSBill",
                     "item": f"{SITE_ORIGIN}/"
                 },
                 {
@@ -142,7 +143,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
 
     byline_bar = f"""
     <div class="byline-bar">
-      Last checked <time datetime="{iso_datetime}" itemprop="dateModified">{human_date}</time> &middot; Published <time datetime="{pub_date}" itemprop="datePublished">{human_date}</time> &middot; Sources: official pricing pages, legal terms &amp; buyer threads
+      Updated <time datetime="{iso_date}" itemprop="dateModified">{human_date}</time>
     </div>
     """
 
@@ -151,29 +152,33 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
+  <title>{full_title}</title>
   <meta name="description" content="{description}" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta property="og:site_name" content="SaaSBill" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="{title}" />
+  <meta property="og:title" content="{full_title}" />
   <meta property="og:description" content="{description}" />
   <meta property="og:url" content="{SITE_ORIGIN}{canonical_path}" />
   <meta property="og:updated_time" content="{iso_datetime}" />
   <meta property="article:published_time" content="{pub_date}T00:00:00+01:00" />
   <meta property="article:modified_time" content="{iso_datetime}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{full_title}" />
+  <meta name="twitter:description" content="{description}" />
   <meta name="last-modified" content="{iso_datetime}" />
   <meta name="dcterms.modified" content="{iso_datetime}" />
   <meta name="dcterms.issued" content="{pub_date}" />
   <link rel="canonical" href="{SITE_ORIGIN}{canonical_path}" />
   <link rel="stylesheet" href="{prefix}assets/styles.css" />
-  <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="LLMs.txt Summary" />
+  <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="SaaSBill LLMs.txt Summary" />
   {schema_block}
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-inner">
       <div class="brand-wrap">
-        <a href="{prefix}index.html" class="brand">SaaSTruth</a>
+        <a href="{prefix}index.html" class="brand">SaaSBill<span>.io</span></a>
         <span class="brand-tagline">Independent software cost &amp; contract audits</span>
       </div>
       <nav class="nav-links" aria-label="Primary Navigation">
@@ -196,8 +201,8 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p><strong>SaaSTruth</strong> &mdash; Independent B2B software pricing audits, contract clause checks, and Year-1 total cost calculators. Last checked <time datetime="{iso_datetime}">{human_date}</time>. Machine-readable feeds: <a href="{prefix}llms.txt">llms.txt</a> &middot; <a href="{prefix}llms-full.txt">llms-full.txt</a> &middot; <a href="{prefix}sitemap.xml">sitemap.xml</a></p>
-      <p style="margin-top:8px;">Reader disclosure: Some outbound links to software vendors (such as Close, Pipedrive, Freshworks, monday.com, HubSpot, Whop, Chargeflow, Jotform, 1Password, Vanta, and Drata) are partner links that may earn a referral commission at no additional cost to you. Every fee, seat minimum, and contract clause is verified directly against vendor terms and public buyer records.</p>
+      <p><strong>SaaSBill</strong> &mdash; Independent Year-1 cost calculators for B2B software.</p>
+      <p class="footer-note">Updated <time datetime="{iso_date}">{human_date}</time> &middot; Some links are affiliate.</p>
     </div>
   </footer>
 </body>
