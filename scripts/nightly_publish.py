@@ -42,7 +42,7 @@ def run_nightly(dry_run=False):
     <section class="calc-box">
       <h2 style="margin-top:0;">Compare verified contract terms</h2>
       <p style="color:var(--muted); margin-bottom:16px;">Compare your current quote against <strong>{aff.get('program_name')}</strong>.</p>
-      <a class="btn-cta" href="{aff.get('destination_url')}" target="_blank" rel="nofollow sponsored">Check partner pricing &rarr;</a>
+      <a class="btn-cta" href="{aff.get('destination_url')}" target="_blank" rel="nofollow noopener" data-track="vendor-cta">View official pricing &rarr;</a>
     </section>
     """
     faqs = [

@@ -122,6 +122,8 @@ body = f"""
       </select>
     </div>
   </div>
+  <div id="zd-summary" class="summary-strip" aria-live="polite"></div>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Zendesk and Help Scout charge per AI resolution ($1.50&ndash;$2.00 vs. $0.75), while Freshdesk charges $49 per 100 AI sessions (whether resolved or escalated). Lowest cost does not automatically mean best fit&mdash;check HIPAA, SSO, and routing requirements before switching.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Monthly &amp; Year-1 Cost: Zendesk AI Agents vs. Freshdesk Pro vs. Help Scout (USD, verified Oct 25, 2026)</caption>
@@ -237,11 +239,44 @@ function updateZd() {{
   const hsSeat = hsSeats * HS[hsPlan][billing];
   const hsAi = res * HS.res;
   const hs = hsSeat + hsAi;
+  const zdYr = zd * 12;
+  const zdAiYr = zdAi * 12;
+  const zdSeatsYr = (zdSeat + zdCop) * 12;
+  const hsYr = hs * 12;
+  const zdAiPct = zdYr > 0 ? Math.round((zdAiYr / zdYr) * 100) : 0;
+  const scenarioLine = `Based on ${{agents}} agent${{agents===1?'':'s'}}, ${{billing}} billing, ${{conv.toLocaleString('en-US')}} conversations/mo (${{Math.round(rate*100)}}% AI resolution = ${{res.toLocaleString('en-US')}} verified resolutions/mo)`;
   const rows = [
-    {{name: 'Zendesk ' + (plan==='pro'?'Suite Professional':'Suite Team') + ' + AI agents', sub: res.toLocaleString('en-US') + ' verified resolutions &middot; ' + inclText, seat: zdSeat + zdCop, ai: zdAi, aiText: fmt(zdAi) + ' overage @ $' + price.toFixed(2), tot: zd, yrTot: zd * 12, url: 'https://www.zendesk.com/pricing/', cta: 'Zendesk pricing', rel: 'nofollow noopener', partner: 'Direct vendor link', cls: 'btn-secondary', badge: 'badge-high'}},
-    {{name: 'Freshdesk Pro + Freddy AI Agent', sub: aiConv.toLocaleString('en-US') + ' AI sessions/mo (500 1x free sessions deducted in Yr 1)', seat: fdSeat + fdCop, ai: fdAi, aiText: fmt(fdAi) + ' (' + Math.ceil(aiConv/100) + ' &times; $49 packs)', tot: fd, yrTot: fdYr1, url: 'https://www.freshworks.com/freshdesk/pricing/', cta: 'Try Freshdesk free', rel: 'nofollow sponsored noopener', partner: 'Partner link', cls: 'btn-cta', badge: 'badge-low'}},
-    {{name: 'Help Scout ' + (hsPlan==='plus'?'Plus':'Pro (10-user min.)') + ' + AI Answers', sub: res.toLocaleString('en-US') + ' AI resolutions @ $0.75', seat: hsSeat, ai: hsAi, aiText: fmt(hsAi) + ' (cap available)', tot: hs, yrTot: hs * 12, url: 'https://www.helpscout.com/pricing/', cta: 'Try Help Scout free', rel: 'nofollow sponsored noopener', partner: 'Partner link', cls: 'btn-cta', badge: 'badge-low'}}
+    {{id: 'zendesk-suite', name: 'Zendesk ' + (plan==='pro'?'Suite Professional':'Suite Team') + ' + AI agents', sub: res.toLocaleString('en-US') + ' verified resolutions &middot; ' + inclText, seat: zdSeat + zdCop, seatYr: zdSeatsYr, ai: zdAi, aiYr: zdAiYr, aiText: fmt(zdAi) + ' overage @ $' + price.toFixed(2), tot: zd, yrTot: zdYr, url: 'https://www.zendesk.com/pricing/', cta: 'View Zendesk pricing →', cls: 'btn-secondary', badge: 'badge-high'}},
+    {{id: 'freshdesk-support', name: 'Freshdesk Pro + Freddy AI Agent', sub: aiConv.toLocaleString('en-US') + ' AI sessions/mo (500 1x free sessions deducted in Yr 1)', seat: fdSeat + fdCop, seatYr: (fdSeat + fdCop) * 12, ai: fdAi, aiYr: fdYr1Ai, aiText: fmt(fdAi) + ' (' + Math.ceil(aiConv/100) + ' &times; $49 packs)', tot: fd, yrTot: fdYr1, url: 'https://www.freshworks.com/freshdesk/pricing/', cta: 'View Freshdesk plans →', cls: 'btn-cta', badge: 'badge-low'}},
+    {{id: 'help-scout-plus', name: 'Help Scout ' + (hsPlan==='plus'?'Plus':'Pro (10-user min.)') + ' + AI Answers', sub: res.toLocaleString('en-US') + ' AI resolutions @ $0.75', seat: hsSeat, seatYr: hsSeat * 12, ai: hsAi, aiYr: hsAi * 12, aiText: fmt(hsAi) + ' (cap available)', tot: hs, yrTot: hsYr, url: 'https://www.helpscout.com/pricing/', cta: 'Check Help Scout plans →', cls: 'btn-cta', badge: 'badge-low'}}
   ].sort((a,b) => a.yrTot - b.yrTot);
+  const lowR = rows[0];
+  const zdSummary = document.getElementById('zd-summary');
+  if (zdSummary) {{
+    zdSummary.innerHTML = `
+      <div class="summary-card card-hidden">
+        <div class="summary-label">Zendesk Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-metric" style="color:var(--rose);">${{fmt(zdYr)}} / yr (${{fmt(zd)}}/mo)</div>
+        <div class="summary-scenario">${{scenarioLine}}</div>
+        <div class="summary-breakdown">${{fmt(zdSeatsYr)}} licenses + $0 onboarding + ${{fmt(zdAiYr)}} AI overage</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Zendesk AI resolution overages ($${{price.toFixed(2)}}/resolution above ${{inclText}}) add ${{fmt(zdAiYr)}}/yr (${{zdAiPct}}% of the Year-1 bill). &ldquo;Allow overage&rdquo; is enabled by default.</div>
+        <div class="summary-actions">
+          <a class="btn-secondary" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite" data-cta-location="summary-card">View Zendesk pricing &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-lowest">
+        <div class="summary-label">Lowest Estimated Year-1 Total</div>
+        <div class="summary-metric" style="color:var(--emerald);">${{fmt(lowR.yrTot)}} / yr &middot; ${{lowR.name}}</div>
+        <div class="summary-scenario">${{scenarioLine}} (saves ${{fmt(Math.max(0, zdYr - lowR.yrTot))}}/yr vs. Zendesk)</div>
+        <div class="summary-breakdown">${{fmt(lowR.seatYr)}} licenses + $0 onboarding + ${{fmt(lowR.aiYr)}} AI usage</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> Verify whether session-pack billing (Freshdesk) or capped $0.75 resolution billing (Help Scout) fits your ticket workflow.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="${{lowR.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{lowR.id}}" data-cta-location="summary-card">${{lowR.cta}}</a>
+          <a class="summary-audit-link" href="../intercom-fin-ai-resolution-cost-calculator/" data-track="internal-audit">Compare Intercom Fin ($0.99) &rarr;</a>
+        </div>
+      </div>
+    `;
+  }}
   document.getElementById('zd-tbody').innerHTML = rows.map(r => `
     <tr>
       <td data-label="Helpdesk">
@@ -252,8 +287,8 @@ function updateZd() {{
       <td data-label="Seats / mo" style="font-family:var(--mono);">${{fmt(r.seat)}}</td>
       <td data-label="AI usage / mo"><span class="badge ${{r.badge}}">${{r.aiText}}</span></td>
       <td data-label="Total / mo" class="price-highlight">${{fmt(r.tot)}}</td>
-      <td data-label="Year-1 Total" class="price-highlight">${{fmt(r.yrTot)}}</td>
-      <td data-label="Compare"><a class="${{r.cls}}" href="${{r.url}}" target="_blank" rel="${{r.rel}}">${{r.cta}} &rarr;</a><span class="partner-tag">${{r.partner}}</span></td>
+      <td data-label="Year-1 Total" class="price-highlight">${{fmt(r.yrTot)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
+      <td data-label="Next Step"><a class="${{r.cls}}" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></td>
     </tr>`).join('');
   let note = 'Assumptions: list prices only (no negotiated discounts, taxes, voice minutes or other add-ons). Freshdesk Year-1 total deducts the 500 one-time free AI Agent sessions ($245 value); Help Scout 3-month AI trial excluded.';
   if (copilot && plan === 'team') note += ' Zendesk Copilot is not offered on Suite Team, so it is not added.';

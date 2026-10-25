@@ -11,21 +11,31 @@ aff_js = json.dumps(AFFILIATES)
 home_body = f"""
 <section class="hero">
   <h1>Your SaaS bill is lying to you.</h1>
-  <p class="lead">Software pricing pages show the teaser per-seat rate and leave out the $1,500–$7,000 mandatory onboarding fee, the 3-seat minimum bucket, and the $0.99–$2.00 per-resolution AI meter. Adjust your team size and workload below to see what you will actually pay in Year 1.</p>
+  <p class="lead">See what your B2B software will actually cost in Year 1. Compare subscription seats, mandatory onboarding fees, metered AI charges, and contract terms before you commit.</p>
 </section>
 
 <section class="calc-box" aria-labelledby="calc-heading">
   <h2 id="calc-heading" style="margin-top:0;">Interactive Year-1 True-Cost Calculator (2026)</h2>
-  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Select your software category, team size, and billing term. The summary cards, cost-composition chart, and contract table update live.</p>
+  <p style="color:var(--muted); margin-bottom:16px; font-size:0.95rem;">Pre-filled example loaded below: <strong>5 seats, annual billing, and 500 AI-resolved tickets/month</strong>. Switch category or adjust sliders to model your exact team.</p>
+  <div class="cat-tabs-wrap">
+    <span class="cat-tabs-label">Quick Category Select</span>
+    <div class="cat-tabs" role="tablist" aria-label="Software Categories">
+      <button type="button" class="cat-tab active" data-cat="Helpdesk & AI Support" data-track="category-select">Helpdesk &amp; AI Support (6 tools)</button>
+      <button type="button" class="cat-tab" data-cat="CRM & Sales" data-track="category-select">CRM &amp; Sales (5 tools)</button>
+      <button type="button" class="cat-tab" data-cat="Compliance, HIPAA & SOC 2" data-track="category-select">Compliance, HIPAA &amp; SOC 2 (4 tools)</button>
+      <button type="button" class="cat-tab" data-cat="Payment Processors & MoR" data-track="category-select">Payment Processors &amp; MoR (5 rails)</button>
+      <button type="button" class="cat-tab" data-cat="ALL" data-track="category-select">All Subscription SaaS (15 tools)</button>
+    </div>
+  </div>
   <div class="calc-grid">
     <div class="control-group">
       <label for="cat-filter">1. Software category</label>
       <select id="cat-filter">
-        <option value="ALL">All Subscription SaaS (15 tools)</option>
+        <option value="Helpdesk & AI Support" selected>Helpdesk &amp; AI Support (6 tools)</option>
         <option value="CRM & Sales">CRM &amp; Sales (5 tools)</option>
-        <option value="Helpdesk & AI Support">Helpdesk &amp; AI Support (6 tools)</option>
-        <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA BAA &amp; SOC 2 (4 tools)</option>
+        <option value="Compliance, HIPAA & SOC 2">Compliance, HIPAA &amp; SOC 2 (4 tools)</option>
         <option value="Payment Processors & MoR">Payment Processors &amp; MoR (5 rails)</option>
+        <option value="ALL">All Subscription SaaS (15 tools)</option>
       </select>
     </div>
     <div class="control-group" id="seat-control-group">
@@ -55,6 +65,7 @@ home_body = f"""
   </div>
 
   <div id="calc-summary-strip" class="summary-strip" aria-live="polite"></div>
+  <p id="calc-summary-note" class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost does not automatically mean best fit&mdash;verify plan limits, seat minimums, and contract lock-in before choosing.</p>
 
   <div id="calc-viz-panel" class="viz-panel" aria-label="Year-1 Cost Composition Stacked Bar Chart">
     <div class="viz-header">
@@ -107,8 +118,8 @@ home_body = f"""
       <span class="status-pill status-estimated">Estimated (Benchmark)</span> indicates non-public, sales-quoted pricing (such as Vanta and Drata) modeled from verified buyer contract benchmarks.
     </div>
     <div class="methodology-item">
-      <strong>3. Affiliate &amp; Editorial Independence</strong>
-      Buttons labeled <em>Partner link</em> (`rel="nofollow sponsored"`) belong to vendor affiliate programs we track or apply to; buttons labeled <em>Direct vendor link</em> (`rel="nofollow noopener"`) have no affiliate relationship. Calculations and sort order are strictly mathematical and never influenced by partner status.
+      <strong>3. Editorial Independence &amp; Direct Pricing Links</strong>
+      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical.
     </div>
   </div>
 </section>
@@ -235,6 +246,74 @@ function calcToolYear1(t, seats, aiVol, mode) {{
   }};
 }}
 
+const VENDOR_CTA_LABELS = {{
+  'hubspot-sales-pro': 'View HubSpot pricing →',
+  'hubspot-marketing-pro': 'View HubSpot pricing →',
+  'hubspot-service-hub': 'View HubSpot pricing →',
+  'close-crm': 'Check Close pricing →',
+  'pipedrive-crm': 'Explore Pipedrive plans →',
+  'monday-crm': 'View monday CRM pricing →',
+  'intercom-fin-ai': 'Check Intercom pricing →',
+  'freshdesk-support': 'View Freshdesk plans →',
+  'zendesk-suite-team': 'View Zendesk pricing →',
+  'zendesk-suite-professional': 'View Zendesk pricing →',
+  'help-scout-plus': 'Check Help Scout plans →',
+  'stripe-payments': 'View Stripe pricing →',
+  'paddle-mor': 'View Paddle pricing →',
+  'whop-payments': 'Explore Whop Payments →',
+  'lemon-squeezy': 'View Lemon Squeezy pricing →',
+  'chargeflow': 'Check Chargeflow pricing →',
+  'jotform-hipaa': 'Check Jotform HIPAA plans →',
+  '1password-business': 'View 1Password pricing →',
+  'vanta-soc2': 'View Vanta pricing →',
+  'drata-soc2': 'Explore Drata platform →'
+}};
+
+const INTERNAL_AUDIT_LINKS = {{
+  'hubspot-sales-pro': {{ url: './pricing/hubspot-true-cost-and-onboarding-fees/', label: 'Read HubSpot onboarding audit →' }},
+  'hubspot-marketing-pro': {{ url: './pricing/hubspot-true-cost-and-onboarding-fees/', label: 'Read HubSpot onboarding audit →' }},
+  'hubspot-service-hub': {{ url: './pricing/hubspot-true-cost-and-onboarding-fees/', label: 'Read HubSpot onboarding audit →' }},
+  'close-crm': {{ url: './pricing/hubspot-true-cost-and-onboarding-fees/', label: 'Compare vs. HubSpot →' }},
+  'pipedrive-crm': {{ url: './compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/', label: 'Read 1–15 seat comparison →' }},
+  'monday-crm': {{ url: './compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/', label: 'Read 3-seat bucket audit →' }},
+  'intercom-fin-ai': {{ url: './pricing/intercom-fin-ai-resolution-cost-calculator/', label: 'Read Intercom $0.99 AI audit →' }},
+  'freshdesk-support': {{ url: './pricing/intercom-fin-ai-resolution-cost-calculator/', label: 'Compare AI session packs →' }},
+  'zendesk-suite-team': {{ url: './pricing/zendesk-ai-resolution-and-automated-outcome-cost/', label: 'Read Zendesk AI overage audit →' }},
+  'zendesk-suite-professional': {{ url: './pricing/zendesk-ai-resolution-and-automated-outcome-cost/', label: 'Read Zendesk AI overage audit →' }},
+  'help-scout-plus': {{ url: './pricing/zendesk-ai-resolution-and-automated-outcome-cost/', label: 'Compare vs. Zendesk AI →' }},
+  'stripe-payments': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Open reserve simulator →' }},
+  'paddle-mor': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Read MoR token lock-in audit →' }},
+  'whop-payments': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Open reserve simulator →' }},
+  'lemon-squeezy': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Read MoR token audit →' }},
+  'chargeflow': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Open reserve simulator →' }},
+  'jotform-hipaa': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Read HIPAA BAA tier matrix →' }},
+  '1password-business': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Read SSO & BAA audit →' }},
+  'vanta-soc2': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Open SOC 2 + auditor estimator →' }},
+  'drata-soc2': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Open SOC 2 + auditor estimator →' }}
+}};
+
+function getVendorCtaLabel(tool) {{
+  return VENDOR_CTA_LABELS[tool.id] || `View ${{tool.vendor || tool.name}} pricing →`;
+}}
+
+function formatScenarioText(cat, seats, aiVol, mode) {{
+  const seatStr = `${{seats}} seat${{seats === 1 ? '' : 's'}}`;
+  const billStr = mode === 'annual' ? 'annual billing' : 'monthly billing';
+  if (cat === 'Helpdesk & AI Support' || cat === 'ALL') {{
+    return `Based on ${{seatStr}}, ${{billStr}}, ${{aiVol.toLocaleString()}} AI tickets/month`;
+  }}
+  return `Based on ${{seatStr}}, ${{billStr}}`;
+}}
+
+function formatHiddenReason(r) {{
+  const parts = [];
+  if (r.onboarding > 0) parts.push(`$${{r.onboarding.toLocaleString()}} mandatory onboarding`);
+  if (r.aiAnnual > 0) parts.push(`$${{r.aiAnnual.toLocaleString()}}/yr metered AI charges`);
+  if (r.seatPaddingAnnual > 0) parts.push(`$${{r.seatPaddingAnnual.toLocaleString()}}/yr unused seat-minimum padding`);
+  if (parts.length === 0) return `No mandatory onboarding or metered AI overages ($0 non-seat fees)`;
+  return `Adds ${{parts.join(' + ')}} on top of $${{r.annualSeatsCost.toLocaleString()}} base licenses`;
+}}
+
 function renderDirectory() {{
   const cat = document.getElementById('cat-filter').value;
   const seats = parseInt(document.getElementById('seat-slider').value, 10);
@@ -244,6 +323,15 @@ function renderDirectory() {{
   const sortMode = sortEl ? sortEl.value : 'lowest';
   document.getElementById('seat-val').textContent = seats;
   document.getElementById('ai-val').textContent = aiVol;
+
+  // Sync visual category tabs with select dropdown
+  document.querySelectorAll('.cat-tab').forEach(btn => {{
+    if (btn.getAttribute('data-cat') === cat) {{
+      btn.classList.add('active');
+    }} else {{
+      btn.classList.remove('active');
+    }}
+  }});
 
   // Show AI slider ONLY when relevant (Helpdesk & AI Support or ALL)
   const aiControl = document.getElementById('ai-control-group');
@@ -285,28 +373,46 @@ function renderDirectory() {{
     rows.sort((a, b) => a.year1Total - b.year1Total);
   }}
 
-  // Render Summary Strip & Stacked Bar Cost Visualization
   const summaryEl = document.getElementById('calc-summary-strip');
   const vizPanel = document.getElementById('calc-viz-panel');
   const vizRowsEl = document.getElementById('calc-viz-rows');
+  const scenarioLine = formatScenarioText(cat, seats, aiVol, mode);
 
   if (cat === 'Payment Processors & MoR') {{
     if (summaryEl) {{
       summaryEl.innerHTML = `
-        <div class="summary-card">
-          <div class="summary-label">Lowest Domestic Card Take Rate</div>
+        <div class="summary-card card-lowest">
+          <div class="summary-label">Multi-Processor Failover Rail</div>
           <div class="summary-metric">Whop Payments (2.7% + $0.30)</div>
-          <div class="summary-sub">Multi-processor waterfall orchestration with failover routing.</div>
+          <div class="summary-scenario">Based on per-transaction domestic card processing ($0/mo fixed fee)</div>
+          <div class="summary-breakdown">2.7% + $0.30 domestic &middot; multi-acquirer waterfall routing</div>
+          <div class="summary-caveat"><strong>Caveat:</strong> Total cost depends on monthly GMV, average order value, and international card mix.</div>
+          <div class="summary-actions">
+            <a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">Explore Whop Payments &rarr;</a>
+            <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Open reserve simulator &rarr;</a>
+          </div>
         </div>
-        <div class="summary-card">
-          <div class="summary-label">Highest Lock-In Risk</div>
-          <div class="summary-metric">Paddle MoR (5.0% + $0.50)</div>
-          <div class="summary-sub">Seller of record owns card vault; zero token portability if terminated.</div>
+        <div class="summary-card card-hidden">
+          <div class="summary-label">Hidden Cost &amp; Lock-In Highlight</div>
+          <div class="summary-metric" style="color:var(--rose);">Paddle MoR (5.0% + $0.50)</div>
+          <div class="summary-scenario">Merchant of Record tax &amp; compliance structure</div>
+          <div class="summary-breakdown">5.0% + $0.50 per transaction (includes global VAT/sales tax)</div>
+          <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Paddle is the legal seller of record and owns the card vault&mdash;if terminated on a risk review, subscriber card tokens cannot be exported.</div>
+          <div class="summary-actions">
+            <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
+            <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Read token lock-in audit &rarr;</a>
+          </div>
         </div>
-        <div class="summary-card">
-          <div class="summary-label">Reserve &amp; Hold Protection</div>
-          <div class="summary-metric">Chargeflow (&lt;0.5% Disputes)</div>
-          <div class="summary-sub"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Open 25% Rolling Reserve Simulator &rarr;</a></div>
+        <div class="summary-card card-highest">
+          <div class="summary-label">Dispute &amp; Reserve Shield</div>
+          <div class="summary-metric">Chargeflow (&lt;0.5% Dispute Ratio)</div>
+          <div class="summary-scenario">Performance-based pre-dispute &amp; chargeback automation</div>
+          <div class="summary-breakdown">$0 setup fee &middot; pay-on-recovery + pre-dispute alerts</div>
+          <div class="summary-caveat"><strong>Contract note:</strong> Prevents Stripe and Shopify 25% rolling reserves by keeping dispute ratios below card-network monitoring thresholds.</div>
+          <div class="summary-actions">
+            <a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Check Chargeflow pricing &rarr;</a>
+            <a class="summary-audit-link" href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/" data-track="internal-audit">Simulate 25% reserve hold &rarr;</a>
+          </div>
         </div>
       `;
     }}
@@ -315,27 +421,54 @@ function renderDirectory() {{
     const byLowest = [...rows].sort((a, b) => a.year1Total - b.year1Total);
     const minR = byLowest[0];
     const maxR = byLowest[byLowest.length - 1];
-    const byHidden = [...rows].sort((a, b) => b.hiddenFees - a.hiddenFees);
+    const byHidden = [...rows].sort((a, b) => b.hiddenFees - a.hiddenFees || b.year1Total - a.year1Total);
     const topHidden = byHidden[0];
     const maxTotal = Math.max(...rows.map(r => r.year1Total), 1);
 
+    const minAff = AFFILIATES[minR.tool.affiliate_slug] || {{ destination_url: '#' }};
+    const maxAff = AFFILIATES[maxR.tool.affiliate_slug] || {{ destination_url: '#' }};
+    const hidAff = AFFILIATES[topHidden.tool.affiliate_slug] || {{ destination_url: '#' }};
+
+    const minAudit = INTERNAL_AUDIT_LINKS[minR.tool.id];
+    const maxAudit = INTERNAL_AUDIT_LINKS[maxR.tool.id];
+    const hidAudit = INTERNAL_AUDIT_LINKS[topHidden.tool.id];
+
     if (summaryEl) {{
       const hiddenPct = topHidden.year1Total > 0 ? Math.round((topHidden.hiddenFees / topHidden.year1Total) * 100) : 0;
+      const hiddenReasonText = formatHiddenReason(topHidden);
       summaryEl.innerHTML = `
-        <div class="summary-card">
-          <div class="summary-label">Lowest Year-1 Total (${{seats}} seat${{seats === 1 ? '' : 's'}})</div>
+        <div class="summary-card card-lowest">
+          <div class="summary-label">Lowest Estimated Year-1 Cost</div>
           <div class="summary-metric" style="color:var(--emerald);">$${{minR.year1Total.toLocaleString()}} / yr &middot; ${{minR.tool.name}}</div>
-          <div class="summary-sub">$${{minR.annualSeatsCost.toLocaleString()}} licenses + $${{minR.onboarding.toLocaleString()}} onboarding + $${{minR.aiAnnual.toLocaleString()}} AI</div>
+          <div class="summary-scenario">${{scenarioLine}}</div>
+          <div class="summary-breakdown">$${{minR.annualSeatsCost.toLocaleString()}} licenses + $${{minR.onboarding.toLocaleString()}} onboarding + $${{minR.aiAnnual.toLocaleString()}} AI</div>
+          <div class="summary-caveat"><strong>Contract note:</strong> ${{minR.tool.trap_badge}} (${{minR.tool.billing_lock_in_type}})</div>
+          <div class="summary-actions">
+            <a class="btn-cta" href="${{minAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{minR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(minR.tool)}}</a>
+            ${{minAudit ? `<a class="summary-audit-link" href="${{minAudit.url}}" data-track="internal-audit">${{minAudit.label}}</a>` : ''}}
+          </div>
         </div>
-        <div class="summary-card">
-          <div class="summary-label">Highest Year-1 Total (${{seats}} seat${{seats === 1 ? '' : 's'}})</div>
+        <div class="summary-card card-hidden">
+          <div class="summary-label">Hidden Cost Highlight (Largest Non-Seat Add-On)</div>
+          <div class="summary-metric" style="color:var(--rose);">+$${{topHidden.hiddenFees.toLocaleString()}} / yr (${{hiddenPct}}% of Year-1 bill)</div>
+          <div class="summary-scenario">On <strong>${{topHidden.tool.name}}</strong> ($${{topHidden.year1Total.toLocaleString()}}/yr total &middot; ${{scenarioLine.replace('Based on ', '')}})</div>
+          <div class="summary-breakdown">$${{topHidden.annualSeatsCost.toLocaleString()}} licenses + $${{topHidden.onboarding.toLocaleString()}} onboarding + $${{topHidden.aiAnnual.toLocaleString()}} AI</div>
+          <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${{hiddenReasonText}}.</div>
+          <div class="summary-actions">
+            <a class="btn-secondary" href="${{hidAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{topHidden.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(topHidden.tool)}}</a>
+            ${{hidAudit ? `<a class="summary-audit-link" href="${{hidAudit.url}}" data-track="internal-audit">${{hidAudit.label}}</a>` : ''}}
+          </div>
+        </div>
+        <div class="summary-card card-highest">
+          <div class="summary-label">Highest Estimated Year-1 Cost</div>
           <div class="summary-metric">$${{maxR.year1Total.toLocaleString()}} / yr &middot; ${{maxR.tool.name}}</div>
-          <div class="summary-sub">$${{maxR.annualSeatsCost.toLocaleString()}} licenses + $${{maxR.onboarding.toLocaleString()}} onboarding + $${{maxR.aiAnnual.toLocaleString()}} AI</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">Largest Non-Seat Fee Add-On</div>
-          <div class="summary-metric" style="color:var(--rose);">+$${{topHidden.hiddenFees.toLocaleString()}} / yr (${{hiddenPct}}% of bill)</div>
-          <div class="summary-sub">On <strong>${{topHidden.tool.name}}</strong> (onboarding, AI meter, or seat minimum padding)</div>
+          <div class="summary-scenario">${{scenarioLine}}</div>
+          <div class="summary-breakdown">$${{maxR.annualSeatsCost.toLocaleString()}} licenses + $${{maxR.onboarding.toLocaleString()}} onboarding + $${{maxR.aiAnnual.toLocaleString()}} AI</div>
+          <div class="summary-caveat"><strong>Contract note:</strong> ${{maxR.tool.trap_badge}}</div>
+          <div class="summary-actions">
+            <a class="btn-secondary" href="${{maxAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{maxR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(maxR.tool)}}</a>
+            ${{maxAudit ? `<a class="summary-audit-link" href="${{maxAudit.url}}" data-track="internal-audit">${{maxAudit.label}}</a>` : ''}}
+          </div>
         </div>
       `;
     }}
@@ -343,6 +476,7 @@ function renderDirectory() {{
     if (vizPanel && vizRowsEl) {{
       vizPanel.style.display = 'block';
       vizRowsEl.innerHTML = rows.map(r => {{
+        const aff = AFFILIATES[r.tool.affiliate_slug] || {{ destination_url: '#' }};
         const seatPct = Math.max(0, (r.annualSeatsCost / maxTotal) * 100);
         const onbPct = Math.max(0, (r.onboarding / maxTotal) * 100);
         const aiPct = Math.max(0, (r.aiAnnual / maxTotal) * 100);
@@ -361,6 +495,7 @@ function renderDirectory() {{
               <div class="viz-breakdown-text">${{parts.join(' + ')}}</div>
             </div>
             <div class="viz-total-label">$${{r.year1Total.toLocaleString()}} / yr</div>
+            <a class="viz-action-link" href="${{aff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.tool.id}}" data-cta-location="chart-row">${{getVendorCtaLabel(r.tool)}}</a>
           </div>
         `;
       }}).join('');
@@ -375,6 +510,7 @@ function renderDirectory() {{
     const verClass = verStatus.startsWith('Verified') ? 'status-verified' : 'status-estimated';
     const srcUrl = (t.source_urls && t.source_urls[0]) ? t.source_urls[0] : aff.destination_url;
     const srcLabel = t.source_label || 'Official pricing & terms';
+    const auditObj = INTERNAL_AUDIT_LINKS[t.id];
     const fmtRate = n => Number.isInteger(n) ? n.toLocaleString() : n.toFixed(2);
     let rateText = '';
     if (t.transaction_fee_display) {{
@@ -390,16 +526,15 @@ function renderDirectory() {{
     }}
     const totalText = t.category === 'Payment Processors & MoR'
       ? `Per-transaction <div style="font-size:0.75rem; font-weight:400;"><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Simulate holds &rarr;</a></div>`
-      : `$${{r.year1Total.toLocaleString()}} / yr`;
+      : `$${{r.year1Total.toLocaleString()}} / yr <div class="cell-scenario">${{scenarioLine}}</div>`;
     const extraAiLine = r.aiNote ? `<div style="font-size:0.75rem; color:var(--muted); margin-top:2px;">AI math: ${{r.aiNote}}</div>` : '';
-    const relAttr = aff.is_affiliate ? 'nofollow sponsored noopener' : 'nofollow noopener';
-    const partnerNote = aff.is_affiliate ? 'Partner link' : 'Direct vendor link';
     return `
       <tr>
         <td data-label="Platform">
           <strong>${{t.name}}</strong>
           <div style="font-size:0.78rem; color:var(--muted);">${{t.category}}</div>
           <span class="status-pill ${{verClass}}">${{verStatus}}</span>
+          ${{auditObj ? `<div><a class="audit-inline-link" href="${{auditObj.url}}" data-track="internal-audit">${{auditObj.label}}</a></div>` : ''}}
         </td>
         <td data-label="Effective Rate" style="font-family:var(--mono);">${{rateText}}${{extraAiLine}}</td>
         <td data-label="Mandatory Onboarding" style="font-family:var(--mono);">${{t.mandatory_onboarding_fee_usd > 0 ? '$' + t.mandatory_onboarding_fee_usd.toLocaleString() : '$0'}}</td>
@@ -409,9 +544,8 @@ function renderDirectory() {{
           <div class="source-inline">Source: <a href="${{srcUrl}}" target="_blank" rel="noopener">${{srcLabel}} &nearr;</a></div>
         </td>
         <td data-label="Year-1 Total" class="price-highlight">${{totalText}}</td>
-        <td data-label="Action">
-          <a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="${{relAttr}}">Check pricing &rarr;</a>
-          <span class="partner-tag">${{partnerNote}}</span>
+        <td data-label="Next Step">
+          <a class="btn-cta" href="${{aff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{t.id}}" data-cta-location="table-row">${{getVendorCtaLabel(t)}}</a>
         </td>
       </tr>
     `;
@@ -420,6 +554,15 @@ function renderDirectory() {{
 ['cat-filter', 'seat-slider', 'ai-slider', 'billing-mode', 'sort-mode'].forEach(id => {{
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', renderDirectory);
+}});
+document.querySelectorAll('.cat-tab').forEach(btn => {{
+  btn.addEventListener('click', () => {{
+    const catSelect = document.getElementById('cat-filter');
+    if (catSelect) {{
+      catSelect.value = btn.getAttribute('data-cat');
+      renderDirectory();
+    }}
+  }});
 }});
 renderDirectory();
 </script>
@@ -499,6 +642,8 @@ p1_body = """
       </select>
     </div>
   </div>
+  <div id="hs-summary" class="summary-strip" aria-live="polite"></div>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost does not automatically mean best fit&mdash;verify workflow limits, calling needs, and contract lock-in before choosing.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (USD, verified Oct 25, 2026)</caption>
@@ -593,35 +738,76 @@ function updateHsCalc() {
   else if (tier === 'sales_ent') { hsName = 'HubSpot Sales Hub Enterprise'; hsMonthly = seats * 150; hsOnboard = 3500; }
   else if (tier === 'mkt_pro') { hsName = 'HubSpot Marketing Hub Pro'; hsMonthly = 800 + Math.max(0, seats - 3) * 45; hsOnboard = 3000; }
   else { hsName = 'HubSpot Marketing Hub Enterprise'; hsMonthly = 3600 + Math.max(0, seats - 5) * 75; hsOnboard = 7000; }
-  const hsYear1 = hsMonthly * 12 + hsOnboard;
+  const hsSeatsYr = hsMonthly * 12;
+  const hsYear1 = hsSeatsYr + hsOnboard;
+  const onbPct = Math.round((hsOnboard / hsYear1) * 100);
   const closeMonthly = seats * 35;
   const closeYear1 = closeMonthly * 12;
   const pipeMonthly = seats * 49;
   const pipeYear1 = pipeMonthly * 12;
+  const scenarioLine = `Based on ${seats} seat${seats === 1 ? '' : 's'}, annual billing`;
+
+  const hsSummary = document.getElementById('hs-summary');
+  if (hsSummary) {
+    hsSummary.innerHTML = `
+      <div class="summary-card card-hidden">
+        <div class="summary-label">HubSpot Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-metric" style="color:var(--rose);">$${hsYear1.toLocaleString()} / yr &middot; ${hsName}</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">$${hsSeatsYr.toLocaleString()} licenses + $${hsOnboard.toLocaleString()} mandatory onboarding + $0 AI</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Mandatory $${hsOnboard.toLocaleString()} onboarding adds ${onbPct}% to the Year-1 invoice, with a 12-month auto-renewing contract lock-in.</div>
+        <div class="summary-actions">
+          <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-lowest">
+        <div class="summary-label">Lowest Year-1 Cost ($0 Onboarding)</div>
+        <div class="summary-metric" style="color:var(--emerald);">$${closeYear1.toLocaleString()} / yr &middot; Close CRM (Essentials)</div>
+        <div class="summary-scenario">${scenarioLine} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()}/yr vs. HubSpot)</div>
+        <div class="summary-breakdown">$${closeYear1.toLocaleString()} licenses + $0 onboarding + $0 AI</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> $35/user/mo annual ($49 monthly); Growth tier with workflows is $99/user/mo.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-highest">
+        <div class="summary-label">Zero-Onboarding Alternative</div>
+        <div class="summary-metric" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} / yr &middot; Pipedrive (Professional)</div>
+        <div class="summary-scenario">${scenarioLine} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()}/yr vs. HubSpot)</div>
+        <div class="summary-breakdown">$${pipeYear1.toLocaleString()} licenses + $0 onboarding + $0 AI</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> 1-seat minimum ($14/mo Lite up to $49/mo Pro); cancel anytime on monthly billing.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="summary-card">Explore Pipedrive plans &rarr;</a>
+          <a class="summary-audit-link" href="../../compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/" data-track="internal-audit">1&ndash;15 seat comparison &rarr;</a>
+        </div>
+      </div>
+    `;
+  }
+
   document.getElementById('hs-tbody').innerHTML = `
     <tr>
       <td data-label="CRM Platform"><strong>${hsName}</strong> <span class="status-pill status-verified">Verified</span></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${hsMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
       <td data-label="Contract Terms &amp; Source">12-month auto-renewing contract<div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
-      <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}</td>
-      <td data-label="Compare"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Close CRM (Essentials)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">$35/user/mo annual ($49 monthly) &middot; $0 onboarding &middot; Growth w/ workflows is $99/user/mo</div></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
-      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow sponsored">Try Close free &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
       <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
-      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">Try Pipedrive free &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></td>
     </tr>
   `;
 }
@@ -684,6 +870,8 @@ p2_body = """
       <input type="range" id="ic-rate" min="10" max="85" step="5" value="50" />
     </div>
   </div>
+  <div id="ic-summary" class="summary-strip" aria-live="polite"></div>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Intercom charges $0.99 only when Fin AI resolves a conversation, whereas Freshdesk charges $49 per 100 AI sessions (whether resolved or escalated). Compare both models against your resolution rate.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Intercom + Fin AI ($0.99/Resolution) vs. Freshdesk Pro + Freddy AI Agent ($49/100 Sessions) Breakdown (USD, verified Oct 25, 2026)</caption>
@@ -743,6 +931,39 @@ function updateIcCalc() {
   const diff = icYear - fdYear;
   const diffLabel = diff > 0 ? `(saves $${diff.toLocaleString()}/yr)` : `(+$${Math.abs(diff).toLocaleString()}/yr vs Intercom)`;
 
+  const icSeatsYr = icSeatCost * 12;
+  const icAiYr = icAiCost * 12;
+  const fdSeatsYr = fdSeatCost * 12;
+  const aiSharePct = icYear > 0 ? Math.round((icAiYr / icYear) * 100) : 0;
+  const scenarioLine = `Based on ${seats} seat${seats === 1 ? '' : 's'}, annual billing, ${tickets.toLocaleString()} tickets/mo (${Math.round(resRate * 100)}% AI resolution = ${resolvedTickets.toLocaleString()} resolutions/mo)`;
+
+  const icSummary = document.getElementById('ic-summary');
+  if (icSummary) {
+    icSummary.innerHTML = `
+      <div class="summary-card card-hidden">
+        <div class="summary-label">Intercom Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-metric" style="color:var(--rose);">$${icYear.toLocaleString()} / yr ($${icTotalMo.toLocaleString()}/mo)</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">$${icSeatsYr.toLocaleString()} licenses + $0 onboarding + $${icAiYr.toLocaleString()} Fin AI</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Metered Fin AI resolution fees ($0.99 &times; ${resolvedTickets.toLocaleString()}/mo) add $${icAiYr.toLocaleString()}/yr (${aiSharePct}% of your total Year-1 bill).</div>
+        <div class="summary-actions">
+          <a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="summary-card">Check Intercom pricing &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-lowest">
+        <div class="summary-label">Session-Pack Alternative (Freshdesk Pro)</div>
+        <div class="summary-metric" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">$${fdSeatsYr.toLocaleString()} licenses + $0 onboarding + $${fdAnnualAiCost.toLocaleString()} AI session packs</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> Includes 500 one-time free sessions, then $49 per 100 sessions (billed per session handled, resolved or not).</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="summary-card">View Freshdesk plans &rarr;</a>
+          <a class="summary-audit-link" href="../zendesk-ai-resolution-and-automated-outcome-cost/" data-track="internal-audit">Compare Zendesk AI ($1.50&ndash;$2.00) &rarr;</a>
+        </div>
+      </div>
+    `;
+  }
+
   document.getElementById('ic-tbody').innerHTML = `
     <tr>
       <td data-label="Helpdesk Solution">
@@ -753,8 +974,8 @@ function updateIcCalc() {
       <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${icSeatCost.toLocaleString()} / mo</td>
       <td data-label="Monthly AI Usage"><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
-      <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener">Intercom pricing &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
+      <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="table-row">Check Intercom pricing &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="Helpdesk Solution">
@@ -766,8 +987,8 @@ function updateIcCalc() {
       <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
       <td data-label="Monthly AI Usage"><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
-      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow sponsored">Try Freshdesk free &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="table-row">View Freshdesk plans &rarr;</a></td>
     </tr>
   `;
 }

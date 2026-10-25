@@ -33,7 +33,9 @@ p3_body = """
       <input type="range" id="gm-cap" min="0" max="30" step="2" value="15" />
     </div>
   </div>
-  <div class="card-grid" id="reserve-output"></div>
+  <div id="hold-summary" class="summary-strip" aria-live="polite"></div>
+  <div id="reserve-output" class="summary-strip" style="display:none;"></div>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Payment processors do not have a single fixed-price &ldquo;winner&rdquo;&mdash;your actual take rate and cashflow exposure depend on monthly volume, average order value, international card mix, and whether you require a Merchant of Record for global VAT/sales tax.</p>
 </section>
 
 <section>
@@ -48,7 +50,7 @@ p3_body = """
           <th>Model &amp; Base Rate</th>
           <th>Who Owns Subscriber Card Tokens?</th>
           <th>Hold / Reserve Policy on Risk Flags</th>
-          <th>Recommended Role</th>
+          <th>Next Step</th>
         </tr>
       </thead>
       <tbody>
@@ -61,7 +63,7 @@ p3_body = """
           <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">2.7% + $0.30 domestic</td>
           <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
           <td data-label="Hold / Reserve Policy">Multi-processor waterfall routes around single-acquirer declines (~6% revenue lift); KYB deferred to $5k volume</td>
-          <td data-label="Action"><a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow sponsored">Add Whop failover &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">Explore Whop Payments &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -72,7 +74,18 @@ p3_body = """
           <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">Performance-based ($0 setup)</td>
           <td data-label="Token Ownership"><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
           <td data-label="Hold / Reserve Policy">Prevents 25% reserves &amp; 180-day freezes by intercepting pre-disputes to keep your chargeback rate under 0.5%</td>
-          <td data-label="Action"><a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow sponsored">Install Chargeflow &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="table-row">Check Chargeflow pricing &rarr;</a></td>
+        </tr>
+        <tr>
+          <td data-label="Provider">
+            <strong>Stripe</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://stripe.com/pricing" target="_blank" rel="noopener">Stripe pricing &amp; reserves &nearr;</a></div>
+          </td>
+          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">2.9% + $0.30 (+0.7% Billing)</td>
+          <td data-label="Token Ownership"><span class="badge badge-low">Merchant owns tokens</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">PGP-encrypted card token export available unless terminated for fraud</div></td>
+          <td data-label="Hold / Reserve Policy">Automated underwriting can apply 25% rolling reserve (90&ndash;180 days) or 120&ndash;180 day payout freeze above ~0.5%&ndash;0.75% dispute ratio</td>
+          <td data-label="Next Step"><a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="table-row">View Stripe pricing &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -83,7 +96,7 @@ p3_body = """
           <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50</td>
           <td data-label="Token Ownership"><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
           <td data-label="Hold / Reserve Policy">Can terminate accounts on internal risk review and hold unreleased payouts without appeal</td>
-          <td data-label="Action"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener">Paddle pricing &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
+          <td data-label="Next Step"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="table-row">View Paddle pricing &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -94,7 +107,7 @@ p3_body = """
           <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50 (+0.5% subs)</td>
           <td data-label="Token Ownership"><span class="badge badge-medium">MoR vault (Stripe-backed)</span></td>
           <td data-label="Hold / Reserve Policy">Subject to Stripe's prohibited business list and automated risk triggers</td>
-          <td data-label="Action"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow sponsored">Lemon Squeezy &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="table-row">View Lemon Squeezy pricing &rarr;</a></td>
         </tr>
       </tbody>
     </table>
@@ -126,23 +139,46 @@ function updateReserveSim() {
   const loanDed = Math.round(rev * (capPct / 100));
   const netCash = Math.max(0, rev - procFee - frozenMo - loanDed);
   const frozen90Days = frozenMo * 3;
-  document.getElementById('reserve-output').innerHTML = `
-    <div class="card">
-      <span class="badge badge-high">Cash held in rolling reserve</span>
-      <h3 class="price-highlight" style="margin-top:10px; font-size:1.45rem;">$${frozenMo.toLocaleString()} / mo</h3>
-      <p>$${frozen90Days.toLocaleString()} cumulative cash locked over a 90-day reserve window.</p>
+  const totalHoldback = procFee + frozenMo + loanDed;
+  const holdbackPct = rev > 0 ? Math.round((totalHoldback / rev) * 100) : 0;
+  const scenarioLine = `Based on $${rev.toLocaleString()}/mo gross volume, ${resPct}% rolling reserve, ${capPct}% capital loan deduction`;
+  const cardsHtml = `
+    <div class="summary-card card-hidden">
+      <div class="summary-label">Cash Locked in Rolling Reserve (Hidden Holdback)</div>
+      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo ($${frozen90Days.toLocaleString()} over 90 days)</div>
+      <div class="summary-scenario">${scenarioLine}</div>
+      <div class="summary-breakdown">$${procFee.toLocaleString()} est. 2.9% fees + $${frozenMo.toLocaleString()} reserve hold + $${loanDed.toLocaleString()} loan deduction</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${holdbackPct}% of gross monthly cashflow (-$${totalHoldback.toLocaleString()}/mo) is withheld before operating expenses.</div>
+      <div class="summary-actions">
+        <a class="btn-cta" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Check Chargeflow pricing &rarr;</a>
+      </div>
     </div>
-    <div class="card">
-      <span class="badge badge-medium">Total monthly holdback (${resPct + capPct}% + fees)</span>
-      <h3 class="price-highlight" style="margin-top:10px; font-size:1.45rem;">-$${(procFee + frozenMo + loanDed).toLocaleString()} / mo</h3>
-      <p>Processing fees ($${procFee.toLocaleString()}), reserve hold ($${frozenMo.toLocaleString()}), and loan deduction ($${loanDed.toLocaleString()}).</p>
+    <div class="summary-card card-lowest">
+      <div class="summary-label">Net Monthly Payout Reaching Your Bank</div>
+      <div class="summary-metric" style="color:var(--emerald);">$${netCash.toLocaleString()} / mo</div>
+      <div class="summary-scenario">${scenarioLine}</div>
+      <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${totalHoldback.toLocaleString()} total deductions = $${netCash.toLocaleString()} net</div>
+      <div class="summary-caveat"><strong>Failover strategy:</strong> Route backup volume through a multi-processor waterfall (Whop Payments, 2.7% + $0.30 domestic) to avoid single-acquirer freezes.</div>
+      <div class="summary-actions">
+        <a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">Explore Whop Payments &rarr;</a>
+      </div>
     </div>
-    <div class="card">
-      <span class="badge badge-low">Net payout reaching your bank</span>
-      <h3 class="price-highlight" style="margin-top:10px; font-size:1.45rem; color:var(--emerald);">$${netCash.toLocaleString()} / mo</h3>
-      <p>Keep a secondary checkout rail (<strong>Whop</strong>) ready and use <strong>Chargeflow</strong> to keep disputes under 0.5%.</p>
+    <div class="summary-card card-highest">
+      <div class="summary-label">Token Portability &amp; MoR Caveat</div>
+      <div class="summary-metric">Processor vs. Merchant of Record</div>
+      <div class="summary-scenario">Contract &amp; vault ownership check (Verified terms)</div>
+      <div class="summary-breakdown">Stripe: 2.9% + $0.30 (portable tokens) &middot; Paddle MoR: 5.0% + $0.50 (locked vault)</div>
+      <div class="summary-caveat"><strong>Contract note:</strong> With Paddle MoR, Paddle is the legal seller of record&mdash;card tokens cannot be exported if your account is terminated on a risk review.</div>
+      <div class="summary-actions">
+        <a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="summary-card">View Stripe pricing &rarr;</a>
+        <a class="summary-audit-link" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
+      </div>
     </div>
   `;
+  const holdEl = document.getElementById('hold-summary');
+  if (holdEl) holdEl.innerHTML = cardsHtml;
+  const resEl = document.getElementById('reserve-output');
+  if (resEl) resEl.innerHTML = cardsHtml;
 }
 ['gm-rev', 'gm-res', 'gm-cap'].forEach(id => document.getElementById(id).addEventListener('input', updateReserveSim));
 updateReserveSim();
@@ -192,6 +228,8 @@ p4_body = """
       </select>
     </div>
   </div>
+  <div id="sm-summary" class="summary-strip" aria-live="polite"></div>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost depends on whether your team size lands on a 1:1 seat count (1, 2, 4, 6&ndash;9 users) or cleanly matches monday CRM&rsquo;s 3, 5, 10, or 15-seat buckets.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Effective Per-User CRM Cost After Seat Minimums &amp; Seat Buckets (USD, verified Oct 25, 2026)</caption>
@@ -239,30 +277,81 @@ function updateSmCalc() {
   const monMo = monSeats * monRate;
   const pipeMo = u * pipeRate;
   const hsMo = u * hsRate;
+  const pipeYr = pipeMo * 12;
+  const monYr = monMo * 12;
+  const hsYr = hsMo * 12 + hsOnboard;
+  const unusedSeats = Math.max(0, monSeats - u);
+  const unusedCostYr = unusedSeats * monRate * 12;
+  const tierLabel = tier === 'entry' ? 'Entry / Basic tier' : 'Standard / Growth tier';
+  const scenarioLine = `Based on ${u} active user${u === 1 ? '' : 's'}, annual billing (${tierLabel})`;
+
+  const smSummary = document.getElementById('sm-summary');
+  if (smSummary) {
+    const lowestIsPipe = pipeYr <= monYr;
+    const lowName = lowestIsPipe ? 'Pipedrive CRM' : 'monday CRM';
+    const lowYr = lowestIsPipe ? pipeYr : monYr;
+    const lowUrl = lowestIsPipe ? 'https://www.pipedrive.com/en/pricing' : 'https://monday.com/pricing';
+    const lowVendor = lowestIsPipe ? 'pipedrive-crm' : 'monday-crm';
+    const lowCta = lowestIsPipe ? 'Explore Pipedrive plans &rarr;' : 'View monday CRM pricing &rarr;';
+    smSummary.innerHTML = `
+      <div class="summary-card card-lowest">
+        <div class="summary-label">Lowest Year-1 Total for ${u} User${u === 1 ? '' : 's'}</div>
+        <div class="summary-metric" style="color:var(--emerald);">$${lowYr.toLocaleString()} / yr &middot; ${lowName}</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">${lowestIsPipe ? `$${pipeYr.toLocaleString()} licenses (${u} exact seat${u===1?'':'s'}) + $0 onboarding` : `$${monYr.toLocaleString()} licenses (${monSeats}-seat bucket) + $0 onboarding`}</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> ${lowestIsPipe ? 'Pipedrive bills strictly 1:1 per active user with no seat-bucket padding.' : `At ${u} users, monday CRM's ${monSeats}-seat bucket beats 1:1 per-seat pricing.`}</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="${lowUrl}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${lowVendor}" data-cta-location="summary-card">${lowCta}</a>
+        </div>
+      </div>
+      <div class="summary-card card-hidden">
+        <div class="summary-label">Seat-Bucket Padding Highlight (monday CRM)</div>
+        <div class="summary-metric" style="color:${unusedSeats > 0 ? 'var(--rose)' : 'var(--emerald)'};">$${monYr.toLocaleString()} / yr (${monSeats} billed seats)</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">$${(u * monRate * 12).toLocaleString()} active seats + $${unusedCostYr.toLocaleString()} unused seat padding</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${unusedSeats > 0 ? `monday CRM forces a ${monSeats}-seat bucket for ${u} user${u===1?'':'s'}, adding $${unusedCostYr.toLocaleString()}/yr for ${unusedSeats} unused seat${unusedSeats===1?'':'s'} ($${(monMo / u).toFixed(2)}/user/mo effective rate).` : `At exactly ${u} users, you use 100% of monday CRM's ${monSeats}-seat bucket ($0 wasted seat padding).`}</div>
+        <div class="summary-actions">
+          <a class="btn-secondary" href="https://monday.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="monday-crm" data-cta-location="summary-card">View monday CRM pricing &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-highest">
+        <div class="summary-label">HubSpot Comparison (${tier === 'entry' ? 'Starter' : 'Professional'})</div>
+        <div class="summary-metric">$${hsYr.toLocaleString()} / yr</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">$${(hsMo * 12).toLocaleString()} licenses + $${hsOnboard.toLocaleString()} mandatory onboarding</div>
+        <div class="summary-caveat"><strong>Contract note:</strong> ${hsOnboard > 0 ? 'Includes mandatory $1,500 Sales Hub Pro onboarding fee and 12-month commitment.' : 'Starter tier has $0 onboarding fee but limited automation.'}</div>
+        <div class="summary-actions">
+          <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
+          <a class="summary-audit-link" href="../../pricing/hubspot-true-cost-and-onboarding-fees/" data-track="internal-audit">Read HubSpot onboarding audit &rarr;</a>
+        </div>
+      </div>
+    `;
+  }
+
   document.getElementById('sm-tbody').innerHTML = `
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
       <td data-label="Advertised Price" style="font-family:var(--mono);">$${pipeRate}/seat/mo</td>
       <td data-label="Billed Seats"><span class="badge badge-low">${u} seat(s) (exact 1:1)</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${pipeRate.toFixed(2)} / user / mo</td>
-      <td data-label="Total Annual Bill" class="price-highlight">$${(pipeMo * 12).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow sponsored">${u <= 2 ? 'Best for 1–2 users &rarr;' : 'Try Pipedrive &rarr;'}</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${pipeYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>monday CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://monday.com/pricing" target="_blank" rel="noopener">monday.com pricing &nearr;</a></div></td>
       <td data-label="Advertised Price" style="font-family:var(--mono);">$${monRate}/seat/mo</td>
       <td data-label="Billed Seats"><span class="badge ${monSeats > u ? 'badge-medium' : 'badge-low'}">${monSeats} seats (${monSeats - u} unused)</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${(monMo / u).toFixed(2)} / user / mo</td>
-      <td data-label="Total Annual Bill" class="price-highlight">$${(monMo * 12).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://monday.com/pricing" target="_blank" rel="nofollow sponsored">${u >= 3 ? 'Best value at 3+ users &rarr;' : 'See monday CRM &rarr;'}</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${monYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://monday.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="monday-crm" data-cta-location="table-row">View monday CRM pricing &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>HubSpot Sales Hub (${tier === 'entry' ? 'Starter' : 'Professional'})</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
       <td data-label="Advertised Price" style="font-family:var(--mono);">$${hsRate}/seat/mo</td>
       <td data-label="Billed Seats"><span class="badge ${hsOnboard > 0 ? 'badge-high' : 'badge-low'}">${u} seat(s) ${hsOnboard > 0 ? '+ $1,500 onboarding' : ''}</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${((hsMo + hsOnboard / 12) / u).toFixed(2)} / user / mo</td>
-      <td data-label="Total Annual Bill" class="price-highlight">$${(hsMo * 12 + hsOnboard).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow sponsored">HubSpot pricing &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${hsYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a></td>
     </tr>
   `;
 }
@@ -320,6 +409,8 @@ p5_body = """
       <input type="range" id="soc-disc" min="0" max="50" step="5" value="35" />
     </div>
   </div>
+  <div id="soc2-summary" class="summary-strip" aria-live="polite"></div>
+  <p class="summary-interpretation"><strong>Verified vs. Estimated (Benchmark) note:</strong> Self-serve HIPAA BAA and SAML SSO tiers below (Jotform Gold, 1Password Business, Zendesk, Help Scout, HubSpot) are <span class="status-pill status-verified">Verified</span> against published vendor pricing. SOC 2 platform and CPA auditor figures are <span class="status-pill status-estimated">Estimated (Benchmark)</span> from buyer contract ranges because Vanta, Drata, and CPA firms quote custom packages.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>2026 SOC 2 Type II &amp; HIPAA Automation Total Cost Estimator: Vanta vs. Drata vs. Comp AI (USD, benchmarked Oct 25, 2026)</caption>
@@ -363,7 +454,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
           <td data-label="Min SAML SSO Tier">Enterprise (Multi-user SAML)</td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
-          <td data-label="Details"><a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow sponsored">Jotform HIPAA &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="table-row">Check Jotform HIPAA plans &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -374,7 +465,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Business ($8.99/user/mo annual)</span></td>
           <td data-label="Min SAML SSO Tier"><span class="badge badge-low">Business ($8.99/user/mo annual &middot; no SSO tax)</span></td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; ISO 27001</td>
-          <td data-label="Details"><a class="btn-cta" href="https://1password.com/pricing/business" target="_blank" rel="nofollow sponsored">1Password Business &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-cta" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="table-row">View 1Password pricing &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -385,7 +476,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-medium">Suite Professional ($115/agent/mo)</span></td>
           <td data-label="Min SAML SSO Tier">Listed across Suite plans</td>
           <td data-label="SOC 2 Status">SOC 2 Type II</td>
-          <td data-label="Details"><a class="btn-secondary" href="../pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk audit &rarr;</a></td>
+          <td data-label="Next Step"><a class="btn-secondary" href="../pricing/zendesk-ai-resolution-and-automated-outcome-cost/" data-track="internal-audit">Zendesk audit &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -396,7 +487,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-medium">Pro ($75/user/mo, 10-user min)</span></td>
           <td data-label="Min SAML SSO Tier">Pro or Plus add-on</td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
-          <td data-label="Details"><a class="btn-cta" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow sponsored">Help Scout &rarr;</a><span class="partner-tag">Partner link</span></td>
+          <td data-label="Next Step"><a class="btn-cta" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="help-scout-plus" data-cta-location="table-row">Check Help Scout plans &rarr;</a></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -435,30 +526,76 @@ function updateSocCalc() {
   const drataList = Math.round(9000 * sizeMult * fwMult);
   const drataNeg = Math.round(drataList * (1 - disc));
   const compAiCost = Math.round(3600 * sizeMult * (fwMult > 1 ? 1.2 : 1.0));
+  const fwSelect = document.getElementById('soc-fw');
+  const fwLabel = fwSelect.options[fwSelect.selectedIndex].text;
+  const scenarioLine = `Based on ${emp} employees, ${fwLabel}, ${Math.round(disc * 100)}% negotiated discount (Estimated benchmark)`;
+  const vantaTot = vantaNeg + auditorFee;
+  const drataTot = drataNeg + auditorFee;
+  const compTot = compAiCost + auditorFee;
+  const auditSharePct = Math.round((auditorFee / drataTot) * 100);
+
+  const socSummary = document.getElementById('soc2-summary');
+  if (socSummary) {
+    socSummary.innerHTML = `
+      <div class="summary-card card-hidden">
+        <div class="summary-label">Hidden Cost Highlight: Separate CPA Auditor Bill</div>
+        <div class="summary-metric" style="color:var(--rose);">+$${auditorFee.toLocaleString()} / yr CPA Audit Fee</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">Billed separately by an independent AICPA-licensed CPA firm (${auditSharePct}% of total Drata Year-1 budget)</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Vanta and Drata quotes cover software automation only&mdash;your external CPA auditor report ($6,500&ndash;$15,000+) is never included in the platform subscription.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="summary-card">View Vanta pricing &rarr;</a>
+          <a class="summary-audit-link" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="summary-card">Explore Drata platform &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-lowest">
+        <div class="summary-label">Negotiated Vanta vs. Drata Benchmark</div>
+        <div class="summary-metric">$${drataTot.toLocaleString()} &ndash; $${vantaTot.toLocaleString()} / yr Total</div>
+        <div class="summary-scenario">${scenarioLine}</div>
+        <div class="summary-breakdown">Drata: $${drataNeg.toLocaleString()} SW + $${auditorFee.toLocaleString()} CPA &middot; Vanta: $${vantaNeg.toLocaleString()} SW + $${auditorFee.toLocaleString()} CPA</div>
+        <div class="summary-caveat"><strong>Caveat:</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span> Custom quotes vary by cloud integrations and multi-year lock-in; 60-day non-renewal notice is standard.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="summary-card">Explore Drata platform &rarr;</a>
+        </div>
+      </div>
+      <div class="summary-card card-highest">
+        <div class="summary-label">Verified Self-Serve HIPAA BAA &amp; SSO Options</div>
+        <div class="summary-metric" style="color:var(--emerald);">Jotform Gold ($99/mo) &middot; 1Password ($8.99/u)</div>
+        <div class="summary-scenario">Verified published self-serve tiers (no Enterprise quote required)</div>
+        <div class="summary-breakdown">Jotform Gold: $1,188/yr (1-user HIPAA BAA) &middot; 1Password Business: $107.88/user/yr (SAML SSO incl.)</div>
+        <div class="summary-caveat"><strong>Verified terms:</strong> Both plans publish transparent self-serve pricing without $20k+ Enterprise gating.</div>
+        <div class="summary-actions">
+          <a class="btn-cta" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="summary-card">Check Jotform HIPAA plans &rarr;</a>
+          <a class="summary-audit-link" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="summary-card">View 1Password pricing &rarr;</a>
+        </div>
+      </div>
+    `;
+  }
+
   document.getElementById('soc-tbody').innerHTML = `
     <tr>
       <td data-label="Compliance Platform"><strong>Vanta</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span><div class="source-inline">Source: <a href="https://www.vanta.com/pricing" target="_blank" rel="noopener">Vanta packages &nearr;</a></div></td>
       <td data-label="Est. List Quote" style="font-family:var(--mono);">$${vantaList.toLocaleString()}/yr</td>
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${vantaNeg.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(vantaNeg + auditorFee).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow sponsored">Request Vanta quote &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${vantaTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="table-row">View Vanta pricing &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="Compliance Platform"><strong>Drata</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span><div class="source-inline">Source: <a href="https://drata.com/" target="_blank" rel="noopener">Drata plans &nearr;</a></div></td>
       <td data-label="Est. List Quote" style="font-family:var(--mono);">$${drataList.toLocaleString()}/yr</td>
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${drataNeg.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(drataNeg + auditorFee).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow sponsored">Request Drata quote &rarr;</a><span class="partner-tag">Partner link</span></td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${drataTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="table-row">Explore Drata platform &rarr;</a></td>
     </tr>
     <tr>
       <td data-label="Compliance Platform"><strong>Comp AI / Openlane (Startup benchmark)</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span></td>
       <td data-label="Est. List Quote" style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
-      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${(compAiCost + auditorFee).toLocaleString()} / yr</td>
-      <td data-label="Compare"><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow noopener">Compare Comp AI &rarr;</a><span class="partner-tag">Direct vendor link</span></td>
+      <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${compTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="comp-ai" data-cta-location="table-row">View Comp AI pricing &rarr;</a></td>
     </tr>
   `;
 }
