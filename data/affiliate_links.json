@@ -95,9 +95,11 @@
     "commission": "$50 to $3,000 cash bonus per referred business OR 30% of Whop fee revenue",
     "cookie_days": 60,
     "official_program_url": "https://whop.com/network/referrals/",
-    "tracking_url": "/go/whop",
-    "destination_url": "https://whop.com/sell",
-    "is_affiliate": true
+    "tracking_url": "https://whop.com/sell?a=baggyprairieae",
+    "destination_url": "https://whop.com/sell?a=baggyprairieae",
+    "is_affiliate": true,
+    "status": "active (referral parameter ?a=baggyprairieae live on saasbill.io)",
+    "applied_date": "2026-10-26"
   },
   "chargeflow": {
     "program_name": "Chargeflow Partner Program",
