@@ -17,7 +17,10 @@
     "official_program_url": "https://close.com/partners",
     "tracking_url": "/go/close-crm",
     "destination_url": "https://close.com/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "pipedrive": {
     "program_name": "Pipedrive Affiliate Partnership",
@@ -27,7 +30,10 @@
     "official_program_url": "https://www.pipedrive.com/en/affiliate-partnership",
     "tracking_url": "/go/pipedrive",
     "destination_url": "https://www.pipedrive.com/en/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "monday": {
     "program_name": "monday.com Affiliate Program",
@@ -37,7 +43,10 @@
     "official_program_url": "https://monday.com/affiliate-program",
     "tracking_url": "/go/monday-crm",
     "destination_url": "https://monday.com/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "intercom": {
     "program_name": "Intercom Partner Program",
@@ -61,9 +70,11 @@
     "signup_url": "https://market.partnerstack.com/page/freshworks4391",
     "terms_url": "https://www.freshworks.com/company/affiliate-partner/terms-and-conditions/",
     "restrictions": "No PPC bidding on Freshworks brand keywords without permission; no coupon/spam traffic",
-    "status": "not applied",
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
     "verified_date": "2026-10-25",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "stripe": {
     "program_name": "Stripe Partner Ecosystem",
@@ -133,7 +144,10 @@
     "official_program_url": "https://market.partnerstack.com/program/1password",
     "tracking_url": "/go/1password",
     "destination_url": "https://1password.com/pricing/business",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "vanta": {
     "program_name": "Vanta Referral Program",
@@ -143,7 +157,10 @@
     "official_program_url": "https://market.partnerstack.com/program/vanta",
     "tracking_url": "/go/vanta",
     "destination_url": "https://www.vanta.com/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "drata": {
     "program_name": "Drata Referral Program",
@@ -153,7 +170,10 @@
     "official_program_url": "https://market.partnerstack.com/program/drata",
     "tracking_url": "/go/drata",
     "destination_url": "https://drata.com/",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "help-scout": {
     "program_name": "Help Scout Affiliate Program",
@@ -165,9 +185,11 @@
     "restrictions": "No pay-per-click ads; no coupon/discount sites",
     "tracking_url": "/go/help-scout",
     "destination_url": "https://www.helpscout.com/pricing/",
-    "status": "not applied",
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
     "verified_date": "2026-10-25",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
   "zendesk": {
     "program_name": "Zendesk Marketing Affiliates",
@@ -180,9 +202,11 @@
     "restrictions": "Existing Zendesk partners/resellers/consultants not accepted",
     "tracking_url": "/go/zendesk",
     "destination_url": "https://www.zendesk.com/pricing/",
-    "status": "not applied",
+    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
     "verified_date": "2026-10-25",
     "editorial_note": "Optional: page is critical of Zendesk AI pricing; joining is compatible but disclose clearly.",
-    "is_affiliate": false
+    "is_affiliate": false,
+    "applied_date": "2026-10-25",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   }
 }
