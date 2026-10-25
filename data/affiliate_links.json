@@ -137,7 +137,10 @@
     "official_program_url": "https://www.jotform.com/partnership/affiliate/",
     "tracking_url": "/go/jotform-hipaa",
     "destination_url": "https://www.jotform.com/hipaa/pricing/",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (Direct Partner Team review within 1 business day, submitted 2026-10-26)",
+    "applied_date": "2026-10-26",
+    "expected_response_window": "2026-10-26 to 2026-10-27 (1 business day)"
   },
   "1password": {
     "program_name": "1Password Affiliate Program",
