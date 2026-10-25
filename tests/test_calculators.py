@@ -264,6 +264,78 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn("seats * 55", ic_html)
         self.assertIn("fdMonthlyPacks * 49", ic_html)
 
+    def test_handoff2_conversion_ux_and_honest_ctas(self):
+        """Verify Handoff 2 conversion & UX requirements across all 7 generated HTML pages."""
+        pages = [
+            "index.html",
+            "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
+            "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
+            "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
+            "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
+            "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+        ]
+        summary_ids = {
+            "index.html": "calc-summary-strip",
+            "pricing/hubspot-true-cost-and-onboarding-fees/index.html": "hs-summary",
+            "pricing/intercom-fin-ai-resolution-cost-calculator/index.html": "ic-summary",
+            "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html": "hold-summary",
+            "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html": "sm-summary",
+            "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html": "soc2-summary",
+            "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html": "zd-summary",
+        }
+        forbidden_phrases = [
+            "Partner link",
+            "Direct vendor link",
+            "sponsored",
+            "Check pricing",
+            "Try Close free",
+            "Try Pipedrive free",
+            "Try Freshdesk free",
+            "Try Help Scout free",
+            "Request Vanta quote",
+            "Request Drata quote",
+            "Add Whop failover",
+            "Install Chargeflow",
+        ]
+        for rel in pages:
+            full_path = os.path.join(PUBLIC_DIR, rel)
+            with open(full_path) as f:
+                html = f.read()
+            for phrase in forbidden_phrases:
+                self.assertNotIn(phrase, html, f"Forbidden phrase '{phrase}' found in {rel}")
+            self.assertIn(f'id="{summary_ids[rel]}"', html, f"Missing summary strip #{summary_ids[rel]} in {rel}")
+            self.assertIn("Based on ", html, f"Missing scenario description ('Based on ...') in {rel}")
+            self.assertIn("Hidden Cost Highlight:", html, f"Missing 'Hidden Cost Highlight:' in {rel}")
+            self.assertIn('data-track="vendor-cta"', html, f"Missing data-track='vendor-cta' in {rel}")
+
+        # Verify homepage pre-filled category tabs and vendor-specific CTA dictionary
+        with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
+            index_html = f.read()
+        self.assertIn('class="cat-tabs"', index_html)
+        self.assertIn('data-track="category-select"', index_html)
+        self.assertIn('<option value="Helpdesk & AI Support" selected>', index_html)
+        for expected_cta in [
+            "View HubSpot pricing",
+            "Check Close pricing",
+            "Explore Pipedrive plans",
+            "View monday CRM pricing",
+            "Check Intercom pricing",
+            "View Freshdesk plans",
+            "View Zendesk pricing",
+            "Check Help Scout plans",
+            "View Vanta pricing",
+            "Explore Drata platform",
+            "Check Jotform HIPAA plans",
+            "View 1Password pricing",
+            "View Stripe pricing",
+            "Explore Whop Payments",
+            "Check Chargeflow pricing",
+            "View Paddle pricing",
+            "View Lemon Squeezy pricing",
+        ]:
+            self.assertIn(expected_cta, index_html, f"Missing specific CTA '{expected_cta}' in index.html")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
