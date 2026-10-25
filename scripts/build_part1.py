@@ -178,92 +178,79 @@ home_body = f"""
   </p>
 </section>
 
-<!-- Category Benchmarks & Horizontal Stacked Bar Reference -->
-<section class="supporting-audit-details" aria-label="Category Cost Summary and Horizontal Breakdown">
-  <div id="calc-summary-strip" class="summary-strip" aria-live="polite"></div>
-  <p id="calc-summary-note" class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost does not automatically mean best fit&mdash;verify plan limits, seat minimums, and contract lock-in before choosing.</p>
-
-  <div id="calc-viz-panel" class="viz-panel" aria-label="Year-1 Cost Composition Stacked Bar Chart">
-    <div class="viz-header">
-      <div class="viz-title">Category-Wide Year-1 Cost Composition (USD)</div>
-      <div class="viz-legend">
-        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-seats);"></span>Base licenses / seats</span>
-        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-onboarding);"></span>Mandatory onboarding fee</span>
-        <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-ai);"></span>Metered AI overages</span>
-      </div>
+<section id="all-calculators" class="editorial-below-section">
+  <div class="gap-eyebrow">Specialized Simulators</div>
+  <h2>Deep-dive calculators &amp; contract audits</h2>
+  <p class="gap-subhead">Dedicated models for onboarding tiers, AI resolution packs, payout reserve holds, and SOC 2 audit quotes.</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge badge-high">CRM &amp; Sales &middot; Onboarding Tiers</span>
+      <h3><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot Year-1 calculator &amp; onboarding audit</a></h3>
+      <p>Model Sales Pro, Marketing Pro, and Enterprise onboarding fees alongside Close CRM and Pipedrive for 1 to 30 reps.</p>
     </div>
-    <div id="calc-viz-rows" class="viz-rows"></div>
+    <div class="card">
+      <span class="badge badge-medium">CRM &amp; Sales &middot; Seat Buckets</span>
+      <h3><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">monday CRM 3/5/10-seat bucket calculator</a></h3>
+      <p>See the exact headcount thresholds where monday CRM&rsquo;s fixed seat blocks cost more&mdash;or less&mdash;than 1:1 per-seat CRMs.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">Helpdesk &amp; AI &middot; Fin AI Meter</span>
+      <h3><a href="./pricing/intercom-fin-ai-resolution-cost-calculator/">Intercom Fin ($0.99/resolution) cost simulator</a></h3>
+      <p>Test how monthly ticket volume and AI resolution rate scale your Intercom bill versus Freshdesk Freddy AI session packs.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">Helpdesk &amp; AI &middot; Outcome Tiers</span>
+      <h3><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk AI automated resolution overage calculator</a></h3>
+      <p>Compare Zendesk&rsquo;s included 5&ndash;10 AR/agent allowance and $1.50&ndash;$2.00 overage rates against Help Scout and Freshdesk.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">Payments &amp; MoR &middot; Cashflow Risk</span>
+      <h3><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Stripe, Shopify &amp; Paddle payout hold simulator</a></h3>
+      <p>Simulate a 25% rolling reserve and capital loan holdback, and compare card-token portability across payment rails.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-low">Compliance &middot; HIPAA &amp; SOC 2</span>
+      <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA tiers &amp; SOC 2 + CPA auditor estimator</a></h3>
+      <p>Check self-serve HIPAA BAA and SAML SSO plans and estimate negotiated Vanta/Drata quotes plus external CPA audit fees.</p>
+    </div>
   </div>
 </section>
 
-<div class="geo-direct-answer">
-  <p><strong>Key audit takeaway:</strong> Across the 20 B2B software and payment platforms in our 2026 dataset, mandatory onboarding fees ($1,500–$7,000 on HubSpot Professional and Enterprise), seat-bucket minimums (3 seats minimum on monday CRM), and outcome-based AI meters ($0.99 per Fin AI resolution on Intercom; $1.50 committed or $2.00 pay-as-you-go per automated resolution above allowance on Zendesk) push actual Year-1 spend <strong>28% to 310% above advertised per-seat rates</strong>.</p>
-</div>
+<section class="editorial-below-section">
+  <div class="gap-eyebrow">Beyond the Calculator</div>
+  <h2>Three contract clauses that never show up on a pricing page</h2>
+  <div class="methodology-grid fine-print-grid">
+    <div class="methodology-item">
+      <strong>1. 30–60 Day Auto-Renewal Locks</strong>
+      Annual SaaS order forms (including HubSpot and Zendesk) typically disallow mid-term seat downgrades and require written non-renewal notice 30 to 60 days before term end&mdash;or the contract auto-renews at list rate.
+    </div>
+    <div class="methodology-item">
+      <strong>2. Card-Vault Ownership &amp; Rolling Reserves</strong>
+      Direct processors (Stripe, Whop) let you export card tokens if you face a 25% rolling reserve. Merchants of Record (Paddle, Lemon Squeezy) are the legal seller of record and lock subscriber card tokens on termination.
+    </div>
+    <div class="methodology-item">
+      <strong>3. SOC 2 Platform vs. External CPA Fees</strong>
+      Compliance automation quotes (Vanta, Drata) are routinely negotiated down 30%&ndash;50% from list price, but never include the mandatory $6,500&ndash;$15,000+ independent CPA penetration and audit fee.
+    </div>
+  </div>
+</section>
 
 <section id="methodology" class="methodology-box" aria-labelledby="methodology-heading">
   <h2 id="methodology-heading" style="margin-top:0;">How we calculate &amp; verify Year-1 costs</h2>
-  <p style="color:var(--muted); font-size:0.94rem;">Every figure on SaaSBill is computed from deterministic formulas and linked directly to the vendor’s published pricing page, help-center billing documentation, or Master Subscription Agreement (MSA).</p>
+  <p style="color:var(--muted); font-size:0.94rem;">Every figure on SaaSBill is computed from deterministic formulas and linked directly to the vendor&rsquo;s published pricing page, help-center billing documentation, or Master Subscription Agreement (MSA).</p>
   <div class="methodology-grid">
     <div class="methodology-item">
       <strong>1. Year-1 Total Formula</strong>
-      <code>Year-1 Total = (12 &times; Billed Monthly Seats) + Mandatory Onboarding + (12 &times; Net AI Overage)</code>. Seat minimums (such as monday CRM’s 3/5/10/15 buckets) and included AI allowances (such as Zendesk’s 5–10 AR/agent/mo and Freshdesk’s 500 one-time sessions) are applied automatically.
+      <code>Year-1 Total = (12 &times; Billed Monthly Seats) + Mandatory Onboarding + (12 &times; Net AI Overage)</code>. Seat minimums and included AI allowances are applied automatically based on your slider inputs.
     </div>
     <div class="methodology-item">
       <strong>2. Verification Status Badges</strong>
       <span class="status-pill status-verified">Verified</span> indicates published self-serve pricing and contract terms checked directly against official vendor docs on Oct 25, 2026.<br/>
-      <span class="status-pill status-estimated">Estimated (Benchmark)</span> indicates non-public, sales-quoted pricing (such as Vanta and Drata) modeled from verified buyer contract benchmarks.
+      <span class="status-pill status-estimated">Estimated (Benchmark)</span> indicates non-public, sales-quoted pricing modeled from verified buyer contract benchmarks.
     </div>
     <div class="methodology-item">
-      <strong>3. Editorial Independence &amp; Direct Pricing Links</strong>
-      Every CTA button links directly to the vendor&rsquo;s official pricing or product page (`rel="nofollow noopener"`), alongside a separate primary-source link for contract verification. Calculations and sort order are strictly mathematical. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>What we found reading the fine print</h2>
-  <p class="section-tldr">Before signing an annual SaaS order form, check four clauses that rarely appear on the public pricing grid: mandatory onboarding fees, seat-bucket minimums, uncapped AI resolution meters, and 30-to-60 day non-renewal notice deadlines.</p>
-  <ul class="key-list">
-    <li><strong>HubSpot’s onboarding fee adds 28% to a 5-seat Sales Pro deal:</strong> HubSpot Sales Hub Professional ($90/seat/month billed annually) requires a mandatory <strong>$1,500 onboarding fee</strong> ($3,500 on Enterprise), bringing five seats to <strong>$6,900 in Year 1</strong> compared with <strong>$2,940/year</strong> on Pipedrive Professional ($0 onboarding).</li>
-    <li><strong>Intercom and Zendesk AI meters can exceed your seat bill:</strong> At 3,000 monthly support conversations with 50% AI resolution (1,500 resolutions/month), Intercom Fin ($0.99/resolution) adds <strong>$1,485/month ($17,820/year)</strong> on top of agent seats. Zendesk Suite includes only 5–10 automated resolutions per agent/month before charging <strong>$1.50 committed or $2.00 pay-as-you-go</strong> per verified resolution.</li>
-    <li><strong>monday CRM’s 3-seat minimum triples the price for solo founders:</strong> A single user on monday CRM Basic ($12/seat/month billed annually, $18/seat/month billed monthly) or Standard ($17/seat/month annual, $25/seat/month monthly) must pay for three seats (<strong>$36–$51/month annual or $54–$75/month monthly</strong>), whereas Pipedrive Lite/Essential bills one seat at <strong>$14/month ($168/year)</strong>. The math flips in monday CRM’s favor at exactly 3, 5, or 10 users.</li>
-    <li><strong>Merchant of Record platforms own your card vault:</strong> Stripe and Shopify Payments can hold payouts for <strong>120–180 days</strong> or apply a <strong>25% rolling reserve</strong> on risk flags, but you own the customer relationship. With a Merchant of Record like Paddle (5% + $0.50), Paddle is the seller of record—if Paddle terminates your account on a risk review, you cannot export subscriber card tokens.</li>
-    <li><strong>Self-serve HIPAA BAAs exist if you know where to look:</strong> Jotform signs a HIPAA Business Associate Agreement on its self-serve Gold plan (<strong>$99/month billed annually, $129/month monthly, 1-user account</strong>), and 1Password Business includes SAML SSO at <strong>$8.99/user/month billed annually ($107.88/year; $10.99/user/month monthly)</strong> with no Enterprise SSO markup. Meanwhile, Vanta and Drata list quotes ($9k–$15k+/year) are routinely negotiated down by <strong>30%–50%</strong> and never include the separate <strong>$6,500–$15,000+ CPA auditor fee</strong>.</li>
-  </ul>
-</section>
-
-<section id="all-calculators">
-  <h2>All calculators &amp; contract audits</h2>
-  <div class="card-grid">
-    <div class="card">
-      <span class="badge badge-high">CRM &amp; Sales &middot; $1,500–$7,000 Onboarding</span>
-      <h3><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">What HubSpot actually costs in Year 1 (once you add onboarding)</a></h3>
-      <p>How HubSpot’s mandatory $1,500–$7,000 onboarding fees and 12-month auto-renewing contracts work in practice, plus how Close CRM and Pipedrive compare for 1 to 30 reps.</p>
-    </div>
-    <div class="card">
-      <span class="badge badge-medium">CRM &amp; Sales &middot; 3-Seat Minimum Math</span>
-      <h3><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">Why a "$12/seat" CRM costs $36 a month for a solo founder</a></h3>
-      <p>monday CRM bills in fixed buckets of 3, 5, 10, and 15 seats. Run the 1-to-15 user calculator to see where Pipedrive wins and where monday CRM takes the lead.</p>
-    </div>
-    <div class="card">
-      <span class="badge badge-high">Helpdesk &amp; AI &middot; $0.99 / Resolution</span>
-      <h3><a href="./pricing/intercom-fin-ai-resolution-cost-calculator/">What Intercom’s $0.99 AI resolution fee does to your support bill</a></h3>
-      <p>Model how Intercom’s $0.99 Fin AI outcome meter and $9.99 sales qualification charge scale your monthly invoice compared with Freshdesk.</p>
-    </div>
-    <div class="card">
-      <span class="badge badge-high">Helpdesk &amp; AI &middot; $1.50–$2.00 / Resolution</span>
-      <h3><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">What Zendesk’s $1.50–$2.00 AI resolution fee adds to your invoice</a></h3>
-      <p>Zendesk Suite includes only 5–10 automated resolutions per agent each month, and $2.00 pay-as-you-go overage is enabled by default. Compare against Freshdesk and Help Scout.</p>
-    </div>
-    <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; 180-Day Holds</span>
-      <h3><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">What happens when Stripe, Shopify, or Paddle freezes your payouts</a></h3>
-      <p>Simulate a 25% rolling reserve plus capital loan deduction, check card-token portability between processors and Merchants of Record, and set up Whop + Chargeflow failover.</p>
-    </div>
-    <div class="card">
-      <span class="badge badge-low">Compliance &middot; HIPAA BAA &amp; SOC 2</span>
-      <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">Which software plans actually sign a HIPAA BAA (and what SOC 2 costs)</a></h3>
-      <p>Find self-serve HIPAA BAA and SAML SSO tiers (Jotform Gold, 1Password Business) and calculate negotiated Vanta/Drata platform costs plus external CPA auditor fees.</p>
+      <strong>3. Editorial Independence &amp; Sources</strong>
+      Every CTA button links directly to the vendor&rsquo;s official pricing page (<code>rel="nofollow noopener"</code>), alongside a primary-source link for contract verification. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
     </div>
   </div>
 </section>

@@ -202,8 +202,8 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
         with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
             index_html = f.read()
-        self.assertIn('id="calc-viz-panel"', index_html)
-        self.assertIn('class="viz-seg-seats"', index_html)
+        self.assertIn('id="wb-vbar-mount"', index_html)
+        self.assertIn('id="wb-result-mount"', index_html)
         self.assertIn('id="methodology"', index_html)
         self.assertIn("mobile-cards", index_html)
         self.assertIn('data-label="Platform"', index_html)
@@ -276,7 +276,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
         ]
         summary_ids = {
-            "index.html": "calc-summary-strip",
+            "index.html": "wb-result-mount",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html": "hs-summary",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html": "ic-summary",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html": "hold-summary",
