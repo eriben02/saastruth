@@ -5,8 +5,8 @@ from datetime import datetime
 BASE_DIR = "/workspace/saastruth"
 DATA_DIR = os.path.join(BASE_DIR, "data")
 PUBLIC_DIR = os.path.join(BASE_DIR, "public")
-SITE_ORIGIN = "https://eriben02.github.io/saastruth"
-BASE_PATH = "/saastruth"
+SITE_ORIGIN = "https://saasbill.io"
+BASE_PATH = ""
 
 def get_freshness_timestamps():
     now_local = datetime.now().astimezone()

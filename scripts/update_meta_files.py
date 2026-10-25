@@ -27,6 +27,10 @@ def generate_meta_files(extra_urls=None):
 
     with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), "w") as f:
         f.write(sitemap_xml)
+    with open(os.path.join(PUBLIC_DIR, "CNAME"), "w") as f:
+        f.write("saasbill.io\n")
+    with open("/workspace/saastruth/CNAME", "w") as f:
+        f.write("saasbill.io\n")
 
     robots_txt = f"""# SaaSTruth ({SITE_ORIGIN}) - GEO & AI Search Optimized robots.txt
 # Last Updated: {iso_datetime}
@@ -76,7 +80,6 @@ User-agent: *
 Allow: /
 
 Sitemap: {SITE_ORIGIN}/sitemap.xml
-Sitemap: https://eriben02.github.io/sitemap.xml
 """
     with open(os.path.join(PUBLIC_DIR, "robots.txt"), "w") as f:
         f.write(robots_txt)
