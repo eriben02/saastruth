@@ -11,6 +11,7 @@
 4. **Stripe, Shopify Payments & Paddle 180-Day Payout Holds & Token Portability:** [`/saastruth/exit/stripe-shopify-paddle-frozen-funds-alternatives/`](https://eriben02.github.io/saastruth/exit/stripe-shopify-paddle-frozen-funds-alternatives/)
 5. **Monday CRM vs. Pipedrive vs. HubSpot (3-Seat Minimum Bucket Math):** [`/saastruth/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/`](https://eriben02.github.io/saastruth/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/)
 6. **HIPAA BAA & SOC 2 Type II SaaS Tier Matrix & Negotiation Calculator:** [`/saastruth/compliance/hipaa-baa-and-soc2-pricing-tiers/`](https://eriben02.github.io/saastruth/compliance/hipaa-baa-and-soc2-pricing-tiers/)
+7. **Zendesk AI Outcome Pricing Calculator ($1.50–$2.00 per Automated Resolution) vs. Freshdesk & Help Scout:** [`/saastruth/pricing/zendesk-ai-resolution-and-automated-outcome-cost/`](https://eriben02.github.io/saastruth/pricing/zendesk-ai-resolution-and-automated-outcome-cost/) — published 2026-10-25
 
 ## Machine-Readable AI & Search Endpoints
 - [`/saastruth/llms.txt`](https://eriben02.github.io/saastruth/llms.txt)
