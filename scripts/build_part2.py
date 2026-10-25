@@ -47,45 +47,23 @@ p3_body = """
       <thead>
         <tr>
           <th>Provider</th>
-          <th>Model &amp; Base Rate</th>
+          <th>Estimated Monthly Processing Fees ($50k/mo Ex.)</th>
+          <th>Potential Funds Temporarily Held (25% Reserve Scenario)</th>
           <th>Who Owns Subscriber Card Tokens?</th>
-          <th>Hold / Reserve Policy on Risk Flags</th>
-          <th>Next Step</th>
+          <th>Official Pricing</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td data-label="Provider">
-            <strong>Whop Payments &amp; Orchestration</strong>
-            <span class="status-pill status-verified">Verified</span>
-            <div class="source-inline">Source: <a href="https://whop.com/sell" target="_blank" rel="noopener">Whop Payments &nearr;</a></div>
-          </td>
-          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">2.7% + $0.30 domestic</td>
-          <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
-          <td data-label="Hold / Reserve Policy">Multi-processor waterfall routes around single-acquirer declines (~6% revenue lift); KYB deferred to $5k volume</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">Explore Whop Payments &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
-        </tr>
-        <tr>
-          <td data-label="Provider">
-            <strong>Chargeflow (Dispute Shield)</strong>
-            <span class="status-pill status-verified">Verified</span>
-            <div class="source-inline">Verified source: <a href="https://www.chargeflow.io/pricing" target="_blank" rel="noopener">Chargeflow pricing &nearr;</a></div>
-          </td>
-          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">Performance-based ($0 setup)</td>
-          <td data-label="Token Ownership"><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
-          <td data-label="Hold / Reserve Policy">Prevents 25% reserves &amp; 180-day freezes by intercepting pre-disputes to keep your chargeback rate under 0.5%</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="table-row">Check Chargeflow pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
-        </tr>
         <tr>
           <td data-label="Provider">
             <strong>Stripe</strong>
             <span class="status-pill status-verified">Verified</span>
             <div class="source-inline">Verified source: <a href="https://stripe.com/pricing" target="_blank" rel="noopener">Stripe pricing &amp; reserves &nearr;</a></div>
           </td>
-          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">2.9% + $0.30 (+0.7% Billing)</td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$2,325 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,750 base (2.9% + $0.30) + $575 Billing/FX</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% rolling reserve triggers (held 90&ndash;180 days, not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-low">Merchant owns tokens</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">PGP-encrypted card token export available unless terminated for fraud</div></td>
-          <td data-label="Hold / Reserve Policy">Automated underwriting can apply 25% rolling reserve (90&ndash;180 days) or 120&ndash;180 day payout freeze above ~0.5%&ndash;0.75% dispute ratio</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="table-row">View Stripe pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="table-row">View Stripe pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -93,10 +71,10 @@ p3_body = """
             <span class="status-pill status-verified">Verified</span>
             <div class="source-inline">Verified source: <a href="https://www.paddle.com/pricing" target="_blank" rel="noopener">Paddle pricing &amp; terms &nearr;</a></div>
           </td>
-          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50</td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$3,450 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$3,000 MoR (5.0% + $0.50) + $450 est. FX spread</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% payout hold triggers on risk review (not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
-          <td data-label="Hold / Reserve Policy">Can terminate accounts on internal risk review and hold unreleased payouts without appeal</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="table-row">View Paddle pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="table-row">View Paddle pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -104,10 +82,32 @@ p3_body = """
             <span class="status-pill status-verified">Verified</span>
             <div class="source-inline">Verified source: <a href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="noopener">Lemon Squeezy pricing &nearr;</a></div>
           </td>
-          <td data-label="Model &amp; Base Rate" style="font-family:var(--mono);">5.0% + $0.50 (+0.5% subs)</td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$3,475 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$3,000 MoR (5.0% + $0.50) + $475 sub/intl fees</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% reserve triggers under underlying Stripe risk rules (not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-medium">MoR vault (Stripe-backed)</span></td>
-          <td data-label="Hold / Reserve Policy">Subject to Stripe's prohibited business list and automated risk triggers</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="table-row">View Lemon Squeezy pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="table-row">View Lemon Squeezy pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+        </tr>
+        <tr>
+          <td data-label="Provider">
+            <strong>Whop Payments &amp; Orchestration</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Source: <a href="https://whop.com/sell" target="_blank" rel="noopener">Whop Payments &nearr;</a></div>
+          </td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$1,875 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,650 base (2.7% + $0.30) + $225 intl fee</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$0 single-PSP hold exposure</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Multi-acquirer waterfall routing mitigates single-processor freezes</div></td>
+          <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">View Whop Payments pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+        </tr>
+        <tr>
+          <td data-label="Provider">
+            <strong>Chargeflow (Dispute Shield)</strong>
+            <span class="status-pill status-verified">Verified</span>
+            <div class="source-inline">Verified source: <a href="https://www.chargeflow.io/pricing" target="_blank" rel="noopener">Chargeflow pricing &nearr;</a></div>
+          </td>
+          <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$500 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$0 platform fee + $350 recovery fee (25%) + $150 network fees</div></td>
+          <td data-label="Potential Funds Temporarily Held"><strong>$0 held (prevents reserves)</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Keeps dispute ratio &lt;0.5% to prevent $12,500/mo processor reserves</div></td>
+          <td data-label="Token Ownership"><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="table-row">View Chargeflow pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
         </tr>
       </tbody>
     </table>
@@ -137,50 +137,51 @@ function updateReserveSim() {
   const procFee = Math.round(rev * 0.029);
   const frozenMo = Math.round(rev * (resPct / 100));
   const loanDed = Math.round(rev * (capPct / 100));
-  const netCash = Math.max(0, rev - procFee - frozenMo - loanDed);
+  const tempHeld = frozenMo + loanDed;
+  const netCash = Math.max(0, rev - procFee - tempHeld);
   const frozen90Days = frozenMo * 3;
-  const totalHoldback = procFee + frozenMo + loanDed;
-  const holdbackPct = rev > 0 ? Math.round((totalHoldback / rev) * 100) : 0;
+  const heldPct = rev > 0 ? Math.round((tempHeld / rev) * 100) : 0;
   const scenarioLine = `Based on $${rev.toLocaleString()}/mo gross volume, ${resPct}% rolling reserve, ${capPct}% capital loan deduction`;
   const cardsHtml = `
     <div class="summary-card card-hidden">
-      <div class="summary-label">Cash Locked in Rolling Reserve (Hidden Holdback)</div>
-      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo ($${frozen90Days.toLocaleString()} over 90 days)</div>
+      <div class="summary-label">Potential Funds Temporarily Held (Not a Fee)</div>
+      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo held ($${frozen90Days.toLocaleString()} over 90 days)</div>
       <div class="summary-scenario">${scenarioLine}</div>
-      <div class="summary-breakdown">$${procFee.toLocaleString()} est. 2.9% fees + $${frozenMo.toLocaleString()} reserve hold + $${loanDed.toLocaleString()} loan deduction</div>
-      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${holdbackPct}% of gross monthly cashflow (-$${totalHoldback.toLocaleString()}/mo) is withheld before operating expenses.</div>
+      <div class="summary-breakdown"><strong>Estimated monthly processing fees:</strong> $${procFee.toLocaleString()}/mo (2.9%) &middot; <strong>Temporarily held:</strong> $${frozenMo.toLocaleString()}/mo reserve + $${loanDed.toLocaleString()}/mo loan deduction</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> A rolling reserve is a temporary cashflow holdback (90&ndash;180 days), not a permanent fee, but it withholds ${heldPct}% ($${tempHeld.toLocaleString()}/mo) of gross payouts before operating expenses.</div>
       <div class="summary-actions">
         <div class="cta-stack">
-          <a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Check Chargeflow pricing &rarr;</a>
+          <a class="btn-cta" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="summary-card">View Stripe pricing &rarr;</a>
           <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
       </div>
     </div>
     <div class="summary-card card-lowest">
-      <div class="summary-label">Net Monthly Payout Reaching Your Bank</div>
+      <div class="summary-label">Net Monthly Payout After Fees &amp; Temporary Holds</div>
       <div class="summary-metric" style="color:var(--emerald);">$${netCash.toLocaleString()} / mo</div>
       <div class="summary-scenario">${scenarioLine}</div>
-      <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${totalHoldback.toLocaleString()} total deductions = $${netCash.toLocaleString()} net</div>
-      <div class="summary-caveat"><strong>Failover strategy:</strong> Route backup volume through a multi-processor waterfall (Whop Payments, 2.7% + $0.30 domestic) to avoid single-acquirer freezes.</div>
+      <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${procFee.toLocaleString()} est. processing fees &minus; $${tempHeld.toLocaleString()} temporarily held = $${netCash.toLocaleString()} net</div>
+      <div class="summary-caveat"><strong>Why failover &amp; dispute defense matter:</strong> Pairing multi-acquirer routing (<strong>Whop Payments</strong>, 2.7% + $0.30) with automated pre-dispute alerts (<strong>Chargeflow</strong>, keeps dispute rate &lt;0.5%) prevents a single processor from freezing 100% of checkout cashflow.</div>
       <div class="summary-actions">
         <div class="cta-stack">
-          <a class="btn-cta" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">Explore Whop Payments &rarr;</a>
+          <a class="btn-secondary" href="https://whop.com/sell" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">View Whop Payments pricing &rarr;</a>
           <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
+        <a class="summary-audit-link" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">View Chargeflow pricing &rarr;</a>
       </div>
     </div>
     <div class="summary-card card-highest">
       <div class="summary-label">Token Portability &amp; MoR Caveat</div>
       <div class="summary-metric">Processor vs. Merchant of Record</div>
       <div class="summary-scenario">Contract &amp; vault ownership check (Verified terms)</div>
-      <div class="summary-breakdown">Stripe: 2.9% + $0.30 (portable tokens) &middot; Paddle MoR: 5.0% + $0.50 (locked vault)</div>
-      <div class="summary-caveat"><strong>Contract note:</strong> With Paddle MoR, Paddle is the legal seller of record&mdash;card tokens cannot be exported if your account is terminated on a risk review.</div>
+      <div class="summary-breakdown">Stripe: $2,325/mo est. fees at $50k/mo (portable tokens) &middot; Paddle MoR: $3,450/mo est. fees (locked vault)</div>
+      <div class="summary-caveat"><strong>Contract note:</strong> With Paddle or Lemon Squeezy MoR, the MoR is the legal seller of record&mdash;card tokens cannot be exported if your account is terminated on a risk review.</div>
       <div class="summary-actions">
         <div class="cta-stack">
-          <a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="summary-card">View Stripe pricing &rarr;</a>
+          <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
           <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
-        <a class="summary-audit-link" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
+        <a class="summary-audit-link" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="summary-card">View Lemon Squeezy pricing &rarr;</a>
       </div>
     </div>
   `;

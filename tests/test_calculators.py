@@ -353,23 +353,37 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
 
     def test_payment_processor_scenario_transparency_and_math_identity(self):
-        """Verify Payment Processors & MoR scenario profiles sum identically (b + s + h == total) and state assumptions."""
+        """Verify Payment Processors & MoR separate processing fees (b + s + h == total) from temporary reserves (held), unify CTAs, and tone down hero lead."""
         with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
             html = f.read()
+        self.assertIn("can significantly increase the real Year-1 cost", html)
+        self.assertNotIn("often doubling", html)
+        self.assertNotIn("Explore Whop Payments", html)
+
         m = re.search(r"const PAY_PROFILES = (\{.*?\n\});", html, re.S)
         self.assertIsNotNone(m, "Could not find PAY_PROFILES in public/index.html")
         runner = f"const PAY_PROFILES = {m.group(1)}; console.log(JSON.stringify(PAY_PROFILES));"
         res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
         profiles = json.loads(res.stdout)
-        expected_ids = {"stripe-payments", "paddle-mor", "whop-payments", "lemon-squeezy", "chargeflow"}
-        self.assertEqual(set(profiles.keys()), expected_ids)
-        for pid, p in profiles.items():
+        expected_totals_and_holds = {
+            "stripe-payments": (2325, 12500),
+            "paddle-mor": (3450, 12500),
+            "whop-payments": (1875, 0),
+            "lemon-squeezy": (3475, 12500),
+            "chargeflow": (500, 0),
+        }
+        self.assertEqual(set(profiles.keys()), set(expected_totals_and_holds.keys()))
+        for pid, (exp_total, exp_held) in expected_totals_and_holds.items():
+            p = profiles[pid]
             self.assertEqual(
                 p["b"] + p["s"] + p["h"],
                 p["total"],
-                f"Payment profile {pid} segments ({p['b']} + {p['s']} + {p['h']}) != total ({p['total']})",
+                f"Payment profile {pid} fee segments ({p['b']} + {p['s']} + {p['h']}) != total ({p['total']})",
             )
-            self.assertIn("Illustrative monthly scenario", p["quote"])
+            self.assertEqual(p["total"], exp_total, f"Unexpected fee total for {pid}")
+            self.assertEqual(p["held"], exp_held, f"Unexpected temporary reserve hold for {pid}")
+            self.assertIn("Estimated monthly processing fees:", p["quote"])
+            self.assertIn("Potential funds temporarily held:", p["quote"])
             self.assertIn("Assumptions ($50k/mo GMV", p["sub"])
 
 
