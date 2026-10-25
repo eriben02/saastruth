@@ -166,7 +166,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <meta name="dcterms.modified" content="{iso_datetime}" />
   <meta name="dcterms.issued" content="{pub_date}" />
   <link rel="canonical" href="{SITE_ORIGIN}{canonical_path}" />
-  <link rel="stylesheet" href="{prefix}assets/styles.css" />
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=20261025l" />
   <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="SaaSBill LLMs.txt Summary" />
   {schema_block}
 </head>
@@ -178,11 +178,8 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
         <span class="brand-tagline">Independent software cost &amp; contract audits</span>
       </div>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="{prefix}pricing/hubspot-true-cost-and-onboarding-fees/">CRM</a>
-        <a href="{prefix}pricing/intercom-fin-ai-resolution-cost-calculator/">Helpdesk &amp; AI</a>
-        <a href="{prefix}exit/stripe-shopify-paddle-frozen-funds-alternatives/">Payments</a>
-        <a href="{prefix}compliance/hipaa-baa-and-soc2-pricing-tiers/">Compliance</a>
-        <a href="{prefix}index.html#all-calculators">All Calculators</a>
+        <a href="{prefix}index.html#all-calculators">Audits &amp; Guides</a>
+        <a href="{prefix}index.html#methodology">Methodology</a>
         {byline_bar}
       </nav>
     </div>

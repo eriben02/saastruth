@@ -202,8 +202,8 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
         with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
             index_html = f.read()
-        self.assertIn('id="calc-viz-panel"', index_html)
-        self.assertIn('class="viz-seg-seats"', index_html)
+        self.assertIn('id="wb-vbar-mount"', index_html)
+        self.assertIn('id="wb-result-mount"', index_html)
         self.assertIn('id="methodology"', index_html)
         self.assertIn("mobile-cards", index_html)
         self.assertIn('data-label="Platform"', index_html)
@@ -276,7 +276,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
         ]
         summary_ids = {
-            "index.html": "calc-summary-strip",
+            "index.html": "wb-result-mount",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html": "hs-summary",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html": "ic-summary",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html": "hold-summary",
@@ -322,30 +322,29 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn('<option value="Helpdesk & AI Support" selected>', index_html)
         for expected_cta in [
             "View HubSpot pricing",
-            "Check Close pricing",
-            "Explore Pipedrive plans",
+            "View Close pricing",
+            "View Pipedrive pricing",
             "View monday CRM pricing",
-            "Check Intercom pricing",
-            "View Freshdesk plans",
+            "View Intercom pricing",
+            "View Freshdesk pricing",
             "View Zendesk pricing",
-            "Check Help Scout plans",
+            "View Help Scout pricing",
             "View Vanta pricing",
-            "Explore Drata platform",
-            "Check Jotform HIPAA plans",
+            "View Drata pricing",
+            "View Jotform HIPAA pricing",
             "View 1Password pricing",
             "View Stripe pricing",
-            "Explore Whop Payments",
-            "Check Chargeflow pricing",
+            "View Whop Payments pricing",
+            "View Chargeflow pricing",
             "View Paddle pricing",
             "View Lemon Squeezy pricing",
         ]:
             self.assertIn(expected_cta, index_html, f"Missing specific CTA '{expected_cta}' in index.html")
 
-        # Verify UX Finishing Pass: pre-filled example banner, custom scenario state, and Sage Green palette
-        self.assertIn('class="prefill-banner"', index_html)
-        self.assertIn('id="calc-mode-badge"', index_html)
-        self.assertIn("Pre-filled example", index_html)
-        self.assertIn("Custom scenario active", index_html)
+        # Verify Editorial Layout v2: no prefill-banner clutter, 3-column workbench, and Sage Green palette
+        self.assertNotIn('id="calc-prefill-banner"', index_html)
+        self.assertIn('id="wb-vbar-mount"', index_html)
+        self.assertIn('id="wb-big-amount"', index_html)
 
         with open(os.path.join(PUBLIC_DIR, "assets/styles.css")) as f:
             css = f.read()
