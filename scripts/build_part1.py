@@ -90,40 +90,49 @@ home_body = f"""
     <div class="wb-col-chart">
       <div class="wb-col-title" id="wb-chart-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
-        <div class="wb-vbar-row" id="wb-row-base" style="flex-grow: 18;">
-          <div class="wb-vbar-block block-base">
-            <span class="wb-block-amount" id="wb-amt-base">$660</span>
+        <div class="wb-vbar-stack" id="wb-vbar-stack">
+          <div class="wb-vbar-row" id="wb-row-base" style="flex: 5.57 1 0px;">
+            <div class="wb-vbar-block block-base">
+              <span class="wb-block-amount" id="wb-amt-base">$660</span>
+            </div>
           </div>
-          <div class="wb-callout-item">
-            <div class="wb-leader-line"></div>
+          <div class="wb-vbar-row" id="wb-row-seats" style="flex: 22.28 1 0px;">
+            <div class="wb-vbar-block block-seats">
+              <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
+            </div>
+          </div>
+          <div class="wb-vbar-row" id="wb-row-hidden" style="flex: 72.15 1 0px;">
+            <div class="wb-vbar-block block-hidden">
+              <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
+            </div>
+          </div>
+        </div>
+
+        <svg class="wb-leader-svg" id="wb-leader-svg" viewBox="0 0 36 310" preserveAspectRatio="none" aria-hidden="true">
+          <circle id="wb-dot-base" cx="2" cy="9" r="2.2" fill="#849683" />
+          <polyline id="wb-line-base" points="2,9 14,9 24,48 34,48" fill="none" stroke="#9CA098" stroke-width="1.2" />
+          <circle id="wb-dot-seats" cx="2" cy="52" r="2.2" fill="#647A65" />
+          <polyline id="wb-line-seats" points="2,52 14,52 24,155 34,155" fill="none" stroke="#9CA098" stroke-width="1.2" />
+          <circle id="wb-dot-hidden" cx="2" cy="198" r="2.2" fill="#CF6530" />
+          <polyline id="wb-line-hidden" points="2,198 14,198 24,262 34,262" fill="none" stroke="#C85A28" stroke-width="1.2" />
+        </svg>
+
+        <div class="wb-callouts-stack">
+          <div class="wb-callout-slot" id="wb-slot-base">
             <div class="wb-callout-text">
-              <strong id="wb-call-title-base">Base subscriptions</strong>
+              <div class="wb-callout-head"><strong id="wb-call-title-base">Base subscriptions</strong> <span class="wb-callout-inline-amt" id="wb-call-amt-base">$660</span></div>
               <span id="wb-call-sub-base">Sticker price of your tools</span>
             </div>
           </div>
-        </div>
-
-        <div class="wb-vbar-row" id="wb-row-seats" style="flex-grow: 27;">
-          <div class="wb-vbar-block block-seats">
-            <span class="wb-block-amount" id="wb-amt-seats">$2,640</span>
-          </div>
-          <div class="wb-callout-item">
-            <div class="wb-leader-line"></div>
+          <div class="wb-callout-slot" id="wb-slot-seats">
             <div class="wb-callout-text">
-              <strong id="wb-call-title-seats">Seats &amp; usage</strong>
+              <div class="wb-callout-head"><strong id="wb-call-title-seats">Seats &amp; usage</strong> <span class="wb-callout-inline-amt" id="wb-call-amt-seats">$2,640</span></div>
               <span id="wb-call-sub-seats">Real headcount and consumption</span>
             </div>
           </div>
-        </div>
-
-        <div class="wb-vbar-row" id="wb-row-hidden" style="flex-grow: 55;">
-          <div class="wb-vbar-block block-hidden">
-            <span class="wb-block-amount" id="wb-amt-hidden">$8,550</span>
-          </div>
-          <div class="wb-callout-item">
-            <div class="wb-leader-line"></div>
+          <div class="wb-callout-slot" id="wb-slot-hidden">
             <div class="wb-callout-text">
-              <strong id="wb-call-title-hidden">Overages &amp; add-ons</strong>
+              <div class="wb-callout-head"><strong id="wb-call-title-hidden">Overages &amp; add-ons</strong> <span class="wb-callout-inline-amt wb-amt-accent" id="wb-call-amt-hidden">$8,550</span></div>
               <span id="wb-call-sub-hidden">Fees you can&rsquo;t always see</span>
             </div>
           </div>
@@ -397,21 +406,55 @@ function formatHiddenReason(r) {{
   return `Adds ${{parts.join(' + ')}} on top of $${{r.annualSeatsCost.toLocaleString()}} base licenses`;
 }}
 
-// Compute high-fidelity proportional flex shares (sum = 100, each in [9, 82] -> 23px to 207px inside the 252px container)
-// A 9% floor (23px) keeps the leader line and a compact 1-line label aligned at $0 or small values, while 73% of the height scales 1:1 with the true dollar amounts!
+// Compute true 1:1 proportional heights (in pixels out of 310px total height)
+// Zero-dollar segments collapse to a crisp 3px hairline; non-zero segments scale strictly with their share of the total (min 14px so color band is clearly visible).
 function computeSmoothBarShares(v1, v2, v3) {{
-  const total = Math.max(1, v1 + v2 + v3);
-  const s1 = 15 + Math.round((v1 / total) * 55);
-  const s2 = 15 + Math.round((v2 / total) * 55);
-  const s3 = Math.max(15, 100 - s1 - s2);
-  return [s1, s2, s3];
+  const H = 310;
+  const vals = [Math.max(0, v1), Math.max(0, v2), Math.max(0, v3)];
+  const total = vals[0] + vals[1] + vals[2];
+  if (total <= 0) return [103, 103, 104];
+
+  const floors = vals.map(v => v === 0 ? 3 : 8);
+  const floorSum = floors[0] + floors[1] + floors[2];
+  const avail = H - floorSum;
+  const h1 = floors[0] + (vals[0] / total) * avail;
+  const h2 = floors[1] + (vals[1] / total) * avail;
+  const h3 = Math.max(floors[2], H - h1 - h2);
+  return [Number(h1.toFixed(2)), Number(h2.toFixed(2)), Number(h3.toFixed(2))];
 }}
 
-function applyBarRowState(rowEl, share, val) {{
+function applyBarRowState(rowEl, pxHeight, val) {{
   if (!rowEl) return;
-  rowEl.style.flexGrow = share;
-  rowEl.classList.remove('is-compact');
+  rowEl.style.flex = `${{pxHeight}} 1 0px`;
+  rowEl.classList.toggle('is-thin-segment', pxHeight < 26);
   rowEl.classList.toggle('is-zero', val === 0);
+}}
+
+function updateBarLeaderLines(h1, h2, h3, v1, v2, v3) {{
+  const c1 = Math.max(2, Math.min(308, Math.round(h1 / 2)));
+  const c2 = Math.max(2, Math.min(308, Math.round(h1 + h2 / 2)));
+  const c3 = Math.max(2, Math.min(308, Math.round(h1 + h2 + h3 / 2)));
+  const slotCenters = [48, 155, 262];
+  const barCenters = [c1, c2, c3];
+  const ids = ['base', 'seats', 'hidden'];
+  ids.forEach((key, idx) => {{
+    const yBar = barCenters[idx];
+    const ySlot = slotCenters[idx];
+    const lineEl = document.getElementById(`wb-line-${{key}}`);
+    const dotEl = document.getElementById(`wb-dot-${{key}}`);
+    if (lineEl) {{
+      lineEl.setAttribute('points', `2,${{yBar}} 12,${{yBar}} 24,${{ySlot}} 35,${{ySlot}}`);
+    }}
+    if (dotEl) {{
+      dotEl.setAttribute('cy', String(yBar));
+    }}
+  }});
+  const amtBase = document.getElementById('wb-call-amt-base');
+  const amtSeats = document.getElementById('wb-call-amt-seats');
+  const amtHidden = document.getElementById('wb-call-amt-hidden');
+  if (amtBase) amtBase.textContent = `$${{v1.toLocaleString()}}`;
+  if (amtSeats) amtSeats.textContent = `$${{v2.toLocaleString()}}`;
+  if (amtHidden) amtHidden.textContent = `$${{v3.toLocaleString()}}`;
 }}
 
 const PAY_PROFILES = {{
@@ -660,6 +703,7 @@ function renderDirectory() {{
       applyBarRowState(rowBase, s1, prof.b);
       applyBarRowState(rowSeats, s2, prof.s);
       applyBarRowState(rowHidden, s3, prof.h);
+      updateBarLeaderLines(s1, s2, s3, prof.b, prof.s, prof.h);
       document.getElementById('wb-amt-base').textContent = `$${{prof.b.toLocaleString()}}`;
       document.getElementById('wb-call-title-base').textContent = prof.callTitleBase;
       document.getElementById('wb-call-sub-base').textContent = prof.callSubBase;
@@ -706,6 +750,7 @@ function renderDirectory() {{
       applyBarRowState(rowBase, s1, baseSubYr);
       applyBarRowState(rowSeats, s2, seatsUsageYr);
       applyBarRowState(rowHidden, s3, overagesAddonsYr);
+      updateBarLeaderLines(s1, s2, s3, baseSubYr, seatsUsageYr, overagesAddonsYr);
 
       document.getElementById('wb-amt-base').textContent = `$${{baseSubYr.toLocaleString()}}`;
       document.getElementById('wb-call-title-base').textContent = 'Base subscriptions';
