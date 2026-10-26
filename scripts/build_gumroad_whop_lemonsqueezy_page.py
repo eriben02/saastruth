@@ -334,7 +334,6 @@ function updateTr() {{
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-cta" href="${{low.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{low.id}}" data-cta-location="summary-card">${{low.cta}}</a>
-          <span class="direct-link-tag">${{low.tag}}</span>
         </div>
       </div>
     </div>
@@ -354,7 +353,7 @@ function updateTr() {{
       <td data-label="Add-ons / mo"><span class="badge ${{r.badge}}">${{r.addonText}}</span></td>
       <td data-label="Total fees / mo" class="price-highlight">${{trFmt(r.total)}} <span style="font-size:0.8rem; color:var(--muted);">(${{(r.total / G * 100).toFixed(1)}}%)</span></td>
       <td data-label="Net payout / yr" class="price-highlight">${{trFmt(r.net * 12)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
-      <td data-label="Next step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a><span class="direct-link-tag">${{r.tag}}</span></div></td>
+      <td data-label="Next step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></div></td>
     </tr>`).join('');
   let note = 'Assumptions: list prices, fees calculated on the pre-tax price (Lemon Squeezy calculates its fee on the order total including tax, so its real fee is slightly higher on taxed sales). Gumroad PayPal sales are modelled at the 2.9% + 30¢ card rate; actual PayPal fees may differ. Whop payouts assume 4 next-day ACH withdrawals/mo ($2.50 each). Lost revenue from chargebacks is the same on every platform and is not included.';
   if (o.payout === 'intl') note += ' Whop international local-bank payout fees vary by country and are not included.';

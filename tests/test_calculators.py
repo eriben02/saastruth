@@ -309,7 +309,8 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("Based on ", html, f"Missing scenario description ('Based on ...') in {rel}")
             self.assertIn("Hidden Cost Highlight:", html, f"Missing 'Hidden Cost Highlight:' in {rel}")
             self.assertIn('data-track="vendor-cta"', html, f"Missing data-track='vendor-cta' in {rel}")
-            self.assertIn("Direct vendor link", html, f"Missing 'Direct vendor link' label in {rel}")
+            self.assertIn("Some links are affiliate links", html, f"Missing footer affiliate disclosure in {rel}")
+            self.assertNotIn('<span class="direct-link-tag">', html, f"Per-button .direct-link-tag should be removed in {rel}")
             self.assertIn("window.__saasbillEvents", html, f"Missing local __saasbillEvents instrumentation in {rel}")
             # Ensure no external analytics tracker is loaded
             self.assertNotIn("googletagmanager.com", html)
