@@ -276,6 +276,15 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
             "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html",
+            "compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html",
+            "compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html",
+            "pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html",
+            "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html",
+            "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html",
+            "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html",
+            "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
+            "faq/intercom-fin-ai-cost-calculator/index.html",
+            "faq/stripe-vs-paddle-true-cost/index.html",
         ]
         summary_ids = {
             "index.html": "wb-result-mount",
@@ -286,6 +295,15 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html": "soc2-summary",
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html": "zd-summary",
             "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html": "tr-summary",
+            "compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html": "tf-summary",
+            "compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html": "ch-summary",
+            "pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html": "sb-summary",
+            "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html": "ds-summary",
+            "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html": "gong-summary",
+            "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html": "pp-summary",
+            "faq/does-hubspot-charge-onboarding-fees-2026/index.html": "faq-hs-summary",
+            "faq/intercom-fin-ai-cost-calculator/index.html": "faq-ic-summary",
+            "faq/stripe-vs-paddle-true-cost/index.html": "faq-sp-summary",
         }
         forbidden_phrases = [
             "Partner link",
@@ -484,6 +502,15 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
             "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html",
+            "compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html",
+            "compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html",
+            "pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html",
+            "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html",
+            "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html",
+            "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html",
+            "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
+            "faq/intercom-fin-ai-cost-calculator/index.html",
+            "faq/stripe-vs-paddle-true-cost/index.html",
         ]
         for rel in pages:
             full_path = os.path.join(PUBLIC_DIR, rel)
@@ -530,6 +557,37 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "font-size: 16px;",
         ]:
             self.assertIn(required_mobile_rule, css, f"Missing mobile CSS rule '{required_mobile_rule}' in styles.css")
+
+
+
+    def test_seo_geo_and_answer_first_pages(self):
+        """Verify SEO titles/descriptions, internal linking, sitemap.xml, GEO robots.txt, and Answer-First FAQ pages."""
+        with open(os.path.join(PUBLIC_DIR, "robots.txt"), encoding="utf-8") as f:
+            robots = f.read()
+        for allowed_bot in ("OAI-SearchBot", "PerplexityBot", "Googlebot", "Bingbot"):
+            self.assertIn(f"User-agent: {allowed_bot}\nAllow: /", robots)
+        for blocked_bot in ("GPTBot", "CCBot", "Google-Extended"):
+            self.assertIn(f"User-agent: {blocked_bot}\nDisallow: /", robots)
+
+        with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), encoding="utf-8") as f:
+            sitemap = f.read()
+        self.assertEqual(sitemap.count("<url><loc>"), 17)
+
+        faq_pages = [
+            "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
+            "faq/intercom-fin-ai-cost-calculator/index.html",
+            "faq/stripe-vs-paddle-true-cost/index.html",
+        ]
+        for rel in faq_pages:
+            with open(os.path.join(PUBLIC_DIR, rel), encoding="utf-8") as f:
+                html = f.read()
+            t = re.search(r"<title>(.*?)</title>", html).group(1)
+            self.assertLessEqual(len(t), 60, f"Title too long in {rel}: {t}")
+            lead = re.search(r'<p class="lead">(.*?)</p>', html, re.S).group(1)
+            self.assertIn("2026", lead)
+            self.assertIn("$", lead)
+            self.assertIn("source:", lead.lower())
+            self.assertIn("related-calculators-heading", html)
 
 
 if __name__ == "__main__":

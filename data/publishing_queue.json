@@ -12,7 +12,7 @@
   {
     "priority": 2,
     "slug": "/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/",
-    "title": "Gumroad (10% + 50¢ + 2.9% Processing) vs. Whop (2.7% + 30¢) vs. Lemon Squeezy (5% + 50¢) Calculator (2026): Net Payouts Compared",
+    "title": "Gumroad (10% + 50\u00a2 + 2.9% Processing) vs. Whop (2.7% + 30\u00a2) vs. Lemon Squeezy (5% + 50\u00a2) Calculator (2026): Net Payouts Compared",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "whop",
     "status": "published",
@@ -28,17 +28,19 @@
     "title": "Typeform vs. Jotform True Cost (2026): Response Overage Traps & HIPAA BAA Pricing ($99/mo vs Enterprise)",
     "category": "Compliance, HIPAA & SOC 2",
     "primary_affiliate": "jotform",
-    "status": "queued",
-    "strategic_rationale": "Regulated HIPAA BAA legal liability cannot be self-coded; pairs with Jotform 30% recurring affiliate (1-day review)."
+    "status": "published",
+    "strategic_rationale": "Regulated HIPAA BAA legal liability cannot be self-coded; pairs with Jotform 30% recurring affiliate (1-day review).",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 4,
     "slug": "/compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/",
-    "title": "Close CRM vs. HubSpot Sales Hub for 5–20 Sales Reps (2026): Built-In Calling & SMS vs. Paid Add-Ons",
+    "title": "Close CRM vs. HubSpot Sales Hub for 5\u201320 Sales Reps (2026): Built-In Calling & SMS vs. Paid Add-Ons",
     "category": "CRM & Sales",
     "primary_affiliate": "close-crm",
-    "status": "queued",
-    "strategic_rationale": "Carrier telephony, A2P 10DLC SMS compliance & email deliverability rails paired with Close CRM and HubSpot affiliates."
+    "status": "published",
+    "strategic_rationale": "Carrier telephony, A2P 10DLC SMS compliance & email deliverability rails paired with Close CRM and HubSpot affiliates.",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 5,
@@ -46,8 +48,9 @@
     "title": "The Stripe Billing 0.7% Recurring Revenue Tax Calculator (2026): Hidden Invoicing & FX Fees vs. Whop & Paddle",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "whop",
-    "status": "queued",
-    "strategic_rationale": "Payment processing & subscription billing rails; directly monetizes active Whop link."
+    "status": "published",
+    "strategic_rationale": "Payment processing & subscription billing rails; directly monetizes active Whop link.",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 6,
@@ -55,17 +58,19 @@
     "title": "DocuSign Envelope Limit Trap (2026): 100 Envelopes/Year Cap Explained vs. PandaDoc & Jotform Sign",
     "category": "Compliance, HIPAA & SOC 2",
     "primary_affiliate": "jotform",
-    "status": "queued",
-    "strategic_rationale": "Legally binding e-signature audit trails & HIPAA compliance; high-converting Jotform Sign alternative."
+    "status": "published",
+    "strategic_rationale": "Legally binding e-signature audit trails & HIPAA compliance; high-converting Jotform Sign alternative.",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 7,
     "slug": "/pricing/gong-io-platform-fee-and-seat-minimum-calculator/",
-    "title": "Gong.io Pricing & Hidden $5,000 Platform Fee Calculator (2026): Real Cost for 5–25 Reps vs. Close CRM",
+    "title": "Gong.io Pricing & Hidden $5,000 Platform Fee Calculator (2026): Real Cost for 5\u201325 Reps vs. Close CRM",
     "category": "CRM & Sales",
     "primary_affiliate": "close-crm",
-    "status": "queued",
-    "strategic_rationale": "Targets CFOs cutting bloated $5k base platform fees + $1,600/seat contracts in favor of lean integrated calling CRMs."
+    "status": "published",
+    "strategic_rationale": "Targets CFOs cutting bloated $5k base platform fees + $1,600/seat contracts in favor of lean integrated calling CRMs.",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 8,
@@ -73,8 +78,9 @@
     "title": "PayPal 180-Day Permanent Limitation Guide (2026): How Held Funds Release Works & Multi-Processor Failover",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "whop",
-    "status": "queued",
-    "strategic_rationale": "High-urgency merchant pain point with immediate conversion intent to multi-processor orchestration."
+    "status": "published",
+    "strategic_rationale": "High-urgency merchant pain point with immediate conversion intent to multi-processor orchestration.",
+    "published_date": "2026-10-26"
   },
   {
     "priority": 9,
@@ -106,7 +112,7 @@
   {
     "priority": 12,
     "slug": "/pricing/stripe-radar-and-dispute-fee-calculator-2026/",
-    "title": "Stripe Dispute Fee ($15–$30) & Radar Cost Calculator (2026): True Cost of a 0.6% Chargeback Rate",
+    "title": "Stripe Dispute Fee ($15\u2013$30) & Radar Cost Calculator (2026): True Cost of a 0.6% Chargeback Rate",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "whop",
     "status": "queued",
@@ -133,7 +139,7 @@
   {
     "priority": 15,
     "slug": "/compliance/okta-vs-workos-vs-1password-sso-tax-calculator/",
-    "title": "The B2B SaaS SSO Tax Calculator (2026): Vendors Charging 2x–4x for SAML Single Sign-On",
+    "title": "The B2B SaaS SSO Tax Calculator (2026): Vendors Charging 2x\u20134x for SAML Single Sign-On",
     "category": "Compliance, HIPAA & SOC 2",
     "primary_affiliate": "1password",
     "status": "queued",
