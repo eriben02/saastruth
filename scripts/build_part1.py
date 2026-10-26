@@ -11,7 +11,7 @@ aff_js = json.dumps(AFFILIATES)
 home_body = f"""
 <section class="hero editorial-hero">
   <h1>Your SaaS bill is lying to you.</h1>
-  <p class="lead">In 2026, mandatory onboarding fees ($1,500&ndash;$7,000 on HubSpot Pro/Enterprise), 3-to-5-seat bucket minimums (monday CRM), and metered AI resolution charges ($0.99/resolution on Intercom Fin AI; $1.50&ndash;$2.00 on Zendesk AI) compound quietly&mdash;and can significantly increase the real Year-1 cost of your tools (verified Oct 2026 against official vendor pricing docs).</p>
+  <p class="lead">Most teams only look at the sticker price. But mandatory onboarding fees, seat-bucket minimums, and metered AI overages compound quietly&mdash;and can significantly increase the real Year-1 cost of your tools.</p>
 </section>
 
 <div class="editorial-cat-bar">
