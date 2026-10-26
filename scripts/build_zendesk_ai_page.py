@@ -42,14 +42,14 @@ SOURCES = [
 ]
 
 def rows_sources():
-    return "\n".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a> &mdash; <em>verified Oct 25, 2026</em></li>' for t, u in SOURCES)
+    return "\n".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a> &middot; <em>verified Oct 25, 2026</em></li>' for t, u in SOURCES)
 
 body = f"""
 <section class="hero">
   <h1>What Zendesk’s $1.50–$2.00 AI resolution fee adds to your monthly invoice.</h1>
-  <p class="lead">Zendesk Suite includes just 5 to 10 automated resolutions per agent each month—and pay-as-you-go overage at $2.00 per verified resolution is turned on by default. Run your ticket volume below.</p>
+  <p class="lead">Zendesk Suite includes just 5 to 10 automated resolutions per agent each month, and pay-as-you-go overage at $2.00 per verified resolution is turned on by default. Run your ticket volume below.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Zendesk includes <strong>5 automated resolutions per agent/month on Suite Team ($55/agent annual, $69 monthly)</strong> and <strong>10 on Suite Professional ($115 annual, $149 monthly)</strong>, capped at 10,000 per year. Beyond that allowance, each automated resolution costs <strong>$1.50 if pre-committed or $2.00 pay-as-you-go</strong>. For 10 agents on Suite Professional handling 5,000 conversations/month with a 40% verified AI resolution rate ({f(E['res'])} resolutions), you pay <strong>${f(E['zd_seat'])} in seats + ${f(E['zd_ai'])} in AI overage = ${f(E['zd'])}/mo (${f(E['zd']*12)}/yr)</strong> at $2.00, or ${f(E15['zd'])}/mo at $1.50—compared with <strong>${f(E['fd'])}/mo (${f(E['fd_yr1'])} in Year 1 after 500 free one-time sessions) on Freshdesk Pro</strong> ($49 per 100 AI sessions) and <strong>${f(E['hs'])}/mo on Help Scout Plus</strong> ($0.75/resolution).</p>
+    <p><strong>The short version:</strong> Zendesk includes <strong>5 automated resolutions per agent/month on Suite Team ($55/agent annual, $69 monthly)</strong> and <strong>10 on Suite Professional ($115 annual, $149 monthly)</strong>, capped at 10,000 per year. Beyond that allowance, each automated resolution costs <strong>$1.50 if pre-committed or $2.00 pay-as-you-go</strong>. For 10 agents on Suite Professional handling 5,000 conversations/month with a 40% verified AI resolution rate ({f(E['res'])} resolutions), you pay <strong>${f(E['zd_seat'])} in seats + ${f(E['zd_ai'])} in AI overage = ${f(E['zd'])}/mo (${f(E['zd']*12)}/yr)</strong> at $2.00, or ${f(E15['zd'])}/mo at $1.50, compared with <strong>${f(E['fd'])}/mo (${f(E['fd_yr1'])} in Year 1 after 500 free one-time sessions) on Freshdesk Pro</strong> ($49 per 100 AI sessions) and <strong>${f(E['hs'])}/mo on Help Scout Plus</strong> ($0.75/resolution).</p>
   </div>
 </section>
 
@@ -122,7 +122,7 @@ body = f"""
     </div>
   </div>
   <div id="zd-summary" class="summary-strip" aria-live="polite"></div>
-  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Zendesk and Help Scout charge per AI resolution ($1.50&ndash;$2.00 vs. $0.75), while Freshdesk charges $49 per 100 AI sessions (whether resolved or escalated). Lowest cost does not automatically mean best fit&mdash;check HIPAA, SSO, and routing requirements before switching.</p>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Zendesk and Help Scout charge per AI resolution ($1.50&ndash;$2.00 vs. $0.75), while Freshdesk charges $49 per 100 AI sessions (whether resolved or escalated). Lowest cost does not automatically mean best fit. Check HIPAA, SSO, and routing requirements before switching.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Monthly &amp; Year-1 Cost: Zendesk AI Agents vs. Freshdesk Pro vs. Help Scout (USD, verified Oct 25, 2026)</caption>
@@ -180,7 +180,7 @@ body = f"""
   <h2 id="howto-heading">Checklist to keep a Zendesk AI bill predictable</h2>
   <ol class="key-list">
     <li><strong>Set your overage rule on day one:</strong> Go to Admin Center &rarr; Account &rarr; Usage &rarr; Overage. "Allow overage" is the default; "Don't allow overage" pauses AI agents at the limit.</li>
-    <li><strong>Pre-commit if you know you will exceed the allowance:</strong> Committed resolutions cost $1.50 vs. $2.00 pay-as-you-go—a 25% reduction on every resolution above your allowance.</li>
+    <li><strong>Pre-commit if you know you will exceed the allowance:</strong> Committed resolutions cost $1.50 vs. $2.00 pay-as-you-go, a 25% reduction on every resolution above your allowance.</li>
     <li><strong>Watch the 80% warning alert:</strong> Zendesk sends an in-product warning and email at 80% usage. Deleting a ticket does not refund a consumed automated resolution.</li>
     <li><strong>Set a calendar reminder 45 days before renewal:</strong> Non-renewal requires 30 days’ written notice to <code>revops@zendesk.com</code>.</li>
   </ol>

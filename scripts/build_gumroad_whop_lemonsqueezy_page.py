@@ -99,7 +99,7 @@ SOURCES = [(t, u.replace("/fees/fees/taxes", "/fees/taxes")) for t, u in SOURCES
 
 
 def rows_sources():
-    return "\n".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a> &mdash; <em>Verified source, checked {CHECKED}</em></li>' for t, u in SOURCES)
+    return "\n".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a> &middot; <em>Verified source, checked {CHECKED}</em></li>' for t, u in SOURCES)
 
 
 g, l, w = E["gumroad"], E["ls"], E["whop"]
