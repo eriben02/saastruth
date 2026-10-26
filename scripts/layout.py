@@ -268,30 +268,41 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   document.addEventListener('click', function(e) {{
     var cta = e.target.closest('[data-track="vendor-cta"]');
     if (cta) {{
+      var vendor = cta.getAttribute('data-vendor') || '';
+      var location = cta.getAttribute('data-cta-location') || 'subpage-result';
+      var href = cta.getAttribute('href') || '';
       window.__saasbillEvents.push({{
         event: 'vendor_cta_click',
-        vendor: cta.getAttribute('data-vendor') || '',
-        location: cta.getAttribute('data-cta-location') || 'subpage-result',
-        href: cta.getAttribute('href') || '',
+        vendor: vendor,
+        location: location,
+        href: href,
         ts: Date.now()
       }});
+      if (typeof window.plausible === 'function') {{
+        window.plausible('vendor_cta_click', {{ props: {{ vendor: vendor, location: location, href: href }} }});
+      }}
       return;
     }}
     var catBtn = e.target.closest('[data-track="category-select"]');
     if (catBtn) {{
+      var cat = catBtn.getAttribute('data-cat') || '';
       window.__saasbillEvents.push({{
         event: 'category_select',
-        category: catBtn.getAttribute('data-cat') || '',
+        category: cat,
         ts: Date.now()
       }});
+      if (typeof window.plausible === 'function') {{
+        window.plausible('category_select', {{ props: {{ category: cat }} }});
+      }}
     }}
   }});
   document.addEventListener('input', function(e) {{
     var ctrl = e.target.closest('[data-track="calculator-control"], input[type="range"], select');
     if (ctrl) {{
+      var control = ctrl.getAttribute('data-control') || ctrl.id || '';
       window.__saasbillEvents.push({{
         event: 'calculator_interaction',
-        control: ctrl.getAttribute('data-control') || ctrl.id || '',
+        control: control,
         value: ctrl.value,
         ts: Date.now()
       }});
