@@ -278,13 +278,16 @@ function updateSmCalc() {
   document.getElementById('sm-users-val').textContent = u;
   const monRate = tier === 'entry' ? 12 : 17;
   const pipeRate = tier === 'entry' ? 14 : 34;
+  const closeRate = tier === 'entry' ? 35 : 99;
   const hsRate = tier === 'entry' ? 15 : 90;
   const hsOnboard = tier === 'entry' ? 0 : 1500;
   const monSeats = getMondayBucket(u);
   const monMo = monSeats * monRate;
   const pipeMo = u * pipeRate;
+  const closeMo = u * closeRate;
   const hsMo = u * hsRate;
   const pipeYr = pipeMo * 12;
+  const closeYr = closeMo * 12;
   const monYr = monMo * 12;
   const hsYr = hsMo * 12 + hsOnboard;
   const unusedSeats = Math.max(0, monSeats - u);
@@ -311,6 +314,7 @@ function updateSmCalc() {
           <div class="cta-stack">
             <a class="btn-cta" href="${lowUrl}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${lowVendor}" data-cta-location="summary-card">${lowCta}</a>
           </div>
+          <a class="summary-audit-link" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close CRM (1:1 seats + built-in calling) &rarr;</a>
         </div>
       </div>
       <div class="summary-card card-hidden">
@@ -349,6 +353,14 @@ function updateSmCalc() {
       <td data-label="Effective Cost / User" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${pipeRate.toFixed(2)} / user / mo</td>
       <td data-label="Total Annual Bill" class="price-highlight">$${pipeYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
       <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></div></td>
+    </tr>
+    <tr>
+      <td data-label="CRM Platform"><strong>Close CRM (${tier === 'entry' ? 'Essentials' : 'Growth'})</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Verified source: <a href="https://www.close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
+      <td data-label="Advertised Price" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${closeRate}/seat/mo</td>
+      <td data-label="Billed Seats"><span class="badge badge-low">${u} seat(s) (exact 1:1, $0 onboarding)</span></td>
+      <td data-label="Effective Cost / User" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${closeRate.toFixed(2)} / user / mo</td>
+      <td data-label="Total Annual Bill" class="price-highlight">$${closeYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>monday CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Verified source: <a href="https://monday.com/pricing" target="_blank" rel="noopener">monday.com pricing &nearr;</a></div></td>
