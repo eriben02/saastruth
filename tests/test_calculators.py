@@ -344,10 +344,26 @@ class TestSaaSBillCalculators(unittest.TestCase):
         ]:
             self.assertIn(expected_cta, index_html, f"Missing specific CTA '{expected_cta}' in index.html")
 
-        # Verify Editorial Layout v2: no prefill-banner clutter, 3-column workbench, and Sage Green palette
+        # Verify Editorial Layout v2 + Chart-to-Table Connection (Alt 1 + Alt 2):
         self.assertNotIn('id="calc-prefill-banner"', index_html)
+        self.assertNotIn('<hr class="editorial-rule" />', index_html)
+        self.assertNotIn('across common scenarios', index_html)
         self.assertIn('id="wb-vbar-mount"', index_html)
         self.assertIn('id="wb-big-amount"', index_html)
+        self.assertIn('Sticker Price: Base plan', index_html)
+        self.assertIn('Sticker Price: Added seats', index_html)
+        self.assertIn('<strong id="wb-call-title-hidden">Hidden Cost Gap</strong>', index_html)
+        self.assertIn('class="legend-dot dot-sticker"', index_html)
+        self.assertIn('class="legend-dot dot-hidden"', index_html)
+        self.assertIn('id="gap-dynamic-subhead"', index_html)
+        self.assertIn('click any row to inspect its breakdown above.', index_html)
+        # Ensure Sort selector is inside .gap-toolbar above the table, not inside #billing-control-group
+        billing_grp = re.search(r'<div class="wb-quiet-options" id="billing-control-group">(.*?)</div>\s*</div>\s*</div>', index_html, re.S)
+        self.assertIsNotNone(billing_grp)
+        self.assertNotIn('id="sort-mode"', billing_grp.group(1))
+        gap_tb = re.search(r'<div class="gap-toolbar">(.*?)</div>\s*</div>', index_html, re.S)
+        self.assertIsNotNone(gap_tb)
+        self.assertIn('id="sort-mode"', gap_tb.group(1))
 
         with open(os.path.join(PUBLIC_DIR, "assets/styles.css")) as f:
             css = f.read()

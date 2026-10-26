@@ -73,15 +73,6 @@ home_body = f"""
               <option value="monthly">Monthly</option>
             </select>
           </div>
-          <div class="wb-quiet-field" id="sort-control-group">
-            <label for="sort-mode">Sort:</label>
-            <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
-              <option value="lowest" selected>Lowest cost</option>
-              <option value="hidden_fees">Hidden gap</option>
-              <option value="highest">Highest cost</option>
-              <option value="name">A&ndash;Z</option>
-            </select>
-          </div>
         </div>
       </div>
     </div>
@@ -97,8 +88,8 @@ home_body = f"""
           <div class="wb-callout-item">
             <div class="wb-leader-line"></div>
             <div class="wb-callout-text">
-              <strong id="wb-call-title-base">Base subscriptions</strong>
-              <span id="wb-call-sub-base">Sticker price of your tools</span>
+              <strong id="wb-call-title-base">Sticker Price: Base plan</strong>
+              <span id="wb-call-sub-base">1st seat at advertised rate</span>
             </div>
           </div>
         </div>
@@ -110,8 +101,8 @@ home_body = f"""
           <div class="wb-callout-item">
             <div class="wb-leader-line"></div>
             <div class="wb-callout-text">
-              <strong id="wb-call-title-seats">Seats &amp; usage</strong>
-              <span id="wb-call-sub-seats">Real headcount and consumption</span>
+              <strong id="wb-call-title-seats">Sticker Price: Added seats</strong>
+              <span id="wb-call-sub-seats">Remaining team seat licenses</span>
             </div>
           </div>
         </div>
@@ -123,8 +114,8 @@ home_body = f"""
           <div class="wb-callout-item">
             <div class="wb-leader-line"></div>
             <div class="wb-callout-text">
-              <strong id="wb-call-title-hidden">Overages &amp; add-ons</strong>
-              <span id="wb-call-sub-hidden">Fees you can&rsquo;t always see</span>
+              <strong id="wb-call-title-hidden">Hidden Cost Gap</strong>
+              <span id="wb-call-sub-hidden">Onboarding, AI overages &amp; minimums</span>
             </div>
           </div>
         </div>
@@ -144,13 +135,22 @@ home_body = f"""
   </div>
 </section>
 
-<hr class="editorial-rule" />
-
 <!-- THE HIDDEN COST GAP: Editorial Comparison Table -->
 <section class="hidden-gap-section" aria-labelledby="gap-heading">
   <div class="gap-eyebrow">The Hidden Cost Gap</div>
   <h2 id="gap-heading">Sticker Price vs. True Cost</h2>
-  <p class="gap-subhead">Here&rsquo;s how the numbers stack up across common scenarios.</p>
+  <div class="gap-toolbar">
+    <p class="gap-subhead" id="gap-dynamic-subhead">All 5 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &mdash; click any row to inspect its breakdown above.</p>
+    <div class="wb-quiet-field gap-sort-field" id="sort-control-group">
+      <label for="sort-mode">Sort:</label>
+      <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
+        <option value="lowest" selected>Lowest cost</option>
+        <option value="hidden_fees">Hidden gap</option>
+        <option value="highest">Highest cost</option>
+        <option value="name">A&ndash;Z</option>
+      </select>
+    </div>
+  </div>
 
   <div class="table-wrap editorial-gap-table mobile-cards">
     <table>
@@ -158,9 +158,9 @@ home_body = f"""
       <thead>
         <tr>
           <th id="th-col-1">Scenario</th>
-          <th id="th-col-2">Sticker Price / Year</th>
+          <th id="th-col-2"><span class="legend-dot dot-sticker" aria-hidden="true"></span>Sticker Price / Year</th>
           <th id="th-col-3">True Cost / Year (Est.)</th>
-          <th id="th-col-4">Hidden Cost Gap</th>
+          <th id="th-col-4"><span class="legend-dot dot-hidden" aria-hidden="true"></span>Hidden Cost Gap</th>
           <th id="th-col-5">Official Pricing</th>
         </tr>
       </thead>
@@ -672,16 +672,26 @@ function renderDirectory() {{
   const th3 = document.getElementById('th-col-3');
   const th4 = document.getElementById('th-col-4');
   const chartColTitle = document.getElementById('wb-chart-col-title');
+  const dynSubhead = document.getElementById('gap-dynamic-subhead');
+  if (dynSubhead) {{
+    if (cat === 'Payment Processors & MoR') {{
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for $50,000/mo GMV · 1,000 tx · 30% international — click any row to inspect its breakdown above.`;
+    }} else if (cat === 'Helpdesk & AI Support' || cat === 'ALL') {{
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing · ${{aiVol.toLocaleString()}} AI tickets/mo — click any row to inspect its breakdown above.`;
+    }} else {{
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing — click any row to inspect its breakdown above.`;
+    }}
+  }}
   if (th2 && th3 && th4) {{
     if (cat === 'Payment Processors & MoR') {{
-      th2.textContent = 'Base Rate ($50k/mo Ex.)';
+      th2.innerHTML = '<span class="legend-dot dot-sticker" aria-hidden="true"></span>Base Rate ($50k/mo Ex.)';
       th3.textContent = 'Estimated Monthly Processing Fees';
-      th4.textContent = 'Potential Funds Temporarily Held';
+      th4.innerHTML = '<span class="legend-dot dot-hidden" aria-hidden="true"></span>Potential Funds Temporarily Held';
       if (chartColTitle) chartColTitle.textContent = 'Estimated Monthly Processing Fees';
     }} else {{
-      th2.textContent = 'Sticker Price / Year';
+      th2.innerHTML = '<span class="legend-dot dot-sticker" aria-hidden="true"></span>Sticker Price / Year';
       th3.textContent = 'True Cost / Year (Est.)';
-      th4.textContent = 'Hidden Cost Gap';
+      th4.innerHTML = '<span class="legend-dot dot-hidden" aria-hidden="true"></span>Hidden Cost Gap';
       if (chartColTitle) chartColTitle.textContent = 'Your Estimated True Cost';
     }}
   }}
@@ -743,16 +753,16 @@ function renderDirectory() {{
       applyBarRowState(rowHidden, s3, overagesAddonsYr);
 
       document.getElementById('wb-amt-base').textContent = `$${{baseSubYr.toLocaleString()}}`;
-      document.getElementById('wb-call-title-base').textContent = 'Base subscriptions';
-      document.getElementById('wb-call-sub-base').textContent = 'Sticker price of your tools';
+      document.getElementById('wb-call-title-base').textContent = 'Sticker Price: Base plan';
+      document.getElementById('wb-call-sub-base').textContent = '1st seat at advertised rate';
 
       document.getElementById('wb-amt-seats').textContent = `$${{seatsUsageYr.toLocaleString()}}`;
-      document.getElementById('wb-call-title-seats').textContent = 'Seats & usage';
-      document.getElementById('wb-call-sub-seats').textContent = 'Real headcount and consumption';
+      document.getElementById('wb-call-title-seats').textContent = 'Sticker Price: Added seats';
+      document.getElementById('wb-call-sub-seats').textContent = 'Remaining team seat licenses';
 
       document.getElementById('wb-amt-hidden').textContent = `$${{overagesAddonsYr.toLocaleString()}}`;
-      document.getElementById('wb-call-title-hidden').textContent = 'Overages & add-ons';
-      document.getElementById('wb-call-sub-hidden').textContent = 'Fees you can’t always see';
+      document.getElementById('wb-call-title-hidden').textContent = 'Hidden Cost Gap';
+      document.getElementById('wb-call-sub-hidden').textContent = 'Onboarding, AI overages & minimums';
     }}
 
     const selProdEl = document.getElementById('wb-selected-product');
