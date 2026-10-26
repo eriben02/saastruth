@@ -54,7 +54,7 @@
     "tracking_url": "/go/monday-crm",
     "destination_url": "https://monday.com/pricing",
     "is_affiliate": true,
-    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=mondaycom)",
     "applied_date": "2026-10-25",
     "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
   },
@@ -71,7 +71,7 @@
   "freshworks": {
     "program_name": "Freshworks Affiliate Program (Freshdesk & Freshservice)",
     "network": "PartnerStack",
-    "commission": "20% of first-year subscription revenue (paid monthly up to 12 months); 25% at 50\u2013100 and 30% at 101+ converted referrals/month (terms effective Mar 31, 2026); commissions only on initial MRR, not upgrades",
+    "commission": "20% of first-year subscription revenue (paid monthly up to 12 months); 25% at 50–100 and 30% at 101+ converted referrals/month (terms effective Mar 31, 2026); commissions only on initial MRR, not upgrades",
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/page/freshworks4391",
     "tracking_url": "/go/freshdesk",
@@ -116,7 +116,8 @@
     "official_program_url": "https://www.chargeflow.io/partners",
     "tracking_url": "/go/chargeflow",
     "destination_url": "https://www.chargeflow.io/pricing",
-    "is_affiliate": true
+    "is_affiliate": true,
+    "status": "applied (Chargeflow Partner Program form submitted 2026-10-26 via chargeflow.io/partners as Affiliate/Sales Partner)"
   },
   "lemon-squeezy": {
     "program_name": "Lemon Squeezy Affiliate Program",
@@ -199,7 +200,7 @@
   "help-scout": {
     "program_name": "Help Scout Affiliate Program",
     "network": "PartnerStack",
-    "commission": "15% of every deal closed (1\u201310 referred customers in last 3 months); 20% (11+)",
+    "commission": "15% of every deal closed (1–10 referred customers in last 3 months); 20% (11+)",
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/page/helpscout",
     "signup_url": "https://market.partnerstack.com/page/helpscout",
