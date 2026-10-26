@@ -590,6 +590,63 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("related-calculators-heading", html)
 
 
-if __name__ == "__main__":
+    def test_initial_context_preselection_and_subpage_memory(self):
+        """Verify index.html contains applyInitialContext supporting ?cat=, ?tool=, #hash, document.referrer, and sessionStorage."""
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        for token in [
+            "function applyInitialContext",
+            "function resolveContextFromToken",
+            "params.get('cat')",
+            "params.get('tool')",
+            "document.referrer",
+            "sessionStorage.getItem('saasbill_last_cat')",
+            "sessionStorage.setItem('saasbill_last_cat'",
+            "window.addEventListener('hashchange'",
+        ]:
+            self.assertIn(token, index_html, f"Missing context preselection token '{token}' in index.html")
 
+        # Execute resolveContextFromToken in Node.js across query/hash/referrer test cases
+        m = re.search(r"const TOOLS = (.*?);\nconst AFFILIATES", index_html, re.S)
+        fn_m = re.search(r"(function resolveContextFromToken\(raw\) \{.*?\n\})\n\nfunction applyInitialContext", index_html, re.S)
+        self.assertIsNotNone(m)
+        self.assertIsNotNone(fn_m)
+        runner = f"""
+        const TOOLS = {m.group(1)};
+        {fn_m.group(1)}
+        const cases = {{
+          payments: resolveContextFromToken('payments'),
+          stripe: resolveContextFromToken('stripe'),
+          whop: resolveContextFromToken('whop-payments'),
+          crm: resolveContextFromToken('crm'),
+          close: resolveContextFromToken('close'),
+          compliance: resolveContextFromToken('compliance'),
+          jotform: resolveContextFromToken('jotform'),
+          helpdesk: resolveContextFromToken('helpdesk'),
+          intercom: resolveContextFromToken('intercom'),
+          all: resolveContextFromToken('all'),
+          ref_stripe: resolveContextFromToken('https://saasbill.io/exit/stripe-shopify-paddle-frozen-funds-alternatives/'),
+          ref_hubspot: resolveContextFromToken('https://saasbill.io/pricing/hubspot-true-cost-and-onboarding-fees/'),
+          ref_hipaa: resolveContextFromToken('https://saasbill.io/compare/typeform-vs-jotform-response-limit-and-hipaa-cost/')
+        }};
+        console.log(JSON.stringify(cases));
+        """
+        res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+        out = json.loads(res.stdout)
+        self.assertEqual(out["payments"], {"cat": "Payment Processors & MoR", "tool": "stripe-payments"})
+        self.assertEqual(out["stripe"], {"cat": "Payment Processors & MoR", "tool": "stripe-payments"})
+        self.assertEqual(out["whop"], {"cat": "Payment Processors & MoR", "tool": "whop-payments"})
+        self.assertEqual(out["crm"], {"cat": "CRM & Sales", "tool": "hubspot-sales-pro"})
+        self.assertEqual(out["close"], {"cat": "CRM & Sales", "tool": "close-crm"})
+        self.assertEqual(out["compliance"], {"cat": "Compliance, HIPAA & SOC 2", "tool": "jotform-hipaa"})
+        self.assertEqual(out["jotform"], {"cat": "Compliance, HIPAA & SOC 2", "tool": "jotform-hipaa"})
+        self.assertEqual(out["helpdesk"], {"cat": "Helpdesk & AI Support", "tool": "zendesk-suite-team"})
+        self.assertEqual(out["intercom"], {"cat": "Helpdesk & AI Support", "tool": "intercom-fin-ai"})
+        self.assertEqual(out["all"], {"cat": "ALL", "tool": ""})
+        self.assertEqual(out["ref_stripe"]["cat"], "Payment Processors & MoR")
+        self.assertEqual(out["ref_hubspot"]["cat"], "CRM & Sales")
+        self.assertEqual(out["ref_hipaa"]["cat"], "Compliance, HIPAA & SOC 2")
+
+
+if __name__ == "__main__":
     unittest.main(verbosity=2)

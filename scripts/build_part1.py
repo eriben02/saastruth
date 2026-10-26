@@ -1093,12 +1093,119 @@ function updateInspectorRail() {{
   _railAnimId = requestAnimationFrame(step);
 }}
 
+function resolveContextFromToken(raw) {{
+  if (!raw) return null;
+  const s = String(raw).toLowerCase().trim();
+  if (!s) return null;
+  const exactTool = TOOLS.find(t => t.id === s);
+  if (exactTool) {{
+    return {{ cat: exactTool.category, tool: exactTool.id }};
+  }}
+  const toolAliases = [
+    ['hubspot-marketing', 'hubspot-marketing-pro'],
+    ['hubspot-service', 'hubspot-service-hub'],
+    ['hubspot', 'hubspot-sales-pro'],
+    ['close-crm', 'close-crm'],
+    ['close', 'close-crm'],
+    ['pipedrive', 'pipedrive-crm'],
+    ['monday', 'monday-crm'],
+    ['intercom', 'intercom-fin-ai'],
+    ['zendesk-pro', 'zendesk-suite-professional'],
+    ['zendesk', 'zendesk-suite-team'],
+    ['freshdesk', 'freshdesk-support'],
+    ['helpscout', 'help-scout-plus'],
+    ['help-scout', 'help-scout-plus'],
+    ['stripe', 'stripe-payments'],
+    ['whop', 'whop-payments'],
+    ['paddle', 'paddle-mor'],
+    ['lemon-squeezy', 'lemon-squeezy'],
+    ['lemonsqueezy', 'lemon-squeezy'],
+    ['chargeflow', 'chargeflow'],
+    ['jotform', 'jotform-hipaa'],
+    ['typeform', 'jotform-hipaa'],
+    ['1password', '1password-business'],
+    ['vanta', 'vanta-soc2'],
+    ['drata', 'drata-soc2']
+  ];
+  for (let i = 0; i < toolAliases.length; i++) {{
+    const k = toolAliases[i][0];
+    const tid = toolAliases[i][1];
+    if (s === k || s.indexOf(k) !== -1) {{
+      const tObj = TOOLS.find(t => t.id === tid);
+      if (tObj) return {{ cat: tObj.category, tool: tObj.id }};
+    }}
+  }}
+  if (s === 'all') return {{ cat: 'ALL', tool: '' }};
+  if (s.indexOf('payment') !== -1 || s.indexOf('mor') !== -1 || s.indexOf('paypal') !== -1 || s.indexOf('gumroad') !== -1) {{
+    return {{ cat: 'Payment Processors & MoR', tool: 'stripe-payments' }};
+  }}
+  if (s.indexOf('crm') !== -1 || s.indexOf('sales') !== -1 || s.indexOf('gong') !== -1) {{
+    return {{ cat: 'CRM & Sales', tool: 'hubspot-sales-pro' }};
+  }}
+  if (s.indexOf('compliance') !== -1 || s.indexOf('hipaa') !== -1 || s.indexOf('soc2') !== -1 || s.indexOf('docusign') !== -1) {{
+    return {{ cat: 'Compliance, HIPAA & SOC 2', tool: 'jotform-hipaa' }};
+  }}
+  if (s.indexOf('helpdesk') !== -1 || s.indexOf('support') !== -1 || s === 'ai') {{
+    return {{ cat: 'Helpdesk & AI Support', tool: 'zendesk-suite-team' }};
+  }}
+  return null;
+}}
+
+function applyInitialContext(onlyHash) {{
+  try {{
+    const catSelect = document.getElementById('cat-filter');
+    if (!catSelect) return;
+    let resolved = null;
+    const hashRaw = (window.location && window.location.hash ? window.location.hash.replace(/^#/, '') : '').toLowerCase();
+    if (onlyHash) {{
+      if (hashRaw && hashRaw !== 'all-calculators' && hashRaw !== 'methodology') {{
+        resolved = resolveContextFromToken(hashRaw);
+      }}
+    }} else {{
+      const params = new URLSearchParams(window.location ? window.location.search : '');
+      const qTool = params.get('tool');
+      const qCat = params.get('cat') || params.get('category');
+      if (qTool) {{
+        resolved = resolveContextFromToken(qTool);
+      }}
+      if (!resolved && qCat) {{
+        resolved = resolveContextFromToken(qCat);
+      }}
+      if (!resolved && hashRaw && hashRaw !== 'all-calculators' && hashRaw !== 'methodology') {{
+        resolved = resolveContextFromToken(hashRaw);
+      }}
+      if (!resolved && typeof document !== 'undefined' && document.referrer) {{
+        resolved = resolveContextFromToken(document.referrer);
+      }}
+      if (!resolved && typeof sessionStorage !== 'undefined') {{
+        const savedCat = sessionStorage.getItem('saasbill_last_cat');
+        const savedTool = sessionStorage.getItem('saasbill_last_tool') || '';
+        if (savedCat) {{
+          resolved = {{ cat: savedCat, tool: savedTool }};
+        }}
+      }}
+    }}
+    if (resolved && resolved.cat) {{
+      catSelect.value = resolved.cat;
+      if (resolved.tool) {{
+        currentSpotlightId = resolved.tool;
+        lastCategory = resolved.cat;
+      }}
+    }}
+  }} catch (err) {{}}
+}}
+
 const _origRenderDirectory = renderDirectory;
 renderDirectory = function() {{
   _origRenderDirectory();
   requestAnimationFrame(updateInspectorRail);
 }};
 window.addEventListener('resize', () => requestAnimationFrame(updateInspectorRail));
+window.addEventListener('hashchange', () => {{
+  applyInitialContext(true);
+  renderDirectory();
+}});
+applyInitialContext(false);
 renderDirectory();
 </script>
 """

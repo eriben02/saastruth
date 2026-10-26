@@ -266,6 +266,30 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   /* Local event buffer only (no external analytics scripts loaded).
      Prepared events: calculator_interaction, category_select, result_rendered, vendor_cta_click */
   window.__saasbillEvents = window.__saasbillEvents || [];
+  try {{
+    var p = (window.location && window.location.pathname ? window.location.pathname : '').toLowerCase();
+    if (p && p !== '/' && p !== '/index.html') {{
+      var ctxCat = '';
+      var ctxTool = '';
+      if (p.indexOf('stripe') !== -1 || p.indexOf('paddle') !== -1 || p.indexOf('whop') !== -1 || p.indexOf('gumroad') !== -1 || p.indexOf('paypal') !== -1) {{
+        ctxCat = 'Payment Processors & MoR';
+        ctxTool = p.indexOf('paddle') !== -1 ? 'paddle-mor' : (p.indexOf('whop') !== -1 ? 'whop-payments' : 'stripe-payments');
+      }} else if (p.indexOf('hubspot') !== -1 || p.indexOf('close-crm') !== -1 || p.indexOf('pipedrive') !== -1 || p.indexOf('monday-crm') !== -1 || p.indexOf('gong') !== -1) {{
+        ctxCat = 'CRM & Sales';
+        ctxTool = p.indexOf('monday') !== -1 ? 'monday-crm' : (p.indexOf('close') !== -1 ? 'close-crm' : (p.indexOf('pipedrive') !== -1 ? 'pipedrive-crm' : 'hubspot-sales-pro'));
+      }} else if (p.indexOf('hipaa') !== -1 || p.indexOf('soc2') !== -1 || p.indexOf('docusign') !== -1 || p.indexOf('typeform') !== -1 || p.indexOf('jotform') !== -1) {{
+        ctxCat = 'Compliance, HIPAA & SOC 2';
+        ctxTool = (p.indexOf('typeform') !== -1 || p.indexOf('jotform') !== -1) ? 'jotform-hipaa' : 'vanta-soc2';
+      }} else if (p.indexOf('intercom') !== -1 || p.indexOf('zendesk') !== -1 || p.indexOf('freshdesk') !== -1) {{
+        ctxCat = 'Helpdesk & AI Support';
+        ctxTool = p.indexOf('intercom') !== -1 ? 'intercom-fin-ai' : (p.indexOf('freshdesk') !== -1 ? 'freshdesk-support' : 'zendesk-suite-team');
+      }}
+      if (ctxCat && window.sessionStorage) {{
+        sessionStorage.setItem('saasbill_last_cat', ctxCat);
+        if (ctxTool) sessionStorage.setItem('saasbill_last_tool', ctxTool);
+      }}
+    }}
+  }} catch (err) {{}}
   document.addEventListener('click', function(e) {{
     var cta = e.target.closest('[data-track="vendor-cta"]');
     if (cta) {{
