@@ -246,5 +246,21 @@
     "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=activecampaign)",
     "destination_url": "https://www.activecampaign.com/pricing",
     "signup_url": "https://dash.partnerstack.com/application?company=activecampaign"
+  },
+  "apollo": {
+    "vendor_name": "Apollo.io",
+    "network": "PartnerStack",
+    "commission": "15% monthly / 20% annual recurring commission for 12 months",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=apollo)",
+    "destination_url": "https://www.apollo.io/pricing",
+    "signup_url": "https://dash.partnerstack.com/application?company=apollo"
+  },
+  "deel": {
+    "vendor_name": "Deel",
+    "network": "PartnerStack",
+    "commission": "Up to $1,500 per referred customer ($500 per qualified demo + $1,000 upon close)",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=deel&gref=page)",
+    "destination_url": "https://www.deel.com/pricing/",
+    "signup_url": "https://dash.partnerstack.com/application?company=deel&gref=page"
   }
 }
