@@ -209,6 +209,11 @@ home_body = f"""
       <p>Simulate a 25% rolling reserve and capital loan holdback, and compare card-token portability across payment rails.</p>
     </div>
     <div class="card">
+      <span class="badge badge-high">Payments &amp; MoR &middot; Take Rates</span>
+      <h3><a href="./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/">Gumroad vs. Whop vs. Lemon Squeezy net payout calculator</a></h3>
+      <p>Compare Gumroad&rsquo;s 10% + 50&cent; (plus 2.9% + 30&cent; processing), Lemon Squeezy&rsquo;s 5% + 50&cent; surcharges and Whop&rsquo;s 2.7% + 30&cent; for your price and volume.</p>
+    </div>
+    <div class="card">
       <span class="badge badge-low">Compliance &middot; HIPAA &amp; SOC 2</span>
       <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA tiers &amp; SOC 2 + CPA auditor estimator</a></h3>
       <p>Check self-serve HIPAA BAA and SAML SSO plans and estimate negotiated Vanta/Drata quotes plus external CPA audit fees.</p>

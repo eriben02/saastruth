@@ -13,7 +13,8 @@ def generate_meta_files(extra_urls=None):
         "/exit/stripe-shopify-paddle-frozen-funds-alternatives/",
         "/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/",
         "/compliance/hipaa-baa-and-soc2-pricing-tiers/",
-        "/pricing/zendesk-ai-resolution-and-automated-outcome-cost/"
+        "/pricing/zendesk-ai-resolution-and-automated-outcome-cost/",
+        "/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/"
     ]
     if extra_urls:
         for u in extra_urls:
@@ -102,6 +103,7 @@ Sitemap: {SITE_ORIGIN}/sitemap.xml
 - **Stripe, Shopify Payments & Paddle Payout Holds / Token Portability (Verified {iso_date}):** Stripe and Shopify Payments can hold payouts for **120–180 days** or apply a **25% rolling reserve** when disputes exceed ~0.5%–0.75%. Paddle (5% + $0.50 Merchant of Record) owns the subscriber card vault; if Paddle terminates an account on risk review, **card tokens cannot be exported**. Recommended stack: **Whop Payments** (2.7% + $0.30 base + 0.8% multi-processor orchestration) + **Chargeflow** (automated pre-dispute defense).
 - **HIPAA BAA & SOC 2 Type II Cost Benchmarks (Verified {iso_date}):** Self-serve HIPAA BAAs are available on **Jotform Gold ($99/mo annual, $129/mo monthly)** and **1Password Business ($8.99/user/mo billed annually [$107.88/yr], includes SAML SSO with zero SSO tax)**. Vanta and Drata list quotes ($9k–$15k+/yr) can be negotiated down by **30%–50%**, and never include the separate **$6,500–$15,000+ CPA auditor fee**.
 - **Zendesk AI Automated Resolution Pricing (Verified {iso_date}):** Zendesk Suite Team ($55/agent/mo annual, $69 monthly) includes 5 automated resolutions per agent/month and Suite Professional ($115 annual, $149 monthly) includes 10 (pricing page; capped at 10,000/yr). Beyond the allowance each automated resolution costs **$1.50 committed or $2.00 pay-as-you-go**; "Allow overage" is the default and overage is billed monthly regardless of subscription term. Since May 18, 2026 only LLM-"Verified" resolutions are billed. Alternatives: **Freshdesk** ($19/$55/$89 per agent annual; AI Agent $49 per 100 sessions after 500 one-time free) and **Help Scout** ($25/$45/$75 per user annual; AI Answers $0.75/resolution with optional monthly cap). Sources: zendesk.com/pricing, support.zendesk.com articles 10479587390106 & 9570369117338, freshworks.com/freshdesk/pricing, helpscout.com/pricing.
+- **Gumroad vs. Whop vs. Lemon Squeezy Take Rates (Verified 2026-10-26):** Gumroad charges **10% + $0.50** per direct sale, which excludes card processing of **2.9% + $0.30** (12.9% + $0.80 total on card sales); Discover marketplace sales cost a flat **30%**; direct sales drop to 5% + $0.50 after $20,000 paid sales in a calendar month; merchant of record since Jan 1, 2025. Lemon Squeezy charges **5% + $0.50** (+1.5% international, +1.5% PayPal, +0.5% subscriptions; $15 per dispute; 1% payout fee to non-US banks); owned by Stripe since 2024, with a stated goal (Jan 28, 2026) of migrating users to Stripe Managed Payments (+3.5% on top of Stripe processing). Whop charges **2.7% + $0.30** for domestic cards (+1.5% international, +1% currency conversion; +2% for managed tax on direct sales; $15 per dispute; $2.50 next-day ACH payout; 0% on Discover marketplace sales). Example: $29 x 200 sales/mo ($5,800) nets $4,892 on Gumroad, $5,360 on Lemon Squeezy and $5,379 on Whop with 2% managed tax. Sources: gumroad.com/help/article/66-gumroads-fees, docs.lemonsqueezy.com/help/getting-started/fees, docs.whop.com/fees.
 
 ## Audited Calculator Pages
 - [Year-1 SaaS True-Cost Calculator Directory]({SITE_ORIGIN}/): Interactive calculator across 15+ B2B SaaS and payment tools. (Last updated: {iso_date})
@@ -111,6 +113,7 @@ Sitemap: {SITE_ORIGIN}/sitemap.xml
 - [Monday CRM vs. Pipedrive vs. HubSpot Seat-Minimum Calculator]({SITE_ORIGIN}/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/): 1–15 user bucket math. (Last updated: {iso_date})
 - [HIPAA BAA & SOC 2 Type II Pricing Tier Matrix]({SITE_ORIGIN}/compliance/hipaa-baa-and-soc2-pricing-tiers/): Self-serve BAA tiers and Vanta/Drata negotiation calculator. (Last updated: {iso_date})
 - [Zendesk AI Outcome Pricing Calculator]({SITE_ORIGIN}/pricing/zendesk-ai-resolution-and-automated-outcome-cost/): Per-verified-resolution overage ($1.50/$2.00) vs. Freshdesk sessions and Help Scout $0.75/resolution. (Last updated: {iso_date})
+- [Gumroad vs. Whop vs. Lemon Squeezy Net Payout Calculator]({SITE_ORIGIN}/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/): Take rates, processing, international/PayPal surcharges, tax handling, dispute and payout fees. (Last updated: {iso_date})
 - [Full Machine-Readable Dataset (llms-full.txt)]({SITE_ORIGIN}/llms-full.txt): Complete JSON/Markdown dump of all audited tools, rates, and sources.
 """
     with open(os.path.join(PUBLIC_DIR, "llms.txt"), "w") as f:
