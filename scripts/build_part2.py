@@ -200,8 +200,8 @@ p3_faqs = [
 
 render_page(
     "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
-    "Stripe, Shopify & Paddle Frozen Funds – saasbill.io",
-    "Compare Stripe, Shopify Payments, and Paddle payout freeze policies, card token portability rules, and backup payment orchestration with Whop and Chargeflow.",
+    "Stripe vs Paddle True Year-1 Cost & Holds – saasbill.io",
+    "Calculate the 2026 true cost and Year-1 cashflow impact of Stripe, Shopify Payments, and Paddle 25% rolling reserves, payout holds, and MoR token lock-in vs. Whop and Chargeflow.",
     "/exit/stripe-shopify-paddle-frozen-funds-alternatives/",
     p3_body,
     faqs=p3_faqs
@@ -382,8 +382,8 @@ p4_faqs = [
 
 render_page(
     "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
-    "monday CRM vs Pipedrive vs HubSpot – saasbill.io",
-    "Compare Monday CRM's 3-seat minimum and seat-bucket pricing against Pipedrive and HubSpot for 1, 2, 3, 5, and 10 users.",
+    "CRM True Year-1 Cost & Seat Minimums (2026) – saasbill.io",
+    "Compare the 2026 true cost and Year-1 price of monday CRM (3-seat minimum & 5-seat buckets), Pipedrive, Close CRM, and HubSpot (with mandatory onboarding fees) for 1 to 15 users.",
     "/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/",
     p4_body,
     faqs=p4_faqs
@@ -631,8 +631,8 @@ p5_faqs = [
 
 render_page(
     "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
-    "HIPAA BAA & SOC 2 True Cost Calculator – saasbill.io",
-    "Find out which SaaS pricing tiers sign a HIPAA BAA without a $50k Enterprise contract, and calculate your true SOC 2 Type II platform + CPA auditor cost.",
+    "HIPAA & SOC 2 True Year-1 Cost Calculator – saasbill.io",
+    "Calculate your 2026 SOC 2 Type II true cost and Year-1 budget (Vanta/Drata platform + mandatory CPA auditor fee) and compare self-serve HIPAA BAA tiers like Jotform Gold ($99/mo).",
     "/compliance/hipaa-baa-and-soc2-pricing-tiers/",
     p5_body,
     faqs=p5_faqs

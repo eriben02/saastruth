@@ -11,7 +11,7 @@ aff_js = json.dumps(AFFILIATES)
 home_body = f"""
 <section class="hero editorial-hero">
   <h1>Your SaaS bill is lying to you.</h1>
-  <p class="lead">Most teams only look at the sticker price. But mandatory onboarding fees, seat-bucket minimums, and metered AI overages compound quietly&mdash;and can significantly increase the real Year-1 cost of your tools.</p>
+  <p class="lead">In 2026, mandatory onboarding fees ($1,500&ndash;$7,000 on HubSpot Pro/Enterprise), 3-to-5-seat bucket minimums (monday CRM), and metered AI resolution charges ($0.99/resolution on Intercom Fin AI; $1.50&ndash;$2.00 on Zendesk AI) compound quietly&mdash;and can significantly increase the real Year-1 cost of your tools (verified Oct 2026 against official vendor pricing docs).</p>
 </section>
 
 <div class="editorial-cat-bar">
@@ -192,7 +192,17 @@ home_body = f"""
     <div class="card">
       <span class="badge badge-high">CRM &amp; Sales &middot; Onboarding Tiers</span>
       <h3><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot Year-1 calculator &amp; onboarding audit</a></h3>
-      <p>Model Sales Pro, Marketing Pro, and Enterprise onboarding fees alongside Close CRM and Pipedrive for 1 to 30 reps.</p>
+      <p>Model Sales Pro ($1,500), Marketing Pro ($3,000), and Enterprise onboarding fees alongside Close CRM and Pipedrive.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">CRM &amp; Sales &middot; 5–20 Sales Reps</span>
+      <h3><a href="./compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/">Close CRM vs. HubSpot Sales Hub (5–20 reps)</a></h3>
+      <p>Compare Close CRM&rsquo;s built-in VoIP calling, SMS &amp; $0 onboarding against HubSpot Sales Pro and Pipedrive add-on stacks.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">CRM &amp; Sales &middot; Revenue Intelligence</span>
+      <h3><a href="./pricing/gong-io-platform-fee-and-seat-minimum-calculator/">Gong.io $5,000 platform fee &amp; seat calculator</a></h3>
+      <p>Calculate Gong&rsquo;s benchmark $5,000/yr platform fee + $1,600/seat licenses + separate CRM vs. Close CRM all-in-one.</p>
     </div>
     <div class="card">
       <span class="badge badge-medium">CRM &amp; Sales &middot; Seat Buckets</span>
@@ -210,19 +220,54 @@ home_body = f"""
       <p>Compare Zendesk&rsquo;s included 5&ndash;10 AR/agent allowance and $1.50&ndash;$2.00 overage rates against Help Scout and Freshdesk.</p>
     </div>
     <div class="card">
+      <span class="badge badge-high">Payments &amp; MoR &middot; Recurring Tax</span>
+      <h3><a href="./pricing/stripe-billing-0-7-percent-recurring-tax-calculator/">Stripe Billing 0.7% recurring revenue tax calculator</a></h3>
+      <p>Calculate how Stripe&rsquo;s 2.9% + 30&cent; + 0.7% Billing + 0.5% Tax + 0.4% Invoicing stack compares against Whop (2.7% + 30&cent;) and Paddle.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">Payments &amp; MoR &middot; Take Rates</span>
+      <h3><a href="./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/">Gumroad vs. Whop vs. Lemon Squeezy net payout calculator</a></h3>
+      <p>Compare Gumroad&rsquo;s 10% + 50&cent; (plus 2.9% + 30&cent; processing), Lemon Squeezy&rsquo;s 5% + 50&cent; surcharges and Whop&rsquo;s 2.7% + 30&cent;.</p>
+    </div>
+    <div class="card">
       <span class="badge badge-high">Payments &amp; MoR &middot; Cashflow Risk</span>
       <h3><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Stripe, Shopify &amp; Paddle payout hold simulator</a></h3>
       <p>Simulate a 25% rolling reserve and capital loan holdback, and compare card-token portability across payment rails.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; Take Rates</span>
-      <h3><a href="./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/">Gumroad vs. Whop vs. Lemon Squeezy net payout calculator</a></h3>
-      <p>Compare Gumroad&rsquo;s 10% + 50&cent; (plus 2.9% + 30&cent; processing), Lemon Squeezy&rsquo;s 5% + 50&cent; surcharges and Whop&rsquo;s 2.7% + 30&cent; for your price and volume.</p>
+      <span class="badge badge-high">Payments &amp; MoR &middot; 180-Day Holds</span>
+      <h3><a href="./exit/paypal-180-day-permanent-limitation-fund-recovery/">PayPal 180-day limitation &amp; reserve calculator</a></h3>
+      <p>Model locked working capital under a 180-day PayPal hold plus 3.49% + 49&cent; fees vs. Whop multi-processor failover.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-low">Compliance &middot; Forms &amp; HIPAA BAA</span>
+      <h3><a href="./compare/typeform-vs-jotform-response-limit-and-hipaa-cost/">Typeform vs. Jotform response limit &amp; HIPAA calculator</a></h3>
+      <p>Compare Typeform&rsquo;s response caps and custom Enterprise HIPAA BAA pricing against Jotform Gold ($99/mo with BAA included).</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-medium">Compliance &middot; E-Sign Envelope Caps</span>
+      <h3><a href="./pricing/docusign-envelope-allowance-and-api-overage-calculator/">DocuSign 100-envelope cap &amp; overage calculator</a></h3>
+      <p>Expose DocuSign&rsquo;s 100 envelopes/user/year limit on Standard &amp; Business Pro vs. PandaDoc and Jotform Sign.</p>
     </div>
     <div class="card">
       <span class="badge badge-low">Compliance &middot; HIPAA &amp; SOC 2</span>
       <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA tiers &amp; SOC 2 + CPA auditor estimator</a></h3>
       <p>Check self-serve HIPAA BAA and SAML SSO plans and estimate negotiated Vanta/Drata quotes plus external CPA audit fees.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-low">Quick Answer &middot; HubSpot Onboarding</span>
+      <h3><a href="./faq/does-hubspot-charge-onboarding-fees-2026/">Does HubSpot charge onboarding fees in 2026?</a></h3>
+      <p>Direct breakdown of mandatory $1,500–$7,000 HubSpot onboarding fees, Solutions Partner waivers, and $0-onboarding CRMs.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-low">Quick Answer &middot; Fin AI Pricing</span>
+      <h3><a href="./faq/intercom-fin-ai-cost-calculator/">How much does Intercom Fin AI actually cost in 2026?</a></h3>
+      <p>Fast $0.99/resolution AI support bill calculator comparing Intercom against Freshdesk and Help Scout.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-low">Quick Answer &middot; Stripe vs. Paddle</span>
+      <h3><a href="./faq/stripe-vs-paddle-true-cost/">Stripe vs. Paddle vs. Whop true cost (2026)</a></h3>
+      <p>Side-by-side effective take rate comparison once you add Stripe Billing (0.7%), Stripe Tax (0.5%), and FX fees.</p>
     </div>
   </div>
 </section>
@@ -1074,8 +1119,8 @@ home_faqs = [
 
 render_page(
     "index.html",
-    "saasbill.io – Your SaaS bill is lying to you",
-    "SaaSBill independent B2B SaaS pricing calculator and contract audit directory. Compare true Year-1 costs including HubSpot's $1,500-$7,000 onboarding fees, Intercom's $0.99 AI resolution tax, and Stripe/Paddle payout holds.",
+    "saasbill.io – True Year-1 SaaS Cost & Fee Calculator (2026)",
+    "Calculate the 2026 true cost and Year-1 invoice of B2B SaaS tools including HubSpot mandatory onboarding fees ($1,500-$7,000), Intercom and Zendesk AI cost overages, CRM seat minimums, and Stripe vs. Paddle vs. Whop fees.",
     "/",
     home_body,
     faqs=home_faqs,
@@ -1329,8 +1374,8 @@ p1_faqs = [
 
 render_page(
     "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
-    "HubSpot True Year-1 Cost Calculator – saasbill.io",
-    "Calculate your real Year-1 HubSpot Sales Hub and Marketing Hub cost including mandatory $1,500-$7,000 onboarding fees, and compare against Close CRM and Pipedrive.",
+    "HubSpot True Year-1 Cost & Onboarding Fees – saasbill.io",
+    "Calculate the 2026 HubSpot true cost and Year-1 invoice including mandatory $1,500-$7,000 onboarding fees on Sales Hub Pro and Marketing Hub Pro vs. Close CRM ($0 onboarding) and Pipedrive.",
     "/pricing/hubspot-true-cost-and-onboarding-fees/",
     p1_body,
     faqs=p1_faqs
@@ -1512,8 +1557,8 @@ p2_faqs = [
 
 render_page(
     "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
-    "Intercom Fin AI Cost Calculator – saasbill.io",
-    "Calculate your monthly and annual Intercom Fin AI bill at $0.99 per resolution across Essential ($29), Advanced ($85), and Expert ($132) tiers, and compare against Freshdesk.",
+    "Intercom Fin AI True Cost & Year-1 Calculator – saasbill.io",
+    "Calculate your 2026 Intercom Fin AI true cost and Year-1 support bill at $0.99 per AI resolution plus seat licenses ($29-$132/mo), and compare AI cost against Freshdesk and Help Scout.",
     "/pricing/intercom-fin-ai-resolution-cost-calculator/",
     p2_body,
     faqs=p2_faqs

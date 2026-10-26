@@ -5,9 +5,8 @@ from layout import render_page
 
 SLUG = "/pricing/zendesk-ai-resolution-and-automated-outcome-cost/"
 REL = "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html"
-TITLE = "Zendesk AI Resolution Cost Calculator – saasbill.io"
-DESC = ("Zendesk Suite includes only 5–10 automated resolutions per agent/month; each verified AI resolution beyond that costs $1.50 committed or $2.00 pay-as-you-go. "
-        "Calculate your real bill vs. Freshdesk ($49/100 AI sessions) and Help Scout ($0.75/resolution). Verified Oct 25, 2026.")
+TITLE = "Zendesk AI True Cost & Year-1 Fee Calculator – saasbill.io"
+DESC = ("Calculate your 2026 Zendesk AI true cost and Year-1 invoice: Suite includes 5–10 automated resolutions/agent/mo, then charges $1.50–$2.00 AI cost overages vs. Freshdesk and Help Scout.")
 
 ZD = {"team": {"annual": 55, "monthly": 69, "ar": 5, "usd": 2}, "pro": {"annual": 115, "monthly": 149, "ar": 10, "usd": 5}}
 FD_PRO = {"annual": 55, "monthly": 66}; FD_PACK = 49
