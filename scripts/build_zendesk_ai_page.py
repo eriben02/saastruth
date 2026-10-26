@@ -254,7 +254,7 @@ function updateZd() {{
   if (zdSummary) {{
     zdSummary.innerHTML = `
       <div class="summary-card card-hidden">
-        <div class="summary-label">Zendesk Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-label">Zendesk Year-1 Total</div>
         <div class="summary-metric" style="color:var(--rose);">${{fmt(zdYr)}} / yr (${{fmt(zd)}}/mo)</div>
         <div class="summary-scenario">${{scenarioLine}}</div>
         <div class="summary-breakdown">${{fmt(zdSeatsYr)}} licenses + $0 onboarding + ${{fmt(zdAiYr)}} AI overage</div>
@@ -267,7 +267,7 @@ function updateZd() {{
       </div>
       <div class="summary-card card-lowest">
         <div class="summary-label">Lowest Estimated Year-1 Total</div>
-        <div class="summary-metric" style="color:var(--emerald);">${{fmt(lowR.yrTot)}} / yr &middot; ${{lowR.name}}</div>
+        <div class="summary-metric" style="color:var(--emerald);">${{fmt(lowR.yrTot)}} / yr (${{lowR.name.split(" + ")[0]}})</div>
         <div class="summary-scenario">${{scenarioLine}} (saves ${{fmt(Math.max(0, zdYr - lowR.yrTot))}}/yr vs. Zendesk)</div>
         <div class="summary-breakdown">${{fmt(lowR.seatYr)}} licenses + $0 onboarding + ${{fmt(lowR.aiYr)}} AI usage</div>
         <div class="summary-caveat"><strong>Contract note:</strong> Verify whether session-pack billing (Freshdesk) or capped $0.75 resolution billing (Help Scout) fits your ticket workflow.</div>

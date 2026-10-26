@@ -121,7 +121,7 @@ home_body = f"""
             <div class="wb-leader-line"></div>
             <div class="wb-callout-text">
               <strong id="wb-call-title-hidden">Hidden Cost Gap</strong>
-              <span id="wb-call-sub-hidden">Onboarding, AI overages &amp; minimums</span>
+              <span id="wb-call-sub-hidden">Onboarding, AI &amp; seat minimums</span>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ home_body = f"""
     </div>
     <div class="card">
       <span class="badge badge-low">Compliance</span>
-      <h3><a href="./compare/typeform-vs-jotform-response-limit-and-hipaa-cost/">Typeform vs. Jotform response limit &amp; HIPAA calculator</a></h3>
+      <h3><a href="./compare/typeform-vs-jotform-response-limit-and-hipaa-cost/">Typeform vs. Jotform response &amp; HIPAA calculator</a></h3>
       <p>Typeform&rsquo;s monthly response caps and Enterprise-only HIPAA BAA versus Jotform Gold ($99/mo annual with BAA included).</p>
     </div>
     <div class="card">
@@ -274,7 +274,7 @@ home_body = f"""
       Annual SaaS order forms (including HubSpot and Zendesk) typically disallow mid-term seat downgrades and require written non-renewal notice 30 to 60 days before term end, otherwise the contract auto-renews at list rate.
     </div>
     <div class="methodology-item">
-      <strong>Card-Vault Ownership &amp; Rolling Reserves</strong>
+      <strong>Card Vaults &amp; Rolling Reserves</strong>
       Direct processors (Stripe, Whop) let you export card tokens if you face a 25% rolling reserve. Merchants of Record (Paddle, Lemon Squeezy) are the legal seller of record and lock subscriber card tokens on termination.
     </div>
     <div class="methodology-item">
@@ -452,7 +452,7 @@ function computeSmoothBarShares(v1, v2, v3) {{
   const vals = [Math.max(0, v1), Math.max(0, v2), Math.max(0, v3)];
   const total = vals[0] + vals[1] + vals[2];
   if (total <= 0) return [33.3, 33.3, 33.4];
-  const MIN_SHARE = 14.5; // 45px out of 310px so 2-line callout never pushes row height
+  const MIN_SHARE = 15.5; // 45px out of 310px so 2-line callout never pushes row height
   let shares = [0, 0, 0];
   let locked = [false, false, false];
   let remainingShare = 100;
@@ -489,7 +489,7 @@ function computeSmoothBarShares(v1, v2, v3) {{
 
 function applyBarRowState(rowEl, share, val) {{
   if (!rowEl) return;
-  rowEl.style.flex = `${{share}} 1 0px`;
+  rowEl.style.flex = `${{share}} 1 0%`;
   rowEl.classList.remove('is-compact');
   rowEl.classList.toggle('is-zero', val === 0);
 }}
@@ -502,12 +502,12 @@ const PAY_PROFILES = {{
     total: 2325,
     held: 12500,
     unit: '/ mo',
-    callTitleBase: 'Base percentage fee (2.9%)',
-    callSubBase: '2.9% on $50k/mo GMV ($1,450/mo)',
+    callTitleBase: 'Base card rate (2.9%)',
+    callSubBase: '2.9% on $50k/mo GMV ($1,450)',
     callTitleSeats: 'Per-transaction fee ($0.30)',
-    callSubSeats: '$0.30 × 1,000 monthly tx ($300/mo)',
+    callSubSeats: '$0.30 × 1,000 tx ($300/mo)',
     callTitleHidden: 'Billing & FX surcharges',
-    callSubHidden: '+0.7% Billing ($350) + 1.5% intl ($225)',
+    callSubHidden: '+0.7% Billing + 1.5% intl ($575)',
     quote: '<strong>Estimated monthly processing fees:</strong> $2,325/mo<br/><strong>Potential funds temporarily held:</strong> $12,500/mo (25% reserve)',
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $1,750 base + $575 Billing/FX.',
     tableFeeSub: '$1,750 base (2.9% + $0.30) + $575 Billing/FX',
@@ -522,11 +522,11 @@ const PAY_PROFILES = {{
     held: 12500,
     unit: '/ mo',
     callTitleBase: 'Base MoR fee (5.0%)',
-    callSubBase: '5.0% on $50k/mo GMV incl. global VAT',
+    callSubBase: '5.0% on $50k/mo incl. VAT',
     callTitleSeats: 'Per-transaction fee ($0.50)',
-    callSubSeats: '$0.50 × 1,000 monthly tx ($500/mo)',
+    callSubSeats: '$0.50 × 1,000 tx ($500/mo)',
     callTitleHidden: 'FX conversion spread',
-    callSubHidden: 'Est. spread on 30% non-USD volume ($450)',
+    callSubHidden: 'Est. spread on 30% intl ($450)',
     quote: '<strong>Estimated monthly processing fees:</strong> $3,450/mo<br/><strong>Potential funds temporarily held:</strong> $12,500/mo (25% hold risk)',
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $3,000 MoR base + $450 FX spread.',
     tableFeeSub: '$3,000 MoR base (5.0% + $0.50) + $450 est. FX spread',
@@ -540,12 +540,12 @@ const PAY_PROFILES = {{
     total: 2275,
     held: 0,
     unit: '/ mo',
-    callTitleBase: 'Base card processing (2.7% + $0.30)',
-    callSubBase: '2.7% ($1,350) + $0.30 × 1,000 tx ($300)',
-    callTitleSeats: 'Multi-processor orchestration (0.8%)',
-    callSubSeats: '+0.8% waterfall failover routing ($400)',
+    callTitleBase: 'Base processing (2.7% + 30¢)',
+    callSubBase: '2.7% ($1,350) + 30¢ × 1k tx',
+    callTitleSeats: 'Failover routing (0.8%)',
+    callSubSeats: '+0.8% multi-PSP routing ($400)',
     callTitleHidden: 'International card surcharge',
-    callSubHidden: '+1.5% on 30% cross-border volume ($225)',
+    callSubHidden: '+1.5% on 30% intl volume ($225)',
     quote: '<strong>Estimated monthly processing fees:</strong> $2,275/mo<br/><strong>Potential funds temporarily held:</strong> $0/mo (multi-acquirer routing)',
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $1,875/mo without orchestration.',
     tableBaseAmt: 1650,
@@ -561,11 +561,11 @@ const PAY_PROFILES = {{
     held: 12500,
     unit: '/ mo',
     callTitleBase: 'Base MoR fee (5.0%)',
-    callSubBase: '5.0% on $50k/mo GMV incl. global tax MoR',
+    callSubBase: '5.0% on $50k/mo incl. tax MoR',
     callTitleSeats: 'Per-transaction fee ($0.50)',
-    callSubSeats: '$0.50 × 1,000 monthly tx ($500/mo)',
+    callSubSeats: '$0.50 × 1,000 tx ($500/mo)',
     callTitleHidden: 'Subscription & intl surcharges',
-    callSubHidden: '+0.5% subscriptions ($250) + 1.5% intl ($225)',
+    callSubHidden: '+0.5% sub ($250) + 1.5% intl',
     quote: '<strong>Estimated monthly processing fees:</strong> $3,475/mo<br/><strong>Potential funds temporarily held:</strong> $12,500/mo (25% reserve)',
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $3,000 MoR base + $475 surcharges.',
     tableFeeSub: '$3,000 MoR base (5.0% + $0.50) + $475 subscription/intl fees',
@@ -579,12 +579,12 @@ const PAY_PROFILES = {{
     total: 500,
     held: 0,
     unit: '/ mo',
-    callTitleBase: 'Fixed monthly platform fee ($0)',
-    callSubBase: '$0 monthly subscription or seat minimums',
+    callTitleBase: 'Monthly platform fee ($0)',
+    callSubBase: '$0 base fee or seat minimums',
     callTitleSeats: 'Lost-dispute fee ($0)',
-    callSubSeats: '$0 charged when a chargeback is not recovered',
-    callTitleHidden: '25% success fee on recovered revenue',
-    callSubHidden: '25% of $2,000/mo recovered disputes ($500/mo)',
+    callSubSeats: '$0 fee on unrecovered disputes',
+    callTitleHidden: '25% recovery success fee',
+    callSubHidden: '25% of $2k recovered ($500/mo)',
     quote: '<strong>Estimated monthly processing fees:</strong> $500/mo<br/><strong>Potential funds temporarily held:</strong> $0/mo (add-on dispute layer)',
     sub: 'Assumptions ($50k/mo GMV, $2,000/mo recovered disputes): 25% performance fee.',
     tableBaseSub: '$0 fixed monthly base · 25% of recovered chargebacks',
@@ -808,7 +808,7 @@ function renderDirectory() {{
 
       document.getElementById('wb-amt-hidden').textContent = `$${{overagesAddonsYr.toLocaleString()}}`;
       document.getElementById('wb-call-title-hidden').textContent = 'Hidden Cost Gap';
-      document.getElementById('wb-call-sub-hidden').textContent = 'Onboarding, AI overages & minimums';
+      document.getElementById('wb-call-sub-hidden').textContent = 'Onboarding, AI & seat minimums';
     }}
 
     const selProdEl = document.getElementById('wb-selected-product');
@@ -1286,7 +1286,7 @@ function updateHsCalc() {
   if (hsSummary) {
     hsSummary.innerHTML = `
       <div class="summary-card card-hidden">
-        <div class="summary-label">HubSpot Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-label">HubSpot Year-1 Total</div>
         <div class="summary-metric" style="color:var(--rose);">$${hsYear1.toLocaleString()} / yr &middot; ${hsName}</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">$${hsSeatsYr.toLocaleString()} licenses + $${hsOnboard.toLocaleString()} mandatory onboarding + $0 AI</div>
@@ -1298,7 +1298,7 @@ function updateHsCalc() {
         </div>
       </div>
       <div class="summary-card card-lowest">
-        <div class="summary-label">Lowest Year-1 Cost ($0 Onboarding)</div>
+        <div class="summary-label">Lowest Year-1 Cost ($0 Fee)</div>
         <div class="summary-metric" style="color:var(--emerald);">$${closeYear1.toLocaleString()} / yr &middot; Close CRM (Essentials)</div>
         <div class="summary-scenario">${scenarioLine} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()}/yr vs. HubSpot)</div>
         <div class="summary-breakdown">$${closeYear1.toLocaleString()} licenses + $0 onboarding + $0 AI</div>
@@ -1482,7 +1482,7 @@ function updateIcCalc() {
   if (icSummary) {
     icSummary.innerHTML = `
       <div class="summary-card card-hidden">
-        <div class="summary-label">Intercom Year-1 Total &amp; Hidden Cost Highlight</div>
+        <div class="summary-label">Intercom Year-1 Total</div>
         <div class="summary-metric" style="color:var(--rose);">$${icYear.toLocaleString()} / yr ($${icTotalMo.toLocaleString()}/mo)</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">$${icSeatsYr.toLocaleString()} licenses + $0 onboarding + $${icAiYr.toLocaleString()} Fin AI</div>
@@ -1494,7 +1494,7 @@ function updateIcCalc() {
         </div>
       </div>
       <div class="summary-card card-lowest">
-        <div class="summary-label">Session-Pack Alternative (Freshdesk Pro)</div>
+        <div class="summary-label">Freshdesk Session-Pack Plan</div>
         <div class="summary-metric" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">$${fdSeatsYr.toLocaleString()} licenses + $0 onboarding + $${fdAnnualAiCost.toLocaleString()} AI session packs</div>

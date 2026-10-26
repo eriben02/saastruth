@@ -144,8 +144,8 @@ function updateReserveSim() {
   const scenarioLine = `Based on $${rev.toLocaleString()}/mo gross volume, ${resPct}% rolling reserve, ${capPct}% capital loan deduction`;
   const cardsHtml = `
     <div class="summary-card card-hidden">
-      <div class="summary-label">Potential Funds Temporarily Held (Not a Fee)</div>
-      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo held ($${frozen90Days.toLocaleString()} over 90 days)</div>
+      <div class="summary-label">Funds Temporarily Held</div>
+      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo held</div>
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown"><strong>Estimated monthly processing fees:</strong> $${procFee.toLocaleString()}/mo (2.9%) &middot; <strong>Temporarily held:</strong> $${frozenMo.toLocaleString()}/mo reserve + $${loanDed.toLocaleString()}/mo loan deduction</div>
       <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> A rolling reserve is a temporary cashflow holdback (90&ndash;180 days), not a permanent fee, but it withholds ${heldPct}% ($${tempHeld.toLocaleString()}/mo) of gross payouts before operating expenses.</div>
@@ -156,7 +156,7 @@ function updateReserveSim() {
       </div>
     </div>
     <div class="summary-card card-lowest">
-      <div class="summary-label">Net Monthly Payout After Fees &amp; Temporary Holds</div>
+      <div class="summary-label">Net Monthly Payout</div>
       <div class="summary-metric" style="color:var(--emerald);">$${netCash.toLocaleString()} / mo</div>
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${procFee.toLocaleString()} est. processing fees &minus; $${tempHeld.toLocaleString()} temporarily held = $${netCash.toLocaleString()} net</div>
@@ -170,7 +170,7 @@ function updateReserveSim() {
     </div>
     <div class="summary-card card-highest">
       <div class="summary-label">Token Portability &amp; MoR Caveat</div>
-      <div class="summary-metric">Processor vs. Merchant of Record</div>
+      <div class="summary-metric">Processor vs. MoR</div>
       <div class="summary-scenario">Contract &amp; vault ownership check (Verified terms)</div>
       <div class="summary-breakdown">Stripe: $2,325/mo est. fees at $50k/mo (portable tokens) &middot; Paddle MoR: $3,450/mo est. fees (locked vault)</div>
       <div class="summary-caveat"><strong>Contract note:</strong> With Paddle or Lemon Squeezy MoR, the MoR is the legal seller of record, so card tokens cannot be exported if your account is terminated on a risk review.</div>
@@ -303,7 +303,7 @@ function updateSmCalc() {
     smSummary.innerHTML = `
       <div class="summary-card card-lowest">
         <div class="summary-label">Lowest Year-1 Total for ${u} User${u === 1 ? '' : 's'}</div>
-        <div class="summary-metric" style="color:var(--emerald);">$${lowYr.toLocaleString()} / yr &middot; ${lowName}</div>
+        <div class="summary-metric" style="color:var(--emerald);">$${lowYr.toLocaleString()} / yr (${lowName.split(" ")[0]})</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">${lowestIsPipe ? `$${pipeYr.toLocaleString()} licenses (${u} exact seat${u===1?'':'s'}) + $0 onboarding` : `$${monYr.toLocaleString()} licenses (${monSeats}-seat bucket) + $0 onboarding`}</div>
         <div class="summary-caveat"><strong>Contract note:</strong> ${lowestIsPipe ? 'Pipedrive bills strictly 1:1 per active user with no seat-bucket padding.' : `At ${u} users, monday CRM's ${monSeats}-seat bucket beats 1:1 per-seat pricing.`}</div>
@@ -314,8 +314,8 @@ function updateSmCalc() {
         </div>
       </div>
       <div class="summary-card card-hidden">
-        <div class="summary-label">Seat-Bucket Padding Highlight (monday CRM)</div>
-        <div class="summary-metric" style="color:${unusedSeats > 0 ? 'var(--rose)' : 'var(--emerald)'};">$${monYr.toLocaleString()} / yr (${monSeats} billed seats)</div>
+        <div class="summary-label">monday CRM Seat Padding</div>
+        <div class="summary-metric" style="color:${unusedSeats > 0 ? 'var(--rose)' : 'var(--emerald)'};">$${monYr.toLocaleString()} / yr (${monSeats} seats)</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">$${(u * monRate * 12).toLocaleString()} active seats + $${unusedCostYr.toLocaleString()} unused seat padding</div>
         <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${unusedSeats > 0 ? `monday CRM forces a ${monSeats}-seat bucket for ${u} user${u===1?'':'s'}, adding $${unusedCostYr.toLocaleString()}/yr for ${unusedSeats} unused seat${unusedSeats===1?'':'s'} ($${(monMo / u).toFixed(2)}/user/mo effective rate).` : `At exactly ${u} users, you use 100% of monday CRM's ${monSeats}-seat bucket ($0 wasted seat padding).`}</div>
@@ -326,7 +326,7 @@ function updateSmCalc() {
         </div>
       </div>
       <div class="summary-card card-highest">
-        <div class="summary-label">HubSpot Comparison (${tier === 'entry' ? 'Starter' : 'Professional'})</div>
+        <div class="summary-label">HubSpot (${tier === 'entry' ? 'Starter' : 'Sales Pro'})</div>
         <div class="summary-metric">$${hsYr.toLocaleString()} / yr</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">$${(hsMo * 12).toLocaleString()} licenses + $${hsOnboard.toLocaleString()} mandatory onboarding</div>
@@ -551,7 +551,7 @@ function updateSocCalc() {
   if (socSummary) {
     socSummary.innerHTML = `
       <div class="summary-card card-hidden">
-        <div class="summary-label">Hidden Cost Highlight: Separate CPA Auditor Bill</div>
+        <div class="summary-label">Separate CPA Auditor Fee</div>
         <div class="summary-metric" style="color:var(--rose);">+$${auditorFee.toLocaleString()} / yr CPA Audit Fee</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">Billed separately by an independent AICPA-licensed CPA firm (${auditSharePct}% of total Drata Year-1 budget)</div>
@@ -564,7 +564,7 @@ function updateSocCalc() {
         </div>
       </div>
       <div class="summary-card card-lowest">
-        <div class="summary-label">Negotiated Vanta vs. Drata Benchmark</div>
+        <div class="summary-label">Vanta vs. Drata Benchmark</div>
         <div class="summary-metric">$${drataTot.toLocaleString()} &ndash; $${vantaTot.toLocaleString()} / yr Total</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">Drata: $${drataNeg.toLocaleString()} SW + $${auditorFee.toLocaleString()} CPA &middot; Vanta: $${vantaNeg.toLocaleString()} SW + $${auditorFee.toLocaleString()} CPA</div>
@@ -576,7 +576,7 @@ function updateSocCalc() {
         </div>
       </div>
       <div class="summary-card card-highest">
-        <div class="summary-label">Verified Self-Serve HIPAA BAA &amp; SSO Options</div>
+        <div class="summary-label">Self-Serve HIPAA BAA &amp; SSO</div>
         <div class="summary-metric" style="color:var(--emerald);">Jotform Gold ($99/mo) &middot; 1Password ($8.99/u)</div>
         <div class="summary-scenario">Verified published self-serve tiers (no Enterprise quote required)</div>
         <div class="summary-breakdown">Jotform Gold: $1,188/yr (1-user HIPAA BAA) &middot; 1Password Business: $107.88/user/yr (SAML SSO incl.)</div>
