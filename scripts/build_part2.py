@@ -10,7 +10,7 @@ TOOLS, AFFILIATES = load_data()
 p3_body = """
 <section class="hero">
   <h1>What happens when Stripe, Shopify, or Paddle freezes your payouts.</h1>
-  <p class="lead">A 25% rolling reserve or 180-day hold can starve a healthy business overnight—and if a Merchant of Record drops you, you cannot take your subscribers’ card tokens with you. Here is how to protect your cashflow.</p>
+  <p class="lead">A 25% rolling reserve or 180-day hold can starve a healthy business overnight. And if a Merchant of Record drops you, you cannot take your subscribers’ card tokens with you. Here is how to protect your cashflow.</p>
   <div class="geo-direct-answer">
     <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30 base + 0.8% orchestration)</strong>.</p>
   </div>
@@ -35,7 +35,7 @@ p3_body = """
   </div>
   <div id="hold-summary" class="summary-strip" aria-live="polite"></div>
   <div id="reserve-output" class="summary-strip" style="display:none;"></div>
-  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Payment processors do not have a single fixed-price &ldquo;winner&rdquo;&mdash;your actual take rate and cashflow exposure depend on monthly volume, average order value, international card mix, and whether you require a Merchant of Record for global VAT/sales tax.</p>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Payment processors do not have a single fixed-price &ldquo;winner&rdquo;. Your actual take rate and cashflow exposure depend on monthly volume, average order value, international card mix, and whether you require a Merchant of Record for global VAT/sales tax.</p>
 </section>
 
 <section>
@@ -116,7 +116,7 @@ p3_body = """
   <h2>What contract terms &amp; reserve docs say when an account is frozen</h2>
   <div class="evidence-box">
     <strong>Why a Merchant of Record termination locks card tokens</strong>
-    <p style="margin-top:6px;">With a Merchant of Record (Paddle or Lemon Squeezy), the MoR is the legal seller of record. Their entity appears on the customer’s bank statement, holds the tax registrations, and owns the payment vault—meaning card tokens cannot be exported to your own Stripe account if the MoR terminates your agreement.</p>
+    <p style="margin-top:6px;">With a Merchant of Record (Paddle or Lemon Squeezy), the MoR is the legal seller of record. Their entity appears on the customer’s bank statement, holds the tax registrations, and owns the payment vault, which means card tokens cannot be exported to your own Stripe account if the MoR terminates your agreement.</p>
     <cite>Source: <a href="https://www.paddle.com/legal/terms" target="_blank" rel="noopener">Paddle Legal Terms &amp; Merchant of Record Structure</a></cite>
   </div>
   <div class="evidence-box">
@@ -173,7 +173,7 @@ function updateReserveSim() {
       <div class="summary-metric">Processor vs. Merchant of Record</div>
       <div class="summary-scenario">Contract &amp; vault ownership check (Verified terms)</div>
       <div class="summary-breakdown">Stripe: $2,325/mo est. fees at $50k/mo (portable tokens) &middot; Paddle MoR: $3,450/mo est. fees (locked vault)</div>
-      <div class="summary-caveat"><strong>Contract note:</strong> With Paddle or Lemon Squeezy MoR, the MoR is the legal seller of record&mdash;card tokens cannot be exported if your account is terminated on a risk review.</div>
+      <div class="summary-caveat"><strong>Contract note:</strong> With Paddle or Lemon Squeezy MoR, the MoR is the legal seller of record, so card tokens cannot be exported if your account is terminated on a risk review.</div>
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
@@ -194,7 +194,7 @@ updateReserveSim();
 
 p3_faqs = [
     ("How long can Stripe, PayPal, or Shopify Payments hold funds after an account freeze?", "Stripe, PayPal, and Shopify Payments typically hold funds for 120 to 180 days following an account termination or permanent limitation to cover potential customer chargeback windows, or impose a 25% rolling reserve for 90 to 180 days."),
-    ("Can you export subscriber credit card tokens if Paddle terminates your account?", "No. Because Paddle operates as a Merchant of Record (MoR), Paddle is the legal seller of record and owns the card vault. If Paddle terminates your account following a risk review, you cannot re-tokenize or export subscriber cards—every customer must manually re-enter their payment details on your new processor."),
+    ("Can you export subscriber credit card tokens if Paddle terminates your account?", "No. Because Paddle operates as a Merchant of Record (MoR), Paddle is the legal seller of record and owns the card vault. If Paddle terminates your account following a risk review, you cannot re-tokenize or export subscriber cards, and every customer must manually re-enter their payment details on your new processor."),
     ("How do you prevent Stripe or Shopify Payments from placing a 25% rolling reserve?", "Keep your dispute ratio strictly below 0.5% by installing an automated pre-dispute and chargeback prevention tool like Chargeflow, and maintain a secondary multi-processor orchestration checkout like Whop (2.7% + $0.30 base + 0.8% multi-processor orchestration) for immediate failover.")
 ]
 
@@ -257,7 +257,7 @@ p4_body = """
 
 <section>
   <h2>When to pick Pipedrive vs. monday CRM</h2>
-  <p class="section-tldr">Choose <strong>Pipedrive</strong> or <strong>Close CRM</strong> when you have 1, 2, 4, 6, 7, 8, or 11–12 users—sizes where monday CRM forces you to pay for unused seats. Choose <strong>monday CRM</strong> when your headcount lands cleanly on 3, 5, 10, or 15 users.</p>
+  <p class="section-tldr">Choose <strong>Pipedrive</strong> or <strong>Close CRM</strong> when you have 1, 2, 4, 6, 7, 8, or 11–12 users, where monday CRM forces you to pay for unused seats. Choose <strong>monday CRM</strong> when your headcount lands cleanly on 3, 5, 10, or 15 users.</p>
   <div class="evidence-box">
     <strong>Why monday CRM’s 3-seat minimum and 5-seat increments matter</strong>
     <p style="margin-top:6px;">monday.com’s pricing selector starts at 3 seats and steps in fixed increments (3, 5, 10, 15, 20, 25...). Teams with 1, 2, 4, or 6–9 users pay for unallocated seats in their bucket.</p>
@@ -395,9 +395,9 @@ render_page(
 p5_body = """
 <section class="hero">
   <h1>Which software plans actually sign a HIPAA BAA (and what SOC 2 really costs).</h1>
-  <p class="lead">Most vendors lock HIPAA Business Associate Agreements and SAML SSO behind $20,000+ Enterprise contracts. A handful include them on self-serve plans—and Vanta or Drata quotes rarely include your CPA auditor bill.</p>
+  <p class="lead">Most vendors lock HIPAA Business Associate Agreements and SAML SSO behind $20,000+ Enterprise contracts. A handful include them on self-serve plans, and Vanta or Drata quotes rarely include your CPA auditor bill.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($8.99/user/mo billed annually [$107.88/yr], which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> do not publish public self-serve prices—custom list quotes typically start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong>), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less—plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
+    <p><strong>The short version:</strong> Self-serve HIPAA Business Associate Agreements (BAAs) are available on <strong>Jotform Gold ($99/mo billed annually, $129/mo monthly, 1-user account)</strong> and <strong>1Password Business ($8.99/user/mo billed annually [$107.88/yr], which also includes SAML SSO with no Enterprise markup)</strong>, whereas HubSpot ($150/seat + $3,500 onboarding), Zendesk ($115/agent Suite Pro), and Intercom ($132/seat Expert) require upper-tier plans. For SOC 2 Type II compliance automation, <strong>Vanta and Drata</strong> do not publish public self-serve prices; custom list quotes typically start around <strong>$9,000–$15,000+/yr</strong> (frequently negotiated down by <strong>30%–50%</strong>), while <strong>Comp AI ($2,400–$12,000/yr)</strong> and <strong>Openlane (~$5,400/yr)</strong> cost less, plus a mandatory <strong>$6,500–$15,000+ external CPA auditor fee</strong> billed separately.</p>
   </div>
 </section>
 
@@ -555,7 +555,7 @@ function updateSocCalc() {
         <div class="summary-metric" style="color:var(--rose);">+$${auditorFee.toLocaleString()} / yr CPA Audit Fee</div>
         <div class="summary-scenario">${scenarioLine}</div>
         <div class="summary-breakdown">Billed separately by an independent AICPA-licensed CPA firm (${auditSharePct}% of total Drata Year-1 budget)</div>
-        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Vanta and Drata quotes cover software automation only&mdash;your external CPA auditor report ($6,500&ndash;$15,000+) is never included in the platform subscription.</div>
+        <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Vanta and Drata quotes cover software automation only. Your external CPA auditor report ($6,500&ndash;$15,000+) is never included in the platform subscription.</div>
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="summary-card">View Vanta pricing &rarr;</a>

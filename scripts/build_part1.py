@@ -11,7 +11,7 @@ aff_js = json.dumps(AFFILIATES)
 home_body = f"""
 <section class="hero editorial-hero">
   <h1>Your SaaS bill is lying to you.</h1>
-  <p class="lead">Most teams only look at the sticker price. But mandatory onboarding fees, seat-bucket minimums, and metered AI overages compound quietly&mdash;and can significantly increase the real Year-1 cost of your tools.</p>
+  <p class="lead">Most teams only look at the sticker price. But mandatory onboarding fees, seat-bucket minimums, and metered AI overages compound quietly and can significantly increase the real Year-1 cost of your tools.</p>
 </section>
 
 <div class="editorial-cat-bar">
@@ -146,7 +146,7 @@ home_body = f"""
   <div class="gap-eyebrow">The Hidden Cost Gap</div>
   <h2 id="gap-heading">Sticker Price vs. True Cost</h2>
   <div class="gap-toolbar">
-    <p class="gap-subhead" id="gap-dynamic-subhead">All 5 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &mdash; click any row to inspect its breakdown above.</p>
+    <p class="gap-subhead" id="gap-dynamic-subhead">All 5 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &middot; click any row to inspect its breakdown above.</p>
     <div class="wb-quiet-field gap-sort-field" id="sort-control-group">
       <label for="sort-mode">Sort:</label>
       <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
@@ -207,7 +207,7 @@ home_body = f"""
     <div class="card">
       <span class="badge badge-medium">CRM &amp; Sales &middot; Seat Buckets</span>
       <h3><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">monday CRM 3/5/10-seat bucket calculator</a></h3>
-      <p>See the exact headcount thresholds where monday CRM&rsquo;s fixed seat blocks cost more&mdash;or less&mdash;than 1:1 per-seat CRMs.</p>
+      <p>See the exact headcount thresholds where monday CRM&rsquo;s fixed seat blocks cost more or less than 1:1 per-seat CRMs.</p>
     </div>
     <div class="card">
       <span class="badge badge-high">Helpdesk &amp; AI &middot; Fin AI Meter</span>
@@ -278,7 +278,7 @@ home_body = f"""
   <div class="methodology-grid fine-print-grid">
     <div class="methodology-item">
       <strong>1. 30–60 Day Auto-Renewal Locks</strong>
-      Annual SaaS order forms (including HubSpot and Zendesk) typically disallow mid-term seat downgrades and require written non-renewal notice 30 to 60 days before term end&mdash;or the contract auto-renews at list rate.
+      Annual SaaS order forms (including HubSpot and Zendesk) typically disallow mid-term seat downgrades and require written non-renewal notice 30 to 60 days before term end, otherwise the contract auto-renews at list rate.
     </div>
     <div class="methodology-item">
       <strong>2. Card-Vault Ownership &amp; Rolling Reserves</strong>
@@ -728,11 +728,11 @@ function renderDirectory() {{
   const dynSubhead = document.getElementById('gap-dynamic-subhead');
   if (dynSubhead) {{
     if (cat === 'Payment Processors & MoR') {{
-      dynSubhead.textContent = `All ${{rows.length}} tools compared for $50,000/mo GMV · 1,000 tx · 30% international — click any row to inspect its breakdown above.`;
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for $50,000/mo GMV · 1,000 tx · 30% international · click any row to inspect its breakdown above.`;
     }} else if (cat === 'Helpdesk & AI Support' || cat === 'ALL') {{
-      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing · ${{aiVol.toLocaleString()}} AI tickets/mo — click any row to inspect its breakdown above.`;
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing · ${{aiVol.toLocaleString()}} AI tickets/mo &middot; click any row to inspect its breakdown above.`;
     }} else {{
-      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing — click any row to inspect its breakdown above.`;
+      dynSubhead.textContent = `All ${{rows.length}} tools compared for ${{seats}} seat${{seats === 1 ? '' : 's'}} · ${{mode === 'annual' ? 'annual' : 'monthly'}} billing · click any row to inspect its breakdown above.`;
     }}
   }}
   if (th2 && th3 && th4) {{
@@ -1140,9 +1140,9 @@ render_page(
 p1_body = """
 <section class="hero">
   <h1>What HubSpot actually costs in Year 1 (once you add onboarding).</h1>
-  <p class="lead">HubSpot’s pricing page says $90/seat. The first-year invoice for five sales reps is $6,900. Here is where the extra $1,500–$7,000 comes from—and how to waive it before you sign.</p>
+  <p class="lead">HubSpot’s pricing page says $90/seat. The first-year invoice for five sales reps is $6,900. Here is where the extra $1,500–$7,000 comes from, and how to waive it before you sign.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> In 2026, <strong>HubSpot Sales Hub Professional</strong> costs $90/seat/month billed annually ($100/seat paid monthly) plus a mandatory <strong>$1,500 onboarding fee</strong>—totaling <strong>$6,900 in Year 1 for five reps</strong>. <strong>Marketing Hub Professional</strong> costs $800/month (includes 3 core seats; $45/mo per extra seat) plus a mandatory <strong>$3,000 onboarding fee</strong>—totaling <strong>$12,600 in Year 1</strong>. Every Professional and Enterprise agreement is a binding 12-month commitment that auto-renews even if you select monthly payment installments.</p>
+    <p><strong>The short version:</strong> In 2026, <strong>HubSpot Sales Hub Professional</strong> costs $90/seat/month billed annually ($100/seat paid monthly) plus a mandatory <strong>$1,500 onboarding fee</strong>, totaling <strong>$6,900 in Year 1 for five reps</strong>. <strong>Marketing Hub Professional</strong> costs $800/month (includes 3 core seats; $45/mo per extra seat) plus a mandatory <strong>$3,000 onboarding fee</strong>, totaling <strong>$12,600 in Year 1</strong>. Every Professional and Enterprise agreement is a binding 12-month commitment that auto-renews even if you select monthly payment installments.</p>
   </div>
 
   <div class="invoice-box" aria-label="Sample Year-1 Order Form Breakdown">
@@ -1185,7 +1185,7 @@ p1_body = """
     </div>
   </div>
   <div id="hs-summary" class="summary-strip" aria-live="polite"></div>
-  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost does not automatically mean best fit&mdash;verify workflow limits, calling needs, and contract lock-in before choosing.</p>
+  <p class="summary-interpretation"><strong>How to read this comparison:</strong> Lowest cost does not automatically mean best fit. Verify workflow limits, calling needs, and contract lock-in before choosing.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Year-1 Out-of-Pocket Comparison: HubSpot vs. Close CRM vs. Pipedrive (USD, verified Oct 25, 2026)</caption>
@@ -1387,9 +1387,9 @@ render_page(
 p2_body = """
 <section class="hero">
   <h1>What Intercom’s $0.99 AI resolution fee actually does to your support bill.</h1>
-  <p class="lead">Seat licenses start at $29 to $132 a month, but Fin AI adds $0.99 every time it resolves a ticket. Here is how fast the variable meter outgrows your seat bill—and how session-pack helpdesks compare.</p>
+  <p class="lead">Seat licenses start at $29 to $132 a month, but Fin AI adds $0.99 every time it resolves a ticket. Here is how fast the variable meter outgrows your seat bill, and how session-pack helpdesks compare.</p>
   <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>—bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong>. By comparison, <strong>Freshdesk Pro ($55/agent/mo annual)</strong> includes <strong>500 one-time Freddy AI Agent sessions</strong> and then bills <strong>$49 per 100-session pack</strong> (charged per AI session handled, whether resolved or not; Freddy AI Copilot is an optional $29/agent/mo add-on).</p>
+    <p><strong>The short version:</strong> Intercom charges <strong>$0.99 per Fin AI resolution</strong> (including automated resolutions, procedure handoffs, and disqualifications, plus <strong>$9.99 per sales qualification</strong>) on top of agent seat licenses (<strong>$29/mo Essential, $85/mo Advanced, $132/mo Expert</strong> billed annually; $39/$99/$139 monthly). For a 5-agent team on Advanced ($425/mo) handling 3,000 tickets/month with a 50% AI resolution rate (1,500 resolutions), Fin AI adds <strong>$1,485/mo</strong>, bringing the total bill to <strong>$1,910/mo ($22,920/yr)</strong>. By comparison, <strong>Freshdesk Pro ($55/agent/mo annual)</strong> includes <strong>500 one-time Freddy AI Agent sessions</strong> and then bills <strong>$49 per 100-session pack</strong> (charged per AI session handled, whether resolved or not; Freddy AI Copilot is an optional $29/agent/mo add-on).</p>
   </div>
 </section>
 
