@@ -238,5 +238,13 @@
     "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=pandadoc)",
     "destination_url": "https://www.pandadoc.com/pricing/",
     "signup_url": "https://dash.partnerstack.com/application?company=pandadoc"
+  },
+  "activecampaign": {
+    "vendor_name": "ActiveCampaign",
+    "network": "PartnerStack",
+    "commission": "30% recurring commission for up to 12 months (90-day cookie window)",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=activecampaign)",
+    "destination_url": "https://www.activecampaign.com/pricing",
+    "signup_url": "https://dash.partnerstack.com/application?company=activecampaign"
   }
 }
