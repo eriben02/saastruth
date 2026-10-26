@@ -169,7 +169,11 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <link rel="stylesheet" href="{prefix}assets/styles.css?v=20261026n" />
   <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="SaaSBill LLMs.txt Summary" />
   <!-- Privacy-friendly analytics by Plausible -->
-  <script defer data-domain="saasbill.io" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="saasbill.io" src="https://plausible.io/js/pa-VAaSVNs5XOobt9cv2UtKo.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){{(plausible.q=plausible.q||[]).push(arguments)}},plausible.init=plausible.init||function(i){{plausible.o=i||{{}}}};
+    plausible.init()
+  </script>
   {schema_block}
 </head>
 <body>

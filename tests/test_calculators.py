@@ -313,7 +313,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertNotIn('<span class="direct-link-tag">', html, f"Per-button .direct-link-tag should be removed in {rel}")
             self.assertIn("window.__saasbillEvents", html, f"Missing local __saasbillEvents instrumentation in {rel}")
             # Verify Plausible Analytics is present in <head> and no heavy third-party trackers are loaded
-            self.assertIn('<script defer data-domain="saasbill.io" src="https://plausible.io/js/script.js"></script>', html)
+            self.assertIn('src="https://plausible.io/js/pa-VAaSVNs5XOobt9cv2UtKo.js"', html)
             self.assertNotIn("googletagmanager.com", html)
             self.assertNotIn("posthog.com", html)
 
