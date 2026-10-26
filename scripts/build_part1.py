@@ -139,7 +139,6 @@ home_body = f"""
       <p class="wb-budget-subnote" id="wb-budget-subnote"></p>
       <div class="cta-stack">
         <a id="wb-primary-cta" class="btn-cta wb-primary-cta" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite-team" data-cta-location="workbench">View Zendesk pricing &rarr;</a>
-        <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
       </div>
     </div>
   </div>
@@ -255,7 +254,7 @@ home_body = f"""
     </div>
     <div class="methodology-item">
       <strong>3. Editorial Independence &amp; Sources</strong>
-      Every CTA button links directly to the vendor&rsquo;s official pricing page (<code>rel="nofollow noopener"</code>), alongside a primary-source link for contract verification. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
+      Every CTA button links directly to the vendor&rsquo;s official site (<code>rel="nofollow noopener"</code>), alongside a primary-source link for contract verification. Some outbound links are affiliate links that may earn a commission at no extra cost to you; calculations and rankings are strictly formula-driven. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
     </div>
   </div>
 </section>
@@ -801,7 +800,6 @@ function renderDirectory() {{
           <div class="summary-actions">
             <div class="cta-stack">
               <a class="btn-cta" href="${{minAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{minR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(minR.tool)}}</a>
-              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
             </div>
             ${{minAudit ? `<a class="summary-audit-link" href="${{minAudit.url}}" data-track="internal-audit">${{minAudit.label}}</a>` : ''}}
           </div>
@@ -815,7 +813,6 @@ function renderDirectory() {{
           <div class="summary-actions">
             <div class="cta-stack">
               <a class="btn-secondary" href="${{hidAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{topHidden.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(topHidden.tool)}}</a>
-              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
             </div>
             ${{hidAudit ? `<a class="summary-audit-link" href="${{hidAudit.url}}" data-track="internal-audit">${{hidAudit.label}}</a>` : ''}}
           </div>
@@ -829,7 +826,6 @@ function renderDirectory() {{
           <div class="summary-actions">
             <div class="cta-stack">
               <a class="btn-secondary" href="${{maxAff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{maxR.tool.id}}" data-cta-location="summary-card">${{getVendorCtaLabel(maxR.tool)}}</a>
-              <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
             </div>
             ${{maxAudit ? `<a class="summary-audit-link" href="${{maxAudit.url}}" data-track="internal-audit">${{maxAudit.label}}</a>` : ''}}
           </div>
@@ -934,7 +930,6 @@ function renderDirectory() {{
         <td data-label="Official Pricing">
           <div class="cta-stack">
             <a class="btn-secondary" href="${{aff.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{t.id}}" data-cta-location="table-row">${{getVendorCtaLabel(t)}}</a>
-            <span class="direct-link-tag">Direct vendor link</span>
           </div>
         </td>
       </tr>
@@ -1172,7 +1167,6 @@ function updateHsCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -1185,7 +1179,6 @@ function updateHsCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -1198,7 +1191,6 @@ function updateHsCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="summary-card">Explore Pipedrive plans &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="../../compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/" data-track="internal-audit">1&ndash;15 seat comparison &rarr;</a>
         </div>
@@ -1213,7 +1205,7 @@ function updateHsCalc() {
       <td data-label="Mandatory Onboarding"><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
       <td data-label="Contract Terms &amp; Source">12-month auto-renewing contract<div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Close CRM (Essentials)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">$35/user/mo annual ($49 monthly) &middot; $0 onboarding &middot; Growth w/ workflows is $99/user/mo</div></td>
@@ -1221,7 +1213,7 @@ function updateHsCalc() {
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Verified source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
@@ -1229,7 +1221,7 @@ function updateHsCalc() {
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Verified source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></div></td>
     </tr>
   `;
 }
@@ -1371,7 +1363,6 @@ function updateIcCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="summary-card">Check Intercom pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -1384,7 +1375,6 @@ function updateIcCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-cta" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="summary-card">View Freshdesk plans &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="../zendesk-ai-resolution-and-automated-outcome-cost/" data-track="internal-audit">Compare Zendesk AI ($1.50&ndash;$2.00) &rarr;</a>
         </div>
@@ -1403,7 +1393,7 @@ function updateIcCalc() {
       <td data-label="Monthly AI Usage"><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="table-row">Check Intercom pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.intercom.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="intercom-fin-ai" data-cta-location="table-row">Check Intercom pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="Helpdesk Solution">
@@ -1416,7 +1406,7 @@ function updateIcCalc() {
       <td data-label="Monthly AI Usage"><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="table-row">View Freshdesk plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="table-row">View Freshdesk plans &rarr;</a></div></td>
     </tr>
   `;
 }

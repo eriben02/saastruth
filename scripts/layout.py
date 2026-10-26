@@ -195,7 +195,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <footer class="site-footer">
     <div class="container">
       <p><strong>SaaSBill</strong> &mdash; Independent Year-1 cost calculators for B2B software.</p>
-      <p class="footer-note">Updated <time datetime="{iso_date}">{human_date}</time> &middot; Pricing corrections &amp; inquiries: <a href="mailto:info@saasbill.io">info@saasbill.io</a></p>
+      <p class="footer-note">Updated <time datetime="{iso_date}">{human_date}</time> &middot; Some links are affiliate links &middot; Inquiries: <a href="mailto:info@saasbill.io">info@saasbill.io</a></p>
     </div>
   </footer>
   <script>

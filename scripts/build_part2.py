@@ -63,7 +63,7 @@ p3_body = """
           <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$2,325 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,750 base (2.9% + $0.30) + $575 Billing/FX</div></td>
           <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% rolling reserve triggers (held 90&ndash;180 days, not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-low">Merchant owns tokens</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">PGP-encrypted card token export available unless terminated for fraud</div></td>
-          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="table-row">View Stripe pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="table-row">View Stripe pricing &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -74,7 +74,7 @@ p3_body = """
           <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$3,450 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$3,000 MoR (5.0% + $0.50) + $450 est. FX spread</div></td>
           <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% payout hold triggers on risk review (not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-high">Locked by Paddle</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Paddle is seller of record; tokens cannot be exported if terminated</div></td>
-          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="table-row">View Paddle pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="table-row">View Paddle pricing &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -85,7 +85,7 @@ p3_body = """
           <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$3,475 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$3,000 MoR (5.0% + $0.50) + $475 sub/intl fees</div></td>
           <td data-label="Potential Funds Temporarily Held"><strong>$12,500 / mo temporarily held</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">If 25% reserve triggers under underlying Stripe risk rules (not a fee)</div></td>
           <td data-label="Token Ownership"><span class="badge badge-medium">MoR vault (Stripe-backed)</span></td>
-          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="table-row">View Lemon Squeezy pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="table-row">View Lemon Squeezy pricing &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -96,7 +96,7 @@ p3_body = """
           <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$2,275 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$1,650 base (2.7% + $0.30) + $400 orchestration (0.8%) + $225 intl ($1,875/mo without orchestration)</div></td>
           <td data-label="Potential Funds Temporarily Held"><strong>$0 single-PSP hold exposure</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Multi-acquirer waterfall routing (+0.8% / $400/mo included in fees) mitigates single-processor freezes</div></td>
           <td data-label="Token Ownership"><span class="badge badge-low">White-glove migration</span><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Supports switching from Paddle, Lemon Squeezy, Shopify &amp; Gumroad</div></td>
-          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://whop.com/sell?a=baggyprairieae" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">View Whop Payments pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://whop.com/sell?a=baggyprairieae" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="table-row">View Whop Payments pricing &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Provider">
@@ -107,7 +107,7 @@ p3_body = """
           <td data-label="Est. Monthly Processing Fees" style="font-family:var(--mono);">$500 / mo<div style="font-size:0.8rem; color:var(--muted); font-family:var(--sans);">$0 platform fee + $350 recovery fee (25%) + $150 network fees</div></td>
           <td data-label="Potential Funds Temporarily Held"><strong>$0 held (prevents reserves)</strong><div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Keeps dispute ratio &lt;0.5% to prevent $12,500/mo processor reserves</div></td>
           <td data-label="Token Ownership"><span class="badge badge-low">Plugs into Stripe / Shopify</span></td>
-          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="table-row">View Chargeflow pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Official Pricing"><div class="cta-stack"><a class="btn-secondary" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="table-row">View Chargeflow pricing &rarr;</a></div></td>
         </tr>
       </tbody>
     </table>
@@ -152,7 +152,6 @@ function updateReserveSim() {
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-cta" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="summary-card">View Stripe pricing &rarr;</a>
-          <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
       </div>
     </div>
@@ -165,7 +164,6 @@ function updateReserveSim() {
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-secondary" href="https://whop.com/sell?a=baggyprairieae" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">View Whop Payments pricing &rarr;</a>
-          <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
         <a class="summary-audit-link" href="https://www.chargeflow.io/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">View Chargeflow pricing &rarr;</a>
       </div>
@@ -179,7 +177,6 @@ function updateReserveSim() {
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-secondary" href="https://www.paddle.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="paddle-mor" data-cta-location="summary-card">View Paddle pricing &rarr;</a>
-          <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
         </div>
         <a class="summary-audit-link" href="https://www.lemonsqueezy.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="lemon-squeezy" data-cta-location="summary-card">View Lemon Squeezy pricing &rarr;</a>
       </div>
@@ -313,7 +310,6 @@ function updateSmCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-cta" href="${lowUrl}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${lowVendor}" data-cta-location="summary-card">${lowCta}</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -326,7 +322,6 @@ function updateSmCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://monday.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="monday-crm" data-cta-location="summary-card">View monday CRM pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -339,7 +334,6 @@ function updateSmCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="summary-card">View HubSpot pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="../../pricing/hubspot-true-cost-and-onboarding-fees/" data-track="internal-audit">Read HubSpot onboarding audit &rarr;</a>
         </div>
@@ -354,7 +348,7 @@ function updateSmCalc() {
       <td data-label="Billed Seats"><span class="badge badge-low">${u} seat(s) (exact 1:1)</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${pipeRate.toFixed(2)} / user / mo</td>
       <td data-label="Total Annual Bill" class="price-highlight">$${pipeYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="table-row">Explore Pipedrive plans &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>monday CRM</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Verified source: <a href="https://monday.com/pricing" target="_blank" rel="noopener">monday.com pricing &nearr;</a></div></td>
@@ -362,7 +356,7 @@ function updateSmCalc() {
       <td data-label="Billed Seats"><span class="badge ${monSeats > u ? 'badge-medium' : 'badge-low'}">${monSeats} seats (${monSeats - u} unused)</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${(monMo / u).toFixed(2)} / user / mo</td>
       <td data-label="Total Annual Bill" class="price-highlight">$${monYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://monday.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="monday-crm" data-cta-location="table-row">View monday CRM pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://monday.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="monday-crm" data-cta-location="table-row">View monday CRM pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>HubSpot Sales Hub (${tier === 'entry' ? 'Starter' : 'Professional'})</strong> <span class="status-pill status-verified">Verified</span><div class="source-inline">Verified source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
@@ -370,7 +364,7 @@ function updateSmCalc() {
       <td data-label="Billed Seats"><span class="badge ${hsOnboard > 0 ? 'badge-high' : 'badge-low'}">${u} seat(s) ${hsOnboard > 0 ? '+ $1,500 onboarding' : ''}</span></td>
       <td data-label="Effective Cost / User" style="font-family:var(--mono);">$${((hsMo + hsOnboard / 12) / u).toFixed(2)} / user / mo</td>
       <td data-label="Total Annual Bill" class="price-highlight">$${hsYr.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.hubspot.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="hubspot" data-cta-location="table-row">View HubSpot pricing &rarr;</a></div></td>
     </tr>
   `;
 }
@@ -473,7 +467,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
           <td data-label="Min SAML SSO Tier">Enterprise (Multi-user SAML)</td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="table-row">Check Jotform HIPAA plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="table-row">Check Jotform HIPAA plans &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -484,7 +478,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Business ($8.99/user/mo annual)</span></td>
           <td data-label="Min SAML SSO Tier"><span class="badge badge-low">Business ($8.99/user/mo annual &middot; no SSO tax)</span></td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; ISO 27001</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="table-row">View 1Password pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="table-row">View 1Password pricing &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -506,7 +500,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-medium">Pro ($75/user/mo, 10-user min)</span></td>
           <td data-label="Min SAML SSO Tier">Pro or Plus add-on</td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="help-scout-plus" data-cta-location="table-row">Check Help Scout plans &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.helpscout.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="help-scout-plus" data-cta-location="table-row">Check Help Scout plans &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -565,7 +559,6 @@ function updateSocCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="summary-card">View Vanta pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="summary-card">Explore Drata platform &rarr;</a>
         </div>
@@ -579,7 +572,6 @@ function updateSocCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-cta" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="summary-card">Explore Drata platform &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -592,7 +584,6 @@ function updateSocCalc() {
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="summary-card">Check Jotform HIPAA plans &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="summary-card">View 1Password pricing &rarr;</a>
         </div>
@@ -607,7 +598,7 @@ function updateSocCalc() {
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${vantaNeg.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
       <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${vantaTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="table-row">View Vanta pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.vanta.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="vanta-soc2" data-cta-location="table-row">View Vanta pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="Compliance Platform"><strong>Drata</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span><div class="source-inline">Verified source: <a href="https://drata.com/" target="_blank" rel="noopener">Drata plans &nearr;</a></div></td>
@@ -615,7 +606,7 @@ function updateSocCalc() {
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono); color:var(--emerald);">$${drataNeg.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
       <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${drataTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="table-row">Explore Drata platform &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://drata.com/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="drata-soc2" data-cta-location="table-row">Explore Drata platform &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="Compliance Platform"><strong>Comp AI / Openlane (Startup benchmark)</strong> <span class="status-pill status-estimated">Estimated (Benchmark)</span></td>
@@ -623,7 +614,7 @@ function updateSocCalc() {
       <td data-label="Negotiated Platform Cost" style="font-family:var(--mono);">$${compAiCost.toLocaleString()}/yr</td>
       <td data-label="Est. CPA Auditor Fee" style="font-family:var(--mono);">+$${auditorFee.toLocaleString()}</td>
       <td data-label="Total Year-1 SOC 2 Cost" class="price-highlight">$${compTot.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="comp-ai" data-cta-location="table-row">View Comp AI pricing &rarr;</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://trycomp.ai/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="comp-ai" data-cta-location="table-row">View Comp AI pricing &rarr;</a></div></td>
     </tr>
   `;
 }

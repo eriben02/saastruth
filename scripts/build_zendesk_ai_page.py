@@ -263,7 +263,6 @@ function updateZd() {{
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-secondary" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite" data-cta-location="summary-card">View Zendesk pricing &rarr;</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
         </div>
       </div>
@@ -276,7 +275,6 @@ function updateZd() {{
         <div class="summary-actions">
           <div class="cta-stack">
             <a class="btn-cta" href="${{lowR.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{lowR.id}}" data-cta-location="summary-card">${{lowR.cta}}</a>
-            <span class="direct-link-tag">Direct vendor link &middot; Official site</span>
           </div>
           <a class="summary-audit-link" href="../intercom-fin-ai-resolution-cost-calculator/" data-track="internal-audit">Compare Intercom Fin ($0.99) &rarr;</a>
         </div>
@@ -294,7 +292,7 @@ function updateZd() {{
       <td data-label="AI usage / mo"><span class="badge ${{r.badge}}">${{r.aiText}}</span></td>
       <td data-label="Total / mo" class="price-highlight">${{fmt(r.tot)}}</td>
       <td data-label="Year-1 Total" class="price-highlight">${{fmt(r.yrTot)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a><span class="direct-link-tag">Direct vendor link</span></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></div></td>
     </tr>`).join('');
   let note = 'Assumptions: list prices only (no negotiated discounts, taxes, voice minutes or other add-ons). Freshdesk Year-1 total deducts the 500 one-time free AI Agent sessions ($245 value); Help Scout 3-month AI trial excluded.';
   if (copilot && plan === 'team') note += ' Zendesk Copilot is not offered on Suite Team, so it is not added.';
