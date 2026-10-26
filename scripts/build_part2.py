@@ -467,7 +467,7 @@ p5_body = """
           <td data-label="Lowest HIPAA BAA Tier"><span class="badge badge-low">Gold ($99/mo annual &middot; $129/mo monthly &middot; 1 user)</span></td>
           <td data-label="Min SAML SSO Tier">Enterprise (Multi-user SAML)</td>
           <td data-label="SOC 2 Status">SOC 2 Type II &amp; HIPAA</td>
-          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="table-row">Check Jotform HIPAA plans &rarr;</a></div></td>
+          <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/?partner=saasbill" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="table-row">Check Jotform HIPAA plans &rarr;</a></div></td>
         </tr>
         <tr>
           <td data-label="Vendor">
@@ -583,7 +583,7 @@ function updateSocCalc() {
         <div class="summary-caveat"><strong>Verified terms:</strong> Both plans publish transparent self-serve pricing without $20k+ Enterprise gating.</div>
         <div class="summary-actions">
           <div class="cta-stack">
-            <a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="summary-card">Check Jotform HIPAA plans &rarr;</a>
+            <a class="btn-secondary" href="https://www.jotform.com/hipaa/pricing/?partner=saasbill" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="jotform-hipaa" data-cta-location="summary-card">Check Jotform HIPAA plans &rarr;</a>
           </div>
           <a class="summary-audit-link" href="https://1password.com/pricing/business" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="1password-business" data-cta-location="summary-card">View 1Password pricing &rarr;</a>
         </div>
