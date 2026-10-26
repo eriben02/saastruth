@@ -168,6 +168,8 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <link rel="canonical" href="{SITE_ORIGIN}{canonical_path}" />
   <link rel="stylesheet" href="{prefix}assets/styles.css?v=20261026n" />
   <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="SaaSBill LLMs.txt Summary" />
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script defer data-domain="saasbill.io" src="https://plausible.io/js/script.js"></script>
   {schema_block}
 </head>
 <body>
