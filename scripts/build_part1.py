@@ -1188,7 +1188,7 @@ function updateHsCalc() {
         <div class="summary-caveat"><strong>Contract note:</strong> $35/user/mo annual ($49 monthly); Growth tier with workflows is $99/user/mo.</div>
         <div class="summary-actions">
           <div class="cta-stack">
-            <a class="btn-cta" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
+            <a class="btn-cta" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="summary-card">Check Close pricing &rarr;</a>
           </div>
         </div>
       </div>
@@ -1223,7 +1223,7 @@ function updateHsCalc() {
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Verified source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
-      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://close.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></div></td>
+      <td data-label="Next Step"><div class="cta-stack"><a class="btn-secondary" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="table-row">Check Close pricing &rarr;</a></div></td>
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>

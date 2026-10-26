@@ -257,6 +257,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             hs_html = f.read()
         self.assertIn("seats * 35", hs_html)
         self.assertIn("Close CRM (Essentials)", hs_html)
+        self.assertIn("https://refer.close.com/3k5hp07b8soi-fetl0j", hs_html)
 
         ic_page = os.path.join(PUBLIC_DIR, "pricing/intercom-fin-ai-resolution-cost-calculator/index.html")
         with open(ic_page) as f:

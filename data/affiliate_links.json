@@ -14,16 +14,23 @@
   },
   "close-crm": {
     "program_name": "Close CRM Partner Program",
-    "network": "Direct / PartnerStack",
+    "network": "PartnerStack",
     "commission": "30% of first-year subscription revenue (Lifetime tiers available)",
     "cookie_days": 90,
     "official_program_url": "https://close.com/partners",
-    "tracking_url": "/go/close-crm",
-    "destination_url": "https://close.com/pricing",
+    "tracking_url": "https://refer.close.com/3k5hp07b8soi-fetl0j",
+    "destination_url": "https://refer.close.com/3k5hp07b8soi-fetl0j",
     "is_affiliate": true,
-    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
-    "applied_date": "2026-10-25",
-    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
+    "status": "active (PartnerStack link https://refer.close.com/3k5hp07b8soi-fetl0j live on saasbill.io)",
+    "applied_date": "2026-10-26",
+    "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)",
+    "custom_links": {
+      "homepage": "https://refer.close.com/3k5hp07b8soi-fetl0j",
+      "signup": "https://refer.close.com/7agqaw8t3yje",
+      "discount_20pct": "https://refer.close.com/lt6p61c61z57-stack"
+    },
+    "promo_code": "STACK20 (20% discount Oct-Dec 2026)",
+    "approved_date": "2026-10-26"
   },
   "pipedrive": {
     "program_name": "Pipedrive Affiliate Partnership",
