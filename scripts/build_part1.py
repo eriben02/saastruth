@@ -777,9 +777,9 @@ function renderDirectory() {{
       const extraYr = spotR.year1Total - stickerYr;
       const billWord = mode === 'annual' ? 'annual' : 'monthly';
       if (extraYr > 0) {{
-        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr base seats + $${{extraYr.toLocaleString()}}/yr in onboarding, seat minimums, or AI usage.`;
+        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr base seats + $${{extraYr.toLocaleString()}}/yr hidden fees (onboarding, minimums, or AI).`;
       }} else {{
-        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr in seat licenses with $0 mandatory onboarding or AI overages.`;
+        subNoteEl.textContent = `${{spotR.tool.name}} (${{spotR.effSeats}} billed seat${{spotR.effSeats === 1 ? '' : 's'}}, ${{billWord}}): $${{stickerYr.toLocaleString()}}/yr base seats + $0 hidden fees (no onboarding or AI overages).`;
       }}
     }}
     const ctaEl = document.getElementById('wb-primary-cta');

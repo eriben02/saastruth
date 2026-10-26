@@ -515,6 +515,11 @@ class TestSaaSBillCalculators(unittest.TestCase):
             desktop_gap_pos,
             "Mobile overrides must appear after desktop .editorial-gap-table rules in styles.css",
         )
+        # Ensure .wb-budget-subnote is never truncated with line-clamp or overflow: hidden
+        subnote_block = re.search(r"\.wb-budget-subnote\s*\{(.*?)\}", css, re.S)
+        self.assertIsNotNone(subnote_block)
+        self.assertNotIn("-webkit-line-clamp", subnote_block.group(1))
+        self.assertNotIn("overflow: hidden", subnote_block.group(1))
         for required_mobile_rule in [
             "grid-template-columns: 118px minmax(0, 1fr);",
             ".table-wrap.editorial-gap-table.mobile-cards td",
