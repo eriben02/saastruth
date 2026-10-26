@@ -64,7 +64,7 @@
   "freshworks": {
     "program_name": "Freshworks Affiliate Program (Freshdesk & Freshservice)",
     "network": "PartnerStack",
-    "commission": "20% of first-year subscription revenue (paid monthly up to 12 months); 25% at 50–100 and 30% at 101+ converted referrals/month (terms effective Mar 31, 2026); commissions only on initial MRR, not upgrades",
+    "commission": "20% of first-year subscription revenue (paid monthly up to 12 months); 25% at 50\u2013100 and 30% at 101+ converted referrals/month (terms effective Mar 31, 2026); commissions only on initial MRR, not upgrades",
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/page/freshworks4391",
     "tracking_url": "/go/freshdesk",
@@ -134,15 +134,15 @@
   "jotform": {
     "program_name": "Jotform Affiliate Partner Program",
     "network": "Direct",
-    "commission": "30% recurring commission for 12 months",
+    "commission": "30% recurring commission for 12 months (up to 50% in higher tiers) + $5 welcome bonus per paid customer in first 30 days",
     "cookie_days": 60,
     "official_program_url": "https://www.jotform.com/partnership/affiliate/",
     "tracking_url": "/go/jotform-hipaa",
     "destination_url": "https://www.jotform.com/hipaa/pricing/",
     "is_affiliate": true,
-    "status": "applied (Direct Partner Team review within 1 business day, submitted 2026-10-26)",
+    "status": "approved (account eriben02 approved 2026-10-26; awaiting exact ?partner= link or custom link from Jotform Settings -> Partnership)",
     "applied_date": "2026-10-26",
-    "expected_response_window": "2026-10-26 to 2026-10-27 (1 business day)"
+    "approved_date": "2026-10-26"
   },
   "1password": {
     "program_name": "1Password Affiliate Program",
@@ -186,7 +186,7 @@
   "help-scout": {
     "program_name": "Help Scout Affiliate Program",
     "network": "PartnerStack",
-    "commission": "15% of every deal closed (1–10 referred customers in last 3 months); 20% (11+)",
+    "commission": "15% of every deal closed (1\u201310 referred customers in last 3 months); 20% (11+)",
     "cookie_days": 90,
     "official_program_url": "https://market.partnerstack.com/page/helpscout",
     "signup_url": "https://market.partnerstack.com/page/helpscout",
