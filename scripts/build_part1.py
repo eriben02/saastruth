@@ -132,7 +132,7 @@ home_body = f"""
     <div class="wb-result-col" id="wb-result-mount" aria-live="polite">
       <div class="wb-selected-product" id="wb-selected-product">Zendesk Suite Team + AI</div>
       <div class="wb-big-total" id="wb-big-total-wrap"><span id="wb-big-amount">$11,850</span> <span class="wb-per-year" id="wb-big-unit">/ year</span></div>
-      <p class="wb-budget-quote" id="wb-budget-quote">That&rsquo;s the number to budget for.<br/>Not the number on the invoice.</p>
+      <p class="wb-budget-quote" id="wb-budget-quote">Estimated Year-1 total including mandatory fees &amp; overages.</p>
       <p class="wb-budget-subnote" id="wb-budget-subnote"></p>
       <div class="cta-stack">
         <a id="wb-primary-cta" class="btn-cta wb-primary-cta" href="https://www.zendesk.com/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="zendesk-suite-team" data-cta-location="workbench">View Zendesk pricing &rarr;</a>
@@ -143,7 +143,6 @@ home_body = f"""
 
 <!-- THE HIDDEN COST GAP: Editorial Comparison Table -->
 <section class="hidden-gap-section" aria-labelledby="gap-heading">
-  <div class="gap-eyebrow">The Hidden Cost Gap</div>
   <h2 id="gap-heading">Sticker Price vs. True Cost</h2>
   <div class="gap-toolbar">
     <p class="gap-subhead" id="gap-dynamic-subhead">All 5 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &middot; click any row to inspect its breakdown above.</p>
@@ -174,10 +173,6 @@ home_body = f"""
     </table>
   </div>
 
-  <div class="table-disclaimer">
-    <span aria-hidden="true">&#128196;</span>
-    <span>Results will vary based on team size, usage patterns, and tool complexity. Use this as a guide, not a guarantee.</span>
-  </div>
   <p id="calc-payment-note" style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
     <strong>Payment Processors &amp; MoR (Fees vs. Temporary Reserves):</strong> Because payment rails charge per transaction rather than per seat, selecting <em>Payment Processors</em> models a standardized benchmark of <strong>$50,000/month GMV across 1,000 transactions ($50 AOV, 30% international cards)</strong>. <strong>Estimated monthly processing fees</strong> (percentage + per-transaction + FX/billing surcharges) are shown separately from <strong>potential funds temporarily held</strong> (such as a 25% rolling reserve held for 90&ndash;180 days on a risk flag, which is a cashflow hold rather than a fee). To model your exact volume, open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Interactive Payout Hold &amp; Reserve Simulator &rarr;</a>
   </p>
@@ -185,107 +180,105 @@ home_body = f"""
 </div>
 
 <section id="all-calculators" class="editorial-below-section">
-  <div class="gap-eyebrow">Specialized Simulators</div>
-  <h2>Deep-dive calculators &amp; contract audits</h2>
+  <h2>Calculators &amp; contract audits</h2>
   <p class="gap-subhead">Dedicated models for onboarding tiers, AI resolution packs, payout reserve holds, and SOC 2 audit quotes.</p>
   <div class="card-grid">
     <div class="card">
-      <span class="badge badge-high">CRM &amp; Sales &middot; Onboarding Tiers</span>
+      <span class="badge badge-high">CRM</span>
       <h3><a href="./pricing/hubspot-true-cost-and-onboarding-fees/">HubSpot Year-1 calculator &amp; onboarding audit</a></h3>
-      <p>Model Sales Pro ($1,500), Marketing Pro ($3,000), and Enterprise onboarding fees alongside Close CRM and Pipedrive.</p>
+      <p>Sales Pro ($1,500), Marketing Pro ($3,000), and Enterprise onboarding fees next to Close CRM and Pipedrive.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">CRM &amp; Sales &middot; 5–20 Sales Reps</span>
+      <span class="badge badge-high">CRM</span>
       <h3><a href="./compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/">Close CRM vs. HubSpot Sales Hub (5–20 reps)</a></h3>
-      <p>Compare Close CRM&rsquo;s built-in VoIP calling, SMS &amp; $0 onboarding against HubSpot Sales Pro and Pipedrive add-on stacks.</p>
+      <p>Built-in VoIP calling, SMS, and $0 onboarding in Close CRM versus HubSpot Sales Pro and Pipedrive add-on stacks.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">CRM &amp; Sales &middot; Revenue Intelligence</span>
+      <span class="badge badge-high">CRM</span>
       <h3><a href="./pricing/gong-io-platform-fee-and-seat-minimum-calculator/">Gong.io $5,000 platform fee &amp; seat calculator</a></h3>
-      <p>Calculate Gong&rsquo;s benchmark $5,000/yr platform fee + $1,600/seat licenses + separate CRM vs. Close CRM all-in-one.</p>
+      <p>Gong&rsquo;s $5,000/yr base platform fee and ~$1,600/seat licenses plus a separate CRM versus Close CRM all-in-one.</p>
     </div>
     <div class="card">
-      <span class="badge badge-medium">CRM &amp; Sales &middot; Seat Buckets</span>
+      <span class="badge badge-medium">CRM</span>
       <h3><a href="./compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/">monday CRM 3/5/10-seat bucket calculator</a></h3>
-      <p>See the exact headcount thresholds where monday CRM&rsquo;s fixed seat blocks cost more or less than 1:1 per-seat CRMs.</p>
+      <p>Where monday CRM&rsquo;s fixed 3-, 5-, and 10-seat blocks cost more than exact per-seat billing in Pipedrive or Close.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Helpdesk &amp; AI &middot; Fin AI Meter</span>
+      <span class="badge badge-high">Helpdesk</span>
       <h3><a href="./pricing/intercom-fin-ai-resolution-cost-calculator/">Intercom Fin ($0.99/resolution) cost simulator</a></h3>
-      <p>Test how monthly ticket volume and AI resolution rate scale your Intercom bill versus Freshdesk Freddy AI session packs.</p>
+      <p>How monthly ticket volume and AI resolution rates scale an Intercom invoice versus Freshdesk Freddy AI session packs.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Helpdesk &amp; AI &middot; Outcome Tiers</span>
+      <span class="badge badge-high">Helpdesk</span>
       <h3><a href="./pricing/zendesk-ai-resolution-and-automated-outcome-cost/">Zendesk AI automated resolution overage calculator</a></h3>
-      <p>Compare Zendesk&rsquo;s included 5&ndash;10 AR/agent allowance and $1.50&ndash;$2.00 overage rates against Help Scout and Freshdesk.</p>
+      <p>Zendesk&rsquo;s 5&ndash;10 included AR/agent allowance and $1.50&ndash;$2.00 overage rates versus Help Scout and Freshdesk.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; Recurring Tax</span>
+      <span class="badge badge-high">Payments</span>
       <h3><a href="./pricing/stripe-billing-0-7-percent-recurring-tax-calculator/">Stripe Billing 0.7% recurring revenue tax calculator</a></h3>
-      <p>Calculate how Stripe&rsquo;s 2.9% + 30&cent; + 0.7% Billing + 0.5% Tax + 0.4% Invoicing stack compares against Whop (2.7% + 30&cent;) and Paddle.</p>
+      <p>Stripe&rsquo;s 2.9% + 30&cent; base rate once 0.7% Billing, 0.5% Tax, and 0.4% Invoicing are added against Whop and Paddle.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; Take Rates</span>
+      <span class="badge badge-high">Payments</span>
       <h3><a href="./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/">Gumroad vs. Whop vs. Lemon Squeezy net payout calculator</a></h3>
-      <p>Compare Gumroad&rsquo;s 10% + 50&cent; (plus 2.9% + 30&cent; processing), Lemon Squeezy&rsquo;s 5% + 50&cent; surcharges and Whop&rsquo;s 2.7% + 30&cent;.</p>
+      <p>Net creator payouts after Gumroad&rsquo;s 10% + 50&cent; (+ 2.9% + 30&cent;), Lemon Squeezy&rsquo;s 5% + 50&cent;, and Whop&rsquo;s 2.7% + 30&cent;.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; Cashflow Risk</span>
+      <span class="badge badge-high">Payments</span>
       <h3><a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Stripe, Shopify &amp; Paddle payout hold simulator</a></h3>
-      <p>Simulate a 25% rolling reserve and capital loan holdback, and compare card-token portability across payment rails.</p>
+      <p>Cashflow impact of a 25% rolling reserve or capital holdback, plus card-token export rules across payment rails.</p>
     </div>
     <div class="card">
-      <span class="badge badge-high">Payments &amp; MoR &middot; 180-Day Holds</span>
+      <span class="badge badge-high">Payments</span>
       <h3><a href="./exit/paypal-180-day-permanent-limitation-fund-recovery/">PayPal 180-day limitation &amp; reserve calculator</a></h3>
-      <p>Model locked working capital under a 180-day PayPal hold plus 3.49% + 49&cent; fees vs. Whop multi-processor failover.</p>
+      <p>Working capital locked under a 180-day PayPal hold and 3.49% + 49&cent; domestic rates versus Whop multi-processor routing.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">Compliance &middot; Forms &amp; HIPAA BAA</span>
+      <span class="badge badge-low">Compliance</span>
       <h3><a href="./compare/typeform-vs-jotform-response-limit-and-hipaa-cost/">Typeform vs. Jotform response limit &amp; HIPAA calculator</a></h3>
-      <p>Compare Typeform&rsquo;s response caps and custom Enterprise HIPAA BAA pricing against Jotform Gold ($99/mo with BAA included).</p>
+      <p>Typeform&rsquo;s monthly response caps and Enterprise-only HIPAA BAA versus Jotform Gold ($99/mo annual with BAA included).</p>
     </div>
     <div class="card">
-      <span class="badge badge-medium">Compliance &middot; E-Sign Envelope Caps</span>
+      <span class="badge badge-medium">Compliance</span>
       <h3><a href="./pricing/docusign-envelope-allowance-and-api-overage-calculator/">DocuSign 100-envelope cap &amp; overage calculator</a></h3>
-      <p>Expose DocuSign&rsquo;s 100 envelopes/user/year limit on Standard &amp; Business Pro vs. PandaDoc and Jotform Sign.</p>
+      <p>DocuSign&rsquo;s 100 envelopes/user/year cap on Standard &amp; Business Pro plans compared with PandaDoc and Jotform Sign.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">Compliance &middot; HIPAA &amp; SOC 2</span>
+      <span class="badge badge-low">Compliance</span>
       <h3><a href="./compliance/hipaa-baa-and-soc2-pricing-tiers/">HIPAA BAA tiers &amp; SOC 2 + CPA auditor estimator</a></h3>
-      <p>Check self-serve HIPAA BAA and SAML SSO plans and estimate negotiated Vanta/Drata quotes plus external CPA audit fees.</p>
+      <p>Minimum plans for a signed HIPAA BAA or SAML SSO, plus Vanta/Drata platform quotes and external CPA audit fees.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">Quick Answer &middot; HubSpot Onboarding</span>
+      <span class="badge badge-low">FAQ</span>
       <h3><a href="./faq/does-hubspot-charge-onboarding-fees-2026/">Does HubSpot charge onboarding fees in 2026?</a></h3>
-      <p>Direct breakdown of mandatory $1,500–$7,000 HubSpot onboarding fees, Solutions Partner waivers, and $0-onboarding CRMs.</p>
+      <p>Mandatory $1,500–$7,000 HubSpot onboarding fees by tier, Solutions Partner waivers, and $0-onboarding CRMs.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">Quick Answer &middot; Fin AI Pricing</span>
+      <span class="badge badge-low">FAQ</span>
       <h3><a href="./faq/intercom-fin-ai-cost-calculator/">How much does Intercom Fin AI actually cost in 2026?</a></h3>
-      <p>Fast $0.99/resolution AI support bill calculator comparing Intercom against Freshdesk and Help Scout.</p>
+      <p>Per-seat + $0.99/resolution support math comparing Intercom against Freshdesk and Help Scout.</p>
     </div>
     <div class="card">
-      <span class="badge badge-low">Quick Answer &middot; Stripe vs. Paddle</span>
+      <span class="badge badge-low">FAQ</span>
       <h3><a href="./faq/stripe-vs-paddle-true-cost/">Stripe vs. Paddle vs. Whop true cost (2026)</a></h3>
-      <p>Side-by-side effective take rate comparison once you add Stripe Billing (0.7%), Stripe Tax (0.5%), and FX fees.</p>
+      <p>Effective take rates once Stripe Billing (0.7%), Stripe Tax (0.5%), and international FX surcharges are included.</p>
     </div>
   </div>
 </section>
 
 <section class="editorial-below-section">
-  <div class="gap-eyebrow">Beyond the Calculator</div>
-  <h2>Three contract clauses that never show up on a pricing page</h2>
+  <h2>Contract clauses that rarely show up on a pricing page</h2>
   <div class="methodology-grid fine-print-grid">
     <div class="methodology-item">
-      <strong>1. 30–60 Day Auto-Renewal Locks</strong>
+      <strong>30–60 Day Auto-Renewal Locks</strong>
       Annual SaaS order forms (including HubSpot and Zendesk) typically disallow mid-term seat downgrades and require written non-renewal notice 30 to 60 days before term end, otherwise the contract auto-renews at list rate.
     </div>
     <div class="methodology-item">
-      <strong>2. Card-Vault Ownership &amp; Rolling Reserves</strong>
+      <strong>Card-Vault Ownership &amp; Rolling Reserves</strong>
       Direct processors (Stripe, Whop) let you export card tokens if you face a 25% rolling reserve. Merchants of Record (Paddle, Lemon Squeezy) are the legal seller of record and lock subscriber card tokens on termination.
     </div>
     <div class="methodology-item">
-      <strong>3. SOC 2 Platform vs. External CPA Fees</strong>
+      <strong>SOC 2 Platform vs. External CPA Fees</strong>
       Compliance automation quotes (Vanta, Drata) are routinely negotiated down 30%&ndash;50% from list price, but never include the mandatory $6,500&ndash;$15,000+ independent CPA penetration and audit fee.
     </div>
   </div>
@@ -296,16 +289,16 @@ home_body = f"""
   <p style="color:var(--muted); font-size:0.94rem;">Every figure on SaaSBill is computed from deterministic formulas and linked directly to the vendor&rsquo;s published pricing page, help-center billing documentation, or Master Subscription Agreement (MSA).</p>
   <div class="methodology-grid">
     <div class="methodology-item">
-      <strong>1. Year-1 Total Formula</strong>
+      <strong>Year-1 Total Formula</strong>
       <code>Year-1 Total = (12 &times; Billed Monthly Seats) + Mandatory Onboarding + (12 &times; Net AI Overage)</code>. Seat minimums and included AI allowances are applied automatically based on your slider inputs.
     </div>
     <div class="methodology-item">
-      <strong>2. Verification Status Badges</strong>
+      <strong>Verification Status Badges</strong>
       <span class="status-pill status-verified">Verified</span> indicates published self-serve pricing and contract terms checked directly against official vendor docs on Oct 25, 2026.<br/>
       <span class="status-pill status-estimated">Estimated (Benchmark)</span> indicates non-public, sales-quoted pricing modeled from verified buyer contract benchmarks.
     </div>
     <div class="methodology-item">
-      <strong>3. Editorial Independence &amp; Sources</strong>
+      <strong>Editorial Independence &amp; Sources</strong>
       Every CTA button links directly to the vendor&rsquo;s official site (<code>rel="nofollow noopener"</code>), alongside a primary-source link for contract verification. Some outbound links are affiliate links that may earn a commission at no extra cost to you; calculations and rankings are strictly formula-driven. Spot a pricing change? Email <a href="mailto:info@saasbill.io">info@saasbill.io</a>.
     </div>
   </div>
@@ -823,7 +816,7 @@ function renderDirectory() {{
     document.getElementById('wb-big-amount').textContent = `$${{spotR.year1Total.toLocaleString()}}`;
     document.getElementById('wb-big-unit').textContent = '/ year';
     const quoteEl = document.getElementById('wb-budget-quote');
-    if (quoteEl) quoteEl.innerHTML = 'That&rsquo;s the number to budget for.<br/>Not the number on the invoice.';
+    if (quoteEl) quoteEl.innerHTML = 'Estimated Year-1 total including mandatory fees &amp; overages.';
     const subNoteEl = document.getElementById('wb-budget-subnote');
     if (subNoteEl) {{
       const stickerYr = Math.max(0, spotR.annualSeatsCost - spotR.seatPaddingAnnual);
@@ -1252,7 +1245,7 @@ p1_body = """
     </table>
   </div>
 
-  <h2>Three contract clauses to check before you sign</h2>
+  <h2>Contract clauses to check before you sign</h2>
   <div class="evidence-box">
     <strong>1. "Monthly payment" is still a binding 12-month contract with auto-renewal</strong>
     <p style="margin-top:6px;">All HubSpot Professional and Enterprise agreements are annual commitments that auto-renew by default, even when paid in monthly installments. On day 1 of the auto-renewal window, you are liable for the full 12-month renewal balance unless you submitted non-renewal notice in advance.</p>

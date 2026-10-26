@@ -444,7 +444,7 @@ p5_body = """
 
 <section>
   <h2>Which SaaS tiers sign a HIPAA BAA or include SAML SSO</h2>
-  <p class="section-tldr">Before signing a $25,000+ Enterprise contract solely to unlock a HIPAA BAA or Okta SAML Single Sign-On, check the minimum qualifying edition for each vendor below.</p>
+  <p class="section-tldr">Before signing a $25,000+ Enterprise contract just to get a signed HIPAA BAA or Okta SAML Single Sign-On, check the minimum qualifying edition for each vendor below.</p>
   <div class="table-wrap mobile-cards">
     <table>
       <caption>Minimum Pricing Tier Required for Signed HIPAA BAA &amp; SAML SSO (verified Oct 25, 2026)</caption>
