@@ -989,6 +989,7 @@ document.querySelectorAll('.cat-tab').forEach(btn => {{
     }}
   }});
 }});
+let _railInitialized = false;
 function updateInspectorRail() {{
   const tray = document.getElementById('unified-inspector-tray');
   const rail = document.getElementById('inspector-left-rail');
@@ -1010,11 +1011,23 @@ function updateInspectorRail() {{
     rail.style.opacity = '0';
     return;
   }}
+  if (!_railInitialized) {{
+    armTop.style.transition = 'none';
+    stem.style.transition = 'none';
+    armBot.style.transition = 'none';
+  }}
   rail.style.opacity = '1';
-  armTop.style.top = `${{y1}}px`;
-  stem.style.top = `${{y1}}px`;
-  stem.style.height = `${{y2 - y1}}px`;
-  armBot.style.top = `${{y2}}px`;
+  rail.style.setProperty('--rail-y1', `${{y1}}px`);
+  rail.style.setProperty('--rail-y2', `${{y2}}px`);
+  rail.style.setProperty('--rail-len', `${{Math.max(1, y2 - y1)}}`);
+  if (!_railInitialized) {{
+    requestAnimationFrame(() => {{
+      armTop.style.transition = '';
+      stem.style.transition = '';
+      armBot.style.transition = '';
+      _railInitialized = true;
+    }});
+  }}
 }}
 
 const _origRenderDirectory = renderDirectory;
