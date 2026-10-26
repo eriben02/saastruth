@@ -349,7 +349,7 @@ function updateTr() {{
       <td data-label="Platform"><strong>${{r.name}}</strong> <span class="status-pill status-verified">Verified</span>
         <div style="font-size:0.78rem; color:var(--muted);">${{r.sub}}</div>
         <div class="source-inline">Verified source: <a href="${{r.id === 'gumroad' ? 'https://gumroad.com/help/article/66-gumroads-fees' : r.id === 'lemon-squeezy' ? 'https://docs.lemonsqueezy.com/help/getting-started/fees' : 'https://docs.whop.com/fees'}}" target="_blank" rel="noopener">Official fee docs &nearr;</a></div></td>
-      <td data-label="Base fee / mo" style="font-family:var(--mono);">${{trFmt(r.base)}}</td>
+      <td data-label="Base fee / mo" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">${{trFmt(r.base)}}</td>
       <td data-label="Add-ons / mo"><span class="badge ${{r.badge}}">${{r.addonText}}</span></td>
       <td data-label="Total fees / mo" class="price-highlight">${{trFmt(r.total)}} <span style="font-size:0.8rem; color:var(--muted);">(${{(r.total / G * 100).toFixed(1)}}%)</span></td>
       <td data-label="Net payout / yr" class="price-highlight">${{trFmt(r.net * 12)}}<div class="cell-scenario">${{scenarioLine}}</div></td>

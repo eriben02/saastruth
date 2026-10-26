@@ -1290,7 +1290,7 @@ function updateHsCalc() {
   document.getElementById('hs-tbody').innerHTML = `
     <tr>
       <td data-label="CRM Platform"><strong>${hsName}</strong> <span class="status-pill status-verified">Verified</span></td>
-      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${hsMonthly.toLocaleString()} / mo</td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${hsMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-high">$${hsOnboard.toLocaleString()} mandatory</span></td>
       <td data-label="Contract Terms &amp; Source">12-month auto-renewing contract<div class="source-inline">Source: <a href="https://www.hubspot.com/pricing/sales" target="_blank" rel="noopener">HubSpot pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight">$${hsYear1.toLocaleString()}<div class="cell-scenario">${scenarioLine}</div></td>
@@ -1298,7 +1298,7 @@ function updateHsCalc() {
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Close CRM (Essentials)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">$35/user/mo annual ($49 monthly) &middot; $0 onboarding &middot; Growth w/ workflows is $99/user/mo</div></td>
-      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${closeMonthly.toLocaleString()} / mo</td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${closeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Month-to-month or annual<div class="source-inline">Verified source: <a href="https://close.com/pricing" target="_blank" rel="noopener">Close pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${closeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - closeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
@@ -1306,7 +1306,7 @@ function updateHsCalc() {
     </tr>
     <tr>
       <td data-label="CRM Platform"><strong>Pipedrive CRM (Professional)</strong> <span class="status-pill status-verified">Verified</span><div style="font-size:0.78rem; color:var(--emerald);">No onboarding fee &middot; 1-seat minimum</div></td>
-      <td data-label="Monthly Seat Cost" style="font-family:var(--mono);">$${pipeMonthly.toLocaleString()} / mo</td>
+      <td data-label="Monthly Seat Cost" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${pipeMonthly.toLocaleString()} / mo</td>
       <td data-label="Mandatory Onboarding"><span class="badge badge-low">$0 onboarding</span></td>
       <td data-label="Contract Terms &amp; Source">Cancel anytime on monthly plan<div class="source-inline">Verified source: <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="noopener">Pipedrive pricing &nearr;</a></div></td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${pipeYear1.toLocaleString()} (saves $${Math.max(0, hsYear1 - pipeYear1).toLocaleString()})<div class="cell-scenario">${scenarioLine}</div></td>
@@ -1478,7 +1478,7 @@ function updateIcCalc() {
         <span class="status-pill status-verified">Verified</span>
         <div class="source-inline">Source: <a href="https://www.intercom.com/pricing" target="_blank" rel="noopener">Intercom pricing &nearr;</a></div>
       </td>
-      <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${icSeatCost.toLocaleString()} / mo</td>
+      <td data-label="Monthly Agent Seats" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${icSeatCost.toLocaleString()} / mo</td>
       <td data-label="Monthly AI Usage"><span class="badge badge-high">$${icAiCost.toLocaleString()} / mo ($0.99 &times; ${resolvedTickets.toLocaleString()})</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight">$${icTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight">$${icYear.toLocaleString()} / yr<div class="cell-scenario">${scenarioLine}</div></td>
@@ -1491,7 +1491,7 @@ function updateIcCalc() {
         <div style="font-size:0.78rem; color:var(--emerald);">$55/agent/mo + $49/100 AI sessions (500 one-time free sessions deducted in Yr 1; optional Copilot $29/agent/mo)</div>
         <div class="source-inline">Verified source: <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="noopener">Freshdesk pricing &nearr;</a></div>
       </td>
-      <td data-label="Monthly Agent Seats" style="font-family:var(--mono);">$${fdSeatCost.toLocaleString()} / mo</td>
+      <td data-label="Monthly Agent Seats" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">$${fdSeatCost.toLocaleString()} / mo</td>
       <td data-label="Monthly AI Usage"><span class="badge badge-low">$${fdAiCostMo.toLocaleString()} / mo (${fdMonthlyPacks} &times; $49 session packs)</span></td>
       <td data-label="Total Monthly Bill" class="price-highlight" style="color:var(--emerald);">$${fdTotalMo.toLocaleString()} / mo</td>
       <td data-label="Year-1 Total" class="price-highlight" style="color:var(--emerald);">$${fdYear.toLocaleString()} / yr ${diffLabel}<div class="cell-scenario">${scenarioLine}</div></td>

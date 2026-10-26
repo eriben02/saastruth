@@ -288,7 +288,7 @@ function updateZd() {{
         <div style="font-size:0.78rem; color:var(--muted);">${{r.sub}}</div>
         <div class="source-inline">Verified source: <a href="${{r.url}}" target="_blank" rel="noopener">Official pricing &nearr;</a></div>
       </td>
-      <td data-label="Seats / mo" style="font-family:var(--mono);">${{fmt(r.seat)}}</td>
+      <td data-label="Seats / mo" style="font-family:var(--sans); font-variant-numeric:tabular-nums;">${{fmt(r.seat)}}</td>
       <td data-label="AI usage / mo"><span class="badge ${{r.badge}}">${{r.aiText}}</span></td>
       <td data-label="Total / mo" class="price-highlight">${{fmt(r.tot)}}</td>
       <td data-label="Year-1 Total" class="price-highlight">${{fmt(r.yrTot)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
