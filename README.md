@@ -12,6 +12,7 @@
 5. **Monday CRM vs. Pipedrive vs. HubSpot (3-Seat Minimum Bucket Math):** [`/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/`](https://saasbill.io/compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/)
 6. **HIPAA BAA & SOC 2 Type II SaaS Tier Matrix & Negotiation Calculator:** [`/compliance/hipaa-baa-and-soc2-pricing-tiers/`](https://saasbill.io/compliance/hipaa-baa-and-soc2-pricing-tiers/)
 7. **Zendesk AI Outcome Pricing Calculator ($1.50–$2.00 per Automated Resolution) vs. Freshdesk & Help Scout:** [`/pricing/zendesk-ai-resolution-and-automated-outcome-cost/`](https://saasbill.io/pricing/zendesk-ai-resolution-and-automated-outcome-cost/) — published 2026-10-25
+8. **Gumroad (10% + 50¢ + processing) vs. Whop (2.7% + 30¢) vs. Lemon Squeezy (5% + 50¢) Net Payout Calculator:** [`/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/`](https://saasbill.io/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/) — published 2026-10-26
 
 ## Machine-Readable AI & Search Endpoints
 - [`/llms.txt`](https://saasbill.io/llms.txt)

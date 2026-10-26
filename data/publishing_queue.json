@@ -12,11 +12,15 @@
   {
     "priority": 2,
     "slug": "/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/",
-    "title": "Gumroad (10% Fee) vs. Whop (2.7%) vs. Lemon Squeezy (5%) Calculator (2026): Net Payouts Compared",
+    "title": "Gumroad (10% + 50¢ + 2.9% Processing) vs. Whop (2.7% + 30¢) vs. Lemon Squeezy (5% + 50¢) Calculator (2026): Net Payouts Compared",
     "category": "Payment Processors & MoR",
     "primary_affiliate": "whop",
-    "status": "queued",
-    "strategic_rationale": "Hard payment infrastructure (cannot be vibe-coded) + active Whop referral link (?a=baggyprairieae) already live."
+    "status": "published",
+    "strategic_rationale": "Hard payment infrastructure (cannot be vibe-coded) + active Whop referral link (?a=baggyprairieae) already live.",
+    "original_title": "Gumroad (10% Fee) vs. Whop (2.7%) vs. Lemon Squeezy (5%) Calculator (2026): Net Payouts Compared",
+    "published_at": "2026-10-26",
+    "url": "https://saasbill.io/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/",
+    "title_correction_note": "Gumroad's 10% + 50c excludes 2.9% + 30c card processing (gumroad.com/help/article/66-gumroads-fees, checked 2026-10-26); fixed fees added to all three."
   },
   {
     "priority": 3,

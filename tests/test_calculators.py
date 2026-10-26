@@ -274,6 +274,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
             "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+            "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html",
         ]
         summary_ids = {
             "index.html": "wb-result-mount",
@@ -283,6 +284,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html": "sm-summary",
             "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html": "soc2-summary",
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html": "zd-summary",
+            "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html": "tr-summary",
         }
         forbidden_phrases = [
             "Partner link",
@@ -385,6 +387,69 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("Estimated monthly processing fees:", p["quote"])
             self.assertIn("Potential funds temporarily held:", p["quote"])
             self.assertIn("Assumptions ($50k/mo GMV", p["sub"])
+
+
+    def test_gumroad_whop_lemon_squeezy_take_rate_calculator(self):
+        """JS calcPlatforms() on the take-rate page must match hand-checked fee math and the Python builder (verified 2026-10-26)."""
+        import sys
+        sys.path.insert(0, os.path.join(BASE_DIR, "scripts"))
+        import build_gumroad_whop_lemonsqueezy_page as tr
+        rel = "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html"
+        with open(os.path.join(PUBLIC_DIR, rel)) as f:
+            html = f.read()
+        m = re.search(r"(const TR_FEES = .*?\n\}\n)const trFmt", html, re.S)
+        self.assertIsNotNone(m, "Could not extract calcPlatforms() from take-rate page")
+        scenarios = [
+            tr.DEFAULTS,
+            dict(tr.DEFAULTS, whop_tax="none"),
+            dict(tr.DEFAULTS, price=100, sales=300, intl=60, paypal=20, sub=True, discover=25, dispute=1.0, payout="intl", whop_fx=False, whop_risk=False),
+            dict(tr.DEFAULTS, price=10, sales=50, intl=0, paypal=0, dispute=0),
+        ]
+        for sc in scenarios:
+            runner = m.group(1) + f"console.log(JSON.stringify(calcPlatforms({json.dumps(sc)})));"
+            res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+            js = json.loads(res.stdout)
+            py = tr.calc(**sc)
+            for plat in ("gumroad", "ls", "whop"):
+                self.assertAlmostEqual(js[plat]["total"], py[plat]["total"], places=2, msg=f"{plat} JS/Python mismatch for {sc}")
+                self.assertAlmostEqual(js[plat]["net"] + js[plat]["total"], js["gmv"], places=2)
+
+        # Hand-checked default example: $29 x 200 sales, 30% intl, 10% PayPal, 0.5% disputes, US bank, Whop 2% managed tax
+        e = tr.calc(**tr.DEFAULTS)
+        self.assertEqual(e["gmv"], 5800)
+        self.assertAlmostEqual(e["gumroad"]["total"], 580 + 100 + 168.2 + 60, places=2)          # 10% + 50c + 2.9% + 30c
+        self.assertAlmostEqual(e["ls"]["total"], 290 + 100 + 26.1 + 8.7 + 15, places=2)          # 5% + 50c + 1.5% intl + 1.5% PayPal + $15 dispute
+        self.assertAlmostEqual(e["whop"]["total"], 156.6 + 60 + 26.1 + 17.4 + 116 + 20 + 15 + 10, places=2)
+        self.assertAlmostEqual(tr.calc(**dict(tr.DEFAULTS, whop_tax="none"))["whop"]["total"], 305.1, places=2)
+        # Gumroad high-volume rate: direct sales above $20k/month pay 5% + 50c
+        hv = tr.calc(price=100, sales=300, intl=0, paypal=0, dispute=0)
+        self.assertAlmostEqual(hv["gumroad"]["platform"], 20000 * 0.10 + 10000 * 0.05 + 150, places=2)
+        # Discover 30% flat incl. processing
+        dsc = tr.calc(price=10, sales=100, intl=0, paypal=0, dispute=0, discover=100)
+        self.assertAlmostEqual(dsc["gumroad"]["total"], 300, places=2)
+
+        # Page requirements: short title, answer-first copy, no robot labels/brand leaks, FAQPage, referral link, header date
+        t = re.search(r"<title>(.*?)</title>", html).group(1)
+        self.assertLessEqual(len(t), 60)
+        self.assertTrue(t.endswith("– saasbill.io"))
+        self.assertIn(f'<meta property="og:title" content="{t}"', html)
+        self.assertIn(f'<meta name="twitter:title" content="{t}"', html)
+        self.assertIn("The short version:", html)
+        for bad in ["Answer First:", "Direct Answer", "TL;DR", "SaaSTruth", "Erik", "Bengtsson"]:
+            self.assertNotIn(bad, html)
+        self.assertIn('"FAQPage"', html)
+        self.assertIn("https://whop.com/sell?a=baggyprairieae", html)
+        self.assertIn("Verified source", html)
+        self.assertIn('itemprop="dateModified"', html)
+        self.assertIn("byline-bar", html)
+        self.assertIn("https://gumroad.com/pricing", html)
+        self.assertIn("https://www.lemonsqueezy.com/pricing", html)
+
+        with open(os.path.join(PUBLIC_DIR, "index.html")) as f:
+            self.assertIn("./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/", f.read())
+        for meta in ("sitemap.xml", "llms.txt", "llms-full.txt"):
+            with open(os.path.join(PUBLIC_DIR, meta)) as f:
+                self.assertIn("/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/", f.read(), meta)
 
 
 if __name__ == "__main__":
