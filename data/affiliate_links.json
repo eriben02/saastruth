@@ -117,7 +117,7 @@
     "tracking_url": "/go/chargeflow",
     "destination_url": "https://www.chargeflow.io/pricing",
     "is_affiliate": true,
-    "status": "applied (Chargeflow Partner Program form submitted 2026-10-26 via chargeflow.io/partners as Affiliate/Sales Partner)"
+    "status": "applied (Chargeflow Partner Portal application submitted 2026-10-26 via partners.chargeflow.io/register as Affiliate)"
   },
   "lemon-squeezy": {
     "program_name": "Lemon Squeezy Affiliate Program",
@@ -207,7 +207,7 @@
     "restrictions": "No pay-per-click ads; no coupon/discount sites",
     "tracking_url": "/go/help-scout",
     "destination_url": "https://www.helpscout.com/pricing/",
-    "status": "applied (PartnerStack pending approval, est. 1-5 days: Oct 26-30, 2026)",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=helpscout&group=helpscoutaffiliates)",
     "verified_date": "2026-10-25",
     "is_affiliate": true,
     "applied_date": "2026-10-25",
@@ -230,5 +230,13 @@
     "is_affiliate": false,
     "applied_date": "2026-10-25",
     "expected_response_window": "2026-10-26 to 2026-10-30 (1-5 business days)"
+  },
+  "pandadoc": {
+    "vendor_name": "PandaDoc",
+    "network": "PartnerStack",
+    "commission": "25% to 35% recurring revenue share (90-day cookie window)",
+    "status": "applied (PartnerStack direct application submitted 2026-10-26 via dash.partnerstack.com/application?company=pandadoc)",
+    "destination_url": "https://www.pandadoc.com/pricing/",
+    "signup_url": "https://dash.partnerstack.com/application?company=pandadoc"
   }
 }
