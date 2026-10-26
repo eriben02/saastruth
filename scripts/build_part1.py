@@ -27,11 +27,11 @@ home_body = f"""
 </div>
 
 <div class="unified-inspector-tray" id="unified-inspector-tray">
-  <div class="inspector-left-rail" id="inspector-left-rail" aria-hidden="true">
-    <span class="rail-arm-top" id="rail-arm-top"></span>
-    <span class="rail-stem" id="rail-stem"></span>
-    <span class="rail-arm-bottom" id="rail-arm-bottom"></span>
-  </div>
+  <svg class="inspector-left-rail" id="inspector-left-rail" aria-hidden="true" overflow="visible">
+    <path id="rail-svg-path" fill="none" stroke="#536B56" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="" />
+    <circle id="rail-svg-dot" cx="22" cy="180" r="4" fill="#536B56" />
+    <polygon id="rail-svg-arrow" points="16,415 23,420 16,425" fill="#536B56" />
+  </svg>
 <section class="calc-box editorial-workbench" aria-labelledby="calc-heading">
   <h2 id="calc-heading" class="sr-only-control">Interactive Year-1 True-Cost Calculator (2026)</h2>
   <div class="control-group sr-only-control">
@@ -989,45 +989,69 @@ document.querySelectorAll('.cat-tab').forEach(btn => {{
     }}
   }});
 }});
-let _railInitialized = false;
+let _railAnimId = null;
+let _railCurrY1 = null;
+let _railCurrY2 = null;
+
+function drawRailSvg(y1, y2) {{
+  const path = document.getElementById('rail-svg-path');
+  const dot = document.getElementById('rail-svg-dot');
+  const arrow = document.getElementById('rail-svg-arrow');
+  if (!path || !dot || !arrow) return;
+  const r = 6;
+  const xStem = 2;
+  const xTopEnd = 22;
+  const xBotEnd = 18;
+  // Single continuous path with rounded corners: from top card (xTopEnd, y1) -> left stem (xStem) -> down to active row (y2) -> right to arrow base (xBotEnd, y2)
+  const d = `M ${{xTopEnd}} ${{y1.toFixed(1)}} L ${{xStem + r}} ${{y1.toFixed(1)}} Q ${{xStem}} ${{y1.toFixed(1)}} ${{xStem}} ${{(y1 + r).toFixed(1)}} L ${{xStem}} ${{(y2 - r).toFixed(1)}} Q ${{xStem}} ${{y2.toFixed(1)}} ${{xStem + r}} ${{y2.toFixed(1)}} L ${{xBotEnd}} ${{y2.toFixed(1)}}`;
+  path.setAttribute('d', d);
+  dot.setAttribute('cy', y1.toFixed(1));
+  arrow.setAttribute('points', `${{xBotEnd - 2}},${{(y2 - 4.8).toFixed(1)}} ${{xBotEnd + 5}},${{y2.toFixed(1)}} ${{xBotEnd - 2}},${{(y2 + 4.8).toFixed(1)}}`);
+}}
+
 function updateInspectorRail() {{
   const tray = document.getElementById('unified-inspector-tray');
   const rail = document.getElementById('inspector-left-rail');
-  const armTop = document.getElementById('rail-arm-top');
-  const stem = document.getElementById('rail-stem');
-  const armBot = document.getElementById('rail-arm-bottom');
   const wbCard = tray ? tray.querySelector('.editorial-workbench') : null;
   const activeRow = tray ? tray.querySelector('tr.is-spotlight-row') : null;
-  if (!tray || !rail || !armTop || !stem || !armBot || !wbCard || !activeRow || window.innerWidth <= 960) {{
+  if (!tray || !rail || !wbCard || !activeRow || window.innerWidth <= 960) {{
     if (rail) rail.style.opacity = '0';
     return;
   }}
   const trayRect = tray.getBoundingClientRect();
   const wbRect = wbCard.getBoundingClientRect();
   const rowRect = activeRow.getBoundingClientRect();
-  const y1 = Math.round((wbRect.top - trayRect.top) + wbRect.height * 0.5);
-  const y2 = Math.round((rowRect.top - trayRect.top) + rowRect.height * 0.5);
-  if (y2 <= y1) {{
+  const targetY1 = (wbRect.top - trayRect.top) + wbRect.height * 0.5;
+  const targetY2 = (rowRect.top - trayRect.top) + rowRect.height * 0.5;
+  if (targetY2 <= targetY1 + 20) {{
     rail.style.opacity = '0';
     return;
   }}
-  if (!_railInitialized) {{
-    armTop.style.transition = 'none';
-    stem.style.transition = 'none';
-    armBot.style.transition = 'none';
-  }}
   rail.style.opacity = '1';
-  rail.style.setProperty('--rail-y1', `${{y1}}px`);
-  rail.style.setProperty('--rail-y2', `${{y2}}px`);
-  rail.style.setProperty('--rail-len', `${{Math.max(1, y2 - y1)}}`);
-  if (!_railInitialized) {{
-    requestAnimationFrame(() => {{
-      armTop.style.transition = '';
-      stem.style.transition = '';
-      armBot.style.transition = '';
-      _railInitialized = true;
-    }});
+  if (_railCurrY1 === null || _railCurrY2 === null) {{
+    _railCurrY1 = targetY1;
+    _railCurrY2 = targetY2;
+    drawRailSvg(_railCurrY1, _railCurrY2);
+    return;
   }}
+  if (_railAnimId) cancelAnimationFrame(_railAnimId);
+  const startY1 = _railCurrY1;
+  const startY2 = _railCurrY2;
+  const startTime = performance.now();
+  const duration = 260;
+  function step(now) {{
+    const t = Math.min(1, (now - startTime) / duration);
+    const ease = 1 - Math.pow(1 - t, 3); // cubic ease-out
+    _railCurrY1 = startY1 + (targetY1 - startY1) * ease;
+    _railCurrY2 = startY2 + (targetY2 - startY2) * ease;
+    drawRailSvg(_railCurrY1, _railCurrY2);
+    if (t < 1) {{
+      _railAnimId = requestAnimationFrame(step);
+    }} else {{
+      _railAnimId = null;
+    }}
+  }}
+  _railAnimId = requestAnimationFrame(step);
 }}
 
 const _origRenderDirectory = renderDirectory;
