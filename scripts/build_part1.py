@@ -26,6 +26,12 @@ home_body = f"""
   </div>
 </div>
 
+<div class="unified-inspector-tray" id="unified-inspector-tray">
+  <div class="inspector-left-rail" id="inspector-left-rail" aria-hidden="true">
+    <span class="rail-arm-top" id="rail-arm-top"></span>
+    <span class="rail-stem" id="rail-stem"></span>
+    <span class="rail-arm-bottom" id="rail-arm-bottom"></span>
+  </div>
 <section class="calc-box editorial-workbench" aria-labelledby="calc-heading">
   <h2 id="calc-heading" class="sr-only-control">Interactive Year-1 True-Cost Calculator (2026)</h2>
   <div class="control-group sr-only-control">
@@ -176,6 +182,7 @@ home_body = f"""
     <strong>Payment Processors &amp; MoR (Fees vs. Temporary Reserves):</strong> Because payment rails charge per transaction rather than per seat, selecting <em>Payment Processors</em> models a standardized benchmark of <strong>$50,000/month GMV across 1,000 transactions ($50 AOV, 30% international cards)</strong>. <strong>Estimated monthly processing fees</strong> (percentage + per-transaction + FX/billing surcharges) are shown separately from <strong>potential funds temporarily held</strong> (such as a 25% rolling reserve held for 90&ndash;180 days on a risk flag, which is a cashflow hold rather than a fee). To model your exact volume, open the <a href="./exit/stripe-shopify-paddle-frozen-funds-alternatives/">Interactive Payout Hold &amp; Reserve Simulator &rarr;</a>
   </p>
 </section>
+</div>
 
 <section id="all-calculators" class="editorial-below-section">
   <div class="gap-eyebrow">Specialized Simulators</div>
@@ -982,6 +989,40 @@ document.querySelectorAll('.cat-tab').forEach(btn => {{
     }}
   }});
 }});
+function updateInspectorRail() {{
+  const tray = document.getElementById('unified-inspector-tray');
+  const rail = document.getElementById('inspector-left-rail');
+  const armTop = document.getElementById('rail-arm-top');
+  const stem = document.getElementById('rail-stem');
+  const armBot = document.getElementById('rail-arm-bottom');
+  const wbCard = tray ? tray.querySelector('.editorial-workbench') : null;
+  const activeRow = tray ? tray.querySelector('tr.is-spotlight-row') : null;
+  if (!tray || !rail || !armTop || !stem || !armBot || !wbCard || !activeRow || window.innerWidth <= 960) {{
+    if (rail) rail.style.opacity = '0';
+    return;
+  }}
+  const trayRect = tray.getBoundingClientRect();
+  const wbRect = wbCard.getBoundingClientRect();
+  const rowRect = activeRow.getBoundingClientRect();
+  const y1 = Math.round((wbRect.top - trayRect.top) + wbRect.height * 0.5);
+  const y2 = Math.round((rowRect.top - trayRect.top) + rowRect.height * 0.5);
+  if (y2 <= y1) {{
+    rail.style.opacity = '0';
+    return;
+  }}
+  rail.style.opacity = '1';
+  armTop.style.top = `${{y1}}px`;
+  stem.style.top = `${{y1}}px`;
+  stem.style.height = `${{y2 - y1}}px`;
+  armBot.style.top = `${{y2}}px`;
+}}
+
+const _origRenderDirectory = renderDirectory;
+renderDirectory = function() {{
+  _origRenderDirectory();
+  requestAnimationFrame(updateInspectorRail);
+}};
+window.addEventListener('resize', () => requestAnimationFrame(updateInspectorRail));
 renderDirectory();
 </script>
 """

@@ -357,6 +357,8 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn('class="legend-dot dot-sticker"', index_html)
         self.assertIn('class="legend-dot dot-hidden"', index_html)
         self.assertIn('id="gap-dynamic-subhead"', index_html)
+        self.assertIn('id="unified-inspector-tray"', index_html)
+        self.assertIn('id="inspector-left-rail"', index_html)
         self.assertIn('click any row to inspect its breakdown above.', index_html)
         # Ensure Sort selector is inside .gap-toolbar above the table, not inside #billing-control-group
         billing_grp = re.search(r'<div class="wb-quiet-options" id="billing-control-group">(.*?)</div>\s*</div>\s*</div>', index_html, re.S)
