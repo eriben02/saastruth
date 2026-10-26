@@ -22,6 +22,60 @@ def load_data():
         affiliates = json.load(f)
     return tools, affiliates
 
+def render_related_links(rel_path, prefix):
+    if rel_path == "index.html":
+        return ""
+    all_links = [
+        ("index.html", "Year-1 SaaS True-Cost Directory (Homepage)", "Compare 20+ B2B tools across CRM, Helpdesk AI, Payments & Compliance."),
+        ("pricing/hubspot-true-cost-and-onboarding-fees/index.html", "HubSpot True Year-1 Cost & Onboarding Fees", "Model $1,500–$7,000 mandatory onboarding fees vs. Close CRM & Pipedrive."),
+        ("compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html", "Close CRM vs. HubSpot Sales Hub (5–20 Reps)", "Compare built-in VoIP calling & SMS against HubSpot seat + onboarding fees."),
+        ("pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html", "Gong.io $5,000 Platform Fee & Seat Calculator", "Benchmark Gong's $5k base fee + $1,600/yr seats against Close CRM."),
+        ("compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html", "CRM Seat-Minimum & Bucket Calculator", "See where monday CRM's 3/5/10-seat buckets cost more than 1:1 CRMs."),
+        ("pricing/intercom-fin-ai-resolution-cost-calculator/index.html", "Intercom Fin AI ($0.99/Resolution) True Cost", "Calculate monthly Fin AI resolution fees vs. Freshdesk session packs."),
+        ("pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html", "Zendesk AI Automated Resolution Fee Calculator", "Model $1.50–$2.00 AI overage rates vs. Freshdesk & Help Scout."),
+        ("pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html", "Stripe Billing 0.7% Recurring Fee Calculator", "Compare Stripe 2.9% + 0.7% Billing + 0.5% Tax vs. Whop (2.7% + 30¢) & Paddle."),
+        ("compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html", "Gumroad vs. Whop vs. Lemon Squeezy Net Payouts", "Compare real creator & SaaS take rates after card processing and surcharges."),
+        ("exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html", "Stripe, Shopify & Paddle Reserve & Hold Simulator", "Model 25% rolling reserves and compare Merchant of Record token portability."),
+        ("exit/paypal-180-day-permanent-limitation-fund-recovery/index.html", "PayPal 180-Day Hold & Working Capital Calculator", "Calculate frozen cashflow impact and multi-processor failover with Whop."),
+        ("compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html", "Typeform vs. Jotform Response Limit & HIPAA Cost", "Compare Typeform response tiers & Enterprise BAA vs. Jotform Gold ($99/mo)."),
+        ("pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html", "DocuSign 100-Envelope Cap & Overage Calculator", "Expose the 100 envelopes/user/yr cap vs. PandaDoc & Jotform Sign."),
+        ("compliance/hipaa-baa-and-soc2-pricing-tiers/index.html", "HIPAA BAA & SOC 2 + CPA Auditor Cost Calculator", "Compare self-serve HIPAA BAA plans and negotiated Vanta/Drata + CPA costs."),
+        ("faq/does-hubspot-charge-onboarding-fees-2026/index.html", "FAQ: Does HubSpot Charge Onboarding Fees in 2026?", "Direct answer on $1,500–$7,000 fees, partner waivers, and $0-onboarding alternatives."),
+        ("faq/intercom-fin-ai-cost-calculator/index.html", "FAQ: How Much Does Intercom Fin AI Cost in 2026?", "Quick calculator for $0.99/resolution AI support bills vs. Freshdesk & Help Scout."),
+        ("faq/stripe-vs-paddle-true-cost/index.html", "FAQ: Stripe vs. Paddle vs. Whop True Cost (2026)", "Side-by-side effective take rate calculator with Billing, Tax, and FX fees."),
+    ]
+    cards = []
+    for target_rel, label, summary in all_links:
+        if target_rel == rel_path:
+            continue
+        href = prefix + target_rel.replace("index.html", "")
+        cards.append(f"""
+        <div class="card" style="padding:14px 16px;">
+          <h3 style="margin:0 0 6px; font-size:0.98rem;"><a href="{href}" data-track="internal-audit">{label} &rarr;</a></h3>
+          <p style="margin:0; font-size:0.84rem; color:var(--muted);">{summary}</p>
+        </div>""")
+        if len(cards) >= 6:
+            break
+    # Always ensure the 3 FAQ guides and related category links are reachable
+    extra_faq_links = []
+    for target_rel, label, _ in all_links[1:]:
+        if target_rel == rel_path:
+            continue
+        href = prefix + target_rel.replace("index.html", "")
+        extra_faq_links.append(f'<a href="{href}" data-track="internal-audit" style="font-size:0.84rem; margin-right:14px; display:inline-block; margin-bottom:6px;">{label} &rarr;</a>')
+    return f"""
+    <section aria-labelledby="related-calculators-heading" style="margin-top:36px; padding-top:24px; border-top:1px solid var(--border);">
+      <h2 id="related-calculators-heading" style="font-size:1.2rem; margin-top:0;">Related Year-1 True-Cost Calculators &amp; Contract Audits</h2>
+      <div class="card-grid" style="margin-bottom:16px;">
+        {''.join(cards)}
+      </div>
+      <div style="padding:12px 14px; background:var(--surface-alt, #F2F4F0); border-radius:8px; line-height:1.7;">
+        <strong style="font-size:0.84rem; display:block; margin-bottom:4px;">All Audited Calculators &amp; High-Intent Guides:</strong>
+        {''.join(extra_faq_links)}
+      </div>
+    </section>
+    """
+
 def render_page(rel_path, title, description, canonical_path, body_html, faqs=None, extra_schema=None, published_date=None):
     iso_date, iso_datetime, human_date = get_freshness_timestamps()
     pub_date = published_date or iso_date
@@ -140,6 +194,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
 
     depth = len([p for p in rel_path.split("/") if p]) - 1
     prefix = "../" * depth if depth > 0 else "./"
+    related_html = render_related_links(rel_path, prefix)
 
     byline_bar = f'<span class="byline-bar">Updated <time datetime="{iso_date}" itemprop="dateModified">{human_date}</time></span>'
 
@@ -148,6 +203,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bing Webmaster Tools verification: paste <meta name="msvalidate.01" content="YOUR_BING_CODE" /> here or use 1-click Google Search Console import (see BING_WEBMASTER_VERIFICATION.md) -->
   <title>{full_title}</title>
   <meta name="description" content="{description}" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
@@ -196,6 +252,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
       <meta itemprop="dateModified" content="{iso_datetime}" />
       {body_html}
       {faq_html}
+      {related_html}
     </article>
   </main>
   <footer class="site-footer">
