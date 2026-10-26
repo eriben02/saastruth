@@ -137,21 +137,21 @@ body = f"""
 <section aria-labelledby="compare-heading">
   <h2 id="compare-heading">Plan-by-plan breakdown: Zendesk vs. Freshdesk vs. Help Scout</h2>
   <p class="section-tldr">Zendesk and Help Scout both bill only when AI resolves a conversation, but Zendesk’s list rate per resolution ($1.50–$2.00) is double Help Scout’s ($0.75). Freshdesk charges per AI session ($0.49 each in 100-packs) regardless of resolution.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
       <caption>Helpdesk Seat &amp; AI Resolution Terms Compared (verified Oct 25, 2026)</caption>
       <thead><tr><th>Item</th><th>Zendesk Suite Team</th><th>Zendesk Suite Professional</th><th>Freshdesk Pro</th><th>Help Scout Plus</th></tr></thead>
       <tbody>
-        <tr><td>Seat price (annual billing)</td><td>$55/agent/mo</td><td>$115/agent/mo</td><td>$55/agent/mo</td><td>$45/user/mo</td></tr>
-        <tr><td>Seat price (monthly billing)</td><td>$69</td><td>$149</td><td>$66</td><td>$54 <span class="badge badge-medium">third-party check</span></td></tr>
-        <tr><td>AI included</td><td>5 automated resolutions/agent/mo</td><td>10 automated resolutions/agent/mo</td><td>500 AI Agent sessions once per account</td><td>3-month free AI Answers trial</td></tr>
-        <tr><td>AI price after allowance</td><td>$1.50 committed / $2.00 PAYG</td><td>$1.50 / $2.00 per resolution</td><td>$49 per 100 sessions</td><td>$0.75 per resolution</td></tr>
-        <tr><td>Billing unit</td><td>Verified resolution (LLM-checked)</td><td>Verified resolution</td><td>Session (72-hour email window)</td><td>Resolution (no escalation)</td></tr>
-        <tr><td>Spend controls</td><td>"Don't allow overage" pauses AI (overage on by default)</td><td>Same</td><td>Buy session packs</td><td>Monthly spending cap auto-disables AI</td></tr>
-        <tr><td>Copilot / agent assist</td><td>Not available on Team</td><td>Copilot add-on $50/agent/mo</td><td>Freddy AI Copilot $29/agent/mo</td><td>AI Drafts &amp; Summarize included</td></tr>
-        <tr><td>SSO</td><td>SAML/JWT listed on all plans</td><td>Listed</td><td>SAML SSO on all plans</td><td>Add-on (included on Pro)</td></tr>
-        <tr><td>HIPAA</td><td>No</td><td>"HIPAA Enabled"</td><td>Not listed on pricing page</td><td>Add-on (included on Pro, $75, 10-user min)</td></tr>
-        <tr><td>Renewal / cancellation</td><td colspan="2">Auto-renews at then-current rates unless 30 days' written notice; early cancel = pay rest of term</td><td>No cancellation fees; effective at end of term</td><td>Annual card prepay auto-renews by default</td></tr>
+        <tr><td data-label="Item"><strong>Seat price (annual billing)</strong></td><td data-label="Zendesk Suite Team">$55/agent/mo</td><td data-label="Zendesk Suite Professional">$115/agent/mo</td><td data-label="Freshdesk Pro">$55/agent/mo</td><td data-label="Help Scout Plus">$45/user/mo</td></tr>
+        <tr><td data-label="Item"><strong>Seat price (monthly billing)</strong></td><td data-label="Zendesk Suite Team">$69</td><td data-label="Zendesk Suite Professional">$149</td><td data-label="Freshdesk Pro">$66</td><td data-label="Help Scout Plus">$54 <span class="badge badge-medium">third-party check</span></td></tr>
+        <tr><td data-label="Item"><strong>AI included</strong></td><td data-label="Zendesk Suite Team">5 automated resolutions/agent/mo</td><td data-label="Zendesk Suite Professional">10 automated resolutions/agent/mo</td><td data-label="Freshdesk Pro">500 AI Agent sessions once per account</td><td data-label="Help Scout Plus">3-month free AI Answers trial</td></tr>
+        <tr><td data-label="Item"><strong>AI price after allowance</strong></td><td data-label="Zendesk Suite Team">$1.50 committed / $2.00 PAYG</td><td data-label="Zendesk Suite Professional">$1.50 / $2.00 per resolution</td><td data-label="Freshdesk Pro">$49 per 100 sessions</td><td data-label="Help Scout Plus">$0.75 per resolution</td></tr>
+        <tr><td data-label="Item"><strong>Billing unit</strong></td><td data-label="Zendesk Suite Team">Verified resolution (LLM-checked)</td><td data-label="Zendesk Suite Professional">Verified resolution</td><td data-label="Freshdesk Pro">Session (72-hour email window)</td><td data-label="Help Scout Plus">Resolution (no escalation)</td></tr>
+        <tr><td data-label="Item"><strong>Spend controls</strong></td><td data-label="Zendesk Suite Team">"Don't allow overage" pauses AI (overage on by default)</td><td data-label="Zendesk Suite Professional">Same</td><td data-label="Freshdesk Pro">Buy session packs</td><td data-label="Help Scout Plus">Monthly spending cap auto-disables AI</td></tr>
+        <tr><td data-label="Item"><strong>Copilot / agent assist</strong></td><td data-label="Zendesk Suite Team">Not available on Team</td><td data-label="Zendesk Suite Professional">Copilot add-on $50/agent/mo</td><td data-label="Freshdesk Pro">Freddy AI Copilot $29/agent/mo</td><td data-label="Help Scout Plus">AI Drafts &amp; Summarize included</td></tr>
+        <tr><td data-label="Item"><strong>SSO</strong></td><td data-label="Zendesk Suite Team">SAML/JWT listed on all plans</td><td data-label="Zendesk Suite Professional">Listed</td><td data-label="Freshdesk Pro">SAML SSO on all plans</td><td data-label="Help Scout Plus">Add-on (included on Pro)</td></tr>
+        <tr><td data-label="Item"><strong>HIPAA</strong></td><td data-label="Zendesk Suite Team">No</td><td data-label="Zendesk Suite Professional">"HIPAA Enabled"</td><td data-label="Freshdesk Pro">Not listed on pricing page</td><td data-label="Help Scout Plus">Add-on (included on Pro, $75, 10-user min)</td></tr>
+        <tr><td data-label="Item"><strong>Renewal / cancellation</strong></td><td data-label="Zendesk Suite Team &amp; Pro" colspan="2">Auto-renews at then-current rates unless 30 days' written notice; early cancel = pay rest of term</td><td data-label="Freshdesk Pro">No cancellation fees; effective at end of term</td><td data-label="Help Scout Plus">Annual card prepay auto-renews by default</td></tr>
       </tbody>
     </table>
   </div>

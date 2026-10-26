@@ -194,14 +194,14 @@ body = f"""
 <section aria-labelledby="persale-heading">
   <h2 id="persale-heading">What each platform keeps from a single sale</h2>
   <p class="section-tldr">On a single $29 domestic card sale, Gumroad keeps ${f2(S29[0])}, Lemon Squeezy ${f2(S29[1])} and Whop ${f2(S29[2])} (before Whop’s optional 2% tax service). Fixed per-sale fees hurt cheap products most: on a $10 sale Gumroad takes {S10[0] / 10 * 100:.0f}%.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
       <caption>Fee per US card sale, no add-ons (verified {CHECKED})</caption>
       <thead><tr><th>Sale price</th><th>Gumroad (10% + 50¢ + 2.9% + 30¢)</th><th>Lemon Squeezy (5% + 50¢)</th><th>Whop (2.7% + 30¢)</th></tr></thead>
       <tbody>
-        <tr><td>$10</td><td>${f2(S10[0])} ({S10[0] / 10 * 100:.1f}%)</td><td>${f2(S10[1])} ({S10[1] / 10 * 100:.1f}%)</td><td>${f2(S10[2])} ({S10[2] / 10 * 100:.1f}%)</td></tr>
-        <tr><td>$29</td><td>${f2(S29[0])} ({S29[0] / 29 * 100:.1f}%)</td><td>${f2(S29[1])} ({S29[1] / 29 * 100:.1f}%)</td><td>${f2(S29[2])} ({S29[2] / 29 * 100:.1f}%)</td></tr>
-        <tr><td>$100</td><td>${f2(S100[0])} ({S100[0]:.1f}%)</td><td>${f2(S100[1])} ({S100[1]:.1f}%)</td><td>${f2(S100[2])} ({S100[2]:.1f}%)</td></tr>
+        <tr><td data-label="Sale price"><strong>$10</strong></td><td data-label="Gumroad (10% + 50¢ + 2.9% + 30¢)">${f2(S10[0])} ({S10[0] / 10 * 100:.1f}%)</td><td data-label="Lemon Squeezy (5% + 50¢)">${f2(S10[1])} ({S10[1] / 10 * 100:.1f}%)</td><td data-label="Whop (2.7% + 30¢)">${f2(S10[2])} ({S10[2] / 10 * 100:.1f}%)</td></tr>
+        <tr><td data-label="Sale price"><strong>$29</strong></td><td data-label="Gumroad (10% + 50¢ + 2.9% + 30¢)">${f2(S29[0])} ({S29[0] / 29 * 100:.1f}%)</td><td data-label="Lemon Squeezy (5% + 50¢)">${f2(S29[1])} ({S29[1] / 29 * 100:.1f}%)</td><td data-label="Whop (2.7% + 30¢)">${f2(S29[2])} ({S29[2] / 29 * 100:.1f}%)</td></tr>
+        <tr><td data-label="Sale price"><strong>$100</strong></td><td data-label="Gumroad (10% + 50¢ + 2.9% + 30¢)">${f2(S100[0])} ({S100[0]:.1f}%)</td><td data-label="Lemon Squeezy (5% + 50¢)">${f2(S100[1])} ({S100[1]:.1f}%)</td><td data-label="Whop (2.7% + 30¢)">${f2(S100[2])} ({S100[2]:.1f}%)</td></tr>
       </tbody>
     </table>
   </div>
@@ -210,23 +210,23 @@ body = f"""
 <section aria-labelledby="terms-heading">
   <h2 id="terms-heading">Fee schedule, tax handling and payout rules compared</h2>
   <p class="section-tldr">Gumroad and Lemon Squeezy are merchants of record on every sale, so tax is included in their fee. Whop is cheaper per transaction, but on direct sales you choose between paying 2% for managed tax or handling tax yourself.</p>
-  <div class="table-wrap">
+  <div class="table-wrap mobile-cards">
     <table>
       <caption>Gumroad vs. Lemon Squeezy vs. Whop: verified terms ({CHECKED})</caption>
       <thead><tr><th>Item</th><th>Gumroad</th><th>Lemon Squeezy</th><th>Whop</th></tr></thead>
       <tbody>
-        <tr><td>Headline fee</td><td>10% + $0.50 per direct sale</td><td>5% + $0.50 per transaction</td><td>2.7% + $0.30 (domestic cards)</td></tr>
-        <tr><td>Card processing</td><td>+2.9% + $0.30 (not included in the 10%)</td><td>Included</td><td>Included</td></tr>
-        <tr><td>International buyers</td><td>No surcharge listed</td><td>+1.5%</td><td>+1.5% international cards, +1% currency conversion</td></tr>
-        <tr><td>PayPal</td><td>PayPal fees not included</td><td>+1.5%</td><td>Not listed on fees page</td></tr>
-        <tr><td>Subscriptions</td><td>Same fee on every charge</td><td>+0.5%</td><td>Billing tool +0.5% when enabled</td></tr>
-        <tr><td>Marketplace sales</td><td>30% flat (Discover, processing included)</td><td>No marketplace</td><td>0% commission (Discover)</td></tr>
-        <tr><td>Volume discount</td><td>5% + $0.50 on direct sales after $20,000 paid sales in a calendar month</td><td>Custom pricing on request</td><td>Custom pricing on request</td></tr>
-        <tr><td>Tax / merchant of record</td><td>Merchant of record since Jan 1, 2025 (included)</td><td>Merchant of record (included)</td><td>Discover sales handled; direct sales: +2% managed tax (remit option covers US, EU, UK) or do it yourself</td></tr>
-        <tr><td>Dispute / chargeback</td><td>No separate fee; you lose the sale + processing, Gumroad returns its fee</td><td>$15 per dispute</td><td>$15 per dispute; $29 per early dispute alert (RDR)</td></tr>
-        <tr><td>Payout fees</td><td>Bank: none listed; PayPal 2%; US instant 3%</td><td>US bank free; non-US bank 1%; PayPal $0.50 US / 3% (max $30) non-US</td><td>Next-day ACH $2.50; instant (RTP) 4% + $2.50; wire $23; international local banks vary</td></tr>
-        <tr><td>Payout timing &amp; holds</td><td>$100 minimum; 7-day hold on weekly/monthly payouts; new-account review 1–3 weeks; 25% reserve if chargebacks &gt; 1.5%</td><td>Twice-monthly payouts</td><td>Funds withdrawable in 1–4 business days; reserves possible for new or high-risk accounts (up to 180 days per Seller Terms)</td></tr>
-        <tr><td>Ownership / roadmap</td><td>Independent</td><td>Owned by Stripe since 2024; stated goal is migration to Stripe Managed Payments (+3.5% on top of Stripe processing)</td><td>Independent</td></tr>
+        <tr><td data-label="Item"><strong>Headline fee</strong></td><td data-label="Gumroad">10% + $0.50 per direct sale</td><td data-label="Lemon Squeezy">5% + $0.50 per transaction</td><td data-label="Whop">2.7% + $0.30 (domestic cards)</td></tr>
+        <tr><td data-label="Item"><strong>Card processing</strong></td><td data-label="Gumroad">+2.9% + $0.30 (not included in the 10%)</td><td data-label="Lemon Squeezy">Included</td><td data-label="Whop">Included</td></tr>
+        <tr><td data-label="Item"><strong>International buyers</strong></td><td data-label="Gumroad">No surcharge listed</td><td data-label="Lemon Squeezy">+1.5%</td><td data-label="Whop">+1.5% international cards, +1% currency conversion</td></tr>
+        <tr><td data-label="Item"><strong>PayPal</strong></td><td data-label="Gumroad">PayPal fees not included</td><td data-label="Lemon Squeezy">+1.5%</td><td data-label="Whop">Not listed on fees page</td></tr>
+        <tr><td data-label="Item"><strong>Subscriptions</strong></td><td data-label="Gumroad">Same fee on every charge</td><td data-label="Lemon Squeezy">+0.5%</td><td data-label="Whop">Billing tool +0.5% when enabled</td></tr>
+        <tr><td data-label="Item"><strong>Marketplace sales</strong></td><td data-label="Gumroad">30% flat (Discover, processing included)</td><td data-label="Lemon Squeezy">No marketplace</td><td data-label="Whop">0% commission (Discover)</td></tr>
+        <tr><td data-label="Item"><strong>Volume discount</strong></td><td data-label="Gumroad">5% + $0.50 on direct sales after $20,000 paid sales in a calendar month</td><td data-label="Lemon Squeezy">Custom pricing on request</td><td data-label="Whop">Custom pricing on request</td></tr>
+        <tr><td data-label="Item"><strong>Tax / merchant of record</strong></td><td data-label="Gumroad">Merchant of record since Jan 1, 2025 (included)</td><td data-label="Lemon Squeezy">Merchant of record (included)</td><td data-label="Whop">Discover sales handled; direct sales: +2% managed tax (remit option covers US, EU, UK) or do it yourself</td></tr>
+        <tr><td data-label="Item"><strong>Dispute / chargeback</strong></td><td data-label="Gumroad">No separate fee; you lose the sale + processing, Gumroad returns its fee</td><td data-label="Lemon Squeezy">$15 per dispute</td><td data-label="Whop">$15 per dispute; $29 per early dispute alert (RDR)</td></tr>
+        <tr><td data-label="Item"><strong>Payout fees</strong></td><td data-label="Gumroad">Bank: none listed; PayPal 2%; US instant 3%</td><td data-label="Lemon Squeezy">US bank free; non-US bank 1%; PayPal $0.50 US / 3% (max $30) non-US</td><td data-label="Whop">Next-day ACH $2.50; instant (RTP) 4% + $2.50; wire $23; international local banks vary</td></tr>
+        <tr><td data-label="Item"><strong>Payout timing &amp; holds</strong></td><td data-label="Gumroad">$100 minimum; 7-day hold on weekly/monthly payouts; new-account review 1–3 weeks; 25% reserve if chargebacks &gt; 1.5%</td><td data-label="Lemon Squeezy">Twice-monthly payouts</td><td data-label="Whop">Funds withdrawable in 1–4 business days; reserves possible for new or high-risk accounts (up to 180 days per Seller Terms)</td></tr>
+        <tr><td data-label="Item"><strong>Ownership / roadmap</strong></td><td data-label="Gumroad">Independent</td><td data-label="Lemon Squeezy">Owned by Stripe since 2024; stated goal is migration to Stripe Managed Payments (+3.5% on top of Stripe processing)</td><td data-label="Whop">Independent</td></tr>
       </tbody>
     </table>
   </div>
