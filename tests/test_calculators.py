@@ -453,5 +453,61 @@ class TestSaaSBillCalculators(unittest.TestCase):
                 self.assertIn("/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/", f.read(), meta)
 
 
+
+    def test_mobile_usability_and_responsive_cards(self):
+        """Mandatory mobile usability audit across all generated HTML pages and styles.css."""
+        pages = [
+            "index.html",
+            "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
+            "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
+            "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
+            "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
+            "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+            "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html",
+        ]
+        for rel in pages:
+            full_path = os.path.join(PUBLIC_DIR, rel)
+            with open(full_path, encoding="utf-8") as f:
+                html = f.read()
+            # 1. Viewport meta tag present
+            self.assertIn(
+                '<meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+                html,
+                f"Missing responsive viewport meta tag in {rel}",
+            )
+            # 2. Every .table-wrap must use .mobile-cards so tables become vertical cards on mobile
+            for m in re.finditer(r'<div class="([^"]*table-wrap[^"]*)"', html):
+                classes = m.group(1).split()
+                self.assertIn(
+                    "mobile-cards",
+                    classes,
+                    f"Found .table-wrap without .mobile-cards in {rel}: {m.group(0)}",
+                )
+            # 3. Every <td> inside HTML or JS templates must carry data-label="..." for mobile card headers
+            for td_match in re.finditer(r"<td(?![^>]*data-label=)[^>]*>", html):
+                self.fail(f"Found <td> missing data-label attribute in {rel}: {td_match.group(0)}")
+
+        with open(os.path.join(PUBLIC_DIR, "assets/styles.css"), encoding="utf-8") as f:
+            css = f.read()
+        # 4. Verify mobile CSS overrides exist at the end of styles.css (after desktop .editorial-gap-table)
+        desktop_gap_pos = css.find(".table-wrap.editorial-gap-table td")
+        mobile_polish_pos = css.find("Mobile Polish & Responsive Overrides")
+        self.assertGreater(desktop_gap_pos, 0, "Missing .table-wrap.editorial-gap-table td in styles.css")
+        self.assertGreater(
+            mobile_polish_pos,
+            desktop_gap_pos,
+            "Mobile overrides must appear after desktop .editorial-gap-table rules in styles.css",
+        )
+        for required_mobile_rule in [
+            "grid-template-columns: 118px minmax(0, 1fr);",
+            ".table-wrap.editorial-gap-table.mobile-cards td",
+            "width: 24px;",
+            "font-size: 16px;",
+        ]:
+            self.assertIn(required_mobile_rule, css, f"Missing mobile CSS rule '{required_mobile_rule}' in styles.css")
+
+
 if __name__ == "__main__":
+
     unittest.main(verbosity=2)
