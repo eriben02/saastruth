@@ -40,6 +40,7 @@ def render_related_links(rel_path, prefix):
         ("compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html", "Typeform vs. Jotform Response Limit & HIPAA Cost", "Compare Typeform response tiers & Enterprise BAA vs. Jotform Gold ($99/mo)."),
         ("pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html", "DocuSign 100-Envelope Cap & Overage Calculator", "Expose the 100 envelopes/user/yr cap vs. PandaDoc & Jotform Sign."),
         ("compliance/hipaa-baa-and-soc2-pricing-tiers/index.html", "HIPAA BAA & SOC 2 + CPA Auditor Cost Calculator", "Compare self-serve HIPAA BAA plans and negotiated Vanta/Drata + CPA costs."),
+        ("compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/index.html", "Google Workspace vs. Microsoft 365 HIPAA BAA Calculator", "Cheapest BAA-eligible edition per suite ($7 entry), Vault/archiving gaps and form intake costs."),
         ("faq/does-hubspot-charge-onboarding-fees-2026/index.html", "FAQ: Does HubSpot Charge Onboarding Fees in 2026?", "Direct answer on $1,500–$7,000 fees, partner waivers, and $0-onboarding alternatives."),
         ("faq/intercom-fin-ai-cost-calculator/index.html", "FAQ: How Much Does Intercom Fin AI Cost in 2026?", "Quick calculator for $0.99/resolution AI support bills vs. Freshdesk & Help Scout."),
         ("faq/stripe-vs-paddle-true-cost/index.html", "FAQ: Stripe vs. Paddle vs. Whop True Cost (2026)", "Side-by-side effective take rate calculator with Billing, Tax, and FX fees."),

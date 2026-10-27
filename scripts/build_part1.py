@@ -249,6 +249,11 @@ home_body = f"""
       <p>Minimum plans for a signed HIPAA BAA or SAML SSO, plus Vanta/Drata platform quotes and external CPA audit fees.</p>
     </div>
     <div class="card">
+      <span class="badge badge-low">Compliance</span>
+      <h3><a href="./compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/">Google Workspace vs. Microsoft 365 HIPAA BAA calculator</a></h3>
+      <p>Cheapest BAA-eligible edition on each suite ($7 entry), Vault and archiving gaps, and HIPAA form intake costs.</p>
+    </div>
+    <div class="card">
       <span class="badge badge-low">FAQ</span>
       <h3><a href="./faq/does-hubspot-charge-onboarding-fees-2026/">Does HubSpot charge onboarding fees in 2026?</a></h3>
       <p>Mandatory $1,500–$7,000 HubSpot onboarding fees by tier, Solutions Partner waivers, and $0-onboarding CRMs.</p>

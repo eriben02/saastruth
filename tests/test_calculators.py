@@ -282,6 +282,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html",
             "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html",
             "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html",
+            "compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/index.html",
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
             "faq/intercom-fin-ai-cost-calculator/index.html",
             "faq/stripe-vs-paddle-true-cost/index.html",
@@ -301,6 +302,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html": "ds-summary",
             "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html": "gong-summary",
             "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html": "pp-summary",
+            "compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/index.html": "gm-summary",
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html": "faq-hs-summary",
             "faq/intercom-fin-ai-cost-calculator/index.html": "faq-ic-summary",
             "faq/stripe-vs-paddle-true-cost/index.html": "faq-sp-summary",
@@ -508,6 +510,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html",
             "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html",
             "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html",
+            "compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/index.html",
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
             "faq/intercom-fin-ai-cost-calculator/index.html",
             "faq/stripe-vs-paddle-true-cost/index.html",
@@ -571,7 +574,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
         with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), encoding="utf-8") as f:
             sitemap = f.read()
-        self.assertEqual(sitemap.count("<url><loc>"), 17)
+        self.assertEqual(sitemap.count("<url><loc>"), 18)
 
         faq_pages = [
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
