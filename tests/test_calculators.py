@@ -255,8 +255,12 @@ class TestSaaSBillCalculators(unittest.TestCase):
         hs_page = os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html")
         with open(hs_page) as f:
             hs_html = f.read()
-        self.assertIn("seats * 35", hs_html)
-        self.assertIn("Close CRM (Essentials)", hs_html)
+        self.assertIn("seats * 47 * 12", hs_html)
+        self.assertIn("Close CRM Startup", hs_html)
+        self.assertIn('id="chart-dynamic-headline"', hs_html)
+        self.assertIn('id="chart-dynamic-subtitle"', hs_html)
+        self.assertNotIn('class="invoice-box"', hs_html)
+        self.assertNotIn('id="hs-tbody"', hs_html)
         self.assertIn("https://refer.close.com/3k5hp07b8soi-fetl0j", hs_html)
 
         ic_page = os.path.join(PUBLIC_DIR, "pricing/intercom-fin-ai-resolution-cost-calculator/index.html")
