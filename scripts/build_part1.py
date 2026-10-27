@@ -999,6 +999,7 @@ function renderDirectory() {{
           <div class="summary-metric" style="color:var(--emerald);">$2,275 / mo &middot; Whop Payments</div>
           <div class="summary-scenario">Based on $50,000/mo GMV, 1,000 tx, 30% international</div>
           <div class="summary-breakdown">$1,650 base (2.7% + 30&cent;) + $400 multi-PSP routing + $225 intl ($1,875/mo without orchestration)</div>
+          <div class="summary-caveat"><strong>Contract note:</strong> Direct payouts with multi-PSP failover and portable card tokens ($0 reserve hold in baseline model).</div>
           <details class="calc-disclosure">
             <summary class="calc-disclosure-toggle">See calculation</summary>
             <div class="calc-disclosure-body">${{renderCalcBreakdownHtml(whopR, seats, aiVol, mode, cat)}}</div>
@@ -1030,6 +1031,7 @@ function renderDirectory() {{
           <div class="summary-metric">$500 / mo &middot; Chargeflow</div>
           <div class="summary-scenario">Based on $2,000/mo recovered chargebacks (25% success fee)</div>
           <div class="summary-breakdown">$0 monthly base fee &middot; keeps dispute ratio below 0.5% monitoring threshold</div>
+          <div class="summary-caveat"><strong>Contract note:</strong> Performance-based fee (25% of recovered chargebacks only; $0 monthly minimum).</div>
           <details class="calc-disclosure">
             <summary class="calc-disclosure-toggle">See calculation</summary>
             <div class="calc-disclosure-body">${{renderCalcBreakdownHtml(cfR, seats, aiVol, mode, cat)}}</div>
@@ -1328,11 +1330,57 @@ function renderDirectory() {{
       </tr>
     `;
   }}).join('');
+  equalizeSummaryCards(summaryEl);
+}}
+
+function equalizeSummaryCards(stripEl) {{
+  if (!stripEl) return;
+  const cards = Array.from(stripEl.querySelectorAll('.summary-card'));
+  if (!cards.length) return;
+  const rowSelectors = ['.summary-label', '.summary-metric', '.summary-scenario', '.summary-breakdown', '.summary-caveat', '.summary-actions'];
+  const disclosures = cards.map(c => c.querySelector('.calc-disclosure'));
+  rowSelectors.forEach(sel => {{
+    cards.forEach(c => {{
+      const el = c.querySelector(sel);
+      if (el) el.style.minHeight = '';
+    }});
+  }});
+  disclosures.forEach(d => {{ if (d) d.style.marginTop = '4px'; }});
+  if (window.innerWidth <= 768 || cards.length < 2) return;
+  const firstTop = cards[0].getBoundingClientRect().top;
+  const sameRow = cards.every(c => Math.abs(c.getBoundingClientRect().top - firstTop) < 5);
+  if (!sameRow) return;
+  rowSelectors.forEach(sel => {{
+    const els = cards.map(c => c.querySelector(sel));
+    const maxH = Math.max(...els.map(el => el ? el.getBoundingClientRect().height : 0));
+    if (maxH > 0) {{
+      els.forEach(el => {{ if (el) el.style.minHeight = `${{maxH}}px`; }});
+    }}
+  }});
+  const offsets = cards.map((c, i) => {{
+    const d = disclosures[i];
+    return d ? (d.getBoundingClientRect().top - c.getBoundingClientRect().top) : 0;
+  }});
+  const maxOffset = Math.max(...offsets);
+  cards.forEach((c, i) => {{
+    const d = disclosures[i];
+    if (d) {{
+      const extra = Math.max(0, maxOffset - offsets[i]);
+      d.style.marginTop = `${{4 + extra}}px`;
+      if (!d.dataset.railBound) {{
+        d.dataset.railBound = '1';
+        d.addEventListener('toggle', () => requestAnimationFrame(updateInspectorRail));
+      }}
+    }}
+  }});
 }}
 
 ['cat-filter', 'seat-slider', 'ai-slider', 'billing-mode', 'sort-mode'].forEach(id => {{
   const el = document.getElementById(id);
-  if (el) el.addEventListener('input', renderDirectory);
+  if (el) {{
+    el.addEventListener('input', renderDirectory);
+    el.addEventListener('change', renderDirectory);
+  }}
 }});
 
 const spotSelectEl = document.getElementById('spotlight-tool-select');
@@ -1556,7 +1604,10 @@ if (wbCalcDetailsEl) {{
     requestAnimationFrame(updateInspectorRail);
   }});
 }}
-window.addEventListener('resize', () => requestAnimationFrame(updateInspectorRail));
+window.addEventListener('resize', () => {{
+  equalizeSummaryCards(document.getElementById('calc-summary-strip'));
+  requestAnimationFrame(updateInspectorRail);
+}});
 window.addEventListener('hashchange', () => {{
   applyInitialContext(true);
   renderDirectory();

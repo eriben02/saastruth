@@ -808,5 +808,23 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertNotIn("&mdash;", html, f"HTML entity &mdash; found in {rel}")
 
 
+    def test_workbench_big_total_and_summary_card_alignment(self):
+        """Verify .wb-big-total does not overflow .wb-result-col and 3 summary cards align 'See calculation' without stretching neighbors."""
+        with open(os.path.join(PUBLIC_DIR, "assets/styles.css"), encoding="utf-8") as f:
+            css = f.read()
+        big_total_block = re.search(r"\.wb-big-total\s*\{(.*?)\}", css, re.S)
+        self.assertIsNotNone(big_total_block)
+        self.assertNotIn("3.35rem", big_total_block.group(1))
+        self.assertNotIn("white-space: nowrap", big_total_block.group(1))
+        self.assertIn("flex-wrap: wrap", big_total_block.group(1))
+        self.assertIn("grid-template-columns: 196px 330px minmax(0, 1fr);", css)
+        self.assertIn("#calc-summary-strip,\n.verdict-section .summary-strip {\n  align-items: start;", css)
+
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        self.assertIn("function equalizeSummaryCards(stripEl)", index_html)
+        self.assertIn("equalizeSummaryCards(summaryEl);", index_html)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
