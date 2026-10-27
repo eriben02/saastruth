@@ -1245,10 +1245,7 @@ render_page(
 p1_body = """
 <section class="hero">
   <h1>What HubSpot actually costs in Year 1 (once you add onboarding).</h1>
-  <p class="lead">HubSpot’s pricing page says $90/seat. The first-year invoice for five sales reps is $6,900. Here is where the extra $1,500–$7,000 comes from, and how to waive it before you sign.</p>
-  <div class="geo-direct-answer">
-    <p><strong>The short version:</strong> In 2026, <strong>HubSpot Sales Hub Professional</strong> costs $90/seat/month billed annually ($100/seat paid monthly) plus a mandatory <strong>$1,500 onboarding fee</strong>, totaling <strong>$6,900 in Year 1 for five reps</strong>. <strong>Marketing Hub Professional</strong> costs $800/month (includes 3 core seats; $45/mo per extra seat) plus a mandatory <strong>$3,000 onboarding fee</strong>, totaling <strong>$12,600 in Year 1</strong>. Every Professional and Enterprise agreement is a binding 12-month commitment that auto-renews even if you select monthly payment installments.</p>
-  </div>
+  <p class="lead">In 2026, HubSpot Sales Hub Professional costs $90/seat/month billed annually plus a mandatory $1,500 onboarding fee ($6,900 in Year 1 for five reps), while Marketing Hub Professional costs $800/month plus a $3,000 onboarding fee ($12,600 in Year 1). Every Professional and Enterprise order form is a 12-month commitment that auto-renews even on monthly installments.</p>
 </section>
 
 <section class="calc-box editorial-bar-chart-card" id="crm-apples-to-apples-chart" aria-labelledby="chart-dynamic-headline">
@@ -1268,7 +1265,6 @@ p1_body = """
     </div>
   </div>
 
-  <div class="ebc-kicker">Year-1 True Cost Comparison &middot; Apples-to-Apples CRM Benchmark</div>
   <h2 id="chart-dynamic-headline" class="ebc-title">At 5 seats, HubSpot Sales Pro ($6,900) costs 2.4x Close Startup ($2,820) in Year 1</h2>
   <p id="chart-dynamic-subtitle" class="ebc-subtitle">Year-1 total contract cost for 5 sales reps on annual billing with multi-pipeline automation and sales sequences (licenses + mandatory onboarding).</p>
 
