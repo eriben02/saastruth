@@ -1304,6 +1304,103 @@ p1_body = """
   </div>
 </section>
 
+<section class="editorial-bar-chart-card" id="crm-apples-to-apples-chart" aria-labelledby="ebc-heading">
+  <div class="ebc-kicker">Year-1 True Cost Comparison &middot; Apples-to-Apples CRM Benchmark</div>
+  <h2 id="ebc-heading" class="ebc-title">At 5 seats, HubSpot Sales Pro costs 2.4x Close Startup in Year 1</h2>
+  <p class="ebc-subtitle">Year-1 total contract cost for 5 sales reps on annual billing with sales sequences and pipeline automation (licenses + mandatory onboarding).</p>
+
+  <div class="ebc-rows" role="list">
+    <div class="ebc-row" role="listitem">
+      <div class="ebc-label-col">
+        <div class="ebc-tool-name">Pipedrive Growth</div>
+        <div class="ebc-tool-meta">Sequences &amp; automation incl. &middot; Calling add-on extra &middot; $0 onboarding</div>
+      </div>
+      <div class="ebc-bar-col">
+        <div class="ebc-bar-track">
+          <div class="ebc-bar-fill ebc-fill-neutral" style="width: 33.9%;"></div>
+        </div>
+      </div>
+      <div class="ebc-val-col">
+        <span class="ebc-val-main">$2,340</span>
+        <span class="ebc-val-sub">$39/seat/mo</span>
+      </div>
+    </div>
+
+    <div class="ebc-row" role="listitem">
+      <div class="ebc-label-col">
+        <div class="ebc-tool-name">Freshsales Pro</div>
+        <div class="ebc-tool-meta">Multi-pipeline &amp; workflows incl. &middot; $0 onboarding</div>
+      </div>
+      <div class="ebc-bar-col">
+        <div class="ebc-bar-track">
+          <div class="ebc-bar-fill ebc-fill-neutral" style="width: 33.9%;"></div>
+        </div>
+      </div>
+      <div class="ebc-val-col">
+        <span class="ebc-val-main">$2,340</span>
+        <span class="ebc-val-sub">$39/seat/mo</span>
+      </div>
+    </div>
+
+    <div class="ebc-row ebc-row-sage" role="listitem">
+      <div class="ebc-label-col">
+        <div class="ebc-tool-name">
+          <a href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="benchmark-chart">Close CRM Startup &nearr;</a>
+        </div>
+        <div class="ebc-tool-meta">Includes built-in VoIP calling &amp; SMS workflows &middot; $0 onboarding</div>
+      </div>
+      <div class="ebc-bar-col">
+        <div class="ebc-bar-track">
+          <div class="ebc-bar-fill ebc-fill-sage" style="width: 40.9%;"></div>
+        </div>
+      </div>
+      <div class="ebc-val-col">
+        <span class="ebc-val-main ebc-val-sage">$2,820</span>
+        <span class="ebc-val-sub">$47/seat/mo</span>
+      </div>
+    </div>
+
+    <div class="ebc-row" role="listitem">
+      <div class="ebc-label-col">
+        <div class="ebc-tool-name">
+          <a href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close-crm" data-cta-location="benchmark-chart">Close CRM Growth &nearr;</a>
+        </div>
+        <div class="ebc-tool-meta">Includes Power Dialer &amp; AI call summaries &middot; $0 onboarding</div>
+      </div>
+      <div class="ebc-bar-col">
+        <div class="ebc-bar-track">
+          <div class="ebc-bar-fill ebc-fill-slate" style="width: 86.1%;"></div>
+        </div>
+      </div>
+      <div class="ebc-val-col">
+        <span class="ebc-val-main">$5,940</span>
+        <span class="ebc-val-sub">$99/seat/mo</span>
+      </div>
+    </div>
+
+    <div class="ebc-row ebc-row-terracotta" role="listitem">
+      <div class="ebc-label-col">
+        <div class="ebc-tool-name">HubSpot Sales Hub Professional</div>
+        <div class="ebc-tool-meta">$5,400 seats ($90/seat/mo) + $1,500 mandatory Pro onboarding</div>
+      </div>
+      <div class="ebc-bar-col">
+        <div class="ebc-bar-track">
+          <div class="ebc-bar-fill ebc-fill-terracotta" style="width: 100%;">
+            <span class="ebc-bar-seg-seats" style="width: 78.26%;" title="$5,400 annual seats"></span>
+            <span class="ebc-bar-seg-onb" style="width: 21.74%;" title="+$1,500 mandatory onboarding"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ebc-val-col">
+        <span class="ebc-val-main ebc-val-terracotta">$6,900</span>
+        <span class="ebc-val-sub">+$1,500 onboarding</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="ebc-footer-note">Official prices verified Oct 2026. All tiers compared include multi-stage pipelines and automated sales sequences for 5 seats billed annually. HubSpot Sales Pro requires a one-time $1,500 onboarding fee in Year 1; Year-2 renewal drops to $5,400/yr. Source: saasbill.io</p>
+</section>
+
 <section>
   <h2>The 2026 HubSpot onboarding fee schedule</h2>
   <p class="section-tldr">HubSpot requires paid onboarding across all Professional and Enterprise hubs purchased directly. The only way to waive HubSpot’s direct onboarding fee is to sign through an accredited HubSpot Solutions Partner who handles the implementation instead.</p>
