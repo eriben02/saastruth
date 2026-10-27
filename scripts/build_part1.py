@@ -128,12 +128,13 @@ home_body = f"""
       </div>
     </div>
 
-    <!-- Right Column: 1. Answer (Selected Product + Big Total) -> 2. Why + Expandable Calculation -> Contextual Primary CTA -->
+    <!-- Right Column: Progressive Disclosure (1. Result & Best Option -> 2. Why + Expandable Calculation -> 3. Contextual Primary CTA) -->
     <div class="wb-result-col" id="wb-result-mount" aria-live="polite">
       <div class="wb-selected-product" id="wb-selected-product">Zendesk Suite Team + AI</div>
       <div class="wb-big-total" id="wb-big-total-wrap"><span id="wb-big-amount">$11,850</span> <span class="wb-per-year" id="wb-big-unit">/ year</span></div>
       <p class="wb-budget-quote" id="wb-budget-quote">Estimated Year-1 total including mandatory fees &amp; overages.</p>
       <p class="wb-budget-subnote" id="wb-budget-subnote"></p>
+      <div class="wb-best-option" id="wb-best-option"><strong>Best option:</strong> <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="workbench-best-option">Freshdesk Pro + Freddy AI ($3,835/yr)</a> &middot; saves $8,015/yr</div>
       <details class="calc-disclosure" id="wb-calc-details">
         <summary class="calc-disclosure-toggle" id="wb-calc-summary">See exactly how we calculated this</summary>
         <div class="calc-disclosure-body" id="wb-calc-body"></div>
@@ -145,39 +146,26 @@ home_body = f"""
   </div>
 </section>
 
-<!-- STEP 1 & 2: ANSWER / VERDICT CARDS + PROGRESSIVE CALCULATION DISCLOSURE -->
+<!-- STEP 2: CATEGORY VERDICT CARDS (Best Option, Hidden Cost Highlight, Highest Cost) -->
 <section class="verdict-section" id="verdict-card" aria-label="Category Verdict &amp; Best-Value Recommendations">
   <div id="calc-summary-strip" class="summary-strip" aria-live="polite"></div>
 </section>
 
-<!-- STEP 3: VISUAL COMPARISON (Apples-to-Apples Year-1 Cost Proportions) -->
-<section id="calc-viz-panel" class="viz-panel" aria-labelledby="viz-panel-title">
-  <div class="viz-header">
-    <div class="viz-title" id="viz-panel-title">Apples-to-Apples Year-1 Cost Comparison</div>
-    <div class="viz-legend" id="viz-panel-legend">
-      <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-seats);"></span>Base Licenses</span>
-      <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-onboarding);"></span>Mandatory Onboarding</span>
-      <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-ai);"></span>AI Overages</span>
-    </div>
-  </div>
-  <div id="calc-viz-rows" class="viz-rows"></div>
-</section>
-
-<!-- STEP 4: FULL CONTRACT & RENEWAL TABLE (Progressive Disclosure) -->
+<!-- STEP 3 & 4: COMPARE ALL TOOLS (Visual Comparison Graph + Full Contract & Renewal Table behind Progressive Disclosure) -->
 <section class="hidden-gap-section" aria-labelledby="gap-heading">
   <details class="full-table-disclosure" id="full-table-details">
     <summary class="full-table-summary" id="full-table-summary">
       <div class="full-table-summary-text">
-        <h2 id="gap-heading" class="full-table-heading">Sticker Price vs. True Cost</h2>
-        <span class="full-table-summary-sub">Show full contract &amp; renewal table (all tiers, lock-in rules &amp; verified sources)</span>
+        <h2 id="gap-heading" class="full-table-heading">Compare all tools in this category</h2>
+        <span class="full-table-summary-sub">Visual Year-1 cost comparison graph &amp; full contract table (all tiers, lock-in rules &amp; verified sources)</span>
       </div>
-      <span class="full-table-toggle-pill" id="full-table-toggle-pill">Show full table &darr;</span>
+      <span class="full-table-toggle-pill" id="full-table-toggle-pill">Compare all tools &darr;</span>
     </summary>
     <div class="full-table-body">
       <div class="gap-toolbar">
-        <p class="gap-subhead" id="gap-dynamic-subhead">All 5 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &middot; click any row to inspect its breakdown above.</p>
+        <p class="gap-subhead" id="gap-dynamic-subhead">All 6 tools compared for 5 seats &middot; annual billing &middot; 500 AI tickets/mo &middot; click any row to inspect its breakdown above.</p>
         <div class="wb-quiet-field gap-sort-field" id="sort-control-group">
-          <label for="sort-mode">Sort:</label>
+          <label for="sort-mode">Sort by:</label>
           <select id="sort-mode" data-track="calculator-control" data-control="sort-mode">
             <option value="lowest" selected>Lowest cost</option>
             <option value="hidden_fees">Hidden gap</option>
@@ -185,6 +173,18 @@ home_body = f"""
             <option value="name">A&ndash;Z</option>
           </select>
         </div>
+      </div>
+
+      <div id="calc-viz-panel" class="viz-panel" role="region" aria-labelledby="viz-panel-title">
+        <div class="viz-header">
+          <div class="viz-title" id="viz-panel-title">Apples-to-Apples Year-1 Cost Comparison</div>
+          <div class="viz-legend" id="viz-panel-legend">
+            <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-seats);"></span>Base Licenses</span>
+            <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-onboarding);"></span>Mandatory Onboarding</span>
+            <span class="viz-legend-item"><span class="viz-swatch" style="background:var(--bar-ai);"></span>AI Overages</span>
+          </div>
+        </div>
+        <div id="calc-viz-rows" class="viz-rows"></div>
       </div>
 
       <div class="table-wrap editorial-gap-table mobile-cards">
@@ -798,13 +798,19 @@ function renderDirectory() {{
   document.getElementById('seat-val').textContent = seats.toLocaleString();
   document.getElementById('ai-val').textContent = aiVol.toLocaleString();
 
-  if (typeof window.trackSaaSBillEvent === 'function') {{
-    window.trackSaaSBillEvent('result_rendered', {{ category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode }});
-  }} else {{
-    window.__saasbillEvents = window.__saasbillEvents || [];
-    window.__saasbillEvents.push({{ event: 'result_rendered', category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode, ts: Date.now() }});
-    if (typeof window.plausible === 'function') {{
-      window.plausible('result_rendered', {{ props: {{ category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode }} }});
+  const _rrKey = `${{cat}}|${{seats}}|${{aiVol}}|${{mode}}|${{sortMode}}|${{currentSpotlightId}}`;
+  const _rrNow = Date.now();
+  if (!window._lastRrKey || window._lastRrKey !== _rrKey || (_rrNow - (window._lastRrTs || 0)) > 150) {{
+    window._lastRrKey = _rrKey;
+    window._lastRrTs = _rrNow;
+    if (typeof window.trackSaaSBillEvent === 'function') {{
+      window.trackSaaSBillEvent('result_rendered', {{ category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode }});
+    }} else {{
+      window.__saasbillEvents = window.__saasbillEvents || [];
+      window.__saasbillEvents.push({{ event: 'result_rendered', category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode, ts: _rrNow }});
+      if (typeof window.plausible === 'function') {{
+        window.plausible('result_rendered', {{ props: {{ category: cat, seats: seats, aiTickets: aiVol, billingMode: mode, sortMode: sortMode }} }});
+      }}
     }}
   }}
 
@@ -973,6 +979,15 @@ function renderDirectory() {{
     const quoteEl = document.getElementById('wb-budget-quote');
     if (quoteEl) quoteEl.innerHTML = prof.quote;
     document.getElementById('wb-budget-subnote').textContent = prof.sub;
+    const bestOptPayEl = document.getElementById('wb-best-option');
+    if (bestOptPayEl) {{
+      const whopAffBest = AFFILIATES['whop'] || {{ destination_url: '#' }};
+      if (spotPayR.tool.id === 'whop-payments') {{
+        bestOptPayEl.innerHTML = '<strong>Best option in category:</strong> Lowest direct fee ($2,275/mo) &amp; multi-PSP failover';
+      }} else {{
+        bestOptPayEl.innerHTML = `<strong>Best option:</strong> <a href="${{whopAffBest.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="workbench-best-option">Whop Payments ($2,275/mo)</a> &middot; $0 single-PSP reserve hold`;
+      }}
+    }}
     if (wbCalcBody) {{
       wbCalcBody.innerHTML = renderCalcBreakdownHtml(spotPayR, seats, aiVol, mode, cat);
     }}
@@ -1135,6 +1150,16 @@ function renderDirectory() {{
         subNoteEl.textContent = `+$${{extraYr.toLocaleString()}}/yr (+${{pctOver}}%) above the $${{stickerYr.toLocaleString()}} advertised price.`;
       }} else {{
         subNoteEl.textContent = `Matches advertised price ($0 hidden fees).`;
+      }}
+    }}
+    const bestOptEl = document.getElementById('wb-best-option');
+    if (bestOptEl) {{
+      const minAffBest = AFFILIATES[minR.tool.affiliate_slug] || {{ destination_url: '#' }};
+      const diffBest = Math.max(0, spotR.year1Total - minR.year1Total);
+      if (spotR.tool.id === minR.tool.id || diffBest === 0) {{
+        bestOptEl.innerHTML = `<strong>Best option in category:</strong> Lowest Year-1 true cost ($${{minR.year1Total.toLocaleString()}}/yr)`;
+      }} else {{
+        bestOptEl.innerHTML = `<strong>Best option:</strong> <a href="${{minAffBest.destination_url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{minR.tool.id}}" data-cta-location="workbench-best-option">${{minR.tool.name}} ($${{minR.year1Total.toLocaleString()}}/yr)</a> &middot; saves $${{diffBest.toLocaleString()}}/yr`;
       }}
     }}
     if (wbCalcBody) {{
@@ -1395,11 +1420,17 @@ document.addEventListener('click', (e) => {{
   const tr = e.target.closest('tr[data-row-tool]');
   if (tr && !e.target.closest('a')) {{
     currentSpotlightId = tr.getAttribute('data-row-tool');
+    if (typeof window.trackSaaSBillEvent === 'function') {{
+      window.trackSaaSBillEvent('calculator_interaction', {{ control: 'inspect-row', value: currentSpotlightId }});
+    }}
     renderDirectory();
   }}
   const vizRow = e.target.closest('.viz-row[data-tool-id]');
   if (vizRow && !e.target.closest('a')) {{
     currentSpotlightId = vizRow.getAttribute('data-tool-id');
+    if (typeof window.trackSaaSBillEvent === 'function') {{
+      window.trackSaaSBillEvent('calculator_interaction', {{ control: 'inspect-row', value: currentSpotlightId }});
+    }}
     renderDirectory();
   }}
 }});
@@ -1440,7 +1471,7 @@ function updateInspectorRail() {{
   const tableDetails = document.getElementById('full-table-details');
   const activeTableRow = tray ? tray.querySelector('tr.is-spotlight-row') : null;
   const activeVizRow = tray ? tray.querySelector('.viz-row.is-spotlight-row') : null;
-  const activeRow = (tableDetails && tableDetails.open && activeTableRow) ? activeTableRow : (activeVizRow || activeTableRow);
+  const activeRow = (tableDetails && tableDetails.open) ? (activeVizRow || activeTableRow) : null;
   if (!tray || !rail || !wbCard || !activeRow || window.innerWidth <= 960) {{
     if (rail) rail.style.opacity = '0';
     return;
@@ -1593,7 +1624,10 @@ if (fullTableDetailsEl) {{
   fullTableDetailsEl.addEventListener('toggle', () => {{
     const pillEl = document.getElementById('full-table-toggle-pill');
     if (pillEl) {{
-      pillEl.innerHTML = fullTableDetailsEl.open ? 'Hide full table &uarr;' : 'Show full table &darr;';
+      pillEl.innerHTML = fullTableDetailsEl.open ? 'Hide comparison &uarr;' : 'Compare all tools &darr;';
+    }}
+    if (typeof window.trackSaaSBillEvent === 'function') {{
+      window.trackSaaSBillEvent('calculator_interaction', {{ control: 'compare-all-tools', value: fullTableDetailsEl.open ? 'open' : 'closed' }});
     }}
     requestAnimationFrame(updateInspectorRail);
   }});

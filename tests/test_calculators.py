@@ -729,22 +729,33 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(out["plausible"][3][1]["props"]["vendor"], "close-crm")
 
     def test_priority3_result_hierarchy_and_full_table_disclosure(self):
-        """Priority 3: Hierarchy order Answer/Verdict -> Calculation -> Visual Comparison -> Progressive Disclosure Full Table."""
+        """Priority 3: Progressive disclosure order Inputs -> Answer/Best Option -> Calculation -> CTA -> Verdict -> 'Compare all tools' (Sort + Graph + Full Table)."""
         with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
             index_html = f.read()
+        pos_inputs = index_html.find('class="wb-col-controls"')
         pos_answer = index_html.find('id="wb-result-mount"')
+        pos_best_opt = index_html.find('id="wb-best-option"')
         pos_calc = index_html.find('id="wb-calc-details"')
+        pos_cta = index_html.find('id="wb-primary-cta"')
         pos_verdict = index_html.find('id="verdict-card"')
-        pos_viz = index_html.find('id="calc-viz-panel"')
         pos_table_disclosure = index_html.find('id="full-table-details"')
+        pos_sort = index_html.find('id="sort-mode"')
+        pos_viz = index_html.find('id="calc-viz-panel"')
         pos_tbody = index_html.find('id="calc-tbody"')
 
-        self.assertGreater(pos_answer, 0)
-        self.assertGreater(pos_calc, pos_answer)
-        self.assertGreater(pos_verdict, pos_calc)
-        self.assertGreater(pos_viz, pos_verdict)
-        self.assertGreater(pos_table_disclosure, pos_viz)
-        self.assertGreater(pos_tbody, pos_table_disclosure)
+        self.assertGreater(pos_inputs, 0)
+        self.assertGreater(pos_answer, pos_inputs)
+        self.assertGreater(pos_best_opt, pos_answer)
+        self.assertGreater(pos_calc, pos_best_opt)
+        self.assertGreater(pos_cta, pos_calc)
+        self.assertGreater(pos_verdict, pos_cta)
+        self.assertGreater(pos_table_disclosure, pos_verdict)
+        self.assertGreater(pos_sort, pos_table_disclosure)
+        self.assertGreater(pos_viz, pos_sort)
+        self.assertGreater(pos_tbody, pos_viz)
+        self.assertIn("Compare all tools in this category", index_html)
+        self.assertIn("Compare all tools &darr;", index_html)
+        self.assertNotIn("28% to 310%", index_html)
 
     def test_priority4_contextual_cta_labels(self):
         """Priority 4: Contextual CTAs show 'Save $X/yr with [Vendor] →' when savings exist, fallback to 'View [Vendor] pricing →'."""

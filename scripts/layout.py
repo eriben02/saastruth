@@ -224,7 +224,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <meta name="dcterms.modified" content="{iso_datetime}" />
   <meta name="dcterms.issued" content="{pub_date}" />
   <link rel="canonical" href="{SITE_ORIGIN}{canonical_path}" />
-  <link rel="stylesheet" href="{prefix}assets/styles.css?v=20261027a" />
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=20261027b" />
   <link rel="alternate" type="text/plain" href="{SITE_ORIGIN}/llms.txt" title="SaaSBill LLMs.txt Summary" />
   <!-- Privacy-friendly analytics by Plausible -->
   <script defer data-domain="saasbill.io" src="https://plausible.io/js/pa-VAaSVNs5XOobt9cv2UtKo.js"></script>
@@ -321,18 +321,28 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
       }}
     }}
   }});
-  document.addEventListener('input', function(e) {{
+  var _lastCalcTrackKey = '';
+  var _lastCalcTrackTs = 0;
+  function handleCalcControlEvent(e) {{
     var ctrl = e.target.closest('[data-track="calculator-control"], [data-track="calculator_interaction"], input[type="range"], select');
     if (ctrl) {{
       var control = ctrl.getAttribute('data-control') || ctrl.id || '';
+      var val = String(ctrl.value);
+      var now = Date.now();
+      var key = control + ':' + val;
+      if (key === _lastCalcTrackKey && (now - _lastCalcTrackTs) < 150) return;
+      _lastCalcTrackKey = key;
+      _lastCalcTrackTs = now;
       if (typeof window.trackSaaSBillEvent === 'function') {{
-        window.trackSaaSBillEvent('calculator_interaction', {{ control: control, value: String(ctrl.value) }});
+        window.trackSaaSBillEvent('calculator_interaction', {{ control: control, value: val }});
         if (ctrl.id === 'cat-filter') {{
-          window.trackSaaSBillEvent('category_select', {{ category: String(ctrl.value) }});
+          window.trackSaaSBillEvent('category_select', {{ category: val }});
         }}
       }}
     }}
-  }});
+  }}
+  document.addEventListener('input', handleCalcControlEvent);
+  document.addEventListener('change', handleCalcControlEvent);
   </script>
 </body>
 </html>"""
