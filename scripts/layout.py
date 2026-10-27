@@ -230,7 +230,19 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   <script defer data-domain="saasbill.io" src="https://plausible.io/js/pa-VAaSVNs5XOobt9cv2UtKo.js"></script>
   <script>
     window.plausible=window.plausible||function(){{(plausible.q=plausible.q||[]).push(arguments)}},plausible.init=plausible.init||function(i){{plausible.o=i||{{}}}};
-    plausible.init()
+    plausible.init();
+    window.__saasbillEvents = window.__saasbillEvents || [];
+    window.trackSaaSBillEvent = function(eventName, props) {{
+      var p = props || {{}};
+      var entry = {{ event: eventName, ts: Date.now() }};
+      for (var k in p) {{
+        if (Object.prototype.hasOwnProperty.call(p, k)) entry[k] = p[k];
+      }}
+      window.__saasbillEvents.push(entry);
+      if (typeof window.plausible === 'function') {{
+        window.plausible(eventName, {{ props: p }});
+      }}
+    }};
   </script>
   {schema_block}
 </head>
@@ -239,7 +251,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     <div class="container nav-inner">
       <div class="brand-wrap">
         <a href="{prefix}index.html" class="brand">SaaSBill<span>.io</span></a>
-        <span class="brand-tagline">Independent software cost &amp; contract audits</span>
+        <span class="brand-tagline">Year-1 software cost &amp; contract calculators</span>
       </div>
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="{prefix}index.html#all-calculators">Audits &amp; Guides</a>
@@ -259,13 +271,12 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p><strong>SaaSBill</strong> &middot; Independent Year-1 cost calculators for B2B software.</p>
-      <p class="footer-note">Updated <time datetime="{iso_date}">{human_date}</time> &middot; Some links are affiliate links &middot; Inquiries: <a href="mailto:info@saasbill.io">info@saasbill.io</a></p>
+      <p><strong>SaaSBill</strong> &middot; Year-1 cost &amp; contract calculators for B2B software.</p>
+      <p class="footer-note">Independent calculations. Some vendor links are affiliate links. This never changes our rankings or calculations. &middot; Updated <time datetime="{iso_date}">{human_date}</time> &middot; Inquiries: <a href="mailto:info@saasbill.io">info@saasbill.io</a></p>
     </div>
   </footer>
   <script>
-  /* Local event buffer only (no external analytics scripts loaded).
-     Prepared events: calculator_interaction, category_select, result_rendered, vendor_cta_click */
+  /* Plausible + local event dispatcher for: calculator_interaction, category_select, result_rendered, vendor_cta_click */
   window.__saasbillEvents = window.__saasbillEvents || [];
   try {{
     var p = (window.location && window.location.pathname ? window.location.pathname : '').toLowerCase();
@@ -292,46 +303,34 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     }}
   }} catch (err) {{}}
   document.addEventListener('click', function(e) {{
-    var cta = e.target.closest('[data-track="vendor-cta"]');
+    var cta = e.target.closest('[data-track="vendor-cta"], [data-track="vendor_cta_click"]');
     if (cta) {{
       var vendor = cta.getAttribute('data-vendor') || '';
       var location = cta.getAttribute('data-cta-location') || 'subpage-result';
       var href = cta.getAttribute('href') || '';
-      window.__saasbillEvents.push({{
-        event: 'vendor_cta_click',
-        vendor: vendor,
-        location: location,
-        href: href,
-        ts: Date.now()
-      }});
-      if (typeof window.plausible === 'function') {{
-        window.plausible('vendor_cta_click', {{ props: {{ vendor: vendor, location: location, href: href }} }});
+      if (typeof window.trackSaaSBillEvent === 'function') {{
+        window.trackSaaSBillEvent('vendor_cta_click', {{ vendor: vendor, location: location, href: href }});
       }}
       return;
     }}
-    var catBtn = e.target.closest('[data-track="category-select"]');
+    var catBtn = e.target.closest('[data-track="category-select"], [data-track="category_select"]');
     if (catBtn) {{
       var cat = catBtn.getAttribute('data-cat') || '';
-      window.__saasbillEvents.push({{
-        event: 'category_select',
-        category: cat,
-        ts: Date.now()
-      }});
-      if (typeof window.plausible === 'function') {{
-        window.plausible('category_select', {{ props: {{ category: cat }} }});
+      if (typeof window.trackSaaSBillEvent === 'function') {{
+        window.trackSaaSBillEvent('category_select', {{ category: cat }});
       }}
     }}
   }});
   document.addEventListener('input', function(e) {{
-    var ctrl = e.target.closest('[data-track="calculator-control"], input[type="range"], select');
+    var ctrl = e.target.closest('[data-track="calculator-control"], [data-track="calculator_interaction"], input[type="range"], select');
     if (ctrl) {{
       var control = ctrl.getAttribute('data-control') || ctrl.id || '';
-      window.__saasbillEvents.push({{
-        event: 'calculator_interaction',
-        control: control,
-        value: ctrl.value,
-        ts: Date.now()
-      }});
+      if (typeof window.trackSaaSBillEvent === 'function') {{
+        window.trackSaaSBillEvent('calculator_interaction', {{ control: control, value: String(ctrl.value) }});
+        if (ctrl.id === 'cat-filter') {{
+          window.trackSaaSBillEvent('category_select', {{ category: String(ctrl.value) }});
+        }}
+      }}
     }}
   }});
   </script>

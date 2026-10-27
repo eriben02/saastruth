@@ -236,7 +236,7 @@ body = f"""
     <li><strong>Exchange Online Archiving:</strong> $3 per user per month is the annual-commitment list price; for other terms we apply the same 5% or 20% term surcharge as the base plan (estimate).</li>
     <li><strong>Google intro offer:</strong> 50% off the first 20 users for 12 months, shown on Google's pricing page for new customers; applied only to annual terms when switched on.</li>
     <li><strong>Not modeled:</strong> Google Enterprise editions (no public price), Microsoft 365 E3/E5, Copilot add-ons, Teams Phone and Google Voice.</li>
-    <li><strong>Disclosure:</strong> the Jotform link is an affiliate link. It does not change the numbers or the order of results.</li>
+    <li><strong>Disclosure:</strong> Independent calculations. Some vendor links are affiliate links. This never changes our rankings or calculations.</li>
   </ul>
 </section>
 

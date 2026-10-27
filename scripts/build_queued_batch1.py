@@ -429,6 +429,7 @@ function runPageCalc() {{
       <td data-label="Action"><a href="${{r.url}}" target="_blank" rel="noopener" class="btn-secondary" data-track="vendor-cta" data-vendor="${{r.vendor}}" data-cta-location="subpage-table">${{r.cta}} &rarr;</a></td>
     </tr>
   `).join('');
+  if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', {{ page: '{p["slug"]}' }});
 }}
 ['p-slider', 'p-select'].forEach(id => {{
   document.getElementById(id).addEventListener('input', runPageCalc);

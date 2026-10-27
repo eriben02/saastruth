@@ -186,6 +186,7 @@ function updateReserveSim() {
   if (holdEl) holdEl.innerHTML = cardsHtml;
   const resEl = document.getElementById('reserve-output');
   if (resEl) resEl.innerHTML = cardsHtml;
+  if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', { page: 'reserve-simulator', rev: rev, resPct: resPct });
 }
 ['gm-rev', 'gm-res', 'gm-cap'].forEach(id => document.getElementById(id).addEventListener('input', updateReserveSim));
 updateReserveSim();
@@ -380,6 +381,7 @@ function updateSmCalc() {
     </tr>
   `;
 }
+if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', { page: 'seat-minimums' });
 document.getElementById('sm-users').addEventListener('input', updateSmCalc);
 document.getElementById('sm-tier').addEventListener('input', updateSmCalc);
 updateSmCalc();
@@ -630,6 +632,7 @@ function updateSocCalc() {
     </tr>
   `;
 }
+if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', { page: 'soc2-hipaa' });
 ['soc-emp', 'soc-fw', 'soc-disc'].forEach(id => document.getElementById(id).addEventListener('input', updateSocCalc));
 updateSocCalc();
 </script>

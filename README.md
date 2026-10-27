@@ -20,8 +20,8 @@
 - [`/robots.txt`](https://saasbill.io/robots.txt)
 - [`/sitemap.xml`](https://saasbill.io/sitemap.xml)
 
-## Click & Interaction Tracking Architecture (Prepared — No External Analytics Installed)
-No third-party analytics script (GA4, Plausible, PostHog) is loaded in `<head>` or `<body>`. All interactive elements emit structured `data-track` attributes and push events to the local in-memory queue `window.__saasbillEvents` so an analytics collector can be attached later without modifying templates:
+## Click & Interaction Tracking Architecture (Plausible Analytics + Local Queue)
+Privacy-friendly Plausible Analytics (`saasbill.io`) and the local in-memory queue `window.__saasbillEvents` are wired via `window.trackSaaSBillEvent(eventName, props)` across all 18 pages:
 
 1. `calculator_interaction` — Fired on `input` across calculator controls (`[data-track="calculator-control"]`, range sliders, and dropdowns). Captures `control` (`seats`, `ai-tickets`, `billing-mode`, `sort-mode`, or subpage control ID), `value`, and timestamp `ts`.
 2. `category_select` — Fired when a user clicks a category pill tab (`[data-track="category-select"]`) or switches category. Captures `category` and `ts`.

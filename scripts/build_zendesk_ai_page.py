@@ -297,6 +297,7 @@ function updateZd() {{
   if (copilot && plan === 'team') note += ' Zendesk Copilot is not offered on Suite Team, so it is not added.';
   if (copilot && billing === 'monthly') note += ' Freddy Copilot shown at its $29 annual-billing price.';
   document.getElementById('zd-note').textContent = note;
+  if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', {{ page: 'zendesk-ai', agents: agents, conv: conv }});
 }}
 ['zd-agents','zd-plan','zd-billing','zd-conv','zd-cov','zd-rate','zd-price','zd-model','zd-copilot'].forEach(id => document.getElementById(id).addEventListener('input', updateZd));
 updateZd();

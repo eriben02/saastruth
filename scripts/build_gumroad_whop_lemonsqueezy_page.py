@@ -358,7 +358,7 @@ function updateTr() {{
   let note = 'Assumptions: list prices, fees calculated on the pre-tax price (Lemon Squeezy calculates its fee on the order total including tax, so its real fee is slightly higher on taxed sales). Gumroad PayPal sales are modelled at the 2.9% + 30¢ card rate; actual PayPal fees may differ. Whop payouts assume 4 next-day ACH withdrawals/mo ($2.50 each). Lost revenue from chargebacks is the same on every platform and is not included.';
   if (o.payout === 'intl') note += ' Whop international local-bank payout fees vary by country and are not included.';
   document.getElementById('tr-note').textContent = note;
-  (window.__saasbillEvents = window.__saasbillEvents || []).push({{event: 'result_rendered', page: 'gumroad-whop-lemon-squeezy', price: o.price, sales: o.sales, ts: Date.now()}});
+  if (typeof window.trackSaaSBillEvent === 'function') {{ window.trackSaaSBillEvent('result_rendered', {{ page: 'gumroad-whop-lemon-squeezy', price: o.price, sales: o.sales }}); }} else {{ (window.__saasbillEvents = window.__saasbillEvents || []).push({{event: 'result_rendered', page: 'gumroad-whop-lemon-squeezy', price: o.price, sales: o.sales, ts: Date.now()}}); }}
 }}
 ['tr-price','tr-sales','tr-intl','tr-paypal','tr-discover','tr-dispute','tr-sub','tr-tax','tr-fx','tr-risk','tr-payout'].forEach(id => document.getElementById(id).addEventListener('input', updateTr));
 updateTr();

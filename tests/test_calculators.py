@@ -334,7 +334,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("Based on ", html, f"Missing scenario description ('Based on ...') in {rel}")
             self.assertIn("Hidden Cost Highlight:", html, f"Missing 'Hidden Cost Highlight:' in {rel}")
             self.assertIn('data-track="vendor-cta"', html, f"Missing data-track='vendor-cta' in {rel}")
-            self.assertIn("Some links are affiliate links", html, f"Missing footer affiliate disclosure in {rel}")
+            self.assertIn("Independent calculations. Some vendor links are affiliate links. This never changes our rankings or calculations.", html, f"Missing footer affiliate disclosure in {rel}")
             self.assertNotIn('<span class="direct-link-tag">', html, f"Per-button .direct-link-tag should be removed in {rel}")
             self.assertIn("window.__saasbillEvents", html, f"Missing local __saasbillEvents instrumentation in {rel}")
             # Verify Plausible Analytics is present in <head> and no heavy third-party trackers are loaded
@@ -653,6 +653,159 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertEqual(out["ref_stripe"]["cat"], "Payment Processors & MoR")
         self.assertEqual(out["ref_hubspot"]["cat"], "CRM & Sales")
         self.assertEqual(out["ref_hipaa"]["cat"], "Compliance, HIPAA & SOC 2")
+
+
+
+    def test_priority1_progressive_disclosure_calculation_breakdown(self):
+        """Priority 1: Expandable 'See calculation' / 'See exactly how we calculated this' with exact dollar step sum."""
+        for seats in (1, 3, 5, 12):
+            for ai_vol in (0, 500, 1500):
+                for mode in ("annual", "monthly"):
+                    rows = run_homepage_js_calc(seats=seats, ai_vol=ai_vol, mode=mode, cat="ALL")
+                    for r in rows:
+                        steps = r.get("calcSteps")
+                        self.assertIsInstance(steps, list, f"Missing calcSteps on {r['tool']['id']}")
+                        self.assertGreaterEqual(len(steps), 3)
+                        step_sum = sum(s["amount"] for s in steps)
+                        self.assertEqual(
+                            step_sum,
+                            r["year1Total"],
+                            f"calcSteps sum ({step_sum}) != year1Total ({r['year1Total']}) for {r['tool']['id']} at seats={seats}, ai={ai_vol}, mode={mode}",
+                        )
+                        self.assertEqual(r["year2Total"], r["annualSeatsCost"] + r["aiAnnual"])
+
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        self.assertIn('id="wb-calc-details"', index_html)
+        self.assertIn("See exactly how we calculated this", index_html)
+        self.assertIn("See calculation", index_html)
+        self.assertIn("function renderCalcBreakdownHtml", index_html)
+
+        with open(os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html"), encoding="utf-8") as f:
+            hs_html = f.read()
+        self.assertIn('id="hs-calc-details"', hs_html)
+        self.assertIn("See exactly how we calculated this", hs_html)
+
+    def test_priority2_plausible_event_forwarding(self):
+        """Priority 2: Plausible receives calculator_interaction, category_select, result_rendered, and vendor_cta_click."""
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        self.assertIn("window.trackSaaSBillEvent = function(eventName, props)", index_html)
+        for ev_name in ("calculator_interaction", "category_select", "result_rendered", "vendor_cta_click"):
+            self.assertIn(f"'{ev_name}'", index_html)
+
+        # Execute trackSaaSBillEvent in Node.js with Plausible queue function
+        runner = """
+        const window = {};
+        window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(Array.from(arguments))};
+        window.__saasbillEvents = window.__saasbillEvents || [];
+        window.trackSaaSBillEvent = function(eventName, props) {
+          var p = props || {};
+          var entry = { event: eventName, ts: 12345 };
+          for (var k in p) {
+            if (Object.prototype.hasOwnProperty.call(p, k)) entry[k] = p[k];
+          }
+          window.__saasbillEvents.push(entry);
+          if (typeof window.plausible === 'function') {
+            window.plausible(eventName, { props: p });
+          }
+        };
+        window.trackSaaSBillEvent('category_select', { category: 'CRM & Sales' });
+        window.trackSaaSBillEvent('calculator_interaction', { control: 'seats', value: '10' });
+        window.trackSaaSBillEvent('result_rendered', { category: 'CRM & Sales', seats: 10 });
+        window.trackSaaSBillEvent('vendor_cta_click', { vendor: 'close-crm', location: 'workbench', href: 'https://refer.close.com/3k5hp07b8soi-fetl0j' });
+        console.log(JSON.stringify({ local: window.__saasbillEvents, plausible: window.plausible.q }));
+        """
+        res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+        out = json.loads(res.stdout)
+        self.assertEqual(len(out["local"]), 4)
+        self.assertEqual(len(out["plausible"]), 4)
+        self.assertEqual([x[0] for x in out["plausible"]], [
+            "category_select",
+            "calculator_interaction",
+            "result_rendered",
+            "vendor_cta_click",
+        ])
+        self.assertEqual(out["plausible"][3][1]["props"]["vendor"], "close-crm")
+
+    def test_priority3_result_hierarchy_and_full_table_disclosure(self):
+        """Priority 3: Hierarchy order Answer/Verdict -> Calculation -> Visual Comparison -> Progressive Disclosure Full Table."""
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        pos_answer = index_html.find('id="wb-result-mount"')
+        pos_calc = index_html.find('id="wb-calc-details"')
+        pos_verdict = index_html.find('id="verdict-card"')
+        pos_viz = index_html.find('id="calc-viz-panel"')
+        pos_table_disclosure = index_html.find('id="full-table-details"')
+        pos_tbody = index_html.find('id="calc-tbody"')
+
+        self.assertGreater(pos_answer, 0)
+        self.assertGreater(pos_calc, pos_answer)
+        self.assertGreater(pos_verdict, pos_calc)
+        self.assertGreater(pos_viz, pos_verdict)
+        self.assertGreater(pos_table_disclosure, pos_viz)
+        self.assertGreater(pos_tbody, pos_table_disclosure)
+
+    def test_priority4_contextual_cta_labels(self):
+        """Priority 4: Contextual CTAs show 'Save $X/yr with [Vendor] →' when savings exist, fallback to 'View [Vendor] pricing →'."""
+        with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
+            index_html = f.read()
+        m = re.search(r"<script>\s*(const TOOLS = .*?)\['cat-filter'", index_html, re.S)
+        self.assertIsNotNone(m)
+        runner = f"""
+        {m.group(1)}
+        const fd = TOOLS.find(t => t.id === 'freshdesk-support');
+        const zd = TOOLS.find(t => t.id === 'zendesk-suite-team');
+        const cl = TOOLS.find(t => t.id === 'close-crm');
+        const hs = TOOLS.find(t => t.id === 'hubspot-sales-pro');
+        const cf = TOOLS.find(t => t.id === 'chargeflow');
+        console.log(JSON.stringify({{
+          fd_save: getContextualCtaLabel(fd, 3835, 11850, false),
+          zd_trap: getContextualCtaLabel(zd, 11850, 15000, true),
+          cl_save: getContextualCtaLabel(cl, 2100, 6900, false),
+          hs_trap: getContextualCtaLabel(hs, 6900, 13680, true),
+          cf_cta: getContextualCtaLabel(cf, 500, 3450, false)
+        }}));
+        """
+        res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+        out = json.loads(res.stdout)
+        self.assertEqual(out["fd_save"], "Save $8,015/yr with Freshdesk →")
+        self.assertEqual(out["zd_trap"], "View Zendesk pricing →")
+        self.assertEqual(out["cl_save"], "Save $4,800/yr with Close →")
+        self.assertEqual(out["hs_trap"], "View HubSpot pricing →")
+        self.assertEqual(out["cf_cta"], "Prevent reserve holds with Chargeflow →")
+
+    def test_priority5_clear_affiliate_disclosure_and_no_em_dashes(self):
+        """Priority 5: Clear affiliate disclosure across all 18 pages, no contradictory claims, no em-dashes."""
+        expected_disclosure = "Independent calculations. Some vendor links are affiliate links. This never changes our rankings or calculations."
+        pages = [
+            "index.html",
+            "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
+            "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
+            "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
+            "compliance/hipaa-baa-and-soc2-pricing-tiers/index.html",
+            "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+            "compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html",
+            "compare/typeform-vs-jotform-response-limit-and-hipaa-cost/index.html",
+            "compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html",
+            "pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html",
+            "pricing/docusign-envelope-allowance-and-api-overage-calculator/index.html",
+            "pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html",
+            "exit/paypal-180-day-permanent-limitation-fund-recovery/index.html",
+            "compliance/google-workspace-vs-microsoft-365-hipaa-baa-tiers/index.html",
+            "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
+            "faq/intercom-fin-ai-cost-calculator/index.html",
+            "faq/stripe-vs-paddle-true-cost/index.html",
+        ]
+        for rel in pages:
+            with open(os.path.join(PUBLIC_DIR, rel), encoding="utf-8") as f:
+                html = f.read()
+            self.assertIn(expected_disclosure, html, f"Missing updated affiliate disclosure in {rel}")
+            self.assertNotIn("100% independent", html.lower(), f"Contradictory claim in {rel}")
+            self.assertNotIn("no sponsors", html.lower(), f"Contradictory claim in {rel}")
+            self.assertNotIn("—", html, f"Em-dash character found in {rel}")
+            self.assertNotIn("&mdash;", html, f"HTML entity &mdash; found in {rel}")
 
 
 if __name__ == "__main__":
