@@ -21,9 +21,13 @@ class TestChargebackCalculator(unittest.TestCase):
             "disputed": 18720,
             "fees": 2340,
             "manual": 21996,
+            "manual_recovered": 3744,
+            "recovered": 12168,
+            "success_fee": 3042,
+            "net_recovered": 9126,
             "stripe_protect": 11520,
-            "chargeflow": 10530,
-            "savings": 11466,
+            "chargeflow": 11934,
+            "savings": 10062,
         }
         for key, value in expected.items():
             self.assertEqual(round(row[key]), value, key)
@@ -57,10 +61,10 @@ class TestChargebackCalculator(unittest.TestCase):
             self.assertIn('id="cb-aov" min="20" max="500" step="5" value="120"', html)
             self.assertIn('id="cb-rate" min="10" max="200" step="5" value="65"', html)
             self.assertIn('class="val-pill"', html)
-            self.assertIn("Stripe ($15 dispute fee)", html)
+            self.assertIn("Stripe ($15 dispute fee + $15 counter fee)", html)
             self.assertIn("Shopify Payments ($15 dispute fee)", html)
-            self.assertIn("Paddle ($15 to $20 dispute fee)", html)
-            self.assertIn("High-Volume / High-Risk ($25 dispute fee)", html)
+            self.assertIn("Paddle ($20 dispute fee)", html)
+            self.assertNotIn("High-Volume / High-Risk", html)
             self.assertIn("0.75% Visa", html)
             self.assertIn("1.00% Mastercard", html)
             self.assertIn("See exactly how we calculated this", html)
@@ -71,7 +75,16 @@ class TestChargebackCalculator(unittest.TestCase):
             self.assertIn('data-track="vendor_cta_click"', html)
             self.assertIn('data-vendor="chargeflow"', html)
             self.assertIn("https://www.chargeflow.io/pricing", html)
-            self.assertIn("Save $11,466/yr with Chargeflow", html)
+            self.assertIn("Recover $9,126/yr net with Chargeflow", html)
+            self.assertIn("Manual In-House Dispute Handling", html)
+            self.assertIn("Chargeflow Pay-On-Performance", html)
+            self.assertIn("best-card", html)
+            self.assertIn("Baseline (20% Win Rate)", html)
+            self.assertIn("Highest Net Recovery", html)
+            self.assertIn("Stripe Chargeback Protection (0.40% of GMV)", html)
+            self.assertIn("Flat Volume Fee", html)
+            self.assertIn("$9,126/yr net recovered", html)
+            self.assertIn("$10,062/yr saved vs. manual in-house handling", html)
             self.assertIn('class="summary-strip"', html)
             for bad in ["—", "&mdash;", "SaaSTruth", "Erik Bengtsson"]:
                 self.assertNotIn(bad, html, rel)
@@ -87,9 +100,13 @@ class TestChargebackCalculator(unittest.TestCase):
             out = json.loads(res.stdout)
             self.assertEqual(round(out["gmvYr"]), 2880000)
             self.assertEqual(round(out["stripeProtect"]), 11520)
-            self.assertEqual(round(out["chargeflowTotal"]), 10530)
+            self.assertEqual(round(out["chargeflowTotal"]), 11934)
+            self.assertEqual(round(out["netRecovered"]), 9126)
             self.assertEqual(round(out["manualTotal"]), 21996)
-            self.assertEqual(round(out["savings"]), 11466)
+            self.assertEqual(round(out["manualRecovered"]), 3744)
+            self.assertEqual(round(out["recovered"]), 12168)
+            self.assertEqual(round(out["successFee"]), 3042)
+            self.assertEqual(round(out["savings"]), 10062)
 
     def test_cross_links_and_sitemap(self):
         checks = [
