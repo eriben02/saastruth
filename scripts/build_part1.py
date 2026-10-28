@@ -603,6 +603,7 @@ function renderCalcBreakdownHtml(r, seats, aiVol, mode, cat) {{
           <span class="calc-math-label"><strong>${{prof.callTitleHidden}}</strong><span class="calc-math-formula">${{prof.callSubHidden}}</span></span>
           <span class="calc-math-val">$${{prof.h.toLocaleString()}}/mo</span>
         </div>
+        ${{prof.disputeTitle ? `<div class="calc-math-row"><span class="calc-math-label"><strong>${{prof.disputeTitle}}</strong><span class="calc-math-formula">${{prof.disputeFormula}}</span></span><span class="calc-math-val">${{prof.disputeVal}}</span></div>` : ''}}
         <div class="calc-math-total">
           <span>Monthly Processing Fees ($50k GMV)</span>
           <span>$${{prof.total.toLocaleString()}}/mo ($${{(prof.total * 12).toLocaleString()}}/yr)</span>
@@ -723,7 +724,10 @@ const PAY_PROFILES = {{
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $1,750 base + $575 Billing/FX.',
     tableFeeSub: '$1,750 base (2.9% + $0.30) + $575 Billing/FX',
     tableHeldPill: '$12,500 / mo temporarily held',
-    tableHeldSub: 'If 25% rolling reserve triggers (held 90–180 days, not a fee) · Portable card tokens'
+    tableHeldSub: 'If 25% rolling reserve triggers (held 90–180 days, not a fee) · Portable card tokens',
+    disputeTitle: 'Dispute & chargeback exposure',
+    disputeFormula: '1,000 tx × 0.65% = 6.5 disputes/mo × $50 AOV = $325/mo disputed orders + $15 Stripe dispute fee ($97.50/mo). Not included in the $2,325 fee total. A rate in the 0.5%–0.75% band can trigger the $12,500 reserve.',
+    disputeVal: '$325/mo'
   }},
   'paddle-mor': {{
     b: 2500,
@@ -742,7 +746,10 @@ const PAY_PROFILES = {{
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $3,000 MoR base + $450 FX spread.',
     tableFeeSub: '$3,000 MoR base (5.0% + $0.50) + $450 est. FX spread',
     tableHeldPill: '$12,500 / mo temporarily held',
-    tableHeldSub: 'If 25% payout hold triggers on review (not a fee) · Non-exportable MoR card vault'
+    tableHeldSub: 'If 25% payout hold triggers on review (not a fee) · Non-exportable MoR card vault',
+    disputeTitle: 'Dispute & chargeback exposure',
+    disputeFormula: '1,000 tx × 0.65% = 6.5 disputes/mo × $50 AOV = $325/mo disputed orders + $20 Paddle dispute fee ($130/mo). Not included in the $3,450 fee total. A rate in the 0.5%–0.75% band can trigger the $12,500 hold.',
+    disputeVal: '$325/mo'
   }},
   'whop-payments': {{
     b: 1650,
@@ -781,7 +788,10 @@ const PAY_PROFILES = {{
     sub: 'Assumptions ($50k/mo GMV, 1,000 tx, 30% intl): $3,000 MoR base + $475 surcharges.',
     tableFeeSub: '$3,000 MoR base (5.0% + $0.50) + $475 subscription/intl fees',
     tableHeldPill: '$12,500 / mo temporarily held',
-    tableHeldSub: 'If 25% rolling reserve triggers during onboarding review (not a fee)'
+    tableHeldSub: 'If 25% rolling reserve triggers during onboarding review (not a fee)',
+    disputeTitle: 'Dispute & chargeback exposure',
+    disputeFormula: '1,000 tx × 0.65% = 6.5 disputes/mo × $50 AOV = $325/mo disputed orders + $15 dispute fee ($97.50/mo). Not included in the $3,475 fee total. A rate in the 0.5%–0.75% band can trigger the $12,500 reserve.',
+    disputeVal: '$325/mo'
   }},
   'chargeflow': {{
     b: 0,
@@ -801,7 +811,10 @@ const PAY_PROFILES = {{
     tableBaseSub: '$0 fixed monthly base · 25% of recovered chargebacks',
     tableFeeSub: '25% fee on $2,000/mo recovered disputes ($0 if unrecovered)',
     tableHeldPill: 'Reduces PSP reserve risk',
-    tableHeldSub: 'Keeps dispute ratio below 0.75% threshold · 90-day ROI guarantee'
+    tableHeldSub: 'Keeps dispute ratio below 0.75% threshold · 90-day ROI guarantee',
+    disputeTitle: 'Won-dispute recovery',
+    disputeFormula: 'Chargeflow recovers won disputes on a 25% performance fee ($0/mo fixed) and keeps the dispute rate below the 0.5%–0.75% reserve trigger. At $2,000/mo recovered, the fee is $500/mo.',
+    disputeVal: '25% fee'
   }}
 }};
 
@@ -1065,7 +1078,7 @@ function renderDirectory() {{
           <div class="summary-label">Pre-Dispute Reserve Shield</div>
           <div class="summary-metric">$500 / mo &middot; Chargeflow</div>
           <div class="summary-scenario">Based on $2,000/mo recovered chargebacks (25% success fee)</div>
-          <div class="summary-breakdown">$0 monthly base fee &middot; keeps dispute ratio below 0.5% monitoring threshold</div>
+          <div class="summary-breakdown">$0 monthly base fee &middot; 25% fee only on won disputes &middot; keeps the dispute rate below the 0.5%–0.75% reserve trigger</div>
           <div class="summary-caveat"><strong>Contract note:</strong> Performance-based fee (25% of recovered chargebacks only; $0 monthly minimum).</div>
           <details class="calc-disclosure">
             <summary class="calc-disclosure-toggle">See calculation</summary>

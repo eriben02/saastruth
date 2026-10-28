@@ -118,6 +118,20 @@ body = f"""
   <h2 style="margin-top:0;">Net payout calculator: Gumroad vs. Whop vs. Lemon Squeezy</h2>
   <p style="color:var(--muted); margin-bottom:16px; font-size:0.95rem;">Prefilled with a $29 digital product, 200 sales/month. Results update as you change the inputs below.</p>
   <div id="tr-summary" class="summary-strip" aria-live="polite"></div>
+  <div id="tr-chargeflow" class="summary-strip" aria-live="polite">
+    <div class="summary-card card-hidden">
+      <div class="summary-label">Chargeback recovery callout</div>
+      <div class="summary-metric" style="color:var(--rose);">$348 / yr lost to disputes</div>
+      <div class="summary-scenario">Based on 200 sales/mo at $29, 0.5% dispute rate</div>
+      <div class="summary-breakdown">Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>$170/yr net</strong>. Lost order value is not included in the platform fee totals.</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Dispute order value is a separate drain from the platform fee.</div>
+      <div class="summary-actions">
+        <div class="cta-stack">
+          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover $170/yr in disputes with Chargeflow &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <h3 style="margin:22px 0 10px; font-size:1rem;">Adjust your numbers</h3>
   <div class="calc-grid">
     <div class="control-group">
@@ -324,6 +338,8 @@ function updateTr() {{
   const low = rows[0], high = rows[rows.length - 1];
   const big = rows.slice().sort((a, b) => b.hidden - a.hidden)[0];
   const bigPct = big.total > 0 ? Math.round(big.hidden / big.total * 100) : 0;
+  const lostYr = o.price * o.sales * (o.dispute / 100) * 12;
+  const cfNetDisputes = Math.round(lostYr * 0.65 * 0.75);
   document.getElementById('tr-summary').innerHTML = `
     <div class="summary-card card-lowest">
       <div class="summary-label">Highest net payout</div>
@@ -355,6 +371,20 @@ function updateTr() {{
       <td data-label="Net payout / yr" class="price-highlight">${{trFmt(r.net * 12)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
       <td data-label="Next step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></div></td>
     </tr>`).join('');
+  const cfEl = document.getElementById('tr-chargeflow');
+  if (cfEl) cfEl.innerHTML = `
+    <div class="summary-card card-hidden">
+      <div class="summary-label">Chargeback recovery callout</div>
+      <div class="summary-metric" style="color:var(--rose);">${{trFmt(lostYr)}} / yr lost to disputes</div>
+      <div class="summary-scenario">Based on ${{o.sales.toLocaleString('en-US')}} sales/mo at $${{o.price}}, ${{o.dispute.toFixed(1)}}% dispute rate</div>
+      <div class="summary-breakdown">Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>${{trFmt(cfNetDisputes)}}/yr net</strong>. Lost order value is not included in the platform fee totals.</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Dispute order value is a separate drain from the platform fee.</div>
+      <div class="summary-actions">
+        <div class="cta-stack">
+          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover ${{trFmt(cfNetDisputes)}}/yr in disputes with Chargeflow →</a>
+        </div>
+      </div>
+    </div>`;
   let note = 'Assumptions: list prices, fees calculated on the pre-tax price (Lemon Squeezy calculates its fee on the order total including tax, so its real fee is slightly higher on taxed sales). Gumroad PayPal sales are modelled at the 2.9% + 30¢ card rate; actual PayPal fees may differ. Whop payouts assume 4 next-day ACH withdrawals/mo ($2.50 each). Lost revenue from chargebacks is the same on every platform and is not included.';
   if (o.payout === 'intl') note += ' Whop international local-bank payout fees vary by country and are not included.';
   document.getElementById('tr-note').textContent = note;
