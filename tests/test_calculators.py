@@ -1061,7 +1061,11 @@ class TestSaaSBillCalculators(unittest.TestCase):
         with open(os.path.join(PUBLIC_DIR, "zendesk-ai-cost-calculator/index.html"), encoding="utf-8") as f:
             polish_html = f.read()
         self.assertIn('<body data-page="zendesk-ai-cost-calculator" class="page-zendesk-ai-polish">', polish_html)
-        self.assertIn("assets/styles.css?v=20261028a", polish_html)
+        self.assertIn("assets/styles.css?v=20261028b", polish_html)
+        self.assertIn('class="wb-col-controls wb-inputs-col"', polish_html)
+        self.assertIn("seg-base", polish_html)
+        self.assertIn("seg-seats", polish_html)
+        self.assertIn("seg-hidden", polish_html)
         for other_rel in (
             "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
             "zendesk-vs-freshdesk-cost-comparison/index.html",
@@ -1071,12 +1075,20 @@ class TestSaaSBillCalculators(unittest.TestCase):
         with open(os.path.join(PUBLIC_DIR, "assets/styles.css"), encoding="utf-8") as f:
             polish_css = f.read()
         self.assertIn('body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"]', polish_css)
-        self.assertIn("border: 1px solid #1E3F29", polish_css)
-        self.assertIn("0 1px 2px rgba(20, 40, 26, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.14)", polish_css)
+        self.assertIn("text-transform: none", polish_css)
+        self.assertIn("letter-spacing: -0.01em", polish_css)
+        self.assertIn("font-size: 0.92rem", polish_css)
+        self.assertIn("linear-gradient(180deg, #386B4A 0%, #244A32 100%)", polish_css)
+        self.assertIn("border: 1px solid #1B3B26", polish_css)
+        self.assertIn("0 2px 0 #16301F, 0 6px 14px rgba(22, 48, 31, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.26)", polish_css)
+        self.assertIn("linear-gradient(180deg, #FFFFFF 0%, #F5F3EE 100%)", polish_css)
+        self.assertIn("border: 1px solid rgba(32, 35, 31, 0.22)", polish_css)
+        self.assertIn("linear-gradient(180deg, #F5F3EC 0%, #F9F8F3 100%)", polish_css)
+        self.assertIn("linear-gradient(180deg, #FFFFFF 0%, #FCFBF8 100%)", polish_css)
+        self.assertIn("border-top: 3.5px solid #1E6B43", polish_css)
+        self.assertIn("border-top: 3.5px solid #C2510C", polish_css)
         self.assertIn("transform: translateY(-1px)", polish_css)
-        self.assertIn("transform: translateY(0)", polish_css)
-        self.assertIn("border: 1px solid rgba(32, 35, 31, 0.16)", polish_css)
-        self.assertIn("background: rgba(255, 255, 255, 0.72)", polish_css)
+        self.assertIn("flex-wrap: wrap", polish_css)
         self.assertIn("outline: 2px solid #2D5A3D", polish_css)
         self.assertIn("outline-offset: 2px", polish_css)
 

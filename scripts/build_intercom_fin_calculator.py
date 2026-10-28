@@ -34,6 +34,7 @@ def render_intercom_calculator_body(
     amt_seats="$3,132",
     amt_hidden="$17,820",
     hidden_summary_id="ic-summary",
+    depth_hooks=False,
 ):
     if best_option_html is None:
         best_option_html = '<strong>Best option:</strong> <a href="https://www.freshworks.com/freshdesk/pricing/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="freshdesk-support" data-cta-location="workbench-best-option">Freshdesk (Freshworks) ($10,855/yr)</a> &middot; saves $10,445/yr'
@@ -77,6 +78,10 @@ def render_intercom_calculator_body(
   </div>
 </section>
 """
+    controls_class = "wb-col-controls wb-inputs-col" if depth_hooks else "wb-col-controls"
+    base_block_class = "wb-vbar-block block-base seg-base" if depth_hooks else "wb-vbar-block block-base"
+    seats_block_class = "wb-vbar-block block-seats seg-seats" if depth_hooks else "wb-vbar-block block-seats"
+    hidden_block_class = "wb-vbar-block block-hidden seg-hidden" if depth_hooks else "wb-vbar-block block-hidden"
     return f"""
 <section class="hero">
   <h1>{h1}</h1>
@@ -100,7 +105,7 @@ def render_intercom_calculator_body(
 
   <div class="workbench-grid">
     <!-- Left Column: ESTIMATE YOUR TRUE COST (Prefilled: Intercom + Fin AI, 10 Agents, 1,500 AI Resolutions/mo, Annual) -->
-    <div class="wb-col-controls">
+    <div class="{controls_class}">
       <div class="wb-col-title">Estimate Your True Cost</div>
       <div class="wb-controls-stack">
         <div class="wb-control-item" id="tool-select-group">
@@ -141,7 +146,7 @@ def render_intercom_calculator_body(
       <div class="wb-col-title" id="wb-chart-col-title">Your Estimated True Cost</div>
       <div id="wb-vbar-mount" class="wb-vbar-container" aria-live="polite">
         <div class="wb-vbar-row" id="wb-row-base" style="flex: 15.5 1 0px;">
-          <div class="wb-vbar-block block-base">
+          <div class="{base_block_class}">
             <span class="wb-block-amount" id="wb-amt-base">{amt_base}</span>
           </div>
           <div class="wb-callout-item">
@@ -154,7 +159,7 @@ def render_intercom_calculator_body(
         </div>
 
         <div class="wb-vbar-row" id="wb-row-seats" style="flex: 15.5 1 0px;">
-          <div class="wb-vbar-block block-seats">
+          <div class="{seats_block_class}">
             <span class="wb-block-amount" id="wb-amt-seats">{amt_seats}</span>
           </div>
           <div class="wb-callout-item">
@@ -167,7 +172,7 @@ def render_intercom_calculator_body(
         </div>
 
         <div class="wb-vbar-row" id="wb-row-hidden" style="flex: 69.0 1 0px;">
-          <div class="wb-vbar-block block-hidden">
+          <div class="{hidden_block_class}">
             <span class="wb-block-amount" id="wb-amt-hidden">{amt_hidden}</span>
           </div>
           <div class="wb-callout-item">
@@ -1046,7 +1051,7 @@ def mark_zendesk_ai_page_polish(rel_path):
     )
     html = html.replace(
         "assets/styles.css?v=20261027c",
-        "assets/styles.css?v=20261028a",
+        "assets/styles.css?v=20261028b",
         1,
     )
     with open(path, "w", encoding="utf-8") as f:
@@ -1065,6 +1070,7 @@ def build_zendesk_pages():
             lead="See what Zendesk AI actually costs once the $50/agent add-on and per-resolution overages are included. Adjust the agents and AI volume below to see your real Year-1 total and how it compares to Freshdesk and Intercom.",
             compare_mode="zendesk_ai",
             page_id="zendesk-ai-cost-calculator",
+            depth_hooks=True,
             **ZD_PAGE_KW,
         ),
         faqs=zd_faqs,
