@@ -22,6 +22,67 @@ def load_data():
         affiliates = json.load(f)
     return tools, affiliates
 
+def link_category(rel_path):
+    path = rel_path.lower()
+    if any(token in path for token in (
+        "stripe-billing", "chargeback", "gumroad", "frozen-funds", "paypal", "stripe-vs-paddle",
+    )):
+        return "payments"
+    if any(token in path for token in ("intercom", "zendesk", "freshdesk")):
+        return "helpdesk"
+    if any(token in path for token in ("hubspot", "close-crm", "gong", "zoominfo", "monday", "pipedrive")):
+        return "crm"
+    if any(token in path for token in ("hipaa", "soc2", "docusign", "typeform", "jotform", "google-workspace", "microsoft-365")):
+        return "compliance"
+    return "other"
+
+
+def build_related_section(rel_path, prefix, all_links):
+    """Three related cards from the same category. Payment pages lead with the chargeback calculator."""
+    by_path = {item[0]: item for item in all_links}
+    chargeback = "chargeback-fee-and-recovery-calculator/index.html"
+    chargeback_pages = {
+        chargeback,
+        "pricing/stripe-shopify-chargeback-fee-and-chargeflow-roi-calculator/index.html",
+    }
+    payment_followups = [
+        "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
+        "pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html",
+        "faq/stripe-vs-paddle-true-cost/index.html",
+    ]
+    current = link_category(rel_path)
+    chosen = []
+    if rel_path in chargeback_pages:
+        chosen = list(payment_followups)
+    elif current == "payments":
+        chosen = [chargeback] + [path for path in payment_followups if path != rel_path]
+        for path, _, _ in all_links:
+            if link_category(path) == "payments" and path not in chosen and path != rel_path:
+                chosen.append(path)
+    else:
+        for path, _, _ in all_links:
+            if path != rel_path and link_category(path) == current:
+                chosen.append(path)
+        if len(chosen) < 3:
+            for path, _, _ in all_links:
+                if path != rel_path and path not in chosen:
+                    chosen.append(path)
+    cards = []
+    for path in chosen:
+        if path == rel_path or path not in by_path:
+            continue
+        label, summary = by_path[path][1], by_path[path][2]
+        href = prefix + path.replace("index.html", "")
+        cards.append(f"""
+        <div class="card" style="padding:14px 16px;">
+          <h3 style="margin:0 0 6px; font-size:0.98rem;"><a href="{href}" data-track="internal-audit">{label} &rarr;</a></h3>
+          <p style="margin:0; font-size:0.84rem; color:var(--muted);">{summary}</p>
+        </div>""")
+        if len(cards) >= 3:
+            break
+    return cards
+
+
 def render_related_links(rel_path, prefix):
     if rel_path == "index.html":
         return ""
@@ -56,19 +117,13 @@ def render_related_links(rel_path, prefix):
         ("faq/intercom-fin-ai-cost-calculator/index.html", "FAQ: How Much Does Intercom Fin AI Cost in 2026?", "Quick calculator for $0.99/resolution AI support bills vs. Freshdesk & Help Scout."),
         ("faq/stripe-vs-paddle-true-cost/index.html", "FAQ: Stripe vs. Paddle vs. Whop True Cost (2026)", "Side-by-side effective take rate calculator with Billing, Tax, and FX fees."),
     ]
-    cards = []
+    cards = build_related_section(rel_path, prefix, all_links)
     directory_links = []
     for target_rel, label, summary in all_links:
         if target_rel == rel_path:
             continue
         href = prefix + target_rel.replace("index.html", "")
         directory_links.append(f'<a href="{href}" data-track="internal-audit" style="font-size:0.84rem; margin-right:14px; display:inline-block; margin-bottom:6px;">{label} &rarr;</a>')
-        if len(cards) < 3:
-            cards.append(f"""
-        <div class="card" style="padding:14px 16px;">
-          <h3 style="margin:0 0 6px; font-size:0.98rem;"><a href="{href}" data-track="internal-audit">{label} &rarr;</a></h3>
-          <p style="margin:0; font-size:0.84rem; color:var(--muted);">{summary}</p>
-        </div>""")
     return f"""
     <section aria-labelledby="related-calculators-heading" style="margin-top:36px; padding-top:24px; border-top:1px solid var(--border);">
       <h2 id="related-calculators-heading" style="font-size:1.2rem; margin-top:0;">Related Year-1 True-Cost Calculators &amp; Contract Audits</h2>

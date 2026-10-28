@@ -13,7 +13,7 @@ from layout import render_page, load_data
 _, AFFILIATES = load_data()
 CF_URL = AFFILIATES["chargeflow"]["destination_url"]
 
-TITLE = "Stripe & Shopify Chargeback Cost Calculator (2026): Dispute Fees, Lost Revenue & Chargeflow ROI"
+TITLE = "Stripe, Shopify & Paddle Chargeback Cost Calculator (2026): Dispute Fees, Manual Prep vs. Automated Recovery"
 DESC = (
     "See annual chargeback loss from the full order value plus a non-refundable dispute fee, "
     "then compare manual handling, Stripe Chargeback Protection at 0.40% of GMV, and Chargeflow."
@@ -72,9 +72,10 @@ def render_body():
         <div class="control-group">
           <label for="cb-processor">Payment processor</label>
           <select id="cb-processor" data-track="calculator-control" data-control="processor">
-            <option value="stripe" selected>Stripe ($15 dispute fee + $15 counter fee)</option>
-            <option value="shopify">Shopify Payments ($15 dispute fee)</option>
+            <option value="stripe" selected>Stripe ($15 + $15 counter fee)</option>
+            <option value="shopify">Shopify Payments ($15 fee)</option>
             <option value="paddle">Paddle ($20 dispute fee)</option>
+            <option value="highrisk">High-risk PSP ($25 fee)</option>
           </select>
         </div>
         <div class="control-group">
@@ -94,20 +95,20 @@ def render_body():
     </div>
 
     <div class="wb-col-chart">
-      <div class="wb-col-title">Annual cost comparison</div>
+      <div class="wb-col-title">Annual Dispute Drain Breakdown</div>
       <div id="cb-bars" class="viz-rows" aria-live="polite"></div>
     </div>
 
     <div class="wb-result-col" id="cb-result" aria-live="polite">
       <div class="wb-selected-product">Chargeflow Pay-On-Performance</div>
       <div class="wb-big-total"><span id="cb-big">$9,126</span> <span class="wb-per-year">net / year</span></div>
-      <p class="wb-budget-quote" id="cb-quote">Based on 2,000 orders/mo, a $120 order value, and a 0.65% dispute rate on Stripe.</p>
-      <p class="wb-budget-subnote" id="cb-callout">$9,126/yr net recovered after the 25% success fee, and $10,062/yr saved vs. manual in-house handling. Stripe Chargeback Protection is $11,520/yr at 0.40% of GMV.</p>
-      <div class="wb-best-option" id="cb-best"><strong>Highest net recovery:</strong> Chargeflow Pay-On-Performance. $0/mo fixed fee and $0 setup.</div>
       <details class="math-drawer" id="wb-calc-details">
         <summary>Show calculation</summary>
         <div class="math-drawer-body" id="cb-math"></div>
       </details>
+      <p class="wb-budget-quote" id="cb-quote">Based on 2,000 orders/mo, a $120 order value, and a 0.65% dispute rate on Stripe.</p>
+      <p class="wb-budget-subnote" id="cb-callout">$9,126/yr net recovered after the 25% success fee, and $10,062/yr saved vs. manual in-house handling. Stripe Chargeback Protection is $11,520/yr at 0.40% of GMV.</p>
+      <div class="wb-best-option" id="cb-best"><strong>Lowest annual cost at these inputs:</strong> compared after you set volume and dispute rate.</div>
       <div class="cta-stack">
         <a id="cb-primary-cta" class="btn-cta wb-primary-cta" href="{CF_URL}" target="_blank" rel="nofollow noopener" data-track="vendor_cta_click" data-vendor="chargeflow" data-cta-location="workbench">Recover $9,126/yr net with Chargeflow &rarr;</a>
       </div>
@@ -155,7 +156,7 @@ const CHARGEFLOW_WIN = 0.65;
 const CHARGEFLOW_SUCCESS_FEE = 0.25;
 const LABOR_PER_DISPUTE = 30;
 const STRIPE_PROTECT_RATE = 0.004;
-const FEES = {{ stripe: 15, shopify: 15, paddle: 20 }};
+const FEES = {{ stripe: 15, shopify: 15, paddle: 20, highrisk: 25 }};
 
 function calcChargeback(orders, aov, ratePct, fee) {{
   const disputesYr = orders * (ratePct / 100) * 12;
@@ -250,10 +251,27 @@ function renderChargeback() {{
     return '<div class="viz-row"><div class="viz-label">' + b.name + '</div><div class="viz-bar-wrap"><div class="viz-bar-track"><div class="' + b.cls + '" style="width:' + pct.toFixed(1) + '%"></div></div></div><div class="viz-total-label">' + money(b.cost) + '</div></div>';
   }}).join('');
 
+  const costOptions = [
+    {{ key: 'manual', name: 'Manual in-house handling', cost: row.manualTotal }},
+    {{ key: 'chargeflow', name: 'Chargeflow pay-on-performance', cost: row.chargeflowTotal }},
+    {{ key: 'protect', name: 'Stripe Chargeback Protection', cost: row.stripeProtect }}
+  ].sort(function(a, b) {{ return a.cost - b.cost; }});
+  const cheapest = costOptions[0];
+  const cfCaveat = '25% of recovered dispute dollars ($0/mo base). Does not refund the processor\\'s $15 to $20 dispute fee when a dispute is lost, and a 65% win rate is a planning benchmark; actual recovery varies by dispute reason code.';
+  document.getElementById('cb-best').innerHTML = '<strong>Lowest annual cost at these inputs:</strong> ' + cheapest.name + ' (' + money(cheapest.cost) + '/yr).';
+  function mathDrawer(rowsHtml) {{
+    return '<details class="math-drawer"><summary>Show calculation</summary><div class="math-drawer-body"><div class="calc-math-list">' + rowsHtml + '</div></div></details>';
+  }}
+  function cardOpen(key) {{
+    let cls = 'summary-card result-card';
+    if (cheapest.key === key) cls += ' best-card card-lowest';
+    return '<div class="' + cls + '">';
+  }}
+  const cfScenario = (cheapest.key === 'chargeflow' ? 'Highest Net Recovery. ' : 'Dispute-recovery add-on, not a payment processor. ') + '65% automated win rate, 25% fee only on won disputes, $0/mo fixed fee, and $0 manual labor. Annual drain ' + money(row.chargeflowTotal) + '.';
   document.getElementById('cb-summary').innerHTML = [
-    '<div class="summary-card result-card"><div class="summary-label">Manual In-House Dispute Handling</div><div class="summary-metric">' + money(row.manualTotal) + ' / yr</div><p class="summary-scenario">Baseline (20% Win Rate). Gross recovered ' + money(row.manualRecovered) + ', unrecovered ' + money(row.manualUnrecovered) + ', plus processor fees and $30 evidence prep per dispute.</p></div>',
-    '<div class="summary-card result-card best-card card-lowest"><div class="summary-label">Chargeflow Pay-On-Performance</div><div class="summary-metric">' + money(row.netRecovered) + ' / yr net</div><p class="summary-scenario">Highest Net Recovery. 65% automated win rate, 25% fee only on won disputes, $0/mo fixed fee, and $0 manual labor. Annual drain ' + money(row.chargeflowTotal) + '.</p></div>',
-    '<div class="summary-card result-card card-highest"><div class="summary-label">Stripe Chargeback Protection (0.40% of GMV)</div><div class="summary-metric">' + money(row.stripeProtect) + ' / yr</div><p class="summary-scenario">Flat Volume Fee. 0.40% of ' + money(row.gmvYr) + ' GMV, charged on volume even when the dispute rate is ordinary.</p></div>'
+    cardOpen('manual') + '<div class="summary-label">Manual In-House Dispute Handling</div><div class="summary-metric">' + money(row.manualTotal) + ' / yr</div>' + mathDrawer('<div class="calc-math-row"><span class="calc-math-label"><strong>Unrecovered disputed revenue</strong></span><span class="calc-math-val">' + money(row.manualUnrecovered) + '</span></div><div class="calc-math-total"><span>Manual annual drain</span><span>' + money(row.manualTotal) + '</span></div>') + '<p class="summary-scenario">Baseline (20% Win Rate). Gross recovered ' + money(row.manualRecovered) + ', unrecovered ' + money(row.manualUnrecovered) + ', plus processor fees and $30 evidence prep per dispute.</p><p class="summary-breakdown">80% of disputed revenue stays unrecovered at a 20% manual win rate.</p><p class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Evidence prep is $30 on every dispute, won or lost.</p></div>',
+    cardOpen('chargeflow') + '<div class="summary-label">Chargeflow Pay-On-Performance</div><div class="summary-metric">' + money(row.netRecovered) + ' / yr net</div>' + mathDrawer('<div class="calc-math-row"><span class="calc-math-label"><strong>Gross recovered at 65%</strong></span><span class="calc-math-val">' + money(row.recovered) + '</span></div><div class="calc-math-row"><span class="calc-math-label"><strong>25% success fee</strong></span><span class="calc-math-val">' + money(row.successFee) + '</span></div><div class="calc-math-total"><span>Net recovered</span><span>' + money(row.netRecovered) + '</span></div>') + '<p class="summary-scenario">' + cfScenario + '</p><p class="summary-breakdown">$0/mo fixed. The 25% fee applies only to disputes Chargeflow wins.</p><p class="summary-caveat">' + cfCaveat + '</p><div class="summary-actions"><a class="btn-cta" href="' + CHARGEFLOW_URL + '" target="_blank" rel="nofollow noopener" data-track="vendor_cta_click" data-vendor="chargeflow">Recover ' + money(row.netRecovered) + '/yr net with Chargeflow →</a></div></div>',
+    cardOpen('protect') + '<div class="summary-label">Stripe Chargeback Protection (0.40% of GMV)</div><div class="summary-metric">' + money(row.stripeProtect) + ' / yr</div>' + mathDrawer('<div class="calc-math-row"><span class="calc-math-label"><strong>0.40% of annual GMV</strong></span><span class="calc-math-val">' + money(row.gmvYr) + '</span></div><div class="calc-math-total"><span>Flat volume fee</span><span>' + money(row.stripeProtect) + '</span></div>') + '<p class="summary-scenario">Flat Volume Fee. 0.40% of ' + money(row.gmvYr) + ' GMV, charged on volume even when the dispute rate is ordinary.</p><p class="summary-breakdown">Charged on every processed dollar, not only disputed orders.</p></div>'
   ].join('');
 
   const tableRows = [

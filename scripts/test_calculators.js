@@ -30,9 +30,11 @@ function check(name, fn) {
 for (const rel of pages) {
   const html = fs.readFileSync(path.join(__dirname, "..", rel), "utf8");
   check(rel + " labels", () => {
-    assert.ok(html.includes("Stripe ($15 dispute fee + $15 counter fee)"));
-    assert.ok(html.includes("Shopify Payments ($15 dispute fee)"));
+    assert.ok(html.includes("Stripe ($15 + $15 counter fee)"));
+    assert.ok(html.includes("Shopify Payments ($15 fee)"));
     assert.ok(html.includes("Paddle ($20 dispute fee)"));
+    assert.ok(html.includes("High-risk PSP ($25 fee)"));
+    assert.ok(html.includes("25% of recovered dispute dollars ($0/mo base)."));
     assert.ok(!html.includes("High-Volume / High-Risk"));
     assert.ok(html.includes("Manual In-House Dispute Handling"));
     assert.ok(html.includes("Baseline (20% Win Rate)"));

@@ -776,13 +776,13 @@ def build_hubspot():
     <div class="wb-result-col" id="hs-onb-summary" aria-live="polite">
       <div class="wb-selected-product" id="hs-selected-product">HubSpot Sales Hub Professional</div>
       <div class="wb-big-total"><span id="hs-big-amount">$6,900</span> <span class="wb-per-year">/ year</span></div>
-      <p class="wb-budget-quote" id="hs-scenario">Based on 5 seats, annual billing, 2,000 marketing contacts.</p>
-      <p class="wb-budget-subnote" id="hs-hidden-note"><strong>Hidden Cost Highlight:</strong> Sales Hub Pro adds a mandatory $1,500 onboarding fee in Year 1.</p>
-      <div class="wb-best-option" id="hs-best-option"><strong>Best option:</strong> <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="workbench-best-option">Pipedrive CRM ($2,340/yr)</a> &middot; saves $4,560/yr</div>
       <details class="math-drawer" id="hs-calc-details">
         <summary>Show calculation</summary>
         <div class="math-drawer-body" id="hs-calc-body"></div>
       </details>
+      <p class="wb-budget-quote" id="hs-scenario">Based on 5 seats, annual billing, 2,000 marketing contacts.</p>
+      <p class="wb-budget-subnote" id="hs-hidden-note"><strong>Hidden Cost Highlight:</strong> Sales Hub Pro adds a mandatory $1,500 onboarding fee in Year 1.</p>
+      <div class="wb-best-option" id="hs-best-option"><strong>Best option:</strong> <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="workbench-best-option">Pipedrive CRM ($2,340/yr)</a> &middot; saves $4,560/yr</div>
       <div class="cta-stack">
         <a id="hs-primary-cta" class="btn-cta wb-primary-cta" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close" data-cta-location="workbench">Save $4,080/yr with Close CRM &rarr;</a>
       </div>

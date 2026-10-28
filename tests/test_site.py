@@ -47,7 +47,7 @@ class TestChargebackCalculator(unittest.TestCase):
             "Every chargeback costs the full order value plus a non-refundable $15 to $25 processor dispute fee. "
             "Adjust your monthly volume and dispute rate below to see total annual loss versus automated recovery."
         )
-        h1 = "Stripe & Shopify Chargeback Cost Calculator (2026): Dispute Fees, Lost Revenue & Chargeflow ROI"
+        h1 = "Stripe, Shopify & Paddle Chargeback Cost Calculator (2026): Dispute Fees, Manual Prep vs. Automated Recovery"
         for rel, canonical in pages:
             with open(os.path.join(PUBLIC_DIR, rel), encoding="utf-8") as f:
                 html = f.read()
@@ -61,9 +61,11 @@ class TestChargebackCalculator(unittest.TestCase):
             self.assertIn('id="cb-aov" min="20" max="500" step="5" value="120"', html)
             self.assertIn('id="cb-rate" min="10" max="200" step="5" value="65"', html)
             self.assertIn('class="val-pill"', html)
-            self.assertIn("Stripe ($15 dispute fee + $15 counter fee)", html)
-            self.assertIn("Shopify Payments ($15 dispute fee)", html)
+            self.assertIn("Stripe ($15 + $15 counter fee)", html)
+            self.assertIn("Shopify Payments ($15 fee)", html)
             self.assertIn("Paddle ($20 dispute fee)", html)
+            self.assertIn("High-risk PSP ($25 fee)", html)
+            self.assertIn("25% of recovered dispute dollars ($0/mo base).", html)
             self.assertNotIn("High-Volume / High-Risk", html)
             self.assertIn("0.75% Visa", html)
             self.assertIn("1.00% Mastercard", html)
