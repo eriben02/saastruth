@@ -306,7 +306,10 @@ h3 {
 }
 
 .control-group label {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.35;
@@ -328,11 +331,16 @@ h3 {
 }
 
 .control-group input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
-  height: 38px;
-  margin: auto 0 0 0;
+  height: 8px;
+  margin: 10px 0;
   padding: 0;
-  accent-color: var(--accent);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #E4E0D6 0%, #F6F3EC 100%);
+  box-shadow: inset 0 1px 2px rgba(20, 20, 19, 0.18);
+  accent-color: #2D5A3D;
   cursor: pointer;
   display: block;
 }
@@ -1403,22 +1411,22 @@ footer.site-footer {
 .wb-slider-row input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: #647A65;
-  border: 2px solid #FAF9F5;
-  box-shadow: 0 1px 4px rgba(32, 35, 31, 0.28);
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
+  border: 2.5px solid #2D5A3D;
+  box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
   cursor: pointer;
 }
 
 .wb-slider-row input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: #647A65;
-  border: 2px solid #FAF9F5;
-  box-shadow: 0 1px 4px rgba(32, 35, 31, 0.28);
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
+  border: 2.5px solid #2D5A3D;
+  box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
   cursor: pointer;
 }
 
@@ -2589,10 +2597,16 @@ hr.editorial-rule {
   }
 
   /* 3. Touch-friendly 24x24 slider thumbs & prevent iOS auto-zoom on selects */
+  input[type="range"]::-webkit-slider-thumb,
+  .wb-range::-webkit-slider-thumb,
+  .control-group input[type="range"]::-webkit-slider-thumb,
   .wb-slider-row input[type="range"]::-webkit-slider-thumb {
     width: 24px;
     height: 24px;
   }
+  input[type="range"]::-moz-range-thumb,
+  .wb-range::-moz-range-thumb,
+  .control-group input[type="range"]::-moz-range-thumb,
   .wb-slider-row input[type="range"]::-moz-range-thumb {
     width: 24px;
     height: 24px;
@@ -2777,7 +2791,7 @@ body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"] .wb-slider-r
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
   border: 2.5px solid #2D5A3D;
   box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
 }
@@ -2786,7 +2800,7 @@ body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"] .wb-slider-r
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
   border: 2.5px solid #2D5A3D;
   box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
 }
@@ -3052,39 +3066,46 @@ body .wb-result-col .wb-big-total {
   overflow-wrap: anywhere;
 }
 
-body .wb-slider-row input[type="range"],
+body input[type="range"],
+body .wb-range,
 body .control-group input[type="range"],
-body input[type="range"].wb-range {
+body .wb-slider-row input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
+  width: 100%;
   height: 8px;
+  margin: 10px 0;
+  padding: 0;
   border-radius: 999px;
   background: linear-gradient(180deg, #E4E0D6 0%, #F6F3EC 100%);
   box-shadow: inset 0 1px 2px rgba(20, 20, 19, 0.18);
   accent-color: #2D5A3D;
+  cursor: pointer;
 }
 
-body .wb-slider-row input[type="range"]::-webkit-slider-thumb,
+body input[type="range"]::-webkit-slider-thumb,
+body .wb-range::-webkit-slider-thumb,
 body .control-group input[type="range"]::-webkit-slider-thumb,
-body input[type="range"].wb-range::-webkit-slider-thumb {
+body .wb-slider-row input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
   border: 2.5px solid #2D5A3D;
   box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
   cursor: pointer;
 }
 
-body .wb-slider-row input[type="range"]::-moz-range-thumb,
+body input[type="range"]::-moz-range-thumb,
+body .wb-range::-moz-range-thumb,
 body .control-group input[type="range"]::-moz-range-thumb,
-body input[type="range"].wb-range::-moz-range-thumb {
+body .wb-slider-row input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F4F7F4 70%);
   border: 2.5px solid #2D5A3D;
   box-shadow: 0 1px 2px rgba(20, 24, 21, 0.18), 0 3px 6px rgba(20, 35, 25, 0.16);
   cursor: pointer;
@@ -3113,11 +3134,28 @@ body .val-pill {
 body select,
 body .wb-tool-select,
 body input[type="text"],
-body input[type="number"] {
+body input[type="number"],
+body input[type="date"] {
+  height: 38px;
   background: linear-gradient(180deg, #FFFFFF 0%, #F6F4EE 100%);
   border: 1px solid #C8C3B8;
   border-radius: 6px;
   box-shadow: 0 1px 0 #D5D0C5, inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+body .calc-grid {
+  background: linear-gradient(180deg, #F5F3EC 0%, #F9F8F3 100%);
+  border: 1px solid #DFDBD0;
+  border-radius: 8px;
+  padding: 18px 20px;
+  box-shadow: inset 0 1px 3px rgba(20, 20, 19, 0.05);
+}
+
+body .control-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 
 body .summary-card,
@@ -3210,5 +3248,24 @@ body .seg-hidden {
   body .wb-inputs-col,
   body .wb-result-col {
     padding: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  body input[type="range"]::-webkit-slider-thumb,
+  body .wb-range::-webkit-slider-thumb,
+  body .control-group input[type="range"]::-webkit-slider-thumb,
+  body .wb-slider-row input[type="range"]::-webkit-slider-thumb,
+  body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"] .wb-slider-row input[type="range"]::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+  body input[type="range"]::-moz-range-thumb,
+  body .wb-range::-moz-range-thumb,
+  body .control-group input[type="range"]::-moz-range-thumb,
+  body .wb-slider-row input[type="range"]::-moz-range-thumb,
+  body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"] .wb-slider-row input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
   }
 }

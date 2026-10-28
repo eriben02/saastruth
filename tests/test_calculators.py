@@ -1065,7 +1065,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         with open(os.path.join(PUBLIC_DIR, "zendesk-ai-cost-calculator/index.html"), encoding="utf-8") as f:
             polish_html = f.read()
         self.assertIn('<body data-page="zendesk-ai-cost-calculator" class="page-zendesk-ai-polish">', polish_html)
-        self.assertIn("assets/styles.css?v=20261028c", polish_html)
+        self.assertIn("assets/styles.css?v=20261028d", polish_html)
         self.assertIn('class="wb-col-controls wb-inputs-col"', polish_html)
         self.assertIn("seg-base", polish_html)
         self.assertIn("seg-seats", polish_html)
