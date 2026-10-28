@@ -1051,7 +1051,7 @@ def mark_zendesk_ai_page_polish(rel_path):
     )
     html = html.replace(
         "assets/styles.css?v=20261027c",
-        "assets/styles.css?v=20261028b",
+        "assets/styles.css?v=20261028c",
         1,
     )
     with open(path, "w", encoding="utf-8") as f:
