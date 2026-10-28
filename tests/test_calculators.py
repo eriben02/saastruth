@@ -1058,6 +1058,28 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertEqual(out["seatsPlusAi"], out["zd"])
             self.assertEqual(out["year2"], out["zd"])
 
+        with open(os.path.join(PUBLIC_DIR, "zendesk-ai-cost-calculator/index.html"), encoding="utf-8") as f:
+            polish_html = f.read()
+        self.assertIn('<body data-page="zendesk-ai-cost-calculator" class="page-zendesk-ai-polish">', polish_html)
+        self.assertIn("assets/styles.css?v=20261028a", polish_html)
+        for other_rel in (
+            "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+            "zendesk-vs-freshdesk-cost-comparison/index.html",
+        ):
+            with open(os.path.join(PUBLIC_DIR, other_rel), encoding="utf-8") as f:
+                self.assertNotIn("page-zendesk-ai-polish", f.read(), other_rel)
+        with open(os.path.join(PUBLIC_DIR, "assets/styles.css"), encoding="utf-8") as f:
+            polish_css = f.read()
+        self.assertIn('body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"]', polish_css)
+        self.assertIn("border: 1px solid #1E3F29", polish_css)
+        self.assertIn("0 1px 2px rgba(20, 40, 26, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.14)", polish_css)
+        self.assertIn("transform: translateY(-1px)", polish_css)
+        self.assertIn("transform: translateY(0)", polish_css)
+        self.assertIn("border: 1px solid rgba(32, 35, 31, 0.16)", polish_css)
+        self.assertIn("background: rgba(255, 255, 255, 0.72)", polish_css)
+        self.assertIn("outline: 2px solid #2D5A3D", polish_css)
+        self.assertIn("outline-offset: 2px", polish_css)
+
         with open(os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html"), encoding="utf-8") as f:
             pricing_html = f.read()
         self.assertIn(f'<p class="lead">{hubspot_pricing_lead}</p>', pricing_html)

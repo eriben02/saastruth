@@ -7,7 +7,8 @@ Uses the exact same TOOLS, AFFILIATES, and calcToolYear1(t, seats, aiVol, mode) 
 with zero new calculation logic, prefilled for a realistic 10-agent, 1,500 AI conversations/month scenario.
 """
 import json
-from layout import load_data, render_page, SITE_ORIGIN
+import os
+from layout import load_data, render_page, PUBLIC_DIR, SITE_ORIGIN
 
 TOOLS, AFFILIATES = load_data()
 tools_js = json.dumps(TOOLS)
@@ -1033,6 +1034,25 @@ zd_faqs = [
 ]
 
 
+def mark_zendesk_ai_page_polish(rel_path):
+    """Scope the editorial button polish to /zendesk-ai-cost-calculator/ only."""
+    path = os.path.join(PUBLIC_DIR, rel_path)
+    with open(path, encoding="utf-8") as f:
+        html = f.read()
+    html = html.replace(
+        "<body>",
+        '<body data-page="zendesk-ai-cost-calculator" class="page-zendesk-ai-polish">',
+        1,
+    )
+    html = html.replace(
+        "assets/styles.css?v=20261027c",
+        "assets/styles.css?v=20261028a",
+        1,
+    )
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+
+
 def build_zendesk_pages():
     render_page(
         "zendesk-ai-cost-calculator/index.html",
@@ -1049,6 +1069,7 @@ def build_zendesk_pages():
         ),
         faqs=zd_faqs,
     )
+    mark_zendesk_ai_page_polish("zendesk-ai-cost-calculator/index.html")
     render_page(
         "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
         "Zendesk AI Cost Calculator (2026): Real Per-Resolution & Add-On Pricing | SaaSBill",
