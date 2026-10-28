@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from layout import render_page, load_data, PUBLIC_DIR, SITE_ORIGIN
 
 TOOLS, AFFILIATES = load_data()
@@ -653,4 +654,254 @@ render_page(
     faqs=p5_faqs
 )
 
-print("Wrote Page 3, Page 4, and Page 5 in light editorial style.")
+HS_PRICING_LEAD = (
+    "See what HubSpot actually costs once mandatory onboarding fees, extra seats, and contact tiers are included. "
+    "Adjust your team size, contacts, and tier below to see your real Year-1 total and how it compares to Close CRM and Pipedrive."
+)
+HS_ROOT_LEAD = (
+    "Calculate your real Year-1 HubSpot cost including the mandatory $1,500 to $7,000 onboarding fee. "
+    "Adjust your seats, marketing contacts, and tier below to compare your total against Close CRM and Pipedrive."
+)
+
+
+def build_hubspot():
+    """Refresh the pricing-page lead and publish the root onboarding-fee calculator."""
+    pricing_path = os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html")
+    if os.path.exists(pricing_path):
+        with open(pricing_path, encoding="utf-8") as f:
+            html = f.read()
+
+        def _lead_repl(match):
+            return match.group(1) + '<p class="lead">' + HS_PRICING_LEAD + "</p>"
+
+        html, n = re.subn(
+            r"(<h1>.*?</h1>\s*)<p class=\"lead\">.*?</p>",
+            _lead_repl,
+            html,
+            count=1,
+            flags=re.S,
+        )
+        if n:
+            with open(pricing_path, "w", encoding="utf-8") as f:
+                f.write(html)
+
+    body = """
+<section class="hero">
+  <h1>HubSpot Onboarding Fee Calculator: Mandatory Setup &amp; Real Year-1 Cost ($1,500&ndash;$7,000)</h1>
+  <p class="lead">Calculate your real Year-1 HubSpot cost including the mandatory $1,500 to $7,000 onboarding fee. Adjust your seats, marketing contacts, and tier below to compare your total against Close CRM and Pipedrive.</p>
+</section>
+
+<section class="calc-box editorial-workbench" aria-labelledby="hs-onb-heading">
+  <h2 id="hs-onb-heading" class="sr-only-control">HubSpot onboarding fee and Year-1 true-cost calculator</h2>
+  <div class="workbench-grid">
+    <div class="wb-col-controls">
+      <div class="wb-col-title">Estimate Your True Cost</div>
+      <div class="wb-controls-stack">
+        <div class="wb-control-item">
+          <label class="wb-control-label" for="hs-users">Team size (core seats)</label>
+          <div class="wb-slider-row">
+            <input type="range" id="hs-users" min="1" max="30" value="5" aria-label="Team size" data-track="calculator-control" data-control="hs-users" />
+            <span class="wb-slider-val" id="hs-users-val">5</span>
+          </div>
+        </div>
+        <div class="wb-control-item">
+          <label class="wb-control-label" for="hs-contacts">Marketing contacts</label>
+          <div class="wb-slider-row">
+            <input type="range" id="hs-contacts" min="1000" max="25000" step="1000" value="2000" aria-label="Marketing contacts" data-track="calculator-control" data-control="hs-contacts" />
+            <span class="wb-slider-val" id="hs-contacts-val">2,000</span>
+          </div>
+        </div>
+        <div class="wb-control-item">
+          <label class="wb-control-label" for="hs-tier">HubSpot hub &amp; edition</label>
+          <select id="hs-tier" data-track="calculator-control" data-control="hs-tier">
+            <option value="sales_pro" selected>Sales Hub Pro ($90/seat + $1,500 onboarding)</option>
+            <option value="sales_ent">Sales Hub Ent ($150/seat + $3,500 onboarding)</option>
+            <option value="mkt_pro">Marketing Pro ($800/mo + $3,000 onboarding, 2,000 contacts)</option>
+            <option value="mkt_ent">Marketing Ent ($3,600/mo + $7,000 onboarding, 10,000 contacts)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="wb-result-col" id="hs-onb-summary" aria-live="polite">
+      <div class="wb-selected-product" id="hs-selected-product">HubSpot Sales Hub Professional</div>
+      <div class="wb-big-total"><span id="hs-big-amount">$6,900</span> <span class="wb-per-year">/ year</span></div>
+      <p class="wb-budget-quote" id="hs-scenario">Based on 5 seats, annual billing, 2,000 marketing contacts.</p>
+      <p class="wb-budget-subnote" id="hs-hidden-note"><strong>Hidden Cost Highlight:</strong> Sales Hub Pro adds a mandatory $1,500 onboarding fee in Year 1.</p>
+      <div class="wb-best-option" id="hs-best-option"><strong>Best option:</strong> <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="workbench-best-option">Pipedrive CRM ($2,340/yr)</a> &middot; saves $4,560/yr</div>
+      <details class="calc-disclosure" id="hs-calc-details">
+        <summary class="calc-disclosure-toggle">See exactly how we calculated this</summary>
+        <div class="calc-disclosure-body" id="hs-calc-body"></div>
+      </details>
+      <div class="cta-stack">
+        <a id="hs-primary-cta" class="btn-cta wb-primary-cta" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close" data-cta-location="workbench">Save $4,080/yr with Close CRM &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hidden-gap-section" aria-labelledby="hs-gap-heading">
+  <details class="full-table-disclosure" id="full-table-details">
+    <summary class="full-table-summary">
+      <div class="full-table-summary-text">
+        <h2 id="hs-gap-heading" class="full-table-heading">Compare all tools in this category</h2>
+        <span class="full-table-summary-sub">HubSpot vs. Close CRM vs. Pipedrive, including mandatory onboarding and marketing contact tiers</span>
+      </div>
+      <span class="full-table-toggle-pill" id="hs-table-pill">Compare all tools &darr;</span>
+    </summary>
+    <div class="full-table-body">
+      <div class="table-wrap editorial-gap-table mobile-cards">
+        <table>
+          <caption>HubSpot, Close CRM, and Pipedrive Year-1 cost (USD)</caption>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Licenses / Year</th>
+              <th>Onboarding</th>
+              <th>Contact tiers</th>
+              <th>Year-1 Total</th>
+            </tr>
+          </thead>
+          <tbody id="hs-compare-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+  <p class="calc-affiliate-disclosure">Independent calculations. Some vendor links are affiliate links. This never changes our rankings or calculations.</p>
+</section>
+
+<script>
+function calcHubSpotCluster(users, contacts, tier) {
+  let hsMonthly = 0;
+  let hsOnboard = 0;
+  let includedContacts = 0;
+  let contactBlockRate = 0;
+  let hsName = '';
+  if (tier === 'sales_pro') {
+    hsName = 'HubSpot Sales Hub Professional';
+    hsMonthly = users * 90;
+    hsOnboard = 1500;
+  } else if (tier === 'sales_ent') {
+    hsName = 'HubSpot Sales Hub Enterprise';
+    hsMonthly = users * 150;
+    hsOnboard = 3500;
+  } else if (tier === 'mkt_pro') {
+    hsName = 'HubSpot Marketing Hub Professional';
+    hsMonthly = 800 + Math.max(0, users - 3) * 45;
+    hsOnboard = 3000;
+    includedContacts = 2000;
+    contactBlockRate = 50;
+  } else {
+    hsName = 'HubSpot Marketing Hub Enterprise';
+    hsMonthly = 3600 + Math.max(0, users - 5) * 75;
+    hsOnboard = 7000;
+    includedContacts = 10000;
+    contactBlockRate = 75;
+  }
+  const extraContacts = Math.max(0, contacts - includedContacts);
+  const contactBlocks = includedContacts > 0 ? Math.ceil(extraContacts / 1000) : 0;
+  const contactMonthly = contactBlocks * contactBlockRate;
+  const seatsAnnual = hsMonthly * 12;
+  const contactAnnual = contactMonthly * 12;
+  const year1 = seatsAnnual + hsOnboard + contactAnnual;
+  const closeAnnual = users * 47 * 12;
+  const pipedriveAnnual = users * 39 * 12;
+  return {
+    hsName: hsName,
+    seatsAnnual: seatsAnnual,
+    hsOnboard: hsOnboard,
+    contactBlocks: contactBlocks,
+    contactAnnual: contactAnnual,
+    year1: year1,
+    closeAnnual: closeAnnual,
+    pipedriveAnnual: pipedriveAnnual
+  };
+}
+
+function renderHsOnboarding() {
+  const users = parseInt(document.getElementById('hs-users').value, 10);
+  const contacts = parseInt(document.getElementById('hs-contacts').value, 10);
+  const tier = document.getElementById('hs-tier').value;
+  document.getElementById('hs-users-val').textContent = users.toLocaleString();
+  document.getElementById('hs-contacts-val').textContent = contacts.toLocaleString();
+  const row = calcHubSpotCluster(users, contacts, tier);
+  const best = row.pipedriveAnnual <= row.closeAnnual
+    ? { name: 'Pipedrive CRM', total: row.pipedriveAnnual, vendor: 'pipedrive-crm', href: 'https://www.pipedrive.com/en/pricing' }
+    : { name: 'Close CRM Startup', total: row.closeAnnual, vendor: 'close', href: 'https://refer.close.com/3k5hp07b8soi-fetl0j' };
+  const saved = Math.max(0, row.year1 - best.total);
+  document.getElementById('hs-selected-product').textContent = row.hsName;
+  document.getElementById('hs-big-amount').textContent = '$' + row.year1.toLocaleString();
+  document.getElementById('hs-scenario').textContent = 'Based on ' + users + ' seat' + (users === 1 ? '' : 's') + ', annual billing, ' + contacts.toLocaleString() + ' marketing contacts.';
+  document.getElementById('hs-hidden-note').innerHTML = '<strong>Hidden Cost Highlight:</strong> Year-1 adds $' + row.hsOnboard.toLocaleString() + ' mandatory onboarding' + (row.contactAnnual > 0 ? ' and $' + row.contactAnnual.toLocaleString() + ' in contact-tier fees' : '') + '.';
+  document.getElementById('hs-best-option').innerHTML = '<strong>Best option:</strong> <a href="' + best.href + '" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="' + best.vendor + '" data-cta-location="workbench-best-option">' + best.name + ' ($' + best.total.toLocaleString() + '/yr)</a> &middot; saves $' + saved.toLocaleString() + '/yr';
+  document.getElementById('hs-calc-body').innerHTML = [
+    '<div class="calc-math-list">',
+    '<div class="calc-math-row"><span class="calc-math-label"><strong>Seat licenses</strong></span><span class="calc-math-val">$' + row.seatsAnnual.toLocaleString() + '</span></div>',
+    '<div class="calc-math-row"><span class="calc-math-label"><strong>Mandatory onboarding</strong></span><span class="calc-math-val">+$' + row.hsOnboard.toLocaleString() + '</span></div>',
+    '<div class="calc-math-row"><span class="calc-math-label"><strong>Marketing contact tiers</strong><span class="calc-math-formula">' + row.contactBlocks + ' extra 1,000-contact blocks</span></span><span class="calc-math-val">+$' + row.contactAnnual.toLocaleString() + '</span></div>',
+    '<div class="calc-math-total"><span>True Year-1 Total</span><span>$' + row.year1.toLocaleString() + ' / yr</span></div>',
+    '</div>'
+  ].join('');
+  const closeSaved = Math.max(0, row.year1 - row.closeAnnual);
+  const cta = document.getElementById('hs-primary-cta');
+  cta.textContent = closeSaved > 0 ? ('Save $' + closeSaved.toLocaleString() + '/yr with Close CRM →') : 'Compare Close CRM ($0 onboarding) →';
+  const rows = [
+    { name: row.hsName, seats: row.seatsAnnual, onb: row.hsOnboard, contacts: row.contactAnnual, total: row.year1 },
+    { name: 'Close CRM Startup', seats: row.closeAnnual, onb: 0, contacts: 0, total: row.closeAnnual },
+    { name: 'Pipedrive CRM', seats: row.pipedriveAnnual, onb: 0, contacts: 0, total: row.pipedriveAnnual }
+  ];
+  document.getElementById('hs-compare-tbody').innerHTML = rows.map(function(r) {
+    return '<tr>'
+      + '<td data-label="Platform"><strong>' + r.name + '</strong></td>'
+      + '<td data-label="Licenses / Year">$' + r.seats.toLocaleString() + '</td>'
+      + '<td data-label="Onboarding">$' + r.onb.toLocaleString() + '</td>'
+      + '<td data-label="Contact tiers">$' + r.contacts.toLocaleString() + '</td>'
+      + '<td data-label="Year-1 Total">$' + r.total.toLocaleString() + '</td>'
+      + '</tr>';
+  }).join('');
+  if (typeof window.trackSaaSBillEvent === 'function') {
+    window.trackSaaSBillEvent('result_rendered', { page: 'hubspot-onboarding-fee-calculator', seats: users, contacts: contacts, tier: tier, year1: row.year1 });
+  }
+}
+['hs-users', 'hs-contacts', 'hs-tier'].forEach(function(id) {
+  const el = document.getElementById(id);
+  el.addEventListener('input', renderHsOnboarding);
+  el.addEventListener('change', renderHsOnboarding);
+});
+const hsTable = document.getElementById('full-table-details');
+if (hsTable) {
+  hsTable.addEventListener('toggle', function() {
+    const pill = document.getElementById('hs-table-pill');
+    if (pill) pill.innerHTML = hsTable.open ? 'Hide comparison &uarr;' : 'Compare all tools &darr;';
+    if (typeof window.trackSaaSBillEvent === 'function') {
+      window.trackSaaSBillEvent('calculator_interaction', { control: 'compare-all-tools', value: hsTable.open ? 'open' : 'closed' });
+    }
+  });
+}
+renderHsOnboarding();
+</script>
+"""
+    render_page(
+        "hubspot-onboarding-fee-calculator/index.html",
+        "HubSpot Onboarding Fee & True Cost Calculator (2026): Pro vs Enterprise | SaaSBill",
+        "Calculate the 2026 HubSpot Year-1 cost including mandatory $1,500 to $7,000 onboarding fees, extra seats, and marketing contact tiers versus Close CRM and Pipedrive.",
+        "/hubspot-onboarding-fee-calculator/",
+        body,
+        faqs=[
+            (
+                "How much is HubSpot's mandatory onboarding fee in 2026?",
+                "Sales Hub Professional is $1,500, Sales Hub Enterprise is $3,500, Marketing Hub Professional is $3,000, and Marketing Hub Enterprise is $7,000 when you buy directly from HubSpot.",
+            ),
+            (
+                "Do marketing contact tiers change the Year-1 total?",
+                "Sales Hub plans in this calculator do not add a marketing-contact fee. Marketing Hub Professional includes 2,000 contacts and then $50 per month for each extra 1,000 contacts. Marketing Hub Enterprise includes 10,000 contacts and then $75 per month per extra 1,000.",
+            ),
+            (
+                "How does that compare with Close CRM and Pipedrive?",
+                "Close CRM Startup is $47 per user per month billed annually with $0 onboarding. Pipedrive Growth is $39 per seat per month billed annually with $0 onboarding. Neither adds a HubSpot-style onboarding fee.",
+            ),
+        ],
+    )
+
+
+build_hubspot()
+print("Wrote Page 3, Page 4, Page 5, and the HubSpot onboarding calculator.")

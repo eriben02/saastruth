@@ -278,7 +278,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "intercom-fin-cost-calculator/index.html",
             "intercom-vs-freshdesk-cost-comparison/index.html",
             "intercom-vs-zendesk-cost-comparison/index.html",
+            "zendesk-ai-cost-calculator/index.html",
+            "zendesk-vs-freshdesk-cost-comparison/index.html",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "hubspot-onboarding-fee-calculator/index.html",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
@@ -303,7 +306,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "intercom-fin-cost-calculator/index.html": "wb-result-mount",
             "intercom-vs-freshdesk-cost-comparison/index.html": "wb-result-mount",
             "intercom-vs-zendesk-cost-comparison/index.html": "wb-result-mount",
+            "zendesk-ai-cost-calculator/index.html": "wb-result-mount",
+            "zendesk-vs-freshdesk-cost-comparison/index.html": "wb-result-mount",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html": "hs-summary",
+            "hubspot-onboarding-fee-calculator/index.html": "hs-onb-summary",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html": "ic-summary",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html": "hold-summary",
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html": "sm-summary",
@@ -516,7 +522,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "intercom-fin-cost-calculator/index.html",
             "intercom-vs-freshdesk-cost-comparison/index.html",
             "intercom-vs-zendesk-cost-comparison/index.html",
+            "zendesk-ai-cost-calculator/index.html",
+            "zendesk-vs-freshdesk-cost-comparison/index.html",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "hubspot-onboarding-fee-calculator/index.html",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
@@ -595,7 +604,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
         with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), encoding="utf-8") as f:
             sitemap = f.read()
-        self.assertEqual(sitemap.count("<url><loc>"), 23)
+        self.assertEqual(sitemap.count("<url><loc>"), 26)
 
         faq_pages = [
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
@@ -811,7 +820,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "intercom-fin-cost-calculator/index.html",
             "intercom-vs-freshdesk-cost-comparison/index.html",
             "intercom-vs-zendesk-cost-comparison/index.html",
+            "zendesk-ai-cost-calculator/index.html",
+            "zendesk-vs-freshdesk-cost-comparison/index.html",
             "pricing/hubspot-true-cost-and-onboarding-fees/index.html",
+            "hubspot-onboarding-fee-calculator/index.html",
             "pricing/intercom-fin-ai-resolution-cost-calculator/index.html",
             "exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html",
             "compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html",
@@ -955,6 +967,168 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertGreater(pos_tbody, pos_viz)
             for bad in ["—", "&mdash;", "SaaSTruth", "Erik", "Bengtsson"]:
                 self.assertNotIn(bad, html, f"Forbidden token '{bad}' in {rel}")
+
+
+    def test_zendesk_and_hubspot_high_intent_calculators(self):
+        """Zendesk spotlight pages and the HubSpot onboarding calculator: leads, disclosure, math, tracking, and brand leaks."""
+        zendesk_lead = "See what Zendesk AI actually costs once the $50/agent add-on and per-resolution overages are included. Adjust the agents and AI volume below to see your real Year-1 total and how it compares to Freshdesk and Intercom."
+        zendesk_vs_lead = "Compare what Zendesk AI and Freshdesk Freddy AI actually cost for your support team. Adjust the agents and AI volume below to see the real Year-1 total and exact annual savings side by side."
+        hubspot_pricing_lead = "See what HubSpot actually costs once mandatory onboarding fees, extra seats, and contact tiers are included. Adjust your team size, contacts, and tier below to see your real Year-1 total and how it compares to Close CRM and Pipedrive."
+        hubspot_root_lead = "Calculate your real Year-1 HubSpot cost including the mandatory $1,500 to $7,000 onboarding fee. Adjust your seats, marketing contacts, and tier below to compare your total against Close CRM and Pipedrive."
+        zendesk_pages = [
+            (
+                "zendesk-ai-cost-calculator/index.html",
+                "https://saasbill.io/zendesk-ai-cost-calculator/",
+                "Zendesk AI Cost Calculator (2026): Real Per-Resolution & Add-On Pricing | SaaSBill",
+                "Zendesk AI Cost Calculator: Calculate Your Real Year-1 Total ($50/Seat Add-On + $1.50/Resolution)",
+                zendesk_lead,
+            ),
+            (
+                "pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html",
+                "https://saasbill.io/pricing/zendesk-ai-resolution-and-automated-outcome-cost/",
+                "Zendesk AI Cost Calculator (2026): Real Per-Resolution & Add-On Pricing | SaaSBill",
+                "Zendesk AI Cost Calculator: Calculate Your Real Year-1 Total ($50/Seat Add-On + $1.50/Resolution)",
+                zendesk_lead,
+            ),
+            (
+                "zendesk-vs-freshdesk-cost-comparison/index.html",
+                "https://saasbill.io/zendesk-vs-freshdesk-cost-comparison/",
+                "Zendesk vs Freshdesk Cost Comparison (2026): AI & Seat Pricing Calculator | SaaSBill",
+                "Zendesk vs Freshdesk Cost Comparison: Real Year-1 Pricing with AI Resolutions",
+                zendesk_vs_lead,
+            ),
+        ]
+        for rel, canonical, title, h1, lead in zendesk_pages:
+            with open(os.path.join(PUBLIC_DIR, rel), encoding="utf-8") as f:
+                html = f.read()
+            self.assertIn(f'<link rel="canonical" href="{canonical}" />', html)
+            self.assertIn(f"<title>{title}</title>", html)
+            self.assertIn(f"<h1>{h1}</h1>", html)
+            self.assertIn(f'<p class="lead">{lead}</p>', html)
+            self.assertIn("let currentSpotlightSlug = 'zendesk-suite-team';", html)
+            self.assertIn("function calcToolYear1(t, seats, aiVol, mode)", html)
+            self.assertIn('id="wb-big-amount">$32,700</span>', html)
+            self.assertIn("Freshdesk Growth + Freddy AI ($10,855/yr)", html)
+            self.assertIn("saves $21,845/yr", html)
+            self.assertIn('id="wb-calc-details"', html)
+            self.assertIn('id="full-table-details"', html)
+            self.assertIn("See exactly how we calculated this", html)
+            self.assertIn('data-track="vendor-cta"', html)
+            self.assertIn('data-track="calculator-control"', html)
+            self.assertIn("window.trackSaaSBillEvent", html)
+            pos_inputs = html.find('class="wb-col-controls"')
+            pos_answer = html.find('id="wb-result-mount"')
+            pos_best = html.find('id="wb-best-option"')
+            pos_calc = html.find('id="wb-calc-details"')
+            pos_compare = html.find('id="full-table-details"')
+            self.assertGreater(pos_answer, pos_inputs)
+            self.assertGreater(pos_best, pos_answer)
+            self.assertGreater(pos_calc, pos_best)
+            self.assertGreater(pos_compare, pos_calc)
+            for bad in ["—", "&mdash;", "SaaSTruth", "Erik Bengtsson", "Erik", "Bengtsson"]:
+                self.assertNotIn(bad, html, f"Forbidden token '{bad}' in {rel}")
+
+            tools_m = re.search(r"const TOOLS = (\[.*?\]);\nconst AFFILIATES", html, re.S)
+            fn_m = re.search(
+                r"(function calcEffectiveSeats\(tool, seats\) \{.*?\n\}\n\nfunction calcToolYear1\(t, seats, aiVol, mode\) \{.*?\n\})\n\nconst VENDOR_CTA_LABELS",
+                html,
+                re.S,
+            )
+            self.assertIsNotNone(tools_m, f"Could not extract TOOLS from {rel}")
+            self.assertIsNotNone(fn_m, f"Could not extract calcToolYear1 from {rel}")
+            runner = "const TOOLS = " + tools_m.group(1) + ";\n" + fn_m.group(1) + """
+            const zd = calcToolYear1(TOOLS.find(t => t.id === 'zendesk-suite-team'), 10, 1500, 'annual');
+            const fd = calcToolYear1(TOOLS.find(t => t.id === 'freshdesk-support'), 10, 1500, 'annual');
+            const stepSum = zd.calcSteps.reduce((s, step) => s + step.amount, 0);
+            console.log(JSON.stringify({
+              zd: zd.year1Total,
+              fd: fd.year1Total,
+              saved: zd.year1Total - fd.year1Total,
+              stepSum: stepSum,
+              year2: zd.year2Total,
+              seatsPlusAi: zd.annualSeatsCost + zd.onboarding + zd.aiAnnual
+            }));
+            """
+            res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+            out = json.loads(res.stdout)
+            self.assertEqual(out["zd"], 32700)
+            self.assertEqual(out["fd"], 10855)
+            self.assertEqual(out["saved"], 21845)
+            self.assertEqual(out["stepSum"], out["zd"])
+            self.assertEqual(out["seatsPlusAi"], out["zd"])
+            self.assertEqual(out["year2"], out["zd"])
+
+        with open(os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html"), encoding="utf-8") as f:
+            pricing_html = f.read()
+        self.assertIn(f'<p class="lead">{hubspot_pricing_lead}</p>', pricing_html)
+        for bad in ["—", "&mdash;", "SaaSTruth", "Erik Bengtsson"]:
+            self.assertNotIn(bad, pricing_html)
+
+        with open(os.path.join(PUBLIC_DIR, "hubspot-onboarding-fee-calculator/index.html"), encoding="utf-8") as f:
+            hs_html = f.read()
+        self.assertIn('<link rel="canonical" href="https://saasbill.io/hubspot-onboarding-fee-calculator/" />', hs_html)
+        self.assertIn("<title>HubSpot Onboarding Fee & True Cost Calculator (2026): Pro vs Enterprise | SaaSBill</title>", hs_html)
+        self.assertIn("HubSpot Onboarding Fee Calculator: Mandatory Setup", hs_html)
+        self.assertIn("$1,500", hs_html)
+        self.assertIn("$7,000", hs_html)
+        self.assertIn(f'<p class="lead">{hubspot_root_lead}</p>', hs_html)
+        self.assertIn('id="hs-users"', hs_html)
+        self.assertIn('id="hs-contacts"', hs_html)
+        self.assertIn('id="hs-tier"', hs_html)
+        self.assertIn('class="full-table-disclosure" id="full-table-details"', hs_html)
+        self.assertIn('id="hs-calc-details"', hs_html)
+        self.assertIn("See exactly how we calculated this", hs_html)
+        self.assertIn('data-track="vendor-cta"', hs_html)
+        self.assertIn('data-track="calculator-control"', hs_html)
+        self.assertIn("function calcHubSpotCluster", hs_html)
+        self.assertIn("plausible", hs_html)
+        for bad in ["—", "&mdash;", "SaaSTruth", "Erik Bengtsson", "Erik", "Bengtsson"]:
+            self.assertNotIn(bad, hs_html, f"Forbidden token '{bad}' in hubspot onboarding page")
+
+        fn = re.search(
+            r"(function calcHubSpotCluster\(users, contacts, tier\) \{.*?\n\})\n\nfunction renderHsOnboarding",
+            hs_html,
+            re.S,
+        )
+        self.assertIsNotNone(fn)
+        runner = fn.group(1) + """
+        const a = calcHubSpotCluster(5, 2000, 'sales_pro');
+        const b = calcHubSpotCluster(5, 5000, 'mkt_pro');
+        console.log(JSON.stringify({
+          a: a,
+          b: b,
+          aSum: a.seatsAnnual + a.hsOnboard + a.contactAnnual,
+          bSum: b.seatsAnnual + b.hsOnboard + b.contactAnnual
+        }));
+        """
+        res = subprocess.run(["node", "-e", runner], capture_output=True, text=True, check=True)
+        hs_out = json.loads(res.stdout)
+        self.assertEqual(hs_out["a"]["year1"], 6900)
+        self.assertEqual(hs_out["a"]["closeAnnual"], 5 * 47 * 12)
+        self.assertEqual(hs_out["a"]["pipedriveAnnual"], 5 * 39 * 12)
+        self.assertEqual(hs_out["aSum"], hs_out["a"]["year1"])
+        self.assertEqual(hs_out["b"]["contactAnnual"], 3 * 50 * 12)
+        self.assertEqual(hs_out["b"]["year1"], (800 * 12 + 2 * 45 * 12) + 3000 + (3 * 50 * 12))
+        self.assertEqual(hs_out["bSum"], hs_out["b"]["year1"])
+
+        with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), encoding="utf-8") as f:
+            sitemap = f.read()
+        for path in (
+            "/zendesk-ai-cost-calculator/",
+            "/zendesk-vs-freshdesk-cost-comparison/",
+            "/hubspot-onboarding-fee-calculator/",
+        ):
+            self.assertIn(f"https://saasbill.io{path}", sitemap)
+        self.assertEqual(sitemap.count("<url><loc>"), 26)
+
+        with open(os.path.join(PUBLIC_DIR, "llms.txt"), encoding="utf-8") as f:
+            llms = f.read()
+        for path in (
+            "/zendesk-ai-cost-calculator/",
+            "/zendesk-vs-freshdesk-cost-comparison/",
+            "/hubspot-onboarding-fee-calculator/",
+        ):
+            self.assertIn(path, llms)
 
 
 if __name__ == "__main__":
