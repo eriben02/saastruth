@@ -57,34 +57,30 @@ def render_related_links(rel_path, prefix):
         ("faq/stripe-vs-paddle-true-cost/index.html", "FAQ: Stripe vs. Paddle vs. Whop True Cost (2026)", "Side-by-side effective take rate calculator with Billing, Tax, and FX fees."),
     ]
     cards = []
+    directory_links = []
     for target_rel, label, summary in all_links:
         if target_rel == rel_path:
             continue
         href = prefix + target_rel.replace("index.html", "")
-        cards.append(f"""
+        directory_links.append(f'<a href="{href}" data-track="internal-audit" style="font-size:0.84rem; margin-right:14px; display:inline-block; margin-bottom:6px;">{label} &rarr;</a>')
+        if len(cards) < 3:
+            cards.append(f"""
         <div class="card" style="padding:14px 16px;">
           <h3 style="margin:0 0 6px; font-size:0.98rem;"><a href="{href}" data-track="internal-audit">{label} &rarr;</a></h3>
           <p style="margin:0; font-size:0.84rem; color:var(--muted);">{summary}</p>
         </div>""")
-        if len(cards) >= 6:
-            break
-    # Always ensure the 3 FAQ guides and related category links are reachable
-    extra_faq_links = []
-    for target_rel, label, _ in all_links[1:]:
-        if target_rel == rel_path:
-            continue
-        href = prefix + target_rel.replace("index.html", "")
-        extra_faq_links.append(f'<a href="{href}" data-track="internal-audit" style="font-size:0.84rem; margin-right:14px; display:inline-block; margin-bottom:6px;">{label} &rarr;</a>')
     return f"""
     <section aria-labelledby="related-calculators-heading" style="margin-top:36px; padding-top:24px; border-top:1px solid var(--border);">
       <h2 id="related-calculators-heading" style="font-size:1.2rem; margin-top:0;">Related Year-1 True-Cost Calculators &amp; Contract Audits</h2>
-      <div class="card-grid" style="margin-bottom:16px;">
+      <div class="card-grid related-card-grid" style="margin-bottom:16px;">
         {''.join(cards)}
       </div>
-      <div style="padding:12px 14px; background:var(--surface-alt, #F2F4F0); border-radius:8px; line-height:1.7;">
-        <strong style="font-size:0.84rem; display:block; margin-bottom:4px;">All Audited Calculators &amp; High-Intent Guides:</strong>
-        {''.join(extra_faq_links)}
-      </div>
+      <details class="footer-directory-details">
+        <summary>Browse all 29 audited calculators &amp; guides</summary>
+        <div class="footer-directory-links">
+          {''.join(directory_links)}
+        </div>
+      </details>
     </section>
     """
 

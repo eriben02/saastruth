@@ -117,14 +117,12 @@ body = f"""
 <section class="calc-box" id="calculator">
   <h2 style="margin-top:0;">Net payout calculator: Gumroad vs. Whop vs. Lemon Squeezy</h2>
   <p style="color:var(--muted); margin-bottom:16px; font-size:0.95rem;">Prefilled with a $29 digital product, 200 sales/month. Results update as you change the inputs below.</p>
-  <div id="tr-summary" class="summary-strip" aria-live="polite"></div>
-  <div id="tr-chargeflow" class="summary-strip" aria-live="polite">
-    <div class="summary-card card-hidden">
-      <div class="summary-label">Chargeback recovery callout</div>
-      <div class="summary-metric" style="color:var(--rose);">$348 / yr lost to disputes</div>
+  <div id="tr-summary" class="summary-strip" aria-live="polite">
+    <div class="summary-card card-lowest" id="tr-chargeflow">
+      <div class="summary-label">Dispute Recovery: Chargeflow</div>
+      <div class="summary-metric" style="color:var(--emerald);">$170 / yr net</div>
       <div class="summary-scenario">Based on 200 sales/mo at $29, 0.5% dispute rate</div>
-      <div class="summary-breakdown">Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>$170/yr net</strong>. Lost order value is not included in the platform fee totals.</div>
-      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Dispute order value is a separate drain from the platform fee.</div>
+      <div class="summary-breakdown">$348/yr lost to disputes. Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>$170/yr net</strong>.</div>
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover $170/yr in disputes with Chargeflow &rarr;</a>
@@ -205,6 +203,15 @@ body = f"""
   <p id="tr-note" style="font-size:0.84rem; color:var(--muted); margin-top:10px;"></p>
 </section>
 
+<details class="full-table-disclosure">
+  <summary class="full-table-summary">
+    <span class="full-table-summary-text">
+      <span class="full-table-heading">Fee breakdown tables</span>
+      <span class="full-table-summary-sub">Per-sale fees and the full schedule</span>
+    </span>
+    <span class="full-table-toggle-pill">Show tables</span>
+  </summary>
+  <div class="full-table-body">
 <section aria-labelledby="persale-heading">
   <h2 id="persale-heading">What each platform keeps from a single sale</h2>
   <p class="section-tldr">On a single $29 domestic card sale, Gumroad keeps ${f2(S29[0])}, Lemon Squeezy ${f2(S29[1])} and Whop ${f2(S29[2])} (before Whop’s optional 2% tax service). Fixed per-sale fees hurt cheap products most: on a $10 sale Gumroad takes {S10[0] / 10 * 100:.0f}%.</p>
@@ -245,6 +252,8 @@ body = f"""
     </table>
   </div>
 </section>
+  </div>
+</details>
 
 <section aria-labelledby="findings-heading">
   <h2 id="findings-heading">What we found in the fine print</h2>
@@ -359,6 +368,18 @@ function updateTr() {{
       <div class="summary-scenario">${{scenarioLine}}</div>
       <div class="summary-breakdown">${{rows.map(r => r.name + ' ' + trFmt(r.total * 12) + ' fees → ' + trFmt(r.net * 12) + ' net').join(' &middot; ')}}</div>
       <div class="summary-caveat"><strong>Before you switch:</strong> ${{o.whop_tax === 'none' ? 'Whop is shown without tax handling, so sales tax/VAT compliance stays with you.' : 'Gumroad and Lemon Squeezy include tax as merchant of record; Whop is shown with its 2% managed tax option.'}} New Whop and Gumroad accounts may see payout holds or reserves.</div>
+    </div>
+    <div class="summary-card card-lowest" id="tr-chargeflow">
+      <div class="summary-label">Dispute Recovery: Chargeflow</div>
+      <div class="summary-metric" style="color:var(--emerald);">${{trFmt(cfNetDisputes)}} / yr net</div>
+      <div class="summary-scenario">Based on ${{o.sales.toLocaleString('en-US')}} sales/mo at $${{o.price}}, ${{o.dispute.toFixed(1)}}% dispute rate</div>
+      <div class="summary-breakdown">${{trFmt(lostYr)}}/yr lost to disputes. Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>${{trFmt(cfNetDisputes)}}/yr net</strong>. Lost order value is not included in the platform fee totals.</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Dispute order value is a separate drain from the platform fee.</div>
+      <div class="summary-actions">
+        <div class="cta-stack">
+          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover ${{trFmt(cfNetDisputes)}}/yr in disputes with Chargeflow →</a>
+        </div>
+      </div>
     </div>`;
   document.getElementById('tr-tbody').innerHTML = rows.map(r => `
     <tr>
@@ -371,20 +392,6 @@ function updateTr() {{
       <td data-label="Net payout / yr" class="price-highlight">${{trFmt(r.net * 12)}}<div class="cell-scenario">${{scenarioLine}}</div></td>
       <td data-label="Next step"><div class="cta-stack"><a class="btn-secondary" href="${{r.url}}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="${{r.id}}" data-cta-location="table-row">${{r.cta}}</a></div></td>
     </tr>`).join('');
-  const cfEl = document.getElementById('tr-chargeflow');
-  if (cfEl) cfEl.innerHTML = `
-    <div class="summary-card card-hidden">
-      <div class="summary-label">Chargeback recovery callout</div>
-      <div class="summary-metric" style="color:var(--rose);">${{trFmt(lostYr)}} / yr lost to disputes</div>
-      <div class="summary-scenario">Based on ${{o.sales.toLocaleString('en-US')}} sales/mo at $${{o.price}}, ${{o.dispute.toFixed(1)}}% dispute rate</div>
-      <div class="summary-breakdown">Chargeflow ($0/mo, 25% fee only on won disputes, 65% planning win rate) recovers <strong>${{trFmt(cfNetDisputes)}}/yr net</strong>. Lost order value is not included in the platform fee totals.</div>
-      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Dispute order value is a separate drain from the platform fee.</div>
-      <div class="summary-actions">
-        <div class="cta-stack">
-          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover ${{trFmt(cfNetDisputes)}}/yr in disputes with Chargeflow →</a>
-        </div>
-      </div>
-    </div>`;
   let note = 'Assumptions: list prices, fees calculated on the pre-tax price (Lemon Squeezy calculates its fee on the order total including tax, so its real fee is slightly higher on taxed sales). Gumroad PayPal sales are modelled at the 2.9% + 30¢ card rate; actual PayPal fees may differ. Whop payouts assume 4 next-day ACH withdrawals/mo ($2.50 each). Lost revenue from chargebacks is the same on every platform and is not included.';
   if (o.payout === 'intl') note += ' Whop international local-bank payout fees vary by country and are not included.';
   document.getElementById('tr-note').textContent = note;

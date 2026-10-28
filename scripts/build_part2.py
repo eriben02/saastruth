@@ -15,10 +15,6 @@ p3_body = """
   <div class="geo-direct-answer">
     <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30 base + 0.8% orchestration)</strong>.</p>
   </div>
-  <aside class="evidence-box" id="chargeback-recovery-callout">
-    <strong>Chargeback and dispute recovery</strong>
-    <p style="margin:8px 0 0;">A payout hold is not the same bill as a lost order plus a dispute fee. <a href="../../chargeback-fee-and-recovery-calculator/" data-track="internal-audit">Open the chargeback fee and recovery calculator &rarr;</a></p>
-  </aside>
 </section>
 
 <section class="calc-box">
@@ -42,34 +38,32 @@ p3_body = """
       <input type="range" id="res-dispute-rate" min="0.1" max="2.0" step="0.05" value="0.65" />
     </div>
   </div>
-  <div id="hold-summary" class="summary-strip" aria-live="polite"></div>
+  <div id="hold-summary" class="summary-strip" aria-live="polite" hidden></div>
   <div id="reserve-output" class="summary-strip" style="display:none;"></div>
   <div id="res-output" class="summary-strip" aria-live="polite">
     <div class="summary-card card-hidden">
-      <div class="summary-label">Annual dispute drain</div>
-      <div class="summary-metric" style="color:var(--rose);">$5,655 / yr</div>
-      <div class="summary-scenario">Based on $50,000/mo gross volume, $100 AOV, 0.65% dispute rate (3.25 disputes/mo)</div>
-      <div class="summary-breakdown"><strong>Annual chargeback &amp; dispute drain:</strong> $3,900 disputed order value + $585 processor dispute fees ($15) + $1,170 manual evidence prep ($30)</div>
-      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Net Annual Recovery with Chargeflow is $1,901/yr (65% planning win rate, 25% performance fee, $0/mo fixed).</div>
-      <details class="calc-disclosure">
-        <summary class="calc-disclosure-toggle">See calculation</summary>
-        <div class="calc-disclosure-body">
-          <div class="calc-math-list">
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Transactions / mo</strong><span class="calc-math-formula">$50,000 volume / $100 AOV</span></span><span class="calc-math-val">500</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputes / yr</strong><span class="calc-math-formula">500 tx &times; 0.65% &times; 12</span></span><span class="calc-math-val">39</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputed order value</strong><span class="calc-math-formula">39 &times; $100</span></span><span class="calc-math-val">$3,900</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Processor dispute fee</strong><span class="calc-math-formula">$15 &times; disputes</span></span><span class="calc-math-val">$585</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Manual evidence prep</strong><span class="calc-math-formula">$30 &times; disputes</span></span><span class="calc-math-val">$1,170</span></div>
-            <div class="calc-math-total"><span>Annual dispute drain</span><span>$5,655</span></div>
-            <div class="calc-math-total"><span>Net Annual Recovery with Chargeflow</span><span>$1,901</span></div>
-          </div>
-        </div>
-      </details>
+      <div class="summary-label">Processor Reserve &amp; Dispute Drain</div>
+      <div class="summary-metric" style="color:var(--rose);">$5,655 / yr drain</div>
+      <div class="summary-scenario">Based on $50,000/mo gross volume, 25% rolling reserve, 15% capital loan deduction, 0.65% dispute rate</div>
+      <div class="summary-breakdown"><strong>Estimated monthly processing fees:</strong> $1,450/mo (2.9%) &middot; <strong>Annual dispute drain:</strong> $3,900 disputed orders + $585 processor fees + $1,170 evidence prep</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> A rolling reserve withholds cash before operating expenses. Net Annual Recovery with Chargeflow is $1,901/yr.</div>
+    </div>
+    <div class="summary-card card-lowest">
+      <div class="summary-label">Chargeflow + Whop Failover Stack</div>
+      <div class="summary-metric" style="color:var(--emerald);">$1,901 / yr net</div>
+      <div class="summary-scenario">Based on $50,000/mo gross volume and a 0.65% dispute rate</div>
+      <div class="summary-breakdown">65% planning win rate, 25% performance fee, $0/mo fixed.</div>
       <div class="summary-actions">
         <div class="cta-stack">
           <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">Recover $1,901/yr &amp; prevent reserves with Chargeflow &rarr;</a>
         </div>
       </div>
+    </div>
+    <div class="summary-card card-highest">
+      <div class="summary-label">Paddle MoR Token Lock-In</div>
+      <div class="summary-metric">Locked card vault</div>
+      <div class="summary-scenario">Contract and vault ownership check</div>
+      <div class="summary-breakdown">Paddle is the seller of record, so card tokens cannot be exported after a risk termination.</div>
     </div>
   </div>
   <p class="summary-interpretation"><strong>How to read this comparison:</strong> Payment processors do not have a single fixed-price &ldquo;winner&rdquo;. Your actual take rate and cashflow exposure depend on monthly volume, average order value, international card mix, and whether you require a Merchant of Record for global VAT/sales tax.</p>
@@ -195,32 +189,41 @@ function updateReserveSim() {
   const scenarioLine = `Based on $${rev.toLocaleString()}/mo gross volume, ${resPct}% rolling reserve, ${capPct}% capital loan deduction, ${disputeRate.toFixed(2)}% dispute rate`;
   const cardsHtml = `
     <div class="summary-card card-hidden">
-      <div class="summary-label">Funds Temporarily Held</div>
-      <div class="summary-metric" style="color:var(--rose);">$${frozenMo.toLocaleString()} / mo held</div>
+      <div class="summary-label">Processor Reserve &amp; Dispute Drain</div>
+      <div class="summary-metric" style="color:var(--rose);">${usd(disputeDrain)} / yr drain</div>
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown"><strong>Estimated monthly processing fees:</strong> $${procFee.toLocaleString()}/mo (2.9%) &middot; <strong>Temporarily held:</strong> $${frozenMo.toLocaleString()}/mo reserve + $${loanDed.toLocaleString()}/mo loan deduction &middot; <strong>Annual dispute drain:</strong> ${usd(disputeDrain)} (disputed orders ${usd(disputed)} + $15 fee ${usd(procDisputeFee)} + $30 prep ${usd(evidencePrep)})</div>
       <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> A rolling reserve is a temporary cashflow holdback (90&ndash;180 days), not a permanent fee, but it withholds ${heldPct}% ($${tempHeld.toLocaleString()}/mo) of gross payouts before operating expenses.</div>
-      <div class="summary-actions">
-        <div class="cta-stack">
-          <a class="btn-cta" href="https://stripe.com/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="stripe-payments" data-cta-location="summary-card">View Stripe pricing &rarr;</a>
+      <details class="calc-disclosure">
+        <summary class="calc-disclosure-toggle">See calculation</summary>
+        <div class="calc-disclosure-body">
+          <div class="calc-math-list">
+            <div class="calc-math-row"><span class="calc-math-label"><strong>Transactions / mo</strong><span class="calc-math-formula">$${rev.toLocaleString('en-US')} volume / $100 AOV</span></span><span class="calc-math-val">${tx.toLocaleString('en-US')}</span></div>
+            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputes / yr</strong><span class="calc-math-formula">${tx.toLocaleString('en-US')} tx &times; ${disputeRate.toFixed(2)}% &times; 12</span></span><span class="calc-math-val">${disputesYr.toFixed(2)}</span></div>
+            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputed order value</strong><span class="calc-math-formula">${disputesYr.toFixed(2)} &times; $100</span></span><span class="calc-math-val">${usd(disputed)}</span></div>
+            <div class="calc-math-row"><span class="calc-math-label"><strong>Processor dispute fee</strong><span class="calc-math-formula">$15 &times; disputes</span></span><span class="calc-math-val">${usd(procDisputeFee)}</span></div>
+            <div class="calc-math-row"><span class="calc-math-label"><strong>Manual evidence prep</strong><span class="calc-math-formula">$30 &times; disputes</span></span><span class="calc-math-val">${usd(evidencePrep)}</span></div>
+            <div class="calc-math-total"><span>Annual dispute drain</span><span>${usd(disputeDrain)}</span></div>
+            <div class="calc-math-total"><span>Net Annual Recovery with Chargeflow</span><span>${usd(cfNet)}</span></div>
+          </div>
         </div>
-      </div>
+      </details>
     </div>
     <div class="summary-card card-lowest">
-      <div class="summary-label">Net Monthly Payout</div>
-      <div class="summary-metric" style="color:var(--emerald);">$${netCash.toLocaleString()} / mo</div>
+      <div class="summary-label">Chargeflow + Whop Failover Stack</div>
+      <div class="summary-metric" style="color:var(--emerald);">${usd(cfNet)} / yr net</div>
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown">$${rev.toLocaleString()} gross &minus; $${procFee.toLocaleString()} est. processing fees &minus; $${tempHeld.toLocaleString()} temporarily held = $${netCash.toLocaleString()} net</div>
       <div class="summary-caveat"><strong>Why failover &amp; dispute defense matter:</strong> Pairing multi-acquirer routing (<strong>Whop Payments</strong>, 2.7% + $0.30 base + 0.8% orchestration) with automated pre-dispute alerts (<strong>Chargeflow</strong>, keeps dispute rate &lt;0.5%) prevents a single processor from freezing 100% of checkout cashflow.</div>
       <div class="summary-actions">
         <div class="cta-stack">
+          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">${cfCta}</a>
           <a class="btn-secondary" href="https://whop.com/sell?a=baggyprairieae" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="whop-payments" data-cta-location="summary-card">View Whop Payments pricing &rarr;</a>
         </div>
-        <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">${cfCta}</a>
       </div>
     </div>
     <div class="summary-card card-highest">
-      <div class="summary-label">Token Portability &amp; MoR Caveat</div>
+      <div class="summary-label">Paddle MoR Token Lock-In</div>
       <div class="summary-metric">Processor vs. MoR</div>
       <div class="summary-scenario">Contract &amp; vault ownership check (Verified terms)</div>
       <div class="summary-breakdown">Stripe: $2,325/mo est. fees at $50k/mo (portable tokens) &middot; Paddle MoR: $3,450/mo est. fees (locked vault)</div>
@@ -233,40 +236,8 @@ function updateReserveSim() {
       </div>
     </div>
   `;
-  const holdEl = document.getElementById('hold-summary');
-  if (holdEl) holdEl.innerHTML = cardsHtml;
-  const resEl = document.getElementById('reserve-output');
-  if (resEl) resEl.innerHTML = cardsHtml;
   const disputeOut = document.getElementById('res-output');
-  if (disputeOut) disputeOut.innerHTML = `
-    <div class="summary-card card-hidden">
-      <div class="summary-label">Annual dispute drain</div>
-      <div class="summary-metric" style="color:var(--rose);">${usd(disputeDrain)} / yr</div>
-      <div class="summary-scenario">Based on $${rev.toLocaleString('en-US')}/mo gross volume, $100 AOV, ${disputeRate.toFixed(2)}% dispute rate (${disputesMo.toFixed(2)} disputes/mo)</div>
-      <div class="summary-breakdown"><strong>Annual chargeback &amp; dispute drain:</strong> ${usd(disputed)} disputed order value + ${usd(procDisputeFee)} processor dispute fees ($15) + ${usd(evidencePrep)} manual evidence prep ($30)</div>
-      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> Net Annual Recovery with Chargeflow is ${usd(cfNet)}/yr (65% planning win rate, 25% performance fee, $0/mo fixed).</div>
-      <details class="calc-disclosure">
-        <summary class="calc-disclosure-toggle">See calculation</summary>
-        <div class="calc-disclosure-body">
-          <div class="calc-math-list">
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Transactions / mo</strong><span class="calc-math-formula">$${rev.toLocaleString('en-US')} volume / $100 AOV</span></span><span class="calc-math-val">${tx.toLocaleString('en-US')}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputes / yr</strong><span class="calc-math-formula">${tx.toLocaleString('en-US')} tx &times; ${disputeRate.toFixed(2)}% &times; 12</span></span><span class="calc-math-val">${disputesYr.toFixed(2)}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Disputed order value</strong><span class="calc-math-formula">${disputesYr.toFixed(2)} &times; $100</span></span><span class="calc-math-val">${usd(disputed)}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Processor dispute fee</strong><span class="calc-math-formula">$15 &times; disputes</span></span><span class="calc-math-val">${usd(procDisputeFee)}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Manual evidence prep</strong><span class="calc-math-formula">$30 &times; disputes</span></span><span class="calc-math-val">${usd(evidencePrep)}</span></div>
-            <div class="calc-math-total"><span>Annual dispute drain</span><span>${usd(disputeDrain)}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Chargeflow gross recovery</strong><span class="calc-math-formula">65% of disputed order value</span></span><span class="calc-math-val">${usd(cfGross)}</span></div>
-            <div class="calc-math-row"><span class="calc-math-label"><strong>Performance fee</strong><span class="calc-math-formula">25% of won disputes, $0/mo fixed</span></span><span class="calc-math-val">${usd(cfFee)}</span></div>
-            <div class="calc-math-total"><span>Net Annual Recovery with Chargeflow</span><span>${usd(cfNet)}</span></div>
-          </div>
-        </div>
-      </details>
-      <div class="summary-actions">
-        <div class="cta-stack">
-          <a class="btn-cta" href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="summary-card">${cfCta}</a>
-        </div>
-      </div>
-    </div>`;
+  if (disputeOut) disputeOut.innerHTML = cardsHtml;
   if (typeof window.trackSaaSBillEvent === 'function') window.trackSaaSBillEvent('result_rendered', { page: 'reserve-simulator', rev: rev, resPct: resPct, disputeRate: disputeRate, cfNet: cfNet });
 }
 ['gm-rev', 'gm-res', 'gm-cap', 'res-dispute-rate'].forEach(id => document.getElementById(id).addEventListener('input', updateReserveSim));

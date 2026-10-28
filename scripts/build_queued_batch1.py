@@ -93,6 +93,8 @@ PAGES = [
         "winner_url": "https://whop.com/sell?a=baggyprairieae",
         "winner_cta": "View Whop Payments pricing",
         "winner_vendor": "whop-payments",
+        "card1_label": "Best Value: Whop Payments",
+        "card2_label": "Stripe / Paddle Hidden Cost Breakdown",
         "extra_controls": """
     <div class="control-group">
       <label for="sb-dispute-rate">Subscription dispute / chargeback rate: <span class="val" id="sb-dispute-rate-val">0.50</span>%</label>
@@ -106,27 +108,6 @@ PAGES = [
   el.addEventListener('input', runPageCalc);
   el.addEventListener('change', runPageCalc);
 });
-""",
-        "extra_panel": """
-<div id="sb-dispute-panel" class="summary-strip" aria-live="polite">
-  <div class="summary-box" id="chargeflow-recovery-callout">
-    <div class="lbl">Chargeflow Pay-On-Performance Recovery</div>
-    <div class="num summary-metric">$1,170/yr net</div>
-    <div class="sub">Annual Chargeback &amp; Dispute Drain on Stripe: $3,840 (disputed MRR $2,400 + $15 Stripe dispute fee $720 + $15 counter/prep $720). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
-    <details class="calc-disclosure">
-      <summary class="calc-disclosure-toggle">See calculation</summary>
-      <div class="calc-disclosure-body">
-        <div class="calc-math-list">
-          <div class="calc-math-row"><span class="calc-math-label"><strong>Annual Chargeback &amp; Dispute Drain</strong><span class="calc-math-formula">disputed MRR + $15 Stripe dispute fee + $15 counter/prep</span></span><span class="calc-math-val">$3,840</span></div>
-          <div class="calc-math-total"><span>Net recovery with Chargeflow</span><span>$1,170</span></div>
-        </div>
-      </div>
-    </details>
-    <div style="margin-top:10px;">
-      <a href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" class="btn-cta" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="subpage-summary">Recover $1,170/yr net with Chargeflow &rarr;</a>
-    </div>
-  </div>
-</div>
 """,
         "js_logic": """
         const mrr = parseInt(document.getElementById('p-slider').value, 10);
@@ -158,12 +139,11 @@ PAGES = [
           {name: 'Stripe (Cards + Billing + Tax)', plan: '2.9% + $0.30 base card rate', base: '$' + stripeBaseYr.toLocaleString('en-US') + '/yr', hidden: '+$' + stripeHiddenYr.toLocaleString('en-US') + '/yr (0.7% Billing' + (mode === 'full' ? ' + 0.5% Tax' : '') + ') + Annual Chargeback & Dispute Drain ' + usd(disputeDrain) + ' (disputed MRR ' + usd(disputedMrr) + ' + $15 Stripe dispute fee ' + usd(stripeDisputeFee) + ' + $15 counter/prep ' + usd(stripePrepCost) + ')', total: '$' + stripeYr.toLocaleString('en-US') + '/yr', url: 'https://stripe.com/pricing', cta: 'View Stripe pricing', vendor: 'stripe-payments', status: 'Verified', src: 'https://stripe.com/pricing'},
           {name: 'Paddle (Merchant of Record)', plan: '5.0% + $0.50 all-in MoR', base: '$' + paddleYr.toLocaleString('en-US') + '/yr', hidden: 'Global tax incl. (non-portable card vault)', total: '$' + paddleYr.toLocaleString('en-US') + '/yr', url: 'https://www.paddle.com/pricing', cta: 'View Paddle pricing', vendor: 'paddle-mor', status: 'Verified', src: 'https://www.paddle.com/pricing'}
         ];
-        const disputePanel = document.getElementById('sb-dispute-panel');
-        if (disputePanel) disputePanel.innerHTML = `
-          <div class="summary-box" id="chargeflow-recovery-callout">
-            <div class="lbl">Chargeflow Pay-On-Performance Recovery</div>
-            <div class="num summary-metric">${usd(cfNet)}/yr net</div>
-            <div class="sub">Annual Chargeback &amp; Dispute Drain on Stripe: ${usd(disputeDrain)} (disputed MRR ${usd(disputedMrr)} + $15 Stripe dispute fee ${usd(stripeDisputeFee)} + $15 counter/prep ${usd(stripePrepCost)}). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
+        var disputeCardHtml = `
+          <div class="summary-card card-lowest" id="chargeflow-recovery-callout">
+            <div class="summary-label">Dispute Recovery: Chargeflow Pay-On-Performance</div>
+            <div class="summary-metric">${usd(cfNet)}/yr net</div>
+            <div class="summary-breakdown">Annual Chargeback &amp; Dispute Drain on Stripe: ${usd(disputeDrain)} (disputed MRR ${usd(disputedMrr)} + $15 Stripe dispute fee ${usd(stripeDisputeFee)} + $15 counter/prep ${usd(stripePrepCost)}). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
             <details class="calc-disclosure">
               <summary class="calc-disclosure-toggle">See calculation</summary>
               <div class="calc-disclosure-body">
@@ -176,17 +156,11 @@ PAGES = [
                 </div>
               </div>
             </details>
-            <div style="margin-top:10px;">
+            <div class="summary-actions">
               <a href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" class="btn-cta" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="subpage-summary">Recover ${usd(cfNet)}/yr net with Chargeflow →</a>
             </div>
           </div>`;
         """,
-        "callout": """
-<aside class="evidence-box" id="chargeback-recovery-callout">
-  <strong>Chargeback and dispute recovery</strong>
-  <p style="margin:8px 0 0;">Processing rates do not include the order value you lose in a dispute, or the non-refundable dispute fee. <a href="../../chargeback-fee-and-recovery-calculator/" data-track="internal-audit">Open the chargeback fee and recovery calculator &rarr;</a></p>
-</aside>
-""",
         "faqs": [
             ("How much does Stripe Billing charge for recurring subscriptions in 2026?", "Stripe Billing pay-as-you-go charges 0.7% of recurring subscription volume on top of standard 2.9% + $0.30 card processing fees. Adding Stripe Tax adds another 0.5% per transaction."),
             ("Does Whop charge an extra 0.7% fee on recurring subscriptions?", "No. Whop's domestic card processing starts at 2.7% + $0.30 without a separate 0.7% recurring billing surcharge.")
@@ -405,6 +379,8 @@ PAGES = [
         "winner_url": "https://whop.com/sell?a=baggyprairieae",
         "winner_cta": "View Whop Payments pricing",
         "winner_vendor": "whop-payments",
+        "card1_label": "Best Value: Whop Payments",
+        "card2_label": "Stripe / Paddle Hidden Cost Breakdown",
         "extra_controls": """
     <div class="control-group">
       <label for="sp-dispute-rate">Dispute / chargeback rate: <span class="val" id="sp-dispute-rate-val">0.50</span>%</label>
@@ -418,28 +394,6 @@ PAGES = [
   el.addEventListener('input', runPageCalc);
   el.addEventListener('change', runPageCalc);
 });
-""",
-        "extra_panel": """
-<div id="sp-dispute-panel" class="summary-strip" aria-live="polite">
-  <div class="summary-box" id="chargeflow-recovery-callout">
-    <div class="lbl">Chargeflow Pay-On-Performance Recovery</div>
-    <div class="num summary-metric">$1,463/yr net</div>
-    <div class="sub">Annual Chargeback &amp; Dispute Fees: Stripe $3,900 ($15/dispute + unrecovered disputed revenue) vs Paddle $4,200 ($20/dispute + unrecovered disputed revenue). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
-    <details class="calc-disclosure">
-      <summary class="calc-disclosure-toggle">See calculation</summary>
-      <div class="calc-disclosure-body">
-        <div class="calc-math-list">
-          <div class="calc-math-row"><span class="calc-math-label"><strong>Stripe Annual Chargeback &amp; Dispute Fees</strong><span class="calc-math-formula">$3,000 unrecovered disputed revenue + $900 at $15/dispute</span></span><span class="calc-math-val">$3,900</span></div>
-          <div class="calc-math-row"><span class="calc-math-label"><strong>Paddle Annual Chargeback &amp; Dispute Fees</strong><span class="calc-math-formula">$3,000 unrecovered disputed revenue + $1,200 at $20/dispute</span></span><span class="calc-math-val">$4,200</span></div>
-          <div class="calc-math-total"><span>Net recovery with Chargeflow</span><span>$1,463</span></div>
-        </div>
-      </div>
-    </details>
-    <div style="margin-top:10px;">
-      <a href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" class="btn-cta" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="subpage-summary">Recover $1,463/yr net with Chargeflow &rarr;</a>
-    </div>
-  </div>
-</div>
 """,
         "js_logic": """
         const gmv = parseInt(document.getElementById('p-slider').value, 10);
@@ -473,12 +427,11 @@ PAGES = [
           {name: 'Stripe (Cards + Billing + Tax)', plan: '2.9% + $0.30 base card rate', base: '$' + stripeBaseYr.toLocaleString('en-US') + '/yr', hidden: '+$' + stripeHiddenYr.toLocaleString('en-US') + '/yr (0.7% Billing + 0.5% Tax' + (whopHiddenYr > 0 ? ' + FX' : '') + ') + Annual Chargeback & Dispute Fees ' + usd(stripeDisputeLine) + ' (' + usd(disputedRev) + ' unrecovered disputed revenue + ' + usd(stripeDisputeFees) + ' at $15/dispute)', total: '$' + stripeYr.toLocaleString('en-US') + '/yr', url: 'https://stripe.com/pricing', cta: 'View Stripe pricing', vendor: 'stripe-payments', status: 'Verified', src: 'https://stripe.com/pricing'},
           {name: 'Paddle (Merchant of Record)', plan: '5.0% + $0.50 all-in MoR rate', base: '$' + paddleBaseYr.toLocaleString('en-US') + '/yr', hidden: 'Annual Chargeback & Dispute Fees ' + usd(paddleDisputeLine) + ' (' + usd(disputedRev) + ' unrecovered disputed revenue + ' + usd(paddleDisputeFees) + ' at $20/dispute). Global VAT handled (card vault locked to Paddle)', total: '$' + paddleYr.toLocaleString('en-US') + '/yr', url: 'https://www.paddle.com/pricing', cta: 'View Paddle pricing', vendor: 'paddle-mor', status: 'Verified', src: 'https://www.paddle.com/pricing'}
         ];
-        const disputePanel = document.getElementById('sp-dispute-panel');
-        if (disputePanel) disputePanel.innerHTML = `
-          <div class="summary-box" id="chargeflow-recovery-callout">
-            <div class="lbl">Chargeflow Pay-On-Performance Recovery</div>
-            <div class="num summary-metric">${usd(cfNet)}/yr net</div>
-            <div class="sub">Annual Chargeback &amp; Dispute Fees: Stripe ${usd(stripeDisputeLine)} ($15/dispute + unrecovered disputed revenue) vs Paddle ${usd(paddleDisputeLine)} ($20/dispute + unrecovered disputed revenue). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
+        var disputeCardHtml = `
+          <div class="summary-card card-lowest" id="chargeflow-recovery-callout">
+            <div class="summary-label">Dispute Recovery: Chargeflow Pay-On-Performance</div>
+            <div class="summary-metric">${usd(cfNet)}/yr net</div>
+            <div class="summary-breakdown">Annual Chargeback &amp; Dispute Fees: Stripe ${usd(stripeDisputeLine)} ($15/dispute + unrecovered disputed revenue) vs Paddle ${usd(paddleDisputeLine)} ($20/dispute + unrecovered disputed revenue). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
             <details class="calc-disclosure">
               <summary class="calc-disclosure-toggle">See calculation</summary>
               <div class="calc-disclosure-body">
@@ -489,7 +442,7 @@ PAGES = [
                 </div>
               </div>
             </details>
-            <div style="margin-top:10px;">
+            <div class="summary-actions">
               <a href="https://www.chargeflow.io/" target="_blank" rel="nofollow noopener" class="btn-cta" data-track="vendor-cta" data-vendor="chargeflow" data-cta-location="subpage-summary">Recover ${usd(cfNet)}/yr net with Chargeflow →</a>
             </div>
           </div>`;
@@ -549,19 +502,20 @@ def build_all():
 function runPageCalc() {{
   {p["js_logic"]}
   document.getElementById('{p["summary_id"]}').innerHTML = `
-    <div class="summary-box">
-      <div class="lbl">Recommended Low-Friction Option</div>
-      <div class="num summary-metric">${{rows[0].total}}</div>
-      <div class="sub"><strong>${{rows[0].name}}</strong> &middot; Based on ${{document.getElementById('p-slider-val').textContent}}</div>
-      <div style="margin-top:10px;">
+    <div class="summary-card card-lowest">
+      <div class="summary-label">{p.get("card1_label", "Recommended low-friction option")}</div>
+      <div class="summary-metric">${{rows[0].total}}</div>
+      <div class="summary-scenario"><strong>${{rows[0].name}}</strong> &middot; Based on ${{document.getElementById('p-slider-val').textContent}}</div>
+      <div class="summary-actions">
         <a href="{p["winner_url"]}" target="_blank" rel="noopener" class="btn-cta" data-track="vendor-cta" data-vendor="{p["winner_vendor"]}" data-cta-location="subpage-summary">{p["winner_cta"]} &rarr;</a>
       </div>
     </div>
-    <div class="summary-box">
-      <div class="lbl">Hidden Cost Highlight</div>
-      <div class="num summary-metric" style="color:var(--warn);">${{ saved > 0 ? '+$' + saved.toLocaleString('en-US') + '/yr' : rows[rows.length-1].hidden }}</div>
-      <div class="sub"><strong>Hidden Cost Highlight:</strong> ${{rows[rows.length - 1].name}} adds ${{rows[rows.length - 1].hidden}}</div>
+    <div class="summary-card card-hidden">
+      <div class="summary-label">{p.get("card2_label", "Hidden cost highlight")}</div>
+      <div class="summary-metric" style="color:var(--warn);">${{ saved > 0 ? '+$' + saved.toLocaleString('en-US') + '/yr' : rows[rows.length-1].hidden }}</div>
+      <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${{rows[rows.length - 1].name}} adds ${{rows[rows.length - 1].hidden}}</div>
     </div>
+    ${{typeof disputeCardHtml !== 'undefined' ? disputeCardHtml : ''}}
   `;
   document.getElementById('p-tbody').innerHTML = rows.map(r => `
     <tr>

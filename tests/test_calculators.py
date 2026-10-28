@@ -587,7 +587,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertNotIn("-webkit-line-clamp", subnote_block.group(1))
         self.assertNotIn("overflow: hidden", subnote_block.group(1))
         for required_mobile_rule in [
-            "grid-template-columns: 118px minmax(0, 1fr);",
+            "grid-template-columns: 108px minmax(0, 1fr);",
             ".table-wrap.editorial-gap-table.mobile-cards td",
             "width: 24px;",
             "font-size: 16px;",
@@ -866,8 +866,10 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertNotIn("3.35rem", big_total_block.group(1))
         self.assertNotIn("white-space: nowrap", big_total_block.group(1))
         self.assertIn("flex-wrap: wrap", big_total_block.group(1))
-        self.assertIn("grid-template-columns: 196px 330px minmax(0, 1fr);", css)
-        self.assertIn("#calc-summary-strip,\n.verdict-section .summary-strip {\n  align-items: start;", css)
+        self.assertIn("grid-template-columns: 248px minmax(290px, 320px) minmax(280px, 1fr);", css)
+        self.assertIn("column-gap: 22px;", css)
+        self.assertIn(".summary-strip:has(details[open])", css)
+        self.assertIn("align-items: stretch;", css)
 
         with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
             index_html = f.read()

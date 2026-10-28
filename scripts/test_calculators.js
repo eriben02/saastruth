@@ -151,8 +151,9 @@ check("stripe billing dispute drain and Chargeflow CTA", () => {
   assert.ok(html.includes('id="sb-dispute-rate" min="0.0" max="2.0" step="0.05" value="0.50"'));
   assert.ok(html.includes("Subscription dispute / chargeback rate:"));
   assert.ok(html.includes("Annual Chargeback &amp; Dispute Drain") || html.includes("Annual Chargeback & Dispute Drain"));
-  assert.ok(html.includes("Recover $1,170/yr net with Chargeflow"));
-  assert.ok(html.includes("Chargeflow Pay-On-Performance Recovery"));
+  assert.ok(html.includes("Recover ${usd(cfNet)}/yr net with Chargeflow") || html.includes("Recover $1,170/yr net with Chargeflow"));
+  assert.ok(html.includes("Dispute Recovery: Chargeflow Pay-On-Performance"));
+  assert.ok(html.includes("Best Value: Whop Payments"));
   assert.ok(html.includes('href="https://www.chargeflow.io/"'));
   assert.ok(html.includes('data-track="vendor-cta" data-vendor="chargeflow"') || (html.includes('data-track="vendor-cta"') && html.includes('data-vendor="chargeflow"')));
   assert.ok(html.includes("See calculation"));
@@ -173,8 +174,9 @@ check("stripe vs paddle dispute fees and Chargeflow CTA", () => {
   assert.ok(html.includes("Annual Chargeback &amp; Dispute Fees") || html.includes("Annual Chargeback & Dispute Fees"));
   assert.ok(html.includes("$15/dispute") || html.includes("$15 Stripe") || html.includes("at $15/dispute"));
   assert.ok(html.includes("$20/dispute") || html.includes("at $20/dispute"));
-  assert.ok(html.includes("Recover $1,463/yr net with Chargeflow"));
-  assert.ok(html.includes("Chargeflow Pay-On-Performance Recovery"));
+  assert.ok(html.includes("Recover ${usd(cfNet)}/yr net with Chargeflow") || html.includes("Recover $1,463/yr net with Chargeflow"));
+  assert.ok(html.includes("Dispute Recovery: Chargeflow Pay-On-Performance"));
+  assert.ok(html.includes("Best Value: Whop Payments"));
   assert.ok(html.includes('href="https://www.chargeflow.io/"'));
   assert.ok(html.includes('data-vendor="chargeflow"'));
   assert.ok(!html.includes("\u2014") && !html.includes("&mdash;"));
@@ -192,7 +194,7 @@ check("gumroad chargeback recovery callout", () => {
   );
   assert.ok(html.includes('id="tr-dispute"'));
   assert.ok(html.includes('id="tr-chargeflow"'));
-  assert.ok(html.includes("Chargeback recovery callout") || html.includes("Chargeback Recovery Callout"));
+  assert.ok(html.includes("Dispute Recovery: Chargeflow"));
   assert.ok(html.includes("Recover $170/yr in disputes with Chargeflow"));
   assert.ok(html.includes("$0/mo, 25% fee only on won disputes"));
   assert.ok(html.includes('href="https://www.chargeflow.io/"'));
