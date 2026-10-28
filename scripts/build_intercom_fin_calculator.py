@@ -193,9 +193,9 @@ def render_intercom_calculator_body(
       <p class="wb-budget-quote" id="wb-budget-quote">Estimated Year-1 total including mandatory fees &amp; overages.</p>
       <p class="wb-budget-subnote" id="wb-budget-subnote">{budget_subnote}</p>
       <div class="wb-best-option" id="wb-best-option">{best_option_html}</div>
-      <details class="calc-disclosure" id="wb-calc-details">
-        <summary class="calc-disclosure-toggle" id="wb-calc-summary">See exactly how we calculated this</summary>
-        <div class="calc-disclosure-body" id="wb-calc-body"></div>
+      <details class="math-drawer" id="wb-calc-details">
+        <summary id="wb-calc-summary">Show calculation</summary>
+        <div class="math-drawer-body" id="wb-calc-body"></div>
       </details>
       <div class="cta-stack">
         <a id="wb-primary-cta" class="btn-cta wb-primary-cta" href="{primary_href}" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="{primary_vendor}" data-cta-location="workbench">{primary_label}</a>
@@ -707,9 +707,9 @@ function renderDirectory() {{
         <div class="summary-scenario">${{scenarioLine}}${{savedVsIc > 0 ? ` &middot; saves $${{savedVsIc.toLocaleString()}}/yr vs. ${{icR.tool.name}}` : ''}}</div>
         <div class="summary-breakdown">$${{minR.annualSeatsCost.toLocaleString()}} licenses + $${{minR.onboarding.toLocaleString()}} onboarding + $${{minR.aiAnnual.toLocaleString()}} AI</div>
         <div class="summary-caveat"><strong>Contract note:</strong> ${{minR.tool.trap_badge}}</div>
-        <details class="calc-disclosure">
-          <summary class="calc-disclosure-toggle">See calculation</summary>
-          <div class="calc-disclosure-body">${{renderCalcBreakdownHtml(minR, seats, aiVol, mode)}}</div>
+        <details class="math-drawer">
+          <summary>Show calculation</summary>
+          <div class="math-drawer-body">${{renderCalcBreakdownHtml(minR, seats, aiVol, mode)}}</div>
         </details>
         <div class="summary-actions">
           <div class="cta-stack">
@@ -724,9 +724,9 @@ function renderDirectory() {{
         <div class="summary-scenario">On <strong>${{icR.tool.name}}</strong> ($${{icR.year1Total.toLocaleString()}}/yr total &middot; ${{scenarioLine.replace('Based on ', '')}})</div>
         <div class="summary-breakdown">$${{icR.annualSeatsCost.toLocaleString()}} licenses + $${{icR.onboarding.toLocaleString()}} onboarding + $${{icR.aiAnnual.toLocaleString()}} AI</div>
         <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> ${{formatHiddenReason(icR)}}.</div>
-        <details class="calc-disclosure">
-          <summary class="calc-disclosure-toggle">See calculation</summary>
-          <div class="calc-disclosure-body">${{renderCalcBreakdownHtml(icR, seats, aiVol, mode)}}</div>
+        <details class="math-drawer">
+          <summary>Show calculation</summary>
+          <div class="math-drawer-body">${{renderCalcBreakdownHtml(icR, seats, aiVol, mode)}}</div>
         </details>
         <div class="summary-actions">
           <div class="cta-stack">
@@ -741,9 +741,9 @@ function renderDirectory() {{
         <div class="summary-scenario">${{scenarioLine}}</div>
         <div class="summary-breakdown">$${{thirdR.annualSeatsCost.toLocaleString()}} licenses + $${{thirdR.onboarding.toLocaleString()}} onboarding + $${{thirdR.aiAnnual.toLocaleString()}} AI</div>
         <div class="summary-caveat"><strong>Contract note:</strong> ${{thirdR.tool.trap_badge}}</div>
-        <details class="calc-disclosure">
-          <summary class="calc-disclosure-toggle">See calculation</summary>
-          <div class="calc-disclosure-body">${{renderCalcBreakdownHtml(thirdR, seats, aiVol, mode)}}</div>
+        <details class="math-drawer">
+          <summary>Show calculation</summary>
+          <div class="math-drawer-body">${{renderCalcBreakdownHtml(thirdR, seats, aiVol, mode)}}</div>
         </details>
         <div class="summary-actions">
           <div class="cta-stack">
@@ -847,7 +847,7 @@ function equalizeSummaryCards(stripEl) {{
   const cards = Array.from(stripEl.querySelectorAll('.summary-card'));
   if (!cards.length) return;
   const rowSelectors = ['.summary-label', '.summary-metric', '.summary-scenario', '.summary-breakdown', '.summary-caveat', '.summary-actions'];
-  const disclosures = cards.map(c => c.querySelector('.calc-disclosure'));
+  const disclosures = cards.map(c => c.querySelector('.math-drawer'));
   rowSelectors.forEach(sel => {{
     cards.forEach(c => {{
       const el = c.querySelector(sel);

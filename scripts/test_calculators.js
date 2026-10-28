@@ -156,7 +156,7 @@ check("stripe billing dispute drain and Chargeflow CTA", () => {
   assert.ok(html.includes("Best Value: Whop Payments"));
   assert.ok(html.includes('href="https://www.chargeflow.io/"'));
   assert.ok(html.includes('data-track="vendor-cta" data-vendor="chargeflow"') || (html.includes('data-track="vendor-cta"') && html.includes('data-vendor="chargeflow"')));
-  assert.ok(html.includes("See calculation"));
+  assert.ok(html.includes("Show calculation"));
   assert.ok(!html.includes("\u2014") && !html.includes("&mdash;"));
   assert.ok(!html.includes("SaaSTruth") && !html.includes("Erik Bengtsson"));
   const row = billingDispute(40000, 0.5);

@@ -387,7 +387,7 @@ h3 {
   grid-template-columns: minmax(0, 1fr);
 }
 
-.summary-strip:has(details[open]) {
+.summary-strip:has(details[open]:not(.math-drawer)) {
   align-items: start;
 }
 
@@ -3311,4 +3311,79 @@ body .seg-hidden {
     width: 24px;
     height: 24px;
   }
+}
+
+body .summary-card,
+body .summary-strip,
+body .wb-col,
+body .wb-result-col,
+body.page-zendesk-ai-polish[data-page="zendesk-ai-cost-calculator"] .wb-result-col {
+  overflow: visible;
+  position: relative;
+}
+
+.summary-card:has(.math-drawer[open]) {
+  z-index: 40;
+}
+
+.math-drawer {
+  position: relative;
+  display: inline-block;
+  margin-top: 0.45rem;
+}
+
+.math-drawer > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.68rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary, #334155);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition: all 0.15s ease;
+}
+
+.math-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+.math-drawer > summary::after {
+  content: "";
+  width: 0.38rem;
+  height: 0.38rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  transition: transform 0.15s ease;
+}
+
+.math-drawer[open] > summary::after {
+  transform: rotate(225deg) translateY(-1px);
+}
+
+.math-drawer:not([open]) > :not(summary) {
+  display: none;
+}
+
+.math-drawer > :not(summary),
+.math-drawer[open] > :not(summary) {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: max(270px, 100%);
+  max-width: 340px;
+  z-index: 100;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 18px 38px -8px rgba(15, 23, 42, 0.22), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
 }

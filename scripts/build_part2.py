@@ -194,9 +194,9 @@ function updateReserveSim() {
       <div class="summary-scenario">${scenarioLine}</div>
       <div class="summary-breakdown"><strong>Estimated monthly processing fees:</strong> $${procFee.toLocaleString()}/mo (2.9%) &middot; <strong>Temporarily held:</strong> $${frozenMo.toLocaleString()}/mo reserve + $${loanDed.toLocaleString()}/mo loan deduction &middot; <strong>Annual dispute drain:</strong> ${usd(disputeDrain)} (disputed orders ${usd(disputed)} + $15 fee ${usd(procDisputeFee)} + $30 prep ${usd(evidencePrep)})</div>
       <div class="summary-caveat"><strong>Hidden Cost Highlight:</strong> A rolling reserve is a temporary cashflow holdback (90&ndash;180 days), not a permanent fee, but it withholds ${heldPct}% ($${tempHeld.toLocaleString()}/mo) of gross payouts before operating expenses.</div>
-      <details class="calc-disclosure">
-        <summary class="calc-disclosure-toggle">See calculation</summary>
-        <div class="calc-disclosure-body">
+      <details class="math-drawer">
+        <summary>Show calculation</summary>
+        <div class="math-drawer-body">
           <div class="calc-math-list">
             <div class="calc-math-row"><span class="calc-math-label"><strong>Transactions / mo</strong><span class="calc-math-formula">$${rev.toLocaleString('en-US')} volume / $100 AOV</span></span><span class="calc-math-val">${tx.toLocaleString('en-US')}</span></div>
             <div class="calc-math-row"><span class="calc-math-label"><strong>Disputes / yr</strong><span class="calc-math-formula">${tx.toLocaleString('en-US')} tx &times; ${disputeRate.toFixed(2)}% &times; 12</span></span><span class="calc-math-val">${disputesYr.toFixed(2)}</span></div>
@@ -779,9 +779,9 @@ def build_hubspot():
       <p class="wb-budget-quote" id="hs-scenario">Based on 5 seats, annual billing, 2,000 marketing contacts.</p>
       <p class="wb-budget-subnote" id="hs-hidden-note"><strong>Hidden Cost Highlight:</strong> Sales Hub Pro adds a mandatory $1,500 onboarding fee in Year 1.</p>
       <div class="wb-best-option" id="hs-best-option"><strong>Best option:</strong> <a href="https://www.pipedrive.com/en/pricing" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="pipedrive-crm" data-cta-location="workbench-best-option">Pipedrive CRM ($2,340/yr)</a> &middot; saves $4,560/yr</div>
-      <details class="calc-disclosure" id="hs-calc-details">
-        <summary class="calc-disclosure-toggle">See exactly how we calculated this</summary>
-        <div class="calc-disclosure-body" id="hs-calc-body"></div>
+      <details class="math-drawer" id="hs-calc-details">
+        <summary>Show calculation</summary>
+        <div class="math-drawer-body" id="hs-calc-body"></div>
       </details>
       <div class="cta-stack">
         <a id="hs-primary-cta" class="btn-cta wb-primary-cta" href="https://refer.close.com/3k5hp07b8soi-fetl0j" target="_blank" rel="nofollow noopener" data-track="vendor-cta" data-vendor="close" data-cta-location="workbench">Save $4,080/yr with Close CRM &rarr;</a>

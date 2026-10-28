@@ -104,9 +104,9 @@ def render_body():
       <p class="wb-budget-quote" id="cb-quote">Based on 2,000 orders/mo, a $120 order value, and a 0.65% dispute rate on Stripe.</p>
       <p class="wb-budget-subnote" id="cb-callout">$9,126/yr net recovered after the 25% success fee, and $10,062/yr saved vs. manual in-house handling. Stripe Chargeback Protection is $11,520/yr at 0.40% of GMV.</p>
       <div class="wb-best-option" id="cb-best"><strong>Highest net recovery:</strong> Chargeflow Pay-On-Performance. $0/mo fixed fee and $0 setup.</div>
-      <details class="calc-disclosure" id="wb-calc-details">
-        <summary class="calc-disclosure-toggle">See exactly how we calculated this</summary>
-        <div class="calc-disclosure-body" id="cb-math"></div>
+      <details class="math-drawer" id="wb-calc-details">
+        <summary>Show calculation</summary>
+        <div class="math-drawer-body" id="cb-math"></div>
       </details>
       <div class="cta-stack">
         <a id="cb-primary-cta" class="btn-cta wb-primary-cta" href="{CF_URL}" target="_blank" rel="nofollow noopener" data-track="vendor_cta_click" data-vendor="chargeflow" data-cta-location="workbench">Recover $9,126/yr net with Chargeflow &rarr;</a>

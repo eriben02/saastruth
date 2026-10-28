@@ -1,6 +1,9 @@
 import subprocess
 import sys
 
+# Calculation drawers are <details class="math-drawer"> labeled "Show calculation".
+# layout.py loads public/assets/app.js, which closes other drawers and outside clicks.
+
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_part1.py"], check=True)
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_part2.py"], check=True)
 subprocess.run([sys.executable, "/workspace/saastruth/scripts/build_zendesk_ai_page.py"], check=True, cwd="/workspace/saastruth/scripts")

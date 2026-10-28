@@ -686,7 +686,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
 
     def test_priority1_progressive_disclosure_calculation_breakdown(self):
-        """Priority 1: Expandable 'See calculation' / 'See exactly how we calculated this' with exact dollar step sum."""
+        """Priority 1: Expandable 'Show calculation' / 'Show calculation' with exact dollar step sum."""
         for seats in (1, 3, 5, 12):
             for ai_vol in (0, 500, 1500):
                 for mode in ("annual", "monthly"):
@@ -706,14 +706,14 @@ class TestSaaSBillCalculators(unittest.TestCase):
         with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
             index_html = f.read()
         self.assertIn('id="wb-calc-details"', index_html)
-        self.assertIn("See exactly how we calculated this", index_html)
-        self.assertIn("See calculation", index_html)
+        self.assertIn("Show calculation", index_html)
+        self.assertIn("Show calculation", index_html)
         self.assertIn("function renderCalcBreakdownHtml", index_html)
 
         with open(os.path.join(PUBLIC_DIR, "pricing/hubspot-true-cost-and-onboarding-fees/index.html"), encoding="utf-8") as f:
             hs_html = f.read()
         self.assertIn('id="hs-calc-details"', hs_html)
-        self.assertIn("See exactly how we calculated this", hs_html)
+        self.assertIn("Show calculation", hs_html)
 
     def test_priority2_plausible_event_forwarding(self):
         """Priority 2: Plausible receives calculator_interaction, category_select, result_rendered, and vendor_cta_click."""
@@ -858,7 +858,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
 
     def test_workbench_big_total_and_summary_card_alignment(self):
-        """Verify .wb-big-total does not overflow .wb-result-col and 3 summary cards align 'See calculation' without stretching neighbors."""
+        """Verify .wb-big-total does not overflow .wb-result-col and 3 summary cards align 'Show calculation' without stretching neighbors."""
         with open(os.path.join(PUBLIC_DIR, "assets/styles.css"), encoding="utf-8") as f:
             css = f.read()
         big_total_block = re.search(r"\.wb-big-total\s*\{(.*?)\}", css, re.S)
@@ -868,7 +868,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn("flex-wrap: wrap", big_total_block.group(1))
         self.assertIn("grid-template-columns: 248px minmax(290px, 320px) minmax(280px, 1fr);", css)
         self.assertIn("column-gap: 22px;", css)
-        self.assertIn(".summary-strip:has(details[open])", css)
+        self.assertIn(".summary-strip:has(details[open]:not(.math-drawer))", css)
         self.assertIn("align-items: stretch;", css)
 
         with open(os.path.join(PUBLIC_DIR, "index.html"), encoding="utf-8") as f:
@@ -949,7 +949,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn('id="wb-big-amount">$21,300</span>', html)
             self.assertIn('id="wb-best-option"', html)
             self.assertIn('id="wb-calc-details"', html)
-            self.assertIn("See exactly how we calculated this", html)
+            self.assertIn("Show calculation", html)
             self.assertIn('id="full-table-details"', html)
             self.assertIn("Compare all tools in this category", html)
             self.assertIn("Compare all tools &darr;", html)
@@ -1018,7 +1018,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             self.assertIn("saves $21,845/yr", html)
             self.assertIn('id="wb-calc-details"', html)
             self.assertIn('id="full-table-details"', html)
-            self.assertIn("See exactly how we calculated this", html)
+            self.assertIn("Show calculation", html)
             self.assertIn('data-track="vendor-cta"', html)
             self.assertIn('data-track="calculator-control"', html)
             self.assertIn("window.trackSaaSBillEvent", html)
@@ -1117,7 +1117,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertIn('id="hs-tier"', hs_html)
         self.assertIn('class="full-table-disclosure" id="full-table-details"', hs_html)
         self.assertIn('id="hs-calc-details"', hs_html)
-        self.assertIn("See exactly how we calculated this", hs_html)
+        self.assertIn("Show calculation", hs_html)
         self.assertIn('data-track="vendor-cta"', hs_html)
         self.assertIn('data-track="calculator-control"', hs_html)
         self.assertIn("function calcHubSpotCluster", hs_html)
@@ -1180,7 +1180,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
         self.assertLessEqual(len(title), 60, title)
         self.assertTrue(title.endswith("– saasbill.io"), title)
         self.assertIn('href="https://saasbill.io/exit/zoominfo-60-day-auto-renewal-notice-and-cancellation/"', html)
-        self.assertIn("See exactly how we calculated this", html)
+        self.assertIn("Show calculation", html)
         self.assertIn('id="zi-calc-details"', html)
         self.assertIn('id="full-table-details"', html)
         self.assertIn("https://www.zoominfo.com/legal/ltc_03_06_2024", html)

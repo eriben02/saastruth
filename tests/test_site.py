@@ -67,7 +67,7 @@ class TestChargebackCalculator(unittest.TestCase):
             self.assertNotIn("High-Volume / High-Risk", html)
             self.assertIn("0.75% Visa", html)
             self.assertIn("1.00% Mastercard", html)
-            self.assertIn("See exactly how we calculated this", html)
+            self.assertIn("Show calculation", html)
             self.assertIn('id="full-table-details"', html)
             self.assertIn("Compare all tools in this category", html)
             self.assertIn("Shopify Protect", html)

@@ -354,6 +354,7 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
   document.addEventListener('input', handleCalcControlEvent);
   document.addEventListener('change', handleCalcControlEvent);
   </script>
+  <script src="{prefix}assets/app.js" defer></script>
 </body>
 </html>"""
     full_path = os.path.join(PUBLIC_DIR, rel_path)

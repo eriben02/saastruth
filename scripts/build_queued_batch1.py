@@ -144,9 +144,9 @@ PAGES = [
             <div class="summary-label">Dispute Recovery: Chargeflow Pay-On-Performance</div>
             <div class="summary-metric">${usd(cfNet)}/yr net</div>
             <div class="summary-breakdown">Annual Chargeback &amp; Dispute Drain on Stripe: ${usd(disputeDrain)} (disputed MRR ${usd(disputedMrr)} + $15 Stripe dispute fee ${usd(stripeDisputeFee)} + $15 counter/prep ${usd(stripePrepCost)}). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
-            <details class="calc-disclosure">
-              <summary class="calc-disclosure-toggle">See calculation</summary>
-              <div class="calc-disclosure-body">
+            <details class="math-drawer">
+              <summary>Show calculation</summary>
+              <div class="math-drawer-body">
                 <div class="calc-math-list">
                   <div class="calc-math-row"><span class="calc-math-label"><strong>Stripe base card fees</strong><span class="calc-math-formula">2.9% + $0.30</span></span><span class="calc-math-val">${usd(stripeBaseYr)}</span></div>
                   <div class="calc-math-row"><span class="calc-math-label"><strong>Billing &amp; tax</strong><span class="calc-math-formula">${mode === 'full' ? '0.7% Billing + 0.5% Tax' : '0.7% Billing'}</span></span><span class="calc-math-val">${usd(stripeHiddenYr)}</span></div>
@@ -432,9 +432,9 @@ PAGES = [
             <div class="summary-label">Dispute Recovery: Chargeflow Pay-On-Performance</div>
             <div class="summary-metric">${usd(cfNet)}/yr net</div>
             <div class="summary-breakdown">Annual Chargeback &amp; Dispute Fees: Stripe ${usd(stripeDisputeLine)} ($15/dispute + unrecovered disputed revenue) vs Paddle ${usd(paddleDisputeLine)} ($20/dispute + unrecovered disputed revenue). 65% planning win rate, 25% performance fee, $0/mo fixed.</div>
-            <details class="calc-disclosure">
-              <summary class="calc-disclosure-toggle">See calculation</summary>
-              <div class="calc-disclosure-body">
+            <details class="math-drawer">
+              <summary>Show calculation</summary>
+              <div class="math-drawer-body">
                 <div class="calc-math-list">
                   <div class="calc-math-row"><span class="calc-math-label"><strong>Stripe Annual Chargeback &amp; Dispute Fees</strong><span class="calc-math-formula">${usd(disputedRev)} unrecovered disputed revenue + ${usd(stripeDisputeFees)} at $15/dispute</span></span><span class="calc-math-val">${usd(stripeDisputeLine)}</span></div>
                   <div class="calc-math-row"><span class="calc-math-label"><strong>Paddle Annual Chargeback &amp; Dispute Fees</strong><span class="calc-math-formula">${usd(disputedRev)} unrecovered disputed revenue + ${usd(paddleDisputeFees)} at $20/dispute</span></span><span class="calc-math-val">${usd(paddleDisputeLine)}</span></div>
