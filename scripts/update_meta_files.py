@@ -24,6 +24,8 @@ def generate_meta_files(extra_urls=None):
         "/compare/typeform-vs-jotform-response-limit-and-hipaa-cost/",
         "/compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/",
         "/pricing/stripe-billing-0-7-percent-recurring-tax-calculator/",
+        "/chargeback-fee-and-recovery-calculator/",
+        "/pricing/stripe-shopify-chargeback-fee-and-chargeflow-roi-calculator/",
         "/pricing/docusign-envelope-allowance-and-api-overage-calculator/",
         "/pricing/gong-io-platform-fee-and-seat-minimum-calculator/",
         "/exit/paypal-180-day-permanent-limitation-fund-recovery/",
@@ -147,6 +149,8 @@ Sitemap: {SITE_ORIGIN}/sitemap.xml
 - [Zendesk vs. Freshdesk Cost Comparison (2026)]({SITE_ORIGIN}/zendesk-vs-freshdesk-cost-comparison/): Side-by-side Year-1 cost for Suite Team + AI vs. Freshdesk Growth session packs.
 - [Zendesk AI Outcome Pricing Calculator]({SITE_ORIGIN}/pricing/zendesk-ai-resolution-and-automated-outcome-cost/): Per-verified-resolution overage ($1.50/$2.00) vs. Freshdesk & Help Scout.
 - [Stripe Billing 0.7% Recurring Tax Calculator]({SITE_ORIGIN}/pricing/stripe-billing-0-7-percent-recurring-tax-calculator/): Stripe 2.9% + 0.7% Billing + 0.5% Tax vs. Whop & Paddle.
+- [Stripe and Shopify Chargeback Cost Calculator (2026)]({SITE_ORIGIN}/chargeback-fee-and-recovery-calculator/): Order value plus a non-refundable dispute fee, versus manual handling, Stripe Chargeback Protection at 0.40% of GMV, and Chargeflow.
+- [Chargeflow ROI calculator]({SITE_ORIGIN}/pricing/stripe-shopify-chargeback-fee-and-chargeflow-roi-calculator/): Same chargeback workbench, synced for the pricing path.
 - [Gumroad vs. Whop vs. Lemon Squeezy Net Payout Calculator]({SITE_ORIGIN}/compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/): Creator & SaaS take rates.
 - [Stripe, Shopify Payments & Paddle Payout Holds Matrix]({SITE_ORIGIN}/exit/stripe-shopify-paddle-frozen-funds-alternatives/): Rolling reserve simulator and MoR token lock-in audit.
 - [PayPal 180-Day Permanent Limitation Calculator]({SITE_ORIGIN}/exit/paypal-180-day-permanent-limitation-fund-recovery/): Frozen cashflow calculator & multi-PSP failover with Whop.

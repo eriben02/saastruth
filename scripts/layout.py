@@ -41,6 +41,8 @@ def render_related_links(rel_path, prefix):
         ("zendesk-vs-freshdesk-cost-comparison/index.html", "Zendesk vs. Freshdesk Cost Comparison (2026)", "Year-1 AI and seat pricing: Zendesk $1.50/resolution vs. Freshdesk session packs."),
         ("pricing/zendesk-ai-resolution-and-automated-outcome-cost/index.html", "Zendesk AI Automated Resolution Fee Calculator", "Model $1.50–$2.00 AI overage rates vs. Freshdesk & Help Scout."),
         ("pricing/stripe-billing-0-7-percent-recurring-tax-calculator/index.html", "Stripe Billing 0.7% Recurring Fee Calculator", "Compare Stripe 2.9% + 0.7% Billing + 0.5% Tax vs. Whop (2.7% + 30¢) & Paddle."),
+        ("chargeback-fee-and-recovery-calculator/index.html", "Stripe and Shopify Chargeback Cost Calculator", "Order value plus a dispute fee, versus manual handling, Stripe Chargeback Protection, and Chargeflow."),
+        ("pricing/stripe-shopify-chargeback-fee-and-chargeflow-roi-calculator/index.html", "Chargeflow ROI Calculator", "Synced chargeback workbench: dispute fees, lost revenue, and a success-fee recovery model."),
         ("compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/index.html", "Gumroad vs. Whop vs. Lemon Squeezy Net Payouts", "Compare real creator & SaaS take rates after card processing and surcharges."),
         ("exit/stripe-shopify-paddle-frozen-funds-alternatives/index.html", "Stripe, Shopify & Paddle Reserve & Hold Simulator", "Model 25% rolling reserves and compare Merchant of Record token portability."),
         ("exit/paypal-180-day-permanent-limitation-fund-recovery/index.html", "PayPal 180-Day Hold & Working Capital Calculator", "Calculate frozen cashflow impact and multi-processor failover with Whop."),

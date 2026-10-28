@@ -113,6 +113,12 @@ PAGES = [
           {name: 'Paddle (Merchant of Record)', plan: '5.0% + $0.50 all-in MoR', base: '$' + paddleYr.toLocaleString('en-US') + '/yr', hidden: 'Global tax incl. (non-portable card vault)', total: '$' + paddleYr.toLocaleString('en-US') + '/yr', url: 'https://www.paddle.com/pricing', cta: 'View Paddle pricing', vendor: 'paddle-mor', status: 'Verified', src: 'https://www.paddle.com/pricing'}
         ];
         """,
+        "callout": """
+<aside class="evidence-box" id="chargeback-recovery-callout">
+  <strong>Chargeback and dispute recovery</strong>
+  <p style="margin:8px 0 0;">Processing rates do not include the order value you lose in a dispute, or the non-refundable dispute fee. <a href="../../chargeback-fee-and-recovery-calculator/" data-track="internal-audit">Open the chargeback fee and recovery calculator &rarr;</a></p>
+</aside>
+""",
         "faqs": [
             ("How much does Stripe Billing charge for recurring subscriptions in 2026?", "Stripe Billing pay-as-you-go charges 0.7% of recurring subscription volume on top of standard 2.9% + $0.30 card processing fees. Adding Stripe Tax adds another 0.5% per transaction."),
             ("Does Whop charge an extra 0.7% fee on recurring subscriptions?", "No. Whop's domestic card processing starts at 2.7% + $0.30 without a separate 0.7% recurring billing surcharge.")
@@ -366,6 +372,7 @@ def build_all():
   <h1>{p["h1"]}</h1>
   <p class="lead">{p["lead"]}</p>
 </section>
+{p.get("callout", "")}
 
 <section class="calc-card" aria-label="{p["title"]}">
   <div class="calc-grid">

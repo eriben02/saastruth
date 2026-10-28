@@ -15,6 +15,10 @@ p3_body = """
   <div class="geo-direct-answer">
     <p><strong>The short version:</strong> Standard payment processors (<strong>Stripe, Shopify Payments, PayPal</strong>) can impose a <strong>25% rolling reserve for 90–180 days</strong> or a <strong>120–180 day payout hold</strong> if your dispute rate crosses ~0.5%–0.75% or volume spikes unexpectedly. With Stripe, however, you own the customer relationship and can export PGP-encrypted card tokens. With a Merchant of Record (<strong>Paddle, 5% + $0.50</strong>), Paddle is the legal seller of record and owns the card vault; if Paddle terminates your account on a risk review, <strong>card tokens cannot be exported</strong>. To protect cashflow, pair <strong>Chargeflow</strong> (keeps dispute rate &lt;0.5%) with a multi-processor failover rail like <strong>Whop Payments (2.7% + $0.30 base + 0.8% orchestration)</strong>.</p>
   </div>
+  <aside class="evidence-box" id="chargeback-recovery-callout">
+    <strong>Chargeback and dispute recovery</strong>
+    <p style="margin:8px 0 0;">A payout hold is not the same bill as a lost order plus a dispute fee. <a href="../../chargeback-fee-and-recovery-calculator/" data-track="internal-audit">Open the chargeback fee and recovery calculator &rarr;</a></p>
+  </aside>
 </section>
 
 <section class="calc-box">

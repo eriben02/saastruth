@@ -607,7 +607,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
 
         with open(os.path.join(PUBLIC_DIR, "sitemap.xml"), encoding="utf-8") as f:
             sitemap = f.read()
-        self.assertEqual(sitemap.count("<url><loc>"), 27)
+        self.assertEqual(sitemap.count("<url><loc>"), 29)
 
         faq_pages = [
             "faq/does-hubspot-charge-onboarding-fees-2026/index.html",
@@ -1157,7 +1157,7 @@ class TestSaaSBillCalculators(unittest.TestCase):
             "/hubspot-onboarding-fee-calculator/",
         ):
             self.assertIn(f"https://saasbill.io{path}", sitemap)
-        self.assertEqual(sitemap.count("<url><loc>"), 27)
+        self.assertEqual(sitemap.count("<url><loc>"), 29)
 
         with open(os.path.join(PUBLIC_DIR, "llms.txt"), encoding="utf-8") as f:
             llms = f.read()

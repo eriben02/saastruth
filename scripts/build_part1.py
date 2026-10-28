@@ -258,6 +258,11 @@ home_body = f"""
     </div>
     <div class="card">
       <span class="badge badge-high">Payments</span>
+      <h3><a href="./chargeback-fee-and-recovery-calculator/">Stripe and Shopify chargeback cost calculator</a></h3>
+      <p>Lost order value plus a non-refundable dispute fee, compared with manual handling, Stripe Chargeback Protection, and Chargeflow.</p>
+    </div>
+    <div class="card">
+      <span class="badge badge-high">Payments</span>
       <h3><a href="./compare/gumroad-vs-whop-vs-lemon-squeezy-take-rate-calculator/">Gumroad vs. Whop vs. Lemon Squeezy net payout calculator</a></h3>
       <p>Net creator payouts after Gumroad&rsquo;s 10% + 50&cent; (+ 2.9% + 30&cent;), Lemon Squeezy&rsquo;s 5% + 50&cent;, and Whop&rsquo;s 2.7% + 30&cent;.</p>
     </div>
@@ -532,7 +537,7 @@ const INTERNAL_AUDIT_LINKS = {{
   'paddle-mor': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Read MoR token lock-in audit →' }},
   'whop-payments': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Open reserve simulator →' }},
   'lemon-squeezy': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Read MoR token audit →' }},
-  'chargeflow': {{ url: './exit/stripe-shopify-paddle-frozen-funds-alternatives/', label: 'Open reserve simulator →' }},
+  'chargeflow': {{ url: './chargeback-fee-and-recovery-calculator/', label: 'Open chargeback recovery calculator →' }},
   'jotform-hipaa': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Read HIPAA BAA tier matrix →' }},
   '1password-business': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Read SSO & BAA audit →' }},
   'vanta-soc2': {{ url: './compliance/hipaa-baa-and-soc2-pricing-tiers/', label: 'Open SOC 2 + auditor estimator →' }},
