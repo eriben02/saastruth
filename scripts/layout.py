@@ -31,6 +31,7 @@ def render_related_links(rel_path, prefix):
         ("hubspot-onboarding-fee-calculator/index.html", "HubSpot Onboarding Fee & True Cost Calculator", "Mandatory $1,500 to $7,000 setup fees, extra seats, and contact tiers vs. Close and Pipedrive."),
         ("compare/close-crm-vs-hubspot-sales-hub-5-to-20-reps/index.html", "Close CRM vs. HubSpot Sales Hub (5–20 Reps)", "Compare built-in VoIP calling & SMS against HubSpot seat + onboarding fees."),
         ("pricing/gong-io-platform-fee-and-seat-minimum-calculator/index.html", "Gong.io $5,000 Platform Fee & Seat Calculator", "Benchmark Gong's $5k base fee + $1,600/yr seats against Close CRM."),
+        ("exit/zoominfo-60-day-auto-renewal-notice-and-cancellation/index.html", "ZoomInfo 60-Day Renewal Notice Calculator", "Deadline from your contract end date, and the March 2024 +10% extension versus a negotiated fee."),
         ("compare/monday-crm-vs-pipedrive-vs-hubspot-seat-minimums/index.html", "CRM Seat-Minimum & Bucket Calculator", "See where monday CRM's 3/5/10-seat buckets cost more than 1:1 CRMs."),
         ("intercom-fin-cost-calculator/index.html", "Intercom Fin Cost Calculator ($0.99/Resolution)", "Prefilled 10-agent, 1,500 AI/mo Year-1 calculator vs. Freshdesk & Zendesk."),
         ("intercom-vs-freshdesk-cost-comparison/index.html", "Intercom vs. Freshdesk Cost Comparison (2026)", "Compare Intercom Fin ($0.99/res) vs. Freshdesk Freddy AI ($49/100 sessions) Year-1 cost."),
@@ -291,7 +292,10 @@ def render_page(rel_path, title, description, canonical_path, body_html, faqs=No
     if (p && p !== '/' && p !== '/index.html') {{
       var ctxCat = '';
       var ctxTool = '';
-      if (p.indexOf('stripe') !== -1 || p.indexOf('paddle') !== -1 || p.indexOf('whop') !== -1 || p.indexOf('gumroad') !== -1 || p.indexOf('paypal') !== -1) {{
+      if (p.indexOf('zoominfo') !== -1) {{
+        ctxCat = 'CRM & Sales';
+        ctxTool = 'close-crm';
+      }} else if (p.indexOf('stripe') !== -1 || p.indexOf('paddle') !== -1 || p.indexOf('whop') !== -1 || p.indexOf('gumroad') !== -1 || p.indexOf('paypal') !== -1) {{
         ctxCat = 'Payment Processors & MoR';
         ctxTool = p.indexOf('paddle') !== -1 ? 'paddle-mor' : (p.indexOf('whop') !== -1 ? 'whop-payments' : 'stripe-payments');
       }} else if (p.indexOf('hubspot') !== -1 || p.indexOf('close-crm') !== -1 || p.indexOf('pipedrive') !== -1 || p.indexOf('monday-crm') !== -1 || p.indexOf('gong') !== -1) {{
